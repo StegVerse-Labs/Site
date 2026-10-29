@@ -1,0 +1,182 @@
+{
+ "schema": "stegverse.site.test-fixture/email-family-projection-producer-output/v3",
+ "evidence_class": "LOCAL_TEST_FIXTURE",
+ "source": {
+  "repository": "StegVerse-Labs/continuity-vault-kit",
+  "pull_request": 278,
+  "branch": "claude/workspace-lane-a-email-projection",
+  "commit": "3da1e4d9e63546a38c5cbeb4cf491acca1e9df68",
+  "producer_path": "runtime/email_family_projection.py",
+  "producer_git_blob": "1c406f0291d3795618f5a59163359e91e59788ef",
+  "producer_sha256": "d10016f03d6a836112c73b2a0951c7ff00bc584076767394794eb510056fb891",
+  "generation": "project_email_family() run twice with the lane A test helpers (create_mapping, bind_skap_credential, mark_session_verified, stage_message, decide) at the commit above. Mappings: create_mapping(email_address=<address>, provider_id='google-gmail', provider_route='gmail-api'), bound with bind_skap_credential(skap_credential_ref='skap://kv/email/owner-gmail' for owner@gmail.com, 'skap://kv/email/work' for work@example.org) and mark_session_verified. Each receipt: stage_message(mapping_id=<mapping_id>, provider_message_id=<id>, from_address='a@example.com', subject='s', payload='hello <id>') then decide(staged, signals=()). First projection: accepted_head_digest=GENESIS_HEAD, no prior, admits m-1 (owner@gmail.com, position 10, provider_cursor_refs sha256:a1...a1) and w-1 (work@example.org, position 3). Second projection: prior = first, accepted_head_digest = first.projection_digest, admits m-2 (position 12) then w-2 and w-3 (position 7). Fixed clock 2026-10-28T23:40:00Z. Both outputs copied verbatim.",
+  "runtime_evidence": false
+ },
+ "first_projection": {
+  "schema": "stegverse.kv.email-family-projection/v1",
+  "workspace_type": "PERSONAL",
+  "accounts": [
+   {
+    "mapping_id": "kv-email:0ca7b50204524a47d00a1d5e13be9730e5800b9c0ce30e7ea23e033f26bf9ffc",
+    "provider_id": "google-gmail",
+    "mapping_state": "SESSION_VERIFIED",
+    "skap_ref": "skap://kv/email/work",
+    "cursor": {
+     "sequence": 1,
+     "head_receipt_id": "kv-email-receipt:a6cde1e85e4b939b4f9f491f3cb820f8f466961f5eaee3e98c41d853d3d9ccd2",
+     "chain_digest": "sha256:89c3ce6dbad88ce72899bf3a38c7f67a63cccad84e830dd8ddc746877b5c7f6a",
+     "provider_position": 3,
+     "provider_cursor_ref": null
+    }
+   },
+   {
+    "mapping_id": "kv-email:377dfc9cf46ac6c78a5301d2260740ffabc6823bbf53277222751c6dc88caac2",
+    "provider_id": "google-gmail",
+    "mapping_state": "SESSION_VERIFIED",
+    "skap_ref": "skap://kv/email/owner-gmail",
+    "cursor": {
+     "sequence": 1,
+     "head_receipt_id": "kv-email-receipt:35019170619706d8f434ebae951df67c85d6618b23e93ecc2b1ff11e1fcd38d0",
+     "chain_digest": "sha256:fc3ea384cb2092334a2678e06ff22f46cbcd4266bac9be6779a3966959d259b0",
+     "provider_position": 10,
+     "provider_cursor_ref": "sha256:a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+    }
+   }
+  ],
+  "messages": [
+   {
+    "mapping_id": "kv-email:0ca7b50204524a47d00a1d5e13be9730e5800b9c0ce30e7ea23e033f26bf9ffc",
+    "canonical_message_id": "kv-email-message:bf4b73f8740088fb205ec3db5c81494e6a7656108c168d2636aba4b773dd8947",
+    "receipt_id": "kv-email-receipt:a6cde1e85e4b939b4f9f491f3cb820f8f466961f5eaee3e98c41d853d3d9ccd2",
+    "staged_content_hash": "sha256:f29e266e2721f264fc30973956c819ab7b6a67bceff9ac09b0cebc0baace23cb",
+    "trust_state": "TRUSTED_ADMITTED",
+    "payload_present": false,
+    "sequence": 1
+   },
+   {
+    "mapping_id": "kv-email:377dfc9cf46ac6c78a5301d2260740ffabc6823bbf53277222751c6dc88caac2",
+    "canonical_message_id": "kv-email-message:6d68763f705378fc47746264cf51eef197695c550d1b2cc79f67055c0d16ea91",
+    "receipt_id": "kv-email-receipt:35019170619706d8f434ebae951df67c85d6618b23e93ecc2b1ff11e1fcd38d0",
+    "staged_content_hash": "sha256:292e8a72c6fe7e1f7fc033c49677ee33d39edc7f4156f17bd02f44fae3a3019c",
+    "trust_state": "TRUSTED_ADMITTED",
+    "payload_present": false,
+    "sequence": 1
+   }
+  ],
+  "projection_digest": "sha256:395dccb5397a19581b7d6c897a29bfce3fbe01766a81510c8eb7b17157d50c18",
+  "credential_material_present": false,
+  "provider_operation_authorized": false,
+  "workspace_grants_authority": false,
+  "projection_metadata": {
+   "schema": "stegverse.kv.workspace-projection-metadata/v1",
+   "observed_at": "2026-10-28T23:40:00Z",
+   "observed_at_semantics": "KV_PROJECTION_PRODUCTION_TIME",
+   "source_revision": "395dccb5397a19581b7d6c897a29bfce3fbe01766a81510c8eb7b17157d50c18",
+   "provenance_ref": "kv-email-ingress-admit-receipts:sha256:395dccb5397a19581b7d6c897a29bfce3fbe01766a81510c8eb7b17157d50c18",
+   "workspace_type": "PERSONAL",
+   "workspace_id": null,
+   "owner_principal_id": null,
+   "grant_state": "UNKNOWN",
+   "revocation_epoch": null,
+   "authority_effect": "NONE"
+  },
+  "authority_effect": "NONE"
+ },
+ "projection": {
+  "schema": "stegverse.kv.email-family-projection/v1",
+  "workspace_type": "PERSONAL",
+  "accounts": [
+   {
+    "mapping_id": "kv-email:0ca7b50204524a47d00a1d5e13be9730e5800b9c0ce30e7ea23e033f26bf9ffc",
+    "provider_id": "google-gmail",
+    "mapping_state": "SESSION_VERIFIED",
+    "skap_ref": "skap://kv/email/work",
+    "cursor": {
+     "sequence": 3,
+     "head_receipt_id": "kv-email-receipt:1b47d56e289ff697b46c5e8bd57282c988b6974f449528a015858cf903bb9762",
+     "chain_digest": "sha256:588f6437ff621e33c79c9f92b99c312c1b774da281b4cbd0903c9bb8f8a0f0e9",
+     "provider_position": 7,
+     "provider_cursor_ref": null
+    }
+   },
+   {
+    "mapping_id": "kv-email:377dfc9cf46ac6c78a5301d2260740ffabc6823bbf53277222751c6dc88caac2",
+    "provider_id": "google-gmail",
+    "mapping_state": "SESSION_VERIFIED",
+    "skap_ref": "skap://kv/email/owner-gmail",
+    "cursor": {
+     "sequence": 2,
+     "head_receipt_id": "kv-email-receipt:68d708610b74e7c74f337ced1c45d828bf0a2d0ddca65ad198cba29960fbdd6b",
+     "chain_digest": "sha256:baf05700e69b6659ad79b1d5d80d3a37d93a4486321b8aaee0664b7913ab5782",
+     "provider_position": 12,
+     "provider_cursor_ref": "sha256:a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+    }
+   }
+  ],
+  "messages": [
+   {
+    "mapping_id": "kv-email:0ca7b50204524a47d00a1d5e13be9730e5800b9c0ce30e7ea23e033f26bf9ffc",
+    "canonical_message_id": "kv-email-message:bf4b73f8740088fb205ec3db5c81494e6a7656108c168d2636aba4b773dd8947",
+    "receipt_id": "kv-email-receipt:a6cde1e85e4b939b4f9f491f3cb820f8f466961f5eaee3e98c41d853d3d9ccd2",
+    "staged_content_hash": "sha256:f29e266e2721f264fc30973956c819ab7b6a67bceff9ac09b0cebc0baace23cb",
+    "trust_state": "TRUSTED_ADMITTED",
+    "payload_present": false,
+    "sequence": 1
+   },
+   {
+    "mapping_id": "kv-email:377dfc9cf46ac6c78a5301d2260740ffabc6823bbf53277222751c6dc88caac2",
+    "canonical_message_id": "kv-email-message:6d68763f705378fc47746264cf51eef197695c550d1b2cc79f67055c0d16ea91",
+    "receipt_id": "kv-email-receipt:35019170619706d8f434ebae951df67c85d6618b23e93ecc2b1ff11e1fcd38d0",
+    "staged_content_hash": "sha256:292e8a72c6fe7e1f7fc033c49677ee33d39edc7f4156f17bd02f44fae3a3019c",
+    "trust_state": "TRUSTED_ADMITTED",
+    "payload_present": false,
+    "sequence": 1
+   },
+   {
+    "mapping_id": "kv-email:0ca7b50204524a47d00a1d5e13be9730e5800b9c0ce30e7ea23e033f26bf9ffc",
+    "canonical_message_id": "kv-email-message:66bb5d12add531e5e1a637cc2e1d610a87375326441632f74de311f6f2894667",
+    "receipt_id": "kv-email-receipt:024b60086011c29e74a5f4e8faa9d950bd21684751e4e3d424bb28f609185059",
+    "staged_content_hash": "sha256:270bc198cf8ae7e4071f758a10b1be6e9b2ba8006712ec9b3c291e2fa333740a",
+    "trust_state": "TRUSTED_ADMITTED",
+    "payload_present": false,
+    "sequence": 2
+   },
+   {
+    "mapping_id": "kv-email:0ca7b50204524a47d00a1d5e13be9730e5800b9c0ce30e7ea23e033f26bf9ffc",
+    "canonical_message_id": "kv-email-message:a38ef0bc253f890e6c50dc18d4e432d930a024c03da4b2009b4a4d4ed8e4ac91",
+    "receipt_id": "kv-email-receipt:1b47d56e289ff697b46c5e8bd57282c988b6974f449528a015858cf903bb9762",
+    "staged_content_hash": "sha256:22bdd1e06506474ca1c54c576b058082d31f55d123ff766bee8d3b59e7f028d4",
+    "trust_state": "TRUSTED_ADMITTED",
+    "payload_present": false,
+    "sequence": 3
+   },
+   {
+    "mapping_id": "kv-email:377dfc9cf46ac6c78a5301d2260740ffabc6823bbf53277222751c6dc88caac2",
+    "canonical_message_id": "kv-email-message:1225abc5c0f845d5f9082bc9b09d968a0805979ebfd1b12bb951b8b8b53c8624",
+    "receipt_id": "kv-email-receipt:68d708610b74e7c74f337ced1c45d828bf0a2d0ddca65ad198cba29960fbdd6b",
+    "staged_content_hash": "sha256:10ff8c2ae641492d5cc692878afb04322104a46ba087037ffd7b1683828f6349",
+    "trust_state": "TRUSTED_ADMITTED",
+    "payload_present": false,
+    "sequence": 2
+   }
+  ],
+  "projection_digest": "sha256:29eecd29efb5e518885b75460b0bbd858d61cc23a95471bce90c87ba219159a6",
+  "credential_material_present": false,
+  "provider_operation_authorized": false,
+  "workspace_grants_authority": false,
+  "projection_metadata": {
+   "schema": "stegverse.kv.workspace-projection-metadata/v1",
+   "observed_at": "2026-10-28T23:40:00Z",
+   "observed_at_semantics": "KV_PROJECTION_PRODUCTION_TIME",
+   "source_revision": "29eecd29efb5e518885b75460b0bbd858d61cc23a95471bce90c87ba219159a6",
+   "provenance_ref": "kv-email-ingress-admit-receipts:sha256:29eecd29efb5e518885b75460b0bbd858d61cc23a95471bce90c87ba219159a6",
+   "workspace_type": "PERSONAL",
+   "workspace_id": null,
+   "owner_principal_id": null,
+   "grant_state": "UNKNOWN",
+   "revocation_epoch": null,
+   "authority_effect": "NONE"
+  },
+  "authority_effect": "NONE"
+ }
+}

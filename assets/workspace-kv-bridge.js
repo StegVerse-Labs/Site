@@ -7,7 +7,15 @@ var REASONS={
  "DEVICE_KV_RESULT_NOT_YET_MATERIALIZED":"your request was accepted and is held in this device's outbox, but its result has not been produced yet, so nothing is shown until it is",
  "DEVICE_KV_REQUEST_QUEUED_NOT_DELIVERED":"your request is held in this device's outbox and has not been delivered to your KnowledgeVault yet, so nothing is shown",
  "SOVEREIGN_INTR_INGRESS_TARGET_NOT_PROJECTED":"the destination that receives requests for your KnowledgeVault has not been published to this page, so the request stays in this device's outbox",
- "DEVICE_KV_RESULT_UNAVAILABLE":"your KnowledgeVault did not return a usable result for this request, so nothing is shown; the reason it gave is kept with this refusal"
+ "DEVICE_KV_RESULT_UNAVAILABLE":"your KnowledgeVault did not return a usable result for this request, so nothing is shown; the reason it gave is kept with this refusal",
+ "WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD":"a delivered projection contains something shaped like a password, token or other credential, so it is not shown; inside an email projection only that projection is withheld, and credentials stay only in your SKAP Vault",
+ "EMAIL_PROJECTION_ACCOUNT_INVALID":"the email projection is not in the shape your KnowledgeVault's email producer emits, so only the email projection is withheld",
+ "EMAIL_PROJECTION_ADMIT_RECEIPT_ABSENT":"an email row or an account's latest entry has no admission receipt from your KnowledgeVault, so only the email projection is withheld",
+ "EMAIL_PROJECTION_ADMIT_RECEIPT_STALE":"an email account's position does not match the admitted receipts it was built from, so only the email projection is withheld",
+ "EMAIL_PROJECTION_ACCOUNTS_MIXED":"the email projection mixes messages between accounts or names one account twice, so only the email projection is withheld",
+ "EMAIL_PROJECTION_RECORD_DUPLICATED":"an email account lists the same message or receipt more than once, which can mean a replay, and one copy is never chosen silently, so only the email projection is withheld",
+ "EMAIL_PROJECTION_MESSAGE_UNADMITTED":"the email projection holds a message that was not admitted or that carries its content, so only the email projection is withheld",
+ "EMAIL_PROJECTION_DIGEST_DRIFT":"the email projection was changed after your KnowledgeVault produced it, so only the email projection is withheld"
 };
 var RECORD_CLASS="WORKSPACE_PERSONAL_PROJECTION";
 var TASKS_RECORD_CLASS="WORKSPACE_TASKS_PROJECTION";
@@ -75,22 +83,132 @@ function validateTasksProjection(p){
  return p;
 }
 function nonAuthorizing(p,label){requireValue(p&&typeof p==="object"&&p.workspace_type==="PERSONAL",label+" type invalid");requireValue(p.credential_material_present===false&&p.provider_operation_authorized===false&&p.workspace_grants_authority===false&&p.action_authority==="NONE"&&p.authority_effect==="NONE",label+" authority invalid");requireValue(p.projection_metadata&&p.projection_metadata.schema==="stegverse.kv.workspace-projection-metadata/v1",label+" metadata invalid");}
+// Site#1509 lane B (Goal StegVerse-org/.github#164): the consumer does not trust credential_material_present alone.
+// Every key in a family delivery is checked at any depth after NFKC normalisation: a key with hidden or non-ASCII
+// characters is refused outright (confusable spellings such as a Greek omicron cannot slip past), and the folded key
+// (lowercase, separators removed) is substring-matched against credential words. String values are checked, unanchored,
+// for bearer/basic authorization material, JWTs, GitHub tokens and private keys. The only credential-named fields
+// allowed are the false credential flags and skap:// references (SKAP Vault alone holds credentials). Deliberate
+// choice: any key containing "token" (token_count, tokens) is refused too; no shipped family projection uses one.
+var FAMILY_RETRY_ENTRYPOINT="StegVerseWorkspaceKVBridge.loadPersonalProjections (Site assets/workspace-kv-bridge.js)",FAMILY_NEXT="the next WorkSpace load queues a new family request and evaluates the delivered projections again; nothing waits";
+var SECRET_WORDS=["password","passwd","passphrase","passcode","pwd","secret","token","oauth","apikey","accesskey","privatekey","signingkey","sshkey","encryptionkey","bearer","cookie","authorization","credential","sessionkey","jwt","totp","seed","mnemonic","recoverycode"];
+var SECRET_VALUE=/\bbearer\s+[A-Za-z0-9\-._~+\/]{16,}|\bbasic\s+(?=[A-Za-z0-9+\/]*[0-9+\/])[A-Za-z0-9+\/]{12,}={0,2}|\beyJ[A-Za-z0-9_-]{4,}\.[A-Za-z0-9_-]{4,}\.[A-Za-z0-9_-]{4,}|\bgh[pousr]_[A-Za-z0-9]{20,}|\bgithub_pat_[A-Za-z0-9_]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----/i;
+var REF_KEYS=["credentialref","skapref","skapcredentialref"],FLAG_KEYS=["credentialmaterialpresent","credentialsecretpresentinkv"];
+function familyExtra(extra){return Object.assign({retry_entrypoint:FAMILY_RETRY_ENTRYPOINT},extra||{});}
+function nfkc(v){return String(v).normalize("NFKC");}
+function foldKey(k){var n=nfkc(k);if(/[^\x21-\x7e]/.test(n))return null;return n.toLowerCase().replace(/[^a-z0-9]+/g,"");}
+function secretText(v){return SECRET_VALUE.test(nfkc(v).replace(/\p{Cf}/gu,""));}
+function secretWord(n){for(var w=0;w<SECRET_WORDS.length;w++)if(n.indexOf(SECRET_WORDS[w])>=0)return true;return false;}
+// Refusal paths name where a hit is without echoing it: a key segment that is non-ASCII, holds a credential word or is
+// itself credential-shaped (a token used as a key) is written as a placeholder, never as the key.
+function pathSegment(k,n){return n===null?"<non-ASCII key>":(secretWord(n)||secretText(k))?"[redacted]":k;}
+function secretPath(v,path,depth){
+ if(depth>32)return path+" (nesting deeper than 32)";
+ if(typeof v==="string")return secretText(v)?path:null;
+ if(!v||typeof v!=="object")return null;
+ if(Array.isArray(v)){for(var i=0;i<v.length;i++){var hit=secretPath(v[i],path+"["+i+"]",depth+1);if(hit)return hit;}return null;}
+ for(var k in v){if(!Object.prototype.hasOwnProperty.call(v,k))continue;var n=foldKey(k),x=v[k],here=path+"."+pathSegment(k,n);
+  if(n===null||secretText(k))return here;
+  if(FLAG_KEYS.indexOf(n)>=0){if(x!==false)return here;continue;}
+  if(REF_KEYS.indexOf(n)>=0){if(!(x===null||(typeof x==="string"&&SKAP_REF.test(x))))return here;continue;}
+  if(secretWord(n))return here;
+  var hit2=secretPath(x,here,depth+1);if(hit2)return hit2;}
+ return null;
+}
+function secretRefusal(secret,extra){return actionable("WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD","the KV projection producer removes credential-shaped material; credentials stay in SKAP Vault and only skap:// references may be projected (found at "+secret+")",FAMILY_NEXT,familyExtra(Object.assign({secret_path:secret},extra||{})));}
+// Email-family projections travel in the existing WORKSPACE_FAMILY_PROJECTIONS list; no email query class exists. The
+// consumer is keyed to the lane A producer, continuity-vault-kit runtime/email_family_projection.py
+// (stegverse.kv.email-family-projection/v1, PR #278): accounts {mapping_id, provider_id, mapping_state, skap_ref,
+// cursor {sequence, head_receipt_id, chain_digest, provider_position}} and a top-level list of payload-free message rows
+// {mapping_id, canonical_message_id, receipt_id, staged_content_hash, trust_state, payload_present, sequence}. It
+// recomputes what the producer defines: each account's receipt chain (chain_digest = "sha256:" + sha256 of canonical
+// {previous: <prior chain_digest or null>, receipt_id}, folded in sequence order; head_receipt_id is the last receipt)
+// and the projection_digest. These are integrity checks only, not authentication: anyone can recompute them.
+// A mapping_state other than SESSION_VERIFIED is accepted here; the panel withholds that mapping's rows. A receipt
+// the cursor names but no row carries is ABSENT; a cursor that does not recompute from its rows is STALE. The receipt_id
+// itself cannot be recomputed here (its material includes the ingress reason, which the projection does not carry).
+// A failure inside an email projection withholds only that projection, with a six-field refusal readable through
+// lastFamilyRefusals(); other family members stay deliverable. Cross-delivery replay stays REPLAY_STATUS_UNKNOWN.
+var EMAIL_FAMILY_SCHEMA=/^stegverse\.kv\.email(?:-[a-z0-9]+)*-projection\/v[0-9]+$/;
+var MAPPING_ID=/^kv-email:[0-9a-f]{64}$/,RECEIPT_ID=/^kv-email-receipt:[0-9a-f]{64}$/,MESSAGE_ID=/^kv-email-message:[0-9a-f]{64}$/,DIGEST=/^sha256:[0-9a-f]{64}$/,SKAP_REF=/^skap:\/\/\S+$/u;
+function isRecord(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
+function nonEmpty(v){return typeof v==="string"&&v.trim().length>0;}
+// Integers must be exact in JS: a provider_position beyond 2^53 cannot be represented, so it fails closed rather than
+// being rounded. provider_position is display-only and never compared numerically here.
+function isCount(v){return typeof v==="number"&&Number.isSafeInteger(v)&&v>=0;}
+// Byte-identical to the producer's json.dumps(sort_keys=True, separators=(",",":"), ensure_ascii=False).
+function pyCanonical(v){if(Array.isArray(v))return "["+v.map(pyCanonical).join(",")+"]";if(v&&typeof v==="object")return "{"+Object.keys(v).sort().map(function(k){return JSON.stringify(k)+":"+pyCanonical(v[k]);}).join(",")+"}";return JSON.stringify(v);}
+function pySha(v){return shaBytes(new TextEncoder().encode(pyCanonical(v))).then(function(h){return "sha256:"+h;});}
+// Exact key sets, as the producer emits and re-validates them (ROW_KEYS, ACCOUNT_KEYS, CURSOR_KEYS at CVK 3da1e4d).
+var EMAIL_PROJECTION_KEYS=["schema","workspace_type","accounts","messages","projection_digest","credential_material_present","provider_operation_authorized","workspace_grants_authority","projection_metadata","authority_effect"];
+var EMAIL_ACCOUNT_KEYS=["mapping_id","provider_id","mapping_state","skap_ref","cursor"],EMAIL_CURSOR_KEYS=["sequence","head_receipt_id","chain_digest","provider_position","provider_cursor_ref"];
+var EMAIL_ROW_KEYS=["mapping_id","canonical_message_id","receipt_id","staged_content_hash","trust_state","payload_present","sequence"];
+function exactKeys(o,keys){var own=Object.keys(o);return own.length===keys.length&&keys.every(function(k){return Object.prototype.hasOwnProperty.call(o,k);});}
+function validateEmailFamily(f){
+ var extra={projection_schema:f.schema};
+ var invalid=function(what){return actionable("EMAIL_PROJECTION_ACCOUNT_INVALID","the email-family projection exactly as runtime/email_family_projection.py emits it ("+what+")",FAMILY_NEXT,familyExtra(extra));};
+ if(!exactKeys(f,EMAIL_PROJECTION_KEYS))throw invalid("projection keys are not exactly "+EMAIL_PROJECTION_KEYS.join(", "));
+ if(!Array.isArray(f.accounts)||!Array.isArray(f.messages))throw invalid("accounts and messages must be lists");
+ var accounts=new Map();
+ f.accounts.forEach(function(a,i){
+  if(!isRecord(a)||typeof a.mapping_id!=="string"||!MAPPING_ID.test(a.mapping_id))throw invalid("account "+i+" has no kv-email mapping_id");
+  if(!exactKeys(a,EMAIL_ACCOUNT_KEYS)||!isRecord(a.cursor)||!exactKeys(a.cursor,EMAIL_CURSOR_KEYS))throw invalid("mapping "+a.mapping_id+" account or cursor keys are not exactly the producer's");
+  if(accounts.has(a.mapping_id))throw actionable("EMAIL_PROJECTION_ACCOUNTS_MIXED","the producer emits each mailbox mapping exactly once; mapping "+a.mapping_id+" appears twice",FAMILY_NEXT,familyExtra(extra));
+  if(!nonEmpty(a.provider_id)||!nonEmpty(a.mapping_state))throw invalid("mapping "+a.mapping_id+" has no provider_id or mapping_state");
+  if(!(a.skap_ref===null||(typeof a.skap_ref==="string"&&SKAP_REF.test(a.skap_ref))))throw secretRefusal("$.accounts["+i+"].skap_ref",extra);
+  var c=a.cursor;
+  if(!isRecord(c)||!isCount(c.sequence)||!(c.head_receipt_id===null||(typeof c.head_receipt_id==="string"&&RECEIPT_ID.test(c.head_receipt_id)))||!(c.chain_digest===null||(typeof c.chain_digest==="string"&&DIGEST.test(c.chain_digest)))||!(c.provider_position===null||isCount(c.provider_position))||!(c.provider_cursor_ref===null||(typeof c.provider_cursor_ref==="string"&&DIGEST.test(c.provider_cursor_ref))))throw invalid("mapping "+a.mapping_id+" cursor is not {sequence, head_receipt_id, sha256 chain_digest, safe-integer provider_position, sha256 provider_cursor_ref or null}");
+  accounts.set(a.mapping_id,{account:a,rows:[]});
+ });
+ var messageOwner=new Map(),receipts=new Set();
+ f.messages.forEach(function(m,j){
+  if(!isRecord(m)||!exactKeys(m,EMAIL_ROW_KEYS)||typeof m.mapping_id!=="string"||typeof m.canonical_message_id!=="string"||!MESSAGE_ID.test(m.canonical_message_id)||typeof m.staged_content_hash!=="string"||!DIGEST.test(m.staged_content_hash)||!isCount(m.sequence))throw invalid("message "+j+" has no mapping_id, kv-email-message canonical_message_id, sha256 staged_content_hash or sequence");
+  if(!accounts.has(m.mapping_id))throw actionable("EMAIL_PROJECTION_ACCOUNTS_MIXED","every message bound to a mailbox mapping listed in accounts; message "+j+" names an absent mapping",FAMILY_NEXT,familyExtra(extra));
+  if(m.trust_state!=="TRUSTED_ADMITTED"||m.payload_present!==false)throw actionable("EMAIL_PROJECTION_MESSAGE_UNADMITTED","only payload-free TRUSTED_ADMITTED rows from an ADMIT decision; message "+j+" is not one",FAMILY_NEXT,familyExtra(extra));
+  if(typeof m.receipt_id!=="string"||!RECEIPT_ID.test(m.receipt_id))throw actionable("EMAIL_PROJECTION_ADMIT_RECEIPT_ABSENT","the kv-email-receipt ADMIT receipt id on message "+j,FAMILY_NEXT,familyExtra(extra));
+  if(messageOwner.has(m.canonical_message_id)){if(messageOwner.get(m.canonical_message_id)!==m.mapping_id)throw actionable("EMAIL_PROJECTION_ACCOUNTS_MIXED","each message under exactly one mailbox mapping; message "+j+" also appears under another mapping",FAMILY_NEXT,familyExtra(extra));throw actionable("EMAIL_PROJECTION_RECORD_DUPLICATED","each admitted message once per mapping; message "+j+" repeats one already listed",FAMILY_NEXT,familyExtra(extra));}
+  if(receipts.has(m.receipt_id))throw actionable("EMAIL_PROJECTION_RECORD_DUPLICATED","each ADMIT receipt projected once; message "+j+" repeats a receipt",FAMILY_NEXT,familyExtra(extra));
+  messageOwner.set(m.canonical_message_id,m.mapping_id);receipts.add(m.receipt_id);
+  accounts.get(m.mapping_id).rows.push(m);
+ });
+ var checks=[];
+ accounts.forEach(function(entry,mid){
+  var c=entry.account.cursor,rows=entry.rows;
+  rows.forEach(function(m,k){if(m.sequence!==k+1)throw actionable("EMAIL_PROJECTION_ADMIT_RECEIPT_STALE","rows of mapping "+mid+" in sequence order 1..n as the producer chains them",FAMILY_NEXT,familyExtra(extra));});
+  if(c.head_receipt_id!==null&&!rows.some(function(m){return m.receipt_id===c.head_receipt_id;}))throw actionable("EMAIL_PROJECTION_ADMIT_RECEIPT_ABSENT","the ADMIT receipt "+c.head_receipt_id+" that the cursor of mapping "+mid+" names as its head",FAMILY_NEXT,familyExtra(extra));
+  var last=rows.length?rows[rows.length-1].receipt_id:null;
+  if(c.sequence!==rows.length||c.head_receipt_id!==last||(rows.length===0&&c.chain_digest!==null))throw actionable("EMAIL_PROJECTION_ADMIT_RECEIPT_STALE","a cursor for mapping "+mid+" whose sequence and head receipt match its admitted rows",FAMILY_NEXT,familyExtra(extra));
+  checks.push(rows.reduce(function(prev,m){return prev.then(function(h){return pySha({previous:h,receipt_id:m.receipt_id});});},Promise.resolve(null)).then(function(h){if(h!==c.chain_digest)throw actionable("EMAIL_PROJECTION_ADMIT_RECEIPT_STALE","a cursor for mapping "+mid+" whose chain_digest recomputes from its admitted receipts",FAMILY_NEXT,familyExtra(extra));}));
+ });
+ return Promise.all(checks).then(function(){return pySha({schema:f.schema,workspace_type:f.workspace_type,accounts:f.accounts,messages:f.messages});}).then(function(d){if(d!==f.projection_digest)throw actionable("EMAIL_PROJECTION_DIGEST_DRIFT","the email-family projection unaltered; its projection_digest must recompute from accounts and messages",FAMILY_NEXT,familyExtra(extra));var md=f.projection_metadata;if(md.provenance_ref!=="kv-email-ingress-admit-receipts:"+d||md.source_revision!==d.slice(7))throw actionable("EMAIL_PROJECTION_DIGEST_DRIFT","projection_metadata bound to the projection_digest as the producer emits it (provenance_ref kv-email-ingress-admit-receipts:sha256:<hex>, source_revision the bare hex)",FAMILY_NEXT,familyExtra(extra));return f;});
+}
 // Family projections are returned as the list the page's capability contract evaluates; each must be a PERSONAL,
-// non-authorizing projection with its own metadata, and no reserved class may hide inside the list.
+// non-authorizing projection with its own metadata, and no reserved class may hide inside the list. Envelope and
+// structural failures refuse the whole delivery; a failure inside an email projection withholds only that projection.
+var lastFamilyRefusals=[];
 function validateFamilyDelivery(p){
+ lastFamilyRefusals=[];
  requireValue(p&&p.schema===FAMILY_DELIVERY_SCHEMA,"Workspace family delivery schema invalid");
  requireValue(["KV_FAMILY_PROJECTIONS_PROJECTED","KV_FAMILY_PROJECTIONS_EMPTY"].includes(p.state),"Workspace family delivery state invalid");
  nonAuthorizing(p,"Workspace family delivery");
  requireValue(Array.isArray(p.projections),"Workspace family delivery rows invalid");
- var seen={};
- for(var f of p.projections){
+ var envelope={};for(var ek in p)if(Object.prototype.hasOwnProperty.call(p,ek)&&ek!=="projections")envelope[ek]=p[ek];
+ var secret=secretPath(envelope,"$",0);
+ if(secret)throw secretRefusal(secret);
+ var seen=Object.create(null);
+ p.projections.forEach(function(f,i){
   requireValue(f&&typeof f==="object"&&typeof f.schema==="string"&&/^stegverse\.kv\.[a-z0-9-]+-projection\/v[0-9]+$/.test(f.schema),"Workspace family projection schema invalid");
   requireValue(!RESERVED_FAMILY_SCHEMAS.includes(f.schema),"Workspace family projection schema reserved");
   requireValue(!seen[f.schema],"Workspace family projection schema ambiguous");seen[f.schema]=true;
   requireValue(f.workspace_type==="PERSONAL"&&f.authority_effect==="NONE"&&f.credential_material_present===false&&f.provider_operation_authorized===false&&f.workspace_grants_authority===false&&f.trade_authority_granted!==true,"Workspace family projection authority invalid");
   requireValue(f.projection_metadata&&f.projection_metadata.schema==="stegverse.kv.workspace-projection-metadata/v1"&&f.projection_metadata.workspace_type==="PERSONAL","Workspace family projection metadata invalid");
- }
- return p.projections;
+  if(!EMAIL_FAMILY_SCHEMA.test(f.schema)){var hit=secretPath(f,"$.projections["+i+"]",0);if(hit)throw secretRefusal(hit);}
+ });
+ var refusals=[];
+ return Promise.all(p.projections.map(function(f,i){
+  if(!EMAIL_FAMILY_SCHEMA.test(f.schema))return Promise.resolve(f);
+  return Promise.resolve().then(function(){var hit=secretPath(f,"$.projections["+i+"]",0);if(hit)throw secretRefusal(hit,{projection_schema:f.schema});return validateEmailFamily(f);}).catch(function(e){if(e&&e.decision){refusals.push(e.decision);return null;}throw e;});
+ })).then(function(list){lastFamilyRefusals=refusals;return list.filter(function(f){return f!==null;});});
 }
 // The checkpoint delivery is handed to the assistant continuity contract as {checkpoint, decision}; the page verifies
 // nothing itself, and a delivery that claims verification or an ALLOW decision is refused.
@@ -167,5 +285,5 @@ function loadProjection(recordClass,options){
   });
  });
 }
-root.StegVerseWorkspaceKVBridge=Object.freeze({reasons:Object.freeze(Object.assign({},REASONS)),bridge_kind:"DEVICE_KV_QUERY_RETURN",record_classes:Object.keys(QUERY_CLASSES),loadPersonalWorkspace:loadPersonalWorkspace,loadPersonalTasks:loadPersonalTasks,loadPersonalProjections:loadPersonalProjections,loadAssistantCheckpoint:loadAssistantCheckpoint,lastNodeBinding:function(){return lastNodeBinding;},authority_effect:"NONE"});
+root.StegVerseWorkspaceKVBridge=Object.freeze({reasons:Object.freeze(Object.assign({},REASONS)),bridge_kind:"DEVICE_KV_QUERY_RETURN",record_classes:Object.keys(QUERY_CLASSES),loadPersonalWorkspace:loadPersonalWorkspace,loadPersonalTasks:loadPersonalTasks,loadPersonalProjections:loadPersonalProjections,loadAssistantCheckpoint:loadAssistantCheckpoint,lastNodeBinding:function(){return lastNodeBinding;},lastFamilyRefusals:function(){return lastFamilyRefusals.slice();},authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));
