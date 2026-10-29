@@ -2,6 +2,7 @@
 """Statically validate the StegMusic post-deployment verification contract."""
 from __future__ import annotations
 
+import importlib.util
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,8 +43,31 @@ def check(path: Path, markers: tuple[str, ...]) -> list[str]:
     return [f"{path.relative_to(ROOT)} missing marker: {marker}" for marker in markers if marker not in text]
 
 
+def live_routes() -> dict[str, tuple[str, ...]]:
+    spec = importlib.util.spec_from_file_location("check_stegmusic_live_routes", CHECKER)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.ROUTES
+
+
+def check_source_parity(routes: dict[str, tuple[str, ...]]) -> list[str]:
+    """Every marker the post-deployment check requires must exist in source.
+
+    Pages publishes this tree, so a marker absent from source can never be
+    observed on the deployment; the live check would fail closed on every
+    run. Catch that drift here, before merge.
+    """
+    failures = []
+    for route, markers in routes.items():
+        failures.extend(
+            f"source parity: {failure}" for failure in check(ROOT / route, markers)
+        )
+    return failures
+
+
 def main() -> int:
     failures = []
+    failures.extend(check_source_parity(live_routes()))
     failures.extend(check(PAGE, REQUIRED_PAGE_MARKERS))
     failures.extend(check(CHECKER, REQUIRED_CHECKER_MARKERS))
     failures.extend(check(WORKFLOW, REQUIRED_WORKFLOW_MARKERS))
