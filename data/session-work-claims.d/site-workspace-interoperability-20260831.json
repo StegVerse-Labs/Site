@@ -84,7 +84,8 @@
         "tests/test_device_kv_intr_sync.py",
         "tests/test_kv_entrypoint_intr_launcher.py",
         "tests/workspace-ui-refusal-six-fields.test.cjs",
-        "tests/workspace-email-family-consumer.test.cjs"
+        "tests/workspace-email-family-consumer.test.cjs",
+        "tests/fixtures/email-family-projection-lane-a.json"
       ],
       "handoff": "docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md",
       "handoff_revision": "WORKSPACE_INTEROPERABILITY_V1_PERSONAL_KV_BINDING_HOMEPAGE_PATH_RELEASED",

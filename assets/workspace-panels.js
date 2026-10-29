@@ -88,30 +88,37 @@ var ADAPTERS={
   out.notes.push("trade_authority_granted: false · provider_operation_authorized: "+text(p.provider_operation_authorized));
   return out;
  },
- // Email family (Site#1509 lane B): one provenance row per account (provider, cursor, ADMIT receipt digest) followed by
- // that account's message rows, each naming its own account. Accounts are never merged: a repeated account or a message
- // bound to another account downgrades the whole panel. Rows show no body and no credential; nothing here can operate on
- // a mailbox. Display bounds are re-checked here independently of the bridge and the KV producer.
+ // Email family (Site#1509 lane B), keyed to the lane A producer (continuity-vault-kit runtime/email_family_projection.py,
+ // stegverse.kv.email-family-projection/v1): one provenance row per mailbox mapping (provider, mapping state, cursor
+ // sequence, head ADMIT receipt, chain digest, provider position) followed by that mapping's payload-free message rows,
+ // each naming its own mapping and receipt. Accounts are never merged: a repeated mapping or a message naming a mapping
+ // not listed downgrades the whole panel. No skap:// reference, body or credential is shown; nothing can operate on a
+ // mailbox. Display bounds are re-checked here independently of the bridge and the producer.
  EMAIL:function(p){
   var out={rows:[],notes:[],malformed_rows:0,problem:null},bad=function(problem){return {rows:[],notes:[],malformed_rows:0,problem:problem};};
-  if(!Array.isArray(p.accounts))return bad("EMAIL_ACCOUNTS_INVALID");
-  var ids={},shown=0;
-  for(var i=0;i<p.accounts.length;i++){var a=p.accounts[i];
-   if(!isObject(a)||!displayable(a.account_id,MAX_SNAPSHOT_ID)){out.malformed_rows++;continue;}
-   if(Object.prototype.hasOwnProperty.call(ids,a.account_id))return bad("EMAIL_ACCOUNTS_MIXED");
-   ids[a.account_id]=true;
-   var src=a.source,r=a.admit_receipt,msgs=Array.isArray(a.messages)?a.messages:[];
-   for(var j=0;j<msgs.length;j++)if(!isObject(msgs[j])||msgs[j].account_id!==a.account_id)return bad("EMAIL_ACCOUNTS_MIXED");
-   if(!isObject(src)||!displayable(src.provider,MAX_LABEL)||!displayable(src.cursor,MAX_SNAPSHOT_ID)||!isObject(r)||!displayable(r.receipt_ref,MAX_SNAPSHOT_ID)||!displayable(r.receipt_digest,MAX_SNAPSHOT_ID)){out.malformed_rows+=1+msgs.length;continue;}
-   shown++;
-   out.rows.push({label:a.account_id,detail:"account · provider "+text(src.provider)+" · cursor "+text(src.cursor)+" · ADMIT receipt "+text(r.receipt_ref)+" ("+text(r.receipt_digest)+") · "+msgs.length+" message(s)",account_id:a.account_id});
-   msgs.forEach(function(m){
-    if(!displayable(m.subject,256)||(m.from!==undefined&&m.from!==null&&!displayable(m.from,256))||(m.received_at!==undefined&&m.received_at!==null&&!displayable(m.received_at,MAX_SNAPSHOT_ID))){out.malformed_rows++;return;}
-    out.rows.push({label:m.subject,detail:["account "+text(a.account_id),m.from?"from "+text(m.from):null,m.received_at?"received "+text(m.received_at):null].filter(Boolean).join(" · "),account_id:a.account_id});
-   });
+  if(!Array.isArray(p.accounts)||!Array.isArray(p.messages))return bad("EMAIL_ACCOUNTS_INVALID");
+  var groups=new Map(),order=[];
+  for(var i=0;i<p.accounts.length;i++){var a=p.accounts[i],id=isObject(a)?a.mapping_id:null;
+   if(typeof id==="string"&&groups.has(id))return bad("EMAIL_ACCOUNTS_MIXED");
+   if(!displayable(id,MAX_SNAPSHOT_ID)){out.malformed_rows++;continue;}
+   groups.set(id,{account:a,rows:[]});order.push(id);
   }
-  out.notes.push(shown+" account(s) shown separately; each row names its own account, and accounts are never merged");
-  out.notes.push("credential material is held only in SKAP Vault; credential_material_present: "+text(p.credential_material_present)+" · provider_operation_authorized: "+text(p.provider_operation_authorized));
+  for(var j=0;j<p.messages.length;j++){var m=p.messages[j];
+   if(!isObject(m)||typeof m.mapping_id!=="string"||!groups.has(m.mapping_id))return bad("EMAIL_ACCOUNTS_MIXED");
+   groups.get(m.mapping_id).rows.push(m);
+  }
+  var shown=0;
+  order.forEach(function(id){var g=groups.get(id),a=g.account,c=a.cursor;
+   if(!displayable(a.provider_id,MAX_LABEL)||!displayable(a.mapping_state,MAX_LABEL)||!isObject(c)||!isNum(c.sequence)||!(c.head_receipt_id===null||displayable(c.head_receipt_id,MAX_SNAPSHOT_ID))||!(c.chain_digest===null||displayable(c.chain_digest,MAX_SNAPSHOT_ID))||!(c.provider_position===null||isNum(c.provider_position))){out.malformed_rows+=1+g.rows.length;return;}
+   shown++;
+   out.rows.push({label:id,detail:["mailbox mapping","provider "+text(a.provider_id),text(a.mapping_state),"cursor sequence "+text(c.sequence),"head ADMIT receipt "+(c.head_receipt_id?text(c.head_receipt_id):"none"),"chain "+(c.chain_digest?text(c.chain_digest):"none"),"provider position "+(c.provider_position===null?"none":text(c.provider_position)),g.rows.length+" message(s)"].join(" · "),account_id:id});
+   g.rows.forEach(function(m){
+    if(!displayable(m.canonical_message_id,256)||!displayable(m.receipt_id,MAX_SNAPSHOT_ID)||!isNum(m.sequence)||m.payload_present!==false){out.malformed_rows++;return;}
+    out.rows.push({label:m.canonical_message_id,detail:"mapping "+text(id)+" · ADMIT receipt "+text(m.receipt_id)+" · sequence "+text(m.sequence)+" · payload not present",account_id:id});
+   });
+  });
+  out.notes.push(shown+" mailbox mapping(s) shown separately; each row names its own mapping, and accounts are never merged");
+  out.notes.push("message rows are payload-free admission records; credential material is held only in SKAP Vault; credential_material_present: "+text(p.credential_material_present)+" · provider_operation_authorized: "+text(p.provider_operation_authorized));
   return out;
  },
  // Re-check consumer display bounds independently of the KV producer. Never render hidden Unicode or
