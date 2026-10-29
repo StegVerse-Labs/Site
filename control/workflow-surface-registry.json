@@ -1527,11 +1527,11 @@
       "permissions": {
         "contents": "write"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "edbbcdb359f76a4b8d110b711c668e2fe7d18459c5c464b0095a25f565f18a46",
+      "reason": "KEEP_PENDING_LATER_BATCH: push trigger narrowed to main only (claude/tidc-push-main-only), and the writeback step gated to refs/heads/main, so the coordinator's [skip ci] writeback no longer lands on PR branches, including on a workflow_dispatch run against a non-main ref; other steps unchanged. Not yet dispositioned by a G17 validator batch; ratify-or-revert stays with the TIDC lane.",
+      "verbatim_sha256": "34dca3022fa7744d3fcad9b8d1317d917f9be62e5d4ec098305f944cb869c712",
       "exception": {
         "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "justification": "KEEP_PENDING_LATER_BATCH: push trigger narrowed to main only (claude/tidc-push-main-only), and the writeback step gated to refs/heads/main, so the coordinator's [skip ci] writeback no longer lands on PR branches, including on a workflow_dispatch run against a non-main ref; other steps unchanged. Not yet dispositioned by a G17 validator batch; ratify-or-revert stays with the TIDC lane.",
         "within_exception_ceiling": true
       }
     },
