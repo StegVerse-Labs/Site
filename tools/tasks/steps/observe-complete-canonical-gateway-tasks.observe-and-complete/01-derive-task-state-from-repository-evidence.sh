@@ -1,0 +1,1 @@
+python scripts/observe_and_complete_canonical_gateway_tasks.py

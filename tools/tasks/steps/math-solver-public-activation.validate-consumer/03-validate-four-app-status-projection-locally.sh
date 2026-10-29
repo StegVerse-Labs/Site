@@ -1,0 +1,1 @@
+python scripts/check_steggate_four_app_status.py

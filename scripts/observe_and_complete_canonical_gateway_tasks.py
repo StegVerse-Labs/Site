@@ -17,7 +17,7 @@ LEDGER = ROOT / "data/development-tasks/canonical-gateway-activation.json"
 BINDING = ROOT / "assets/ecosystem-node-gateway-binding.js"
 LOADER = ROOT / "assets/conectrr-interop.js"
 HTML = ROOT / "ecosystem-chat.html"
-WORKFLOW = ROOT / ".github/workflows/observe-complete-canonical-gateway-tasks.yml"
+WORKFLOW = ROOT / "tools/tasks/folded/observe-complete-canonical-gateway-tasks.yml"
 REPORT = ROOT / "reports/canonical-gateway-task-status.json"
 
 

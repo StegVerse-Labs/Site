@@ -914,22 +914,6 @@
       }
     },
     {
-      "path": ".github/workflows/math-solver-public-activation.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "push"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "442a4c45c99a464ff5176f1cf74b0029b9a6bfa69381db86cbe9e8289f66ec95",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/mykv-public-propagation-proof.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -979,25 +963,6 @@
       },
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "81890aaa0f098f58b6da2ee842fa56f3d3ab3feeec8e2b7df5d9d74cd4b39d24",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/observe-complete-canonical-gateway-tasks.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "pull_request",
-        "push"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "ea33e55af290cd02d95a2abdac16724c7f79032acde922ee394ceeff8d7dd610",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -1486,25 +1451,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "3a2236d030098b6882dce09202ec4c5ebbf486f10189ba2c83ce70de158f3f4a",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/va-claims-chat-llm-bridge.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "de081db6e47ac9ed11c31d72ab07590f1a9f7145a4c4aa5916de59eabdff8224",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -2644,14 +2590,61 @@
       ],
       "verbatim_record": "tools/tasks/folded/workspace-kv-binding-validation.yml",
       "verbatim_sha256": "6cc3056504a9a0313a002140b640f4dc4fa34b96434825b9558060becc909c92"
+    },
+    {
+      "workflow": ".github/workflows/math-solver-public-activation.yml",
+      "name": "Math Solver public activation validation",
+      "triggers_before": [
+        "workflow_dispatch",
+        "push"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "math-solver-public-activation.validate-consumer"
+      ],
+      "verbatim_record": "tools/tasks/folded/math-solver-public-activation.yml",
+      "verbatim_sha256": "442a4c45c99a464ff5176f1cf74b0029b9a6bfa69381db86cbe9e8289f66ec95"
+    },
+    {
+      "workflow": ".github/workflows/observe-complete-canonical-gateway-tasks.yml",
+      "name": "Observe and Complete Canonical Gateway Tasks",
+      "triggers_before": [
+        "workflow_dispatch",
+        "pull_request",
+        "push"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "observe-complete-canonical-gateway-tasks.observe-and-complete"
+      ],
+      "verbatim_record": "tools/tasks/folded/observe-complete-canonical-gateway-tasks.yml",
+      "verbatim_sha256": "ea33e55af290cd02d95a2abdac16724c7f79032acde922ee394ceeff8d7dd610"
+    },
+    {
+      "workflow": ".github/workflows/va-claims-chat-llm-bridge.yml",
+      "name": "VA Claims Chat LLM Bridge",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-claims-chat-llm-bridge.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-claims-chat-llm-bridge.yml",
+      "verbatim_sha256": "de081db6e47ac9ed11c31d72ab07590f1a9f7145a4c4aa5916de59eabdff8224"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 103,
+    "workflow_count": 100,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "this is batch 5 of the G17 surface reduction for this repository (108 to 103). Batches 1 to 4 folded 15, 17, 13 and 2 credential-free validators (154 to 108). Batch 5 first repairs three checks that failed on main (check_hil_deployed_controlled_cycle_evidence and check_hil_evidence_url_binding from StegVerse-Labs/Site#1612, check_steglearn_landing from StegVerse-Labs/Site#1625), then folds the five validators that return ALLOW through the catalog runner on the repaired tree: check-steglearn-landing, hil-evidence-url-binding, test-hil-deployed-controlled-cycle-origin, evaluator-review-public-verification and workspace-kv-binding-validation (six tests that read the workflow file by path now read tools/tasks/folded/workspace-kv-binding-validation.yml). Five validators that DENY on main's tree carry a specific FAIL_CLOSED reason in the registry and stay kept byte-unchanged: check-sv002-authentic-runtime-evidence-harness (refuses by design while runtime evidence is absent), hil-announcement-contract (published pages drift from the derived status), check-hil-linkedin-launch-readiness (anonymous exact-source fetch re-initializes the checkout), task0011-product-source-transport (frozen blob mismatch) and verify-thought-experiments-publication (homepage navigation removed on purpose by Site#571). Also kept with a specific reason: four validators with a job-level pull_request condition, hil-post-submit-continuity, stegmusic-browser-execution and three surfaces named by generated data. The remaining surfaces are writers, credential-bound, workflow_run, issue-triggered, re-initializing or reusable surfaces and stay KEEP_PENDING_LATER_BATCH until their own admitted repair; their credentials belong only in the SKAP Vault inside KV. Each later batch lowers workflow_count and replaces this record with its exact new count.",
+    "required_evidence_or_repair": "this is batch 6 of the G17 surface reduction for this repository (103 to 100). Batches 1 to 5 folded 15, 17, 13, 2 and 5 credential-free validators (154 to 103). Batch 6 folds the three remaining validators that have no write permission, no token or secret, no network, one job and no job-level condition: math-solver-public-activation, observe-complete-canonical-gateway-tasks and va-claims-chat-llm-bridge. Two of them read their own workflow file by path to check its authority boundary (the validate-consumer step of math-solver-public-activation and scripts/observe_and_complete_canonical_gateway_tasks.py); they now read the byte-identical copy under tools/tasks/folded/, so every assertion is unchanged. Five validators that DENY on main's tree carry a specific FAIL_CLOSED reason in the registry and stay kept byte-unchanged (re-assessed in Round 56, none is repairable without a publication or freeze decision or without suppressing the check): check-sv002-authentic-runtime-evidence-harness (refuses by design while runtime evidence is absent), hil-announcement-contract (commit 5b92b4b53 made direct Site submission the primary path and rewrote the pages, so the derived status OPEN_MANAGED_RETURN and the required phrases no longer match the published pages), check-hil-linkedin-launch-readiness (anonymous exact-source fetch re-initializes the checkout), task0011-product-source-transport (frozen blob e9962ba5 vs materialized a9fa5b27 after commit 1d3a3b770) and verify-thought-experiments-publication (homepage navigation removed on purpose by Site#571). Also kept with a specific reason: four validators with a job-level pull_request condition, hil-post-submit-continuity, stegmusic-browser-execution and three surfaces named by generated data. The remaining surfaces use a GITHUB_TOKEN, network access, an anonymous checkout re-initialization, write permissions, workflow_run, schedule or issue triggers, several jobs or reusable calls, and stay KEEP_PENDING_LATER_BATCH until their own admitted repair; their credentials belong only in the SKAP Vault inside KV. Each later batch lowers workflow_count and replaces this record with its exact new count.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request touching .github/workflows/ or those contracts"

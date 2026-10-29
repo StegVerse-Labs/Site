@@ -3042,6 +3042,167 @@
     "timeout_minutes": 5,
     "python_version": "3.11"
    }
+  },
+  {
+   "id": "math-solver-public-activation.validate-consumer",
+   "source": {
+    "workflow": ".github/workflows/math-solver-public-activation.yml",
+    "workflow_name": "Math Solver public activation validation",
+    "job": "validate-consumer",
+    "job_name": null,
+    "commit": "831dee6",
+    "triggers_before": [
+     "workflow_dispatch",
+     "push"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Evaluate canonical Math Solver runtime receipt fail-closed",
+     "run_file": "tools/tasks/steps/math-solver-public-activation.validate-consumer/01-evaluate-canonical-math-solver-runtime-receipt-fail-closed.sh",
+     "run_sha256": "bdfd68187a41effcfcd4845cf2de3732314b6b5bcd8556e597e82d046cc515f4"
+    },
+    {
+     "name": "Validate unified conversational Math boundary",
+     "run_file": "tools/tasks/steps/math-solver-public-activation.validate-consumer/02-validate-unified-conversational-math-boundary.sh",
+     "run_sha256": "9a6bf77715f189e26480b7b29ad655ed4ce7065427ae9fc717cba6d72e3f1361"
+    },
+    {
+     "name": "Validate four-app status projection locally",
+     "run_file": "tools/tasks/steps/math-solver-public-activation.validate-consumer/03-validate-four-app-status-projection-locally.sh",
+     "run_sha256": "3795c49abce599942280a529bc8bc6e668d81f801ec6290ae911451f7d93747b"
+    },
+    {
+     "name": "Prove validation-only authority boundary",
+     "run_file": "tools/tasks/steps/math-solver-public-activation.validate-consumer/04-prove-validation-only-authority-boundary.sh",
+     "run_sha256": "db8a1da793fc8a737df22031c391c3dc397a9314dd53273cd98e5c47069f9443",
+     "shell": "bash"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "math-solver-public-activation-validation",
+     "path": "data/math-solver-public-activation.latest.json",
+     "if_no_files_found": "error",
+     "if": "success()"
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 6,
+    "artifact_name": "math-solver-public-activation-validation",
+    "artifact_if_no_files_found": "error"
+   },
+   "repairs": [
+    "The authority-boundary self-check in the validate-consumer step read `.github/workflows/math-solver-public-activation.yml` by path; it now reads the byte-identical copy `tools/tasks/folded/math-solver-public-activation.yml`, so every assertion (`permissions: {}`, no write, no schedule, no push or commit, no persisted credentials) is unchanged."
+   ]
+  },
+  {
+   "id": "observe-complete-canonical-gateway-tasks.observe-and-complete",
+   "source": {
+    "workflow": ".github/workflows/observe-complete-canonical-gateway-tasks.yml",
+    "workflow_name": "Observe and Complete Canonical Gateway Tasks",
+    "job": "observe-and-complete",
+    "job_name": null,
+    "commit": "831dee6",
+    "triggers_before": [
+     "workflow_dispatch",
+     "pull_request",
+     "push"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Derive task state from repository evidence",
+     "run_file": "tools/tasks/steps/observe-complete-canonical-gateway-tasks.observe-and-complete/01-derive-task-state-from-repository-evidence.sh",
+     "run_sha256": "3a294a8a4ad1815c88b792fc3e323f071ce7d6bc9a13803671e4f1a21331146c"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "canonical-gateway-task-status",
+     "path": "reports/canonical-gateway-task-status.json",
+     "if_no_files_found": "error",
+     "if": "always()"
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "true",
+    "timeout_minutes": 30,
+    "python_version": "3.12",
+    "artifact_name": "canonical-gateway-task-status",
+    "artifact_if_no_files_found": "error"
+   },
+   "repairs": [
+    "`scripts/observe_and_complete_canonical_gateway_tasks.py` read `.github/workflows/observe-complete-canonical-gateway-tasks.yml` by path to check its own authority boundary; it now reads the byte-identical copy `tools/tasks/folded/observe-complete-canonical-gateway-tasks.yml`, and every check it makes on that text is unchanged."
+   ]
+  },
+  {
+   "id": "va-claims-chat-llm-bridge.validate",
+   "source": {
+    "workflow": ".github/workflows/va-claims-chat-llm-bridge.yml",
+    "workflow_name": "VA Claims Chat LLM Bridge",
+    "job": "validate",
+    "job_name": null,
+    "commit": "831dee6",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate fail-closed Site runtime bridge",
+     "run_file": "tools/tasks/steps/va-claims-chat-llm-bridge.validate/01-validate-fail-closed-site-runtime-bridge.sh",
+     "run_sha256": "f464337fd318130d7a9dee79141ca65f1713a5e09b689fd8b363995b14584665"
+    },
+    {
+     "name": "Write deterministic validation receipt",
+     "run_file": "tools/tasks/steps/va-claims-chat-llm-bridge.validate/02-write-deterministic-validation-receipt.sh",
+     "run_sha256": "e2601d54e35b7503d489583d53e401bb4a4134e417e5eac22b772b2005eb289d"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "va-claims-chat-llm-bridge-validation",
+     "path": ".validation/va-claims-chat-llm-bridge-validation.json",
+     "if_no_files_found": "error",
+     "if": "success()"
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "python_version": "3.12",
+    "artifact_name": "va-claims-chat-llm-bridge-validation",
+    "artifact_if_no_files_found": "error"
+   }
   }
  ]
 }
