@@ -17,8 +17,6 @@ on:
       - 'tests/test_session_work_claims.py'
       - '.github/workflows/ecosystem-heartbeat-orchestration.yml'
   pull_request:
-  schedule:
-    - cron: '17 * * * *'
   workflow_dispatch:
 
 permissions:
