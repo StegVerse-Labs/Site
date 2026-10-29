@@ -14,6 +14,15 @@ var KIND_ORDER=["assistant","principal","organization","membership","task","comm
 // Searchable states are an explicit allow-list, never "not withheld": only an observed, stale or freshness-unknown
 // source for THIS context is searched, and the source projection itself must declare the same context.
 var SEARCHABLE=["OBSERVED","STALE","FRESHNESS_UNKNOWN"];
+// Plain-language reasons for the exclusion predicates only search produces (the panel and capability catalogs cover
+// theirs; the panels catalog lists only what panels produce, so search keeps its own).
+var REASONS=Object.freeze({
+ SEARCH_EXTRACTOR_NOT_DEFINED:"search has no rule yet for which fields of this family are safe to look at, so it is not searched",
+ SEARCH_CONTEXT_NOT_ADMITTED:"this family is projected from Personal KV only, so search never looks at it in another workspace context",
+ SEARCH_SOURCE_MALFORMED:"the projection for this family could not be read the way the panel reads it, so it is not searched",
+ EMAIL_VALIDATOR_UNAVAILABLE:"the email panel checks are not loaded, so search leaves email out rather than look at rows the panel has not checked"
+});
+function own(o,k){return Object.prototype.hasOwnProperty.call(o,k)?o[k]:null;}
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function text(v){return v===null||v===undefined?"":String(v);}
 function tokens(q){return text(q).toLowerCase().trim().split(/\s+/).filter(Boolean);}
@@ -41,7 +50,7 @@ var EXTRACT={
  // Without the panel validator the field is not searched (EMAIL_VALIDATOR_UNAVAILABLE).
  accounts:function(v,source){
   var P=root.StegVerseWorkspacePanels;
-  if(!P||typeof P.emailView!=="function")return {problem:"EMAIL_VALIDATOR_UNAVAILABLE"};
+  if(!P||typeof P.emailView!=="function")return {problem:"EMAIL_VALIDATOR_UNAVAILABLE",state:"UNAVAILABLE"};
   var view=P.emailView(source);
   if(view.problem)return {problem:view.problem};
   var rows=[];
@@ -56,7 +65,8 @@ var EXTRACT={
 };
 // Fields admitted only in some contexts: a personal email projection is never searched outside the personal context,
 // even if a projection declaring another context were handed in (no Org-KV email projection exists yet).
-var FIELD_CONTEXTS={accounts:["PERSONAL"]};
+var FIELD_CONTEXTS=Object.create(null);FIELD_CONTEXTS.accounts=["PERSONAL"];
+function fieldContexts(field){return own(FIELD_CONTEXTS,field);}
 function result(disposition,predicate,extra){
  var r={schema:SCHEMA,disposition:disposition,predicate:predicate,query:"",workspace_type:null,hits:[],hit_count:0,truncated:false,excluded:[],visibility_withheld:0,display_withheld:0,ambiguous:[],index:"NONE_EPHEMERAL_QUERY_ONLY",action_eligible:false,authority_effect:"NONE"};
  if(extra)for(var k in extra)if(Object.prototype.hasOwnProperty.call(extra,k))r[k]=extra[k];
@@ -80,15 +90,16 @@ function search(input){
  for(var i=0;i<descs.length;i++){
   var d=descs[i],s=statuses[i],field=s.projection_field;
   if(C.withholdsRows(s)||SEARCHABLE.indexOf(s.state)<0){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:s.predicate});continue;}
-  if(!EXTRACT[field]){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:"SEARCH_EXTRACTOR_NOT_DEFINED"});continue;}
+  if(fieldContexts(field)&&fieldContexts(field).indexOf(wt)<0){excluded.push({capability:s.capability,projection_field:field,state:"CONTEXT_MISMATCH",predicate:"SEARCH_CONTEXT_NOT_ADMITTED"});continue;}
+  var extract=own(EXTRACT,field);
+  if(!extract){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:"SEARCH_EXTRACTOR_NOT_DEFINED"});continue;}
   var schemas=Array.isArray(d.allowed_projection_schemas)?d.allowed_projection_schemas:[];
   var source=null;for(var j=0;j<projs.length;j++){if(isObject(projs[j])&&schemas.indexOf(projs[j].schema)>=0){source=projs[j];break;}}
   if(!source){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:"PROJECTION_SOURCE_NOT_FOUND"});continue;}
   if(source.workspace_type!==wt){excluded.push({capability:s.capability,projection_field:field,state:"CONTEXT_MISMATCH",predicate:"PROJECTION_WORKSPACE_TYPE_MISMATCH"});continue;}
-  if(FIELD_CONTEXTS[field]&&FIELD_CONTEXTS[field].indexOf(wt)<0){excluded.push({capability:s.capability,projection_field:field,state:"CONTEXT_MISMATCH",predicate:"SEARCH_CONTEXT_NOT_ADMITTED"});continue;}
   if(!toks.length)continue;
-  var rows=EXTRACT[field](source[field],source),prov=provenanceOf(s,source);
-  if(!Array.isArray(rows)){excluded.push({capability:s.capability,projection_field:field,state:"MALFORMED",predicate:text(rows&&rows.problem)||"SEARCH_SOURCE_MALFORMED"});continue;}
+  var rows=extract(source[field],source),prov=provenanceOf(s,source);
+  if(!Array.isArray(rows)){excluded.push({capability:s.capability,projection_field:field,state:rows&&rows.state==="UNAVAILABLE"?"UNAVAILABLE":"MALFORMED",predicate:text(rows&&rows.problem)||"SEARCH_SOURCE_MALFORMED"});continue;}
   for(var r=0;r<rows.length;r++){
    var row=rows[r];
    if(row.kind==="feed"&&visible&&!visible(row.row)){withheld++;continue;}
@@ -101,5 +112,5 @@ function search(input){
  var truncated=hits.length>MAX_HITS;if(truncated)hits=hits.slice(0,MAX_HITS);
  return result("ALLOW",toks.length?"SEARCH_COMPLETED":"QUERY_EMPTY",{query:q,workspace_type:wt,hits:hits,hit_count:hits.length,truncated:truncated,excluded:excluded,visibility_withheld:withheld,display_withheld:displayWithheld});
 }
-root.StegVerseWorkspaceSearch=Object.freeze({schema:SCHEMA,search:search,max_hits:MAX_HITS,index:"NONE_EPHEMERAL_QUERY_ONLY",authority_effect:"NONE"});
+root.StegVerseWorkspaceSearch=Object.freeze({schema:SCHEMA,search:search,reasons:REASONS,max_hits:MAX_HITS,index:"NONE_EPHEMERAL_QUERY_ONLY",authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));

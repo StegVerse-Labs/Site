@@ -289,7 +289,20 @@ async function withholds(emailProjection,predicate,name,forbidden){
    // Without the panel validator, EMAIL is excluded rather than searched through a weaker check.
    {const nctx={};nctx.globalThis=nctx;vm.createContext(nctx);vm.runInContext(capsSrc,nctx);vm.runInContext(searchSrc,nctx);
     const r=nctx.StegVerseWorkspaceSearch.search({query:'google-gmail',workspace_type:'PERSONAL',descriptors:bound,projections:[email()],now_ms:NOW});const ex=exEmail(r);
-    check(r.disposition==='ALLOW'&&mail(r).length===0&&ex&&ex.predicate==='EMAIL_VALIDATOR_UNAVAILABLE','search without the panel validator excludes EMAIL: '+JSON.stringify(ex));}
+    check(r.disposition==='ALLOW'&&mail(r).length===0&&ex&&ex.predicate==='EMAIL_VALIDATOR_UNAVAILABLE'&&ex.state==='UNAVAILABLE','search without the panel validator excludes EMAIL as UNAVAILABLE: '+JSON.stringify(ex));}
+   {const mixed=find('kv-email',[email(p=>{p.accounts.push(clone(p.accounts[0]));})]);check(exEmail(mixed).state==='MALFORMED','a validator problem is still labelled MALFORMED');}
+   {const plain=t=>typeof t==='string'&&t.trim()===t&&t.length>20&&/^[a-z]/.test(t)&&!t.endsWith('.');
+    check(plain(P.reasons.PANEL_CONTEXT_NOT_ADMITTED),'plain-language panel reason for PANEL_CONTEXT_NOT_ADMITTED');
+    const searchOnly=new Set([...searchSrc.matchAll(/(?:predicate|problem):(?:[^,}]*\|\|)?"((?:SEARCH_[A-Z_]+)|EMAIL_VALIDATOR_UNAVAILABLE)"/g)].map(m=>m[1]));
+    check(Object.isFrozen(S.reasons)&&searchOnly.has('SEARCH_CONTEXT_NOT_ADMITTED')&&searchOnly.has('EMAIL_VALIDATOR_UNAVAILABLE'),'search catalog exported and search-only predicates found: '+[...searchOnly].join(','));
+    for(const k of searchOnly)check(plain(S.reasons[k]),'plain-language search reason for '+k);
+    for(const k of Object.keys(S.reasons))check(searchOnly.has(k),'search reason for a predicate search never produces: '+k);}
+   // Context tables are own-property lookups: prototype names never resolve to an entry.
+   {const protoDescs=['constructor','__proto__','toString','hasOwnProperty'].map(n=>({capability:n,label:n,projection_field:n,allowed_projection_schemas:[EMAIL_SCHEMA],workspace_types:['PERSONAL','ORGANIZATIONAL'],max_age_seconds:86400,default_state:'NOT_OBSERVED',authority_effect:'NONE'}));
+    const org=JSON.parse(JSON.stringify(email(p=>{p.workspace_type='ORGANIZATIONAL';p.projection_metadata.workspace_type='ORGANIZATIONAL';})).replace('{','{"constructor":[{"x":"kv-email"}],"__proto__":[{"x":"kv-email"}],"toString":[{"x":"kv-email"}],"hasOwnProperty":[{"x":"kv-email"}],'));
+    check(['constructor','__proto__','toString','hasOwnProperty'].every(k=>Object.prototype.hasOwnProperty.call(org,k))&&C.evaluateAll(protoDescs,[org],'ORGANIZATIONAL',NOW).every(x=>x.state==='OBSERVED'),'prototype-named fields are own, observed projection fields');
+    let threw=null,r=null,b=null;try{r=S.search({query:'kv-email',workspace_type:'ORGANIZATIONAL',descriptors:protoDescs,projections:[org],now_ms:NOW});b=P.build({descriptors:protoDescs,statuses:C.evaluateAll(protoDescs,[org],'ORGANIZATIONAL',NOW),projections:[org],workspace_type:'ORGANIZATIONAL'});}catch(e){threw=e;}
+    check(!threw&&r&&r.disposition!==undefined&&r.excluded.every(e=>e.predicate!=='SEARCH_CONTEXT_NOT_ADMITTED')&&b&&b.panels.every(x=>x.predicate!=='PANEL_CONTEXT_NOT_ADMITTED'&&x.rendered_in===null&&x.producer_owner===null&&x.rows.length===0)&&r.excluded.length===4&&r.excluded.every(e=>e.predicate==='SEARCH_EXTRACTOR_NOT_DEFINED'),'prototype-named capabilities/fields never hit a context table entry: '+(threw&&threw.message));}
    // Context: the personal projection never surfaces in an organizational context, and an email projection that
    // declares the organizational context is still not searched there (no Org-KV email projection exists).
    {const r=find('google-gmail',[email()],'ORGANIZATIONAL');check(mail(r).length===0&&exEmail(r),'org context never surfaces personal email');}

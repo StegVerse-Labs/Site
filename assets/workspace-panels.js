@@ -48,6 +48,7 @@ var REASONS={
  PANEL_CONTEXT_NOT_ADMITTED:"this family is projected from Personal KV only, so it is never shown in another workspace context"
 };
 var RENDERED_ELSEWHERE={FEED:"Feed card",CONTACTS:"Friends & Contacts card",ORGANIZATIONS:"Organizations card",MEMBERSHIPS:"Memberships card",AI_ASSISTANT:"MyKV assistant card",TASKS:"Tasks & commitments card",COMMITMENTS:"Tasks & commitments card"};
+function own(o,k){return Object.prototype.hasOwnProperty.call(o,k)?o[k]:null;}
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function text(v){return v===null||v===undefined?"":String(v);}
 function isNum(v){return typeof v==="number"&&isFinite(v);}
@@ -92,7 +93,8 @@ function emailView(p){
 }
 // Families admitted only in some contexts: the email projection is Personal KV only (no Org-KV email projection
 // exists), so an EMAIL panel never renders rows outside the personal context, whatever the source declares.
-var PANEL_CONTEXTS={EMAIL:["PERSONAL"]};
+var PANEL_CONTEXTS=Object.create(null);PANEL_CONTEXTS.EMAIL=["PERSONAL"];
+function panelContexts(cap){return own(PANEL_CONTEXTS,cap);}
 // Adapters return {rows, notes, malformed_rows, problem}. problem (if set) downgrades the panel to MALFORMED.
 var ADAPTERS={
  CRYPTOBOT_PORTFOLIO:function(p){
@@ -153,12 +155,12 @@ function build(input){
   var s=statuses[i]||{state:"NOT_OBSERVED",predicate:"CAPABILITY_STATUS_ABSENT"};
   var panel={schema:SCHEMA,capability:text(s.capability||(d&&d.capability)),label:text(s.label||(d&&d.label)||(d&&d.capability)),projection_field:s.projection_field||null,state:s.state,predicate:s.predicate,
    provenance:{observed_at:s.observed_at||null,age_seconds:s.age_seconds===undefined?null:s.age_seconds,provenance_ref:s.provenance_ref||null,source_revision:s.source_revision||null,source_cursor:s.source_cursor||null,grant_state:s.grant_state||null,replay_status:s.replay_status||"REPLAY_STATUS_UNKNOWN"},
-   context:{workspace_type:wt},rows:[],notes:[],malformed_rows:0,rows_withheld:ROW_STATES.indexOf(s.state)<0,rendered_in:RENDERED_ELSEWHERE[panel_cap(d,s)]||null,producer_owner:PRODUCER_OWNER[panel_cap(d,s)]||null,action_eligible:false,authority_effect:"NONE"};
+   context:{workspace_type:wt},rows:[],notes:[],malformed_rows:0,rows_withheld:ROW_STATES.indexOf(s.state)<0,rendered_in:own(RENDERED_ELSEWHERE,panel_cap(d,s)),producer_owner:own(PRODUCER_OWNER,panel_cap(d,s)),action_eligible:false,authority_effect:"NONE"};
   if(panel.rows_withheld)return panel;
   var source=sourceFor(d,projs);
   if(!source||source.workspace_type!==wt){panel.state="CONTEXT_MISMATCH";panel.predicate=source?"PROJECTION_WORKSPACE_TYPE_MISMATCH":"PROJECTION_SOURCE_NOT_FOUND";panel.rows_withheld=true;return panel;}
-  if(PANEL_CONTEXTS[panel.capability]&&PANEL_CONTEXTS[panel.capability].indexOf(wt)<0){panel.state="CONTEXT_MISMATCH";panel.predicate="PANEL_CONTEXT_NOT_ADMITTED";panel.rows_withheld=true;return panel;}
-  var adapter=ADAPTERS[panel.capability];
+  if(panelContexts(panel.capability)&&panelContexts(panel.capability).indexOf(wt)<0){panel.state="CONTEXT_MISMATCH";panel.predicate="PANEL_CONTEXT_NOT_ADMITTED";panel.rows_withheld=true;return panel;}
+  var adapter=own(ADAPTERS,panel.capability);
   if(adapter){var a=adapter(source);if(a.problem){panel.state="MALFORMED";panel.predicate=a.problem;panel.rows_withheld=true;return panel;}panel.rows=a.rows;panel.notes=a.notes;panel.malformed_rows=a.malformed_rows;}
   else if(panel.rendered_in){panel.notes.push(countRows(source,panel.projection_field)+" row(s) rendered in the "+panel.rendered_in);}
   else{panel.notes.push(countRows(source,panel.projection_field)+" row(s) present; no panel adapter defined for this family");}
