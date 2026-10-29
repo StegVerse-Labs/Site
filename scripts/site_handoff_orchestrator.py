@@ -122,6 +122,65 @@ def run_validator(path: Path, report_path: Path, label: str, failures: list[str]
     return report
 
 
+CLAIM_REQUEST_ROOT = ROOT / "data" / "session-work-claim-requests.d"
+ACTIONABLE_FIELDS = (
+    "failure_code",
+    "failed_predicate",
+    "required_evidence_or_repair",
+    "retry_entrypoint",
+    "owning_existing_goal",
+    "next_attempt",
+)
+
+
+def queued_claim_request(ref_name: str, root: Path = CLAIM_REQUEST_ROOT) -> dict[str, Any] | None:
+    """The durable-queue request naming this branch, as a six-field record; never a claim.
+
+    A request only asks the canonical allocator to bind a branch. It does not satisfy the
+    pre-work claim gate; it makes the gate's refusal carry its own repair and retry entrypoint.
+    """
+    if not root.is_dir():
+        return None
+    for path in sorted(root.glob("*.request.json")):
+        try:
+            request = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if request.get("state") != "REQUESTED" or request.get("request_grants_claim_authority") is not False:
+            continue
+        branches = [b.get("branch") for b in request.get("requested_branch_bindings", []) if isinstance(b, dict)]
+        disposition = request.get("actionable_disposition") or {}
+        if ref_name not in branches or not all(
+            isinstance(disposition.get(k), str) and disposition[k].strip() for k in ACTIONABLE_FIELDS
+        ):
+            continue
+        record = {k: disposition[k] for k in ACTIONABLE_FIELDS}
+        record["retry_entrypoint"] = f"{path.relative_to(ROOT)} -> {disposition['retry_entrypoint']}"
+        return {
+            "disposition": "FAIL_CLOSED",
+            "request_id": request.get("request_id"),
+            "request_ref": str(path.relative_to(ROOT)),
+            "authority_effect": "NONE_REQUEST_ONLY",
+            "actionable_disposition": record,
+        }
+    return None
+
+
+def write_step_summary(record: dict[str, Any]) -> None:
+    """Expose the six-field refusal in the job summary; a local file write, no token or network."""
+    summary = os.getenv("GITHUB_STEP_SUMMARY")
+    if not summary:
+        return
+    lines = [
+        "### Pre-work claim gate: FAIL_CLOSED (claim requested, not granted)",
+        "",
+        f"- request: `{record['request_ref']}` (`{record['request_id']}`)",
+    ]
+    lines += [f"- {k}: {v}" for k, v in record["actionable_disposition"].items()]
+    with open(summary, "a", encoding="utf-8") as handle:
+        handle.write("\n".join(lines) + "\n")
+
+
 def active_branch_claims() -> list[dict[str, Any]]:
     try:
         registry = load_registry()
@@ -410,6 +469,7 @@ def main() -> int:
     event = os.getenv("GITHUB_EVENT_NAME", "local")
     ref_name = os.getenv("GITHUB_HEAD_REF") or os.getenv("GITHUB_REF_NAME", "")
     branch_claim = None
+    branch_claim_request = None
     terminalization_only_claim = None
     if event == "pull_request" and ref_name and ref_name != "main":
         branch_claims = [claim for claim in active_branch_claims() if claim.get("branch") == ref_name]
@@ -422,6 +482,14 @@ def main() -> int:
             if terminalization_only_claim is None:
                 failures.append(f"pull request branch must resolve to exactly one active pre-work claim: {ref_name}")
                 failures.append(f"terminalization-only claim maintenance rejected: {terminalization_reason}")
+                branch_claim_request = queued_claim_request(ref_name)
+                if branch_claim_request is not None:
+                    a = branch_claim_request["actionable_disposition"]
+                    failures.append(
+                        "claim requested, not granted: "
+                        + "; ".join(f"{k}={a[k]}" for k in ACTIONABLE_FIELDS)
+                    )
+                    write_step_summary(branch_claim_request)
             else:
                 branch_claim = terminalization_only_claim["claim"]
 
@@ -448,6 +516,7 @@ def main() -> int:
         "prework_claim_validation": claim_validation,
         "pull_request_branch_claim": branch_claim,
         "terminalization_only_claim_maintenance": terminalization_only_claim,
+        "pull_request_branch_claim_request": branch_claim_request,
         "assignments": assignments,
         "possible_overlap_groups": possible_overlap_groups,
         "possible_overlap_policy": "diagnostic only; machine-readable active claims are blocking authority",
