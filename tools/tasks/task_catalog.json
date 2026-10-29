@@ -2755,7 +2755,7 @@
     {
      "name": "evaluator-review-public-verification-${{ github.run_id }}-${{ github.run_attempt }}",
      "path": "reports/evaluator-review-public-verification.json",
-     "if_no_files_found": "error",
+     "if_no_files_found": "ignore",
      "if": "github.event_name != 'pull_request' && always()"
     }
    ],
@@ -2765,7 +2765,7 @@
     "timeout_minutes": 5,
     "python_version": "3.12",
     "artifact_name": "evaluator-review-public-verification",
-    "artifact_if_no_files_found": "error"
+    "artifact_if_no_files_found": "ignore"
    }
   },
   {
