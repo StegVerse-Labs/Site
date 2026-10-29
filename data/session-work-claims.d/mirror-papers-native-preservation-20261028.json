@@ -12,7 +12,7 @@
       "handoff": "docs/SITE_MIRROR_HANDOFF.md",
       "handoff_revision": null,
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-mirror-papers-native-preservation-001",
       "dependency_surface_keys": [
         "site:papers-mirror"
@@ -47,7 +47,10 @@
       "render_required": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": false,
+      "pull_request": 1636,
+      "release_commit": "9f7b1342b0cd57d0a82f49bd2aeeba1ba3c9e38e",
+      "claim_released_at": "2026-10-28T23:28:17Z"
     }
   ]
 }

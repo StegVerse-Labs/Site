@@ -184,11 +184,15 @@
     {
       "capability": "EMAIL",
       "label": "Email",
-      "allowed_projection_schemas": [],
+      "projection_field": "accounts",
+      "allowed_projection_schemas": [
+        "stegverse.kv.email-family-projection/v1"
+      ],
       "workspace_types": [
         "PERSONAL",
         "ORGANIZATIONAL"
       ],
+      "max_age_seconds": 86400,
       "default_state": "NOT_OBSERVED",
       "authority_effect": "NONE"
     },

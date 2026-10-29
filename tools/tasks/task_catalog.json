@@ -2470,6 +2470,29 @@
     "timeout_minutes": 5,
     "python_version": "3.11"
    }
+  },
+  {
+   "id": "stegos-node-live-observation.verify",
+   "catalog_addition": "Site#1509 regression gate for the StegOS Node live observer (bootstrap graph, origin binding); stegos-node-public-observation.yml is pinned KEEP_EXISTING_SURFACE_UNCHANGED, so its pull_request paths cannot carry the new test (no folded source workflow)",
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Live StegOS Node observation follows the deployed bootstrap graph on the base origin",
+     "run_file": "tools/tasks/steps/stegos-node-live-observation.verify/01-live-observation-follows-bootstrap-graph.sh",
+     "run_sha256": "ea908c7dff7281c4fc58e9afeb872b93738db9a3e179ea3e1652c8584a3f580a"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "python_version": "3.11"
+   }
   }
  ]
 }
