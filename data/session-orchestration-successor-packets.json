@@ -56,7 +56,7 @@
         "data/session-orchestration-registry.json",
         "prompts/SESSION_SELF_AUDIT.md",
         "scripts/check_session_retirement.py",
-        ".github/workflows/session-retirement-validate.yml"
+        "tools/tasks/folded/session-retirement-validate.yml"
       ],
       "completion_conditions": [],
       "successor_execution_source": "docs/SESSION_ORCHESTRATION_MIRROR_HANDOFF.md",

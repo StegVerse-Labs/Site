@@ -702,25 +702,6 @@
       }
     },
     {
-      "path": ".github/workflows/hil-post-submit-continuity.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "FAIL_CLOSED_KEEP: its steps need node:sqlite, which the local Node 20 lacks, so ALLOW could not be evidenced before folding. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-      "verbatim_sha256": "3adc1599582248a5e4d7117bbd2b265018be3be9af8e80b9d10dac979665a03d",
-      "exception": {
-        "lifecycle": "needs node:sqlite",
-        "justification": "FAIL_CLOSED_KEEP: its steps need node:sqlite, which the local Node 20 lacks, so ALLOW could not be evidenced before folding. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/hil-public-page-proof.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -1094,25 +1075,6 @@
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/session-retirement-validate.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-      "verbatim_sha256": "9acff6ca9858a801f94fc8002ac9644d26de10e17cb44dab30a1b9281c16f1e0",
-      "exception": {
-        "lifecycle": "named by generated census or session data",
-        "justification": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -2637,14 +2599,46 @@
       ],
       "verbatim_record": "tools/tasks/folded/va-claims-chat-llm-bridge.yml",
       "verbatim_sha256": "de081db6e47ac9ed11c31d72ab07590f1a9f7145a4c4aa5916de59eabdff8224"
+    },
+    {
+      "workflow": ".github/workflows/session-retirement-validate.yml",
+      "name": "Session Retirement Validate",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "session-retirement-validate.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/session-retirement-validate.yml",
+      "verbatim_sha256": "9acff6ca9858a801f94fc8002ac9644d26de10e17cb44dab30a1b9281c16f1e0"
+    },
+    {
+      "workflow": ".github/workflows/hil-post-submit-continuity.yml",
+      "name": "HIL Post-Submit Continuity",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "hil-post-submit-continuity.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/hil-post-submit-continuity.yml",
+      "verbatim_sha256": "3adc1599582248a5e4d7117bbd2b265018be3be9af8e80b9d10dac979665a03d"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 100,
+    "workflow_count": 98,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "this is batch 6 of the G17 surface reduction for this repository (103 to 100). Batches 1 to 5 folded 15, 17, 13, 2 and 5 credential-free validators (154 to 103). Batch 6 folds the three remaining validators that have no write permission, no token or secret, no network, one job and no job-level condition: math-solver-public-activation, observe-complete-canonical-gateway-tasks and va-claims-chat-llm-bridge. Two of them read their own workflow file by path to check its authority boundary (the validate-consumer step of math-solver-public-activation and scripts/observe_and_complete_canonical_gateway_tasks.py); they now read the byte-identical copy under tools/tasks/folded/, so every assertion is unchanged. Five validators that DENY on main's tree carry a specific FAIL_CLOSED reason in the registry and stay kept byte-unchanged (re-assessed in Round 56, none is repairable without a publication or freeze decision or without suppressing the check): check-sv002-authentic-runtime-evidence-harness (refuses by design while runtime evidence is absent), hil-announcement-contract (commit 5b92b4b53 made direct Site submission the primary path and rewrote the pages, so the derived status OPEN_MANAGED_RETURN and the required phrases no longer match the published pages), check-hil-linkedin-launch-readiness (anonymous exact-source fetch re-initializes the checkout), task0011-product-source-transport (frozen blob e9962ba5 vs materialized a9fa5b27 after commit 1d3a3b770) and verify-thought-experiments-publication (homepage navigation removed on purpose by Site#571). Also kept with a specific reason: four validators with a job-level pull_request condition, hil-post-submit-continuity, stegmusic-browser-execution and three surfaces named by generated data. The remaining surfaces use a GITHUB_TOKEN, network access, an anonymous checkout re-initialization, write permissions, workflow_run, schedule or issue triggers, several jobs or reusable calls, and stay KEEP_PENDING_LATER_BATCH until their own admitted repair; their credentials belong only in the SKAP Vault inside KV. Each later batch lowers workflow_count and replaces this record with its exact new count.",
+    "required_evidence_or_repair": "this is batch 8 of the G17 surface reduction for this repository (100 to 98). Batches 1 to 7 took the count from 154 to 100 (batch 7, Site#1645, was 103 to 100). This batch folds two more validators: session-retirement-validate and hil-post-submit-continuity. Both have contents:read only, no token or secret, no network, one job and no job-level condition. They were kept earlier for two repairable reasons, now repaired: (1) session-retirement-validate is named as a material-state location in data/session-orchestration-registry.json and in the two projections derived from it (successor packets and archive queue), and scripts/check_session_retirement.py fails when a listed location does not exist; the three entries now name the byte-identical copy tools/tasks/folded/session-retirement-validate.yml (a one-string swap, no entry removed, nothing else in those files changed); (2) hil-post-submit-continuity needs node:sqlite, and the group declares Node 22 (as its workflow did), which the dispatcher installs; it was evidenced locally under Node 22. Five validators that DENY on main's tree carry a specific FAIL_CLOSED reason in the registry and stay kept byte-unchanged (none is repairable without a publication or freeze decision or without suppressing the check): check-sv002-authentic-runtime-evidence-harness, hil-announcement-contract, check-hil-linkedin-launch-readiness, task0011-product-source-transport and verify-thought-experiments-publication. Also kept with a specific reason: four validators with a job-level pull_request condition, stegmusic-browser-execution (browser install) and capture-validation-evidence and conectrr-security-overlay (named by generated data and by their own network source fetch). The remaining surfaces use a GITHUB_TOKEN, network access, an anonymous checkout re-initialization, write permissions, workflow_run, schedule or issue triggers, several jobs or reusable calls, or are named by canonical-workflow checks, and stay KEEP_PENDING_LATER_BATCH until their own admitted repair; their credentials belong only in the SKAP Vault inside KV. Each later batch lowers workflow_count and replaces this record with its exact new count.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request touching .github/workflows/ or those contracts"

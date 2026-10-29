@@ -1,0 +1,1 @@
+node tests/hil-receiver-cross-origin.test.cjs

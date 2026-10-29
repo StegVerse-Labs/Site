@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "p4/site-b7",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "g17-site-workflow-surface-batch-7",
       "dependency_surface_keys": [
         "site:g17-site-workflow-surface-batch-7"
@@ -52,7 +52,10 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1645,
+      "release_commit": "bd756a990",
+      "claim_released_at": "2026-10-29T21:19:06Z"
     }
   ]
 }
