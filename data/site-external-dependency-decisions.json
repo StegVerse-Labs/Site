@@ -1,0 +1,46 @@
+{
+  "schema": "stegverse.site-external-dependency-decisions/v1",
+  "repository": "StegVerse-Labs/Site",
+  "decisions": {
+    "PLAYWRIGHT_BROWSER_VERIFICATION": {
+      "remove": false,
+      "owner": "OWNER (repository owner)",
+      "owner_basis": "No single claim or handoff owns all four workflows; each workflow's owning lane is listed under workflow_owners. The removal decision spans lanes and is the repository owner's.",
+      "dependency": "playwright (PyPI) plus the Chromium browser it installs",
+      "classification": "FAIL_CLOSED EXTERNAL_DEPENDENCY_REQUIRES_OWNER_DECISION",
+      "workflows": [
+        ".github/workflows/autonomy-telemetry.yml",
+        ".github/workflows/conectrr-live-verification.yml",
+        ".github/workflows/entity-economy-volume-ii-public-observation.yml",
+        ".github/workflows/stegmusic-browser-execution.yml"
+      ],
+      "workflow_owners": {
+        ".github/workflows/autonomy-telemetry.yml": "site-public-autonomy-observability (docs/AUTONOMY_ROADMAP_MIRROR_HANDOFF.md)",
+        ".github/workflows/conectrr-live-verification.yml": "SV-SITE-CONECTRR-001 / SV-SITE-CONECTRR-LIVE-001 (docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md)",
+        ".github/workflows/entity-economy-volume-ii-public-observation.yml": "SITE-CURRENT-NEWS-RELEASES-967 (data/session-work-claims.d/site-current-news-releases-967-20260903.json; docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md)",
+        ".github/workflows/stegmusic-browser-execution.yml": "StegMusic browser automation, Site#39 (docs/STEGMUSIC_BROWSER_AUTOMATION_HANDOFF.md)"
+      },
+      "scripts": [
+        "scripts/run_autonomy_runtime_verification.py",
+        "scripts/check_conectrr_remote_browser.py",
+        "scripts/check_entity_economy_volume_ii_public.py",
+        "tests/test_stegmusic_browser.py"
+      ],
+      "effect_when_removed": "The four workflows no longer install Playwright or Chromium. The Chromium-only steps (Conectrr remote browser, Entity Economy Volume II public routes, StegMusic browser runtime) are skipped, and each workflow instead runs a step that prints and writes a FAIL_CLOSED EXTERNAL_DEPENDENCY_REMOVED_BROWSER_VERIFICATION_NOT_RUN record: browser verification is declared not performed, not passed. autonomy-telemetry keeps running its runtime verification, because that step also carries the stdlib HTTP checks and writes the evidence file the later steps read. Its required browser check then records an import failure, the runtime state is FAIL, and the workflow's last step fails, so stale evidence is never re-certified."
+    },
+    "PAPER_MATHJAX_MARKED_CDN": {
+      "remove": false,
+      "owner": "Single-Lane Manifold Matrix Paper lane (docs/SINGLE_LANE_MANIFOLD_MATRIX_PAPER_MIRROR_HANDOFF.md; parent docs/SITE_MIRROR_HANDOFF.md)",
+      "dependency": "cdn.jsdelivr.net mathjax@3 tex-chtml.js and marked.min.js",
+      "classification": "FAIL_CLOSED EXTERNAL_DEPENDENCY_REQUIRES_OWNER_DECISION",
+      "files": [
+        "papers/single-lane-manifold-matrix-governance.html"
+      ],
+      "apply_entrypoint": "python3 scripts/apply_site_external_dependency_decisions.py",
+      "guard": "tests/test_site_external_dependency_decisions.py (python3 scripts/apply_site_external_dependency_decisions.py --check)",
+      "effect_when_removed": "Running the apply script rewrites the page to load no external script. The page still fetches the canonical Publisher Markdown and shows it as unformatted source text in a <pre> block, with a visible note that Markdown and TeX rendering were removed by owner decision. Headings, tables and equations are no longer typeset. The guard fails while remove is true and the page still references cdn.jsdelivr.net, so the flag flip and the regenerated page must land in the same change."
+    }
+  },
+  "authority_effect": "NONE",
+  "note": "Flip remove to true to adopt the prepared removal; nothing else changes. For PAPER_MATHJAX_MARKED_CDN, also run the apply_entrypoint in the same change (the guard test enforces it)."
+}
