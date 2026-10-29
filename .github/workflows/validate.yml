@@ -180,6 +180,9 @@ jobs:
           python3 scripts/write_site_workflow_inventory.py
           python3 scripts/check_site_workflow_inventory.py
 
+      - name: Refuse hosted web-font dependencies
+        run: python3 -m unittest tests.test_site_no_external_font_dependency -v
+
       - name: Validate exclusive claims and Site orchestration
         run: |
           python3 scripts/check_session_work_claims.py
