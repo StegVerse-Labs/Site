@@ -83,10 +83,13 @@ async function withholds(emailProjection,predicate,name,forbidden){
 
   // 2. Secrets. Inside the email projection: only it is withheld. Elsewhere: the whole delivery is refused.
   const SECRET='s3cr3tValueNeverShown0123456789';
-  const secretKeys=['password','passwd','passphrase','pwd','token','access_token','accessToken','accesstoken','refresh_token','refreshToken','refreshtoken','authtoken','id_token','oauth','oauth_token','client_secret','clientsecret','api_key','apiKey','access_key','accessKey','private_key','signing_key','ssh_key','encryption_key','authorization','Authorization','cookie','raw_credential','credentials','jwt','totp_seed','mnemonic','token_count','tokens',
+  const secretKeys=['seed','seed_phrase','wallet_seed','password','passwd','passphrase','pwd','token','access_token','accessToken','accesstoken','refresh_token','refreshToken','refreshtoken','authtoken','id_token','oauth','oauth_token','client_secret','clientsecret','api_key','apiKey','access_key','accessKey','private_key','signing_key','ssh_key','encryption_key','authorization','Authorization','cookie','raw_credential','credentials','jwt','totp_seed','mnemonic','token_count','tokens',
     'ｔｏｋｅｎ','tοken','to​ken','pass­word','sesѕion'];
   for(const key of secretKeys){
-    await withholds(email(p=>{p.accounts[0][key]=SECRET;}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','account key '+JSON.stringify(key),SECRET);
+    const d=await withholds(email(p=>{p.accounts[0][key]=SECRET;}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','account key '+JSON.stringify(key),SECRET);
+    // The repair text is a fixed sentence (it says "credentials stay in SKAP Vault"); only the located part is variable.
+    const located=d.required_evidence_or_repair.split('(found at ')[1]||'';
+    check(!d.secret_path.includes(key)&&!located.includes(key),'refusal never echoes the credential-named key '+JSON.stringify(key)+': '+d.secret_path);
   }
   await withholds(email(p=>{p.messages[2].headers={Authorization:SECRET};}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','nested message header',SECRET);
   for(const [name,value] of [['mid-string bearer','note: Bearer '+SECRET],['basic auth','x Basic dXNlcjpwYXNzd29yZA=='],['JWT','tok eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U'],['GitHub PAT','ghp_'+'A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6Q7r8'],['fine-grained PAT','github_pat_'+'11ABCDEFG0123456789_abcdefghijklmnop'],['private key','x -----BEGIN OPENSSH PRIVATE KEY-----'],['fullwidth bearer','Ｂｅａｒｅｒ '+SECRET],['zero-width bearer','Bea​rer '+SECRET]]){
@@ -96,9 +99,20 @@ async function withholds(emailProjection,predicate,name,forbidden){
     await withholds(email(p=>{p.accounts[1].skap_ref=bad;reseal(p);}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','non-skap reference '+JSON.stringify(bad).slice(0,24),SECRET);
   }
   await withholds(email(p=>{p.accounts[0].credential_material_present=true;}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','nested credential flag set true');
-  {const d=await withholds(email(p=>{p.accounts[1].refresh_token=SECRET;}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','secret path');check(d.secret_path==='$.projections[1].accounts[1].refresh_token','refusal names the key path only: '+d.secret_path);}
+  {const d=await withholds(email(p=>{p.accounts[1].refresh_token=SECRET;}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','secret path');check(d.secret_path==='$.projections[1].accounts[1].[redacted]'&&!JSON.stringify(d).includes('refresh_token'),'refusal names the path with the credential-named key redacted: '+d.secret_path);}
   {const d=await withholds(email(p=>{p.accounts[0]['tοken']=SECRET;}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','confusable key path');check(d.secret_path.endsWith('<non-ASCII key>')&&!d.secret_path.includes('ο'),'a non-ASCII key is named without echoing it: '+d.secret_path);}
   {let deep={};const top=deep;for(let i=0;i<40;i++){deep.next={};deep=deep.next;}await withholds(email(p=>{p.accounts[0].extra=top;}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','nesting beyond the scan bound');}
+  // Credential-shaped keys (a token used as a key) are found and never echoed, in any member.
+  const GHP='ghp_'+'A'.repeat(36),JWT='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.c2lnbmF0dXJlMTIz';
+  for(const k of [GHP,JWT,'Bearer '+SECRET,'github_pat_'+'B'.repeat(30)]){
+    const d=await withholds(email(p=>{p.accounts[0].cursor[k]=1;}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','credential-shaped key '+k.slice(0,6)+' in the email projection',k);
+    check(/\.(\[redacted\]|<non-ASCII key>)$/.test(d.secret_path),'credential-shaped key path redacted: '+d.secret_path);
+    const e=await refuses(familyDelivery([portfolio({portfolio:Object.assign(portfolio().portfolio,{unavailable_fields:{[k]:'x'}})}),email()]),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','credential-shaped key '+k.slice(0,6)+' in a non-email member',k);
+    check(/\.(\[redacted\]|<non-ASCII key>)$/.test(e.secret_path),'non-email credential-shaped key path redacted: '+e.secret_path);
+  }
+  {const e=await refuses(familyDelivery([email()],{[GHP]:{nested:true}}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','credential-shaped key on the envelope',GHP);}
+  // An ancestor key that is fine stays readable; only the offending segment is redacted.
+  {const d=await withholds(email(p=>{p.accounts[0].cursor.extra={api_key:SECRET};}),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','nested key path');check(d.secret_path==='$.projections[1].accounts[0].cursor.extra.[redacted]','only the offending segment is redacted: '+d.secret_path);}
   // Outside the email projection the blast radius is the whole delivery (producer-controlled data, not mail content).
   await refuses(familyDelivery([portfolio({source:{authority:'StegVerse-Labs/TVC',api_key:SECRET}}),email()]),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','secret in a non-email family projection',SECRET);
   await refuses(familyDelivery([portfolio({source:{authority:'StegVerse-Labs/TVC',credential_ref:'https://provider.invalid/'+SECRET}})]),'WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD','non-skap credential_ref in a non-email family projection',SECRET);
@@ -211,7 +225,7 @@ async function withholds(emailProjection,predicate,name,forbidden){
    const realReasons=harness(()=>null).bridge.reasons;
    const hb=harness(()=>familyDelivery([portfolio(),email(p=>{p.accounts[0].refresh_token=SECRET;})]));
    const delivered=await hb.bridge.loadPersonalProjections({recovery_result:null});const realRefusals=hb.bridge.lastFamilyRefusals();
-   check(realRefusals.length===1&&realRefusals[0].secret_path.includes('refresh_token'),'real bridge refusal carries a secret path to be kept off the page');
+   check(realRefusals.length===1&&realRefusals[0].secret_path.endsWith('[redacted]')&&!JSON.stringify(realRefusals[0]).includes(SECRET),'real bridge refusal carries a (redacted) secret path to be kept off the page');
    const personal={schema:'stegverse.kv.personal-workspace-projection/v1',workspace_type:'PERSONAL',state:'KV_WORKSPACE_EMPTY',principals:[],organizations:[],memberships:[],feed:[],assistant:null,credential_material_present:false,provider_operation_authorized:false,workspace_grants_authority:false,authority_effect:'NONE'};
    const ids=['workspaceSwitch','workspaceRuntimeState','contextTitle','assistant','search','feed','contacts','organizations','memberships','kvGate','intentDraft','capabilities','searchResults','tasks'];
    const page=(bridgeExtra,opts)=>{opts=opts||{};const els={};ids.forEach(i=>els[i]={id:i,innerHTML:'',textContent:'',className:'',value:'',dataset:{},attrs:{},setAttribute(k,v){this.attrs[k]=v},removeAttribute(k){delete this.attrs[k]},classList:{add(){},remove(){}},listeners:{},addEventListener(t,f){this.listeners[t]=f},scrollIntoView(){}});
@@ -226,7 +240,7 @@ async function withholds(emailProjection,predicate,name,forbidden){
    for(const panels of [true,false]){
     const pg=page({lastFamilyRefusals:()=>realRefusals},{panels});await wait();const html=pg.els.capabilities.innerHTML,card=emailCard(html);
     check(card.includes('data-family-refusal="WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD"')&&card.includes('Projection withheld · FAIL_CLOSED · WORKSPACE_FAMILY_PROJECTION_SECRET_FIELD')&&card.includes('A delivered projection contains something shaped like a password')&&card.includes('nothing waits'),'EMAIL card shows the withheld projection (panels '+panels+'): '+card.slice(0,500));
-    check(!html.includes(SECRET)&&!html.includes('refresh_token')&&!html.includes('secret_path')&&!html.includes(realRefusals[0].required_evidence_or_repair),'page echoes no secret, key path or repair text (panels '+panels+')');
+    check(!html.includes(SECRET)&&!html.includes('refresh_token')&&!html.includes('[redacted]')&&!html.includes(realRefusals[0].secret_path)&&!html.includes(realRefusals[0].required_evidence_or_repair),'page echoes no secret, key path or repair text (panels '+panels+')');
     check((html.match(/data-family-refusal=/g)||[]).length===1,'refusal shown once, on the EMAIL card only (panels '+panels+')');
     if(panels)check(html.includes('CryptoBot portfolio (read-only)')&&/CryptoBot portfolio \(read-only\)<\/strong> <span class="pill ok">OBSERVED/.test(html),'CryptoBot still renders beside the withheld email projection');
     pg.switchTo('ORG');check(!pg.els.capabilities.innerHTML.includes('data-family-refusal'),'no family refusal outside the personal context (panels '+panels+')');

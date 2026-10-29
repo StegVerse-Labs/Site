@@ -91,22 +91,27 @@ function nonAuthorizing(p,label){requireValue(p&&typeof p==="object"&&p.workspac
 // allowed are the false credential flags and skap:// references (SKAP Vault alone holds credentials). Deliberate
 // choice: any key containing "token" (token_count, tokens) is refused too; no shipped family projection uses one.
 var FAMILY_RETRY_ENTRYPOINT="StegVerseWorkspaceKVBridge.loadPersonalProjections (Site assets/workspace-kv-bridge.js)",FAMILY_NEXT="the next WorkSpace load queues a new family request and evaluates the delivered projections again; nothing waits";
-var SECRET_WORDS=["password","passwd","passphrase","passcode","pwd","secret","token","oauth","apikey","accesskey","privatekey","signingkey","sshkey","encryptionkey","bearer","cookie","authorization","credential","sessionkey","jwt","totp","mfaseed","mnemonic","recoverycode"];
+var SECRET_WORDS=["password","passwd","passphrase","passcode","pwd","secret","token","oauth","apikey","accesskey","privatekey","signingkey","sshkey","encryptionkey","bearer","cookie","authorization","credential","sessionkey","jwt","totp","seed","mnemonic","recoverycode"];
 var SECRET_VALUE=/\bbearer\s+[A-Za-z0-9\-._~+\/]{16,}|\bbasic\s+(?=[A-Za-z0-9+\/]*[0-9+\/])[A-Za-z0-9+\/]{12,}={0,2}|\beyJ[A-Za-z0-9_-]{4,}\.[A-Za-z0-9_-]{4,}\.[A-Za-z0-9_-]{4,}|\bgh[pousr]_[A-Za-z0-9]{20,}|\bgithub_pat_[A-Za-z0-9_]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----/i;
 var REF_KEYS=["credentialref","skapref","skapcredentialref"],FLAG_KEYS=["credentialmaterialpresent","credentialsecretpresentinkv"];
 function familyExtra(extra){return Object.assign({retry_entrypoint:FAMILY_RETRY_ENTRYPOINT},extra||{});}
 function nfkc(v){return String(v).normalize("NFKC");}
 function foldKey(k){var n=nfkc(k);if(/[^\x21-\x7e]/.test(n))return null;return n.toLowerCase().replace(/[^a-z0-9]+/g,"");}
+function secretText(v){return SECRET_VALUE.test(nfkc(v).replace(/\p{Cf}/gu,""));}
+function secretWord(n){for(var w=0;w<SECRET_WORDS.length;w++)if(n.indexOf(SECRET_WORDS[w])>=0)return true;return false;}
+// Refusal paths name where a hit is without echoing it: a key segment that is non-ASCII, holds a credential word or is
+// itself credential-shaped (a token used as a key) is written as a placeholder, never as the key.
+function pathSegment(k,n){return n===null?"<non-ASCII key>":(secretWord(n)||secretText(k))?"[redacted]":k;}
 function secretPath(v,path,depth){
  if(depth>32)return path+" (nesting deeper than 32)";
- if(typeof v==="string")return SECRET_VALUE.test(nfkc(v).replace(/\p{Cf}/gu,""))?path:null;
+ if(typeof v==="string")return secretText(v)?path:null;
  if(!v||typeof v!=="object")return null;
  if(Array.isArray(v)){for(var i=0;i<v.length;i++){var hit=secretPath(v[i],path+"["+i+"]",depth+1);if(hit)return hit;}return null;}
- for(var k in v){if(!Object.prototype.hasOwnProperty.call(v,k))continue;var n=foldKey(k),x=v[k],here=path+"."+(n===null?"<non-ASCII key>":k);
-  if(n===null)return here;
+ for(var k in v){if(!Object.prototype.hasOwnProperty.call(v,k))continue;var n=foldKey(k),x=v[k],here=path+"."+pathSegment(k,n);
+  if(n===null||secretText(k))return here;
   if(FLAG_KEYS.indexOf(n)>=0){if(x!==false)return here;continue;}
   if(REF_KEYS.indexOf(n)>=0){if(!(x===null||(typeof x==="string"&&SKAP_REF.test(x))))return here;continue;}
-  for(var w=0;w<SECRET_WORDS.length;w++)if(n.indexOf(SECRET_WORDS[w])>=0)return here;
+  if(secretWord(n))return here;
   var hit2=secretPath(x,here,depth+1);if(hit2)return hit2;}
  return null;
 }
