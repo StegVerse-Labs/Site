@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-10-30T23:40:09Z",
+  "last_updated": "2026-10-30T23:55:29Z",
   "freshness": {
-    "generated_at": "2026-10-30T23:40:09Z",
+    "generated_at": "2026-10-30T23:55:29Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -128,7 +128,7 @@
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 00:53",
+      "status": "2ND 10:12",
       "kickoff": "2026-10-30T23:00:00Z",
       "conference": "american",
       "note": "Tulane Charlotte"
@@ -141,7 +141,7 @@
       "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 12:54",
+      "status": "1ST 07:14",
       "kickoff": "2026-10-30T23:30:00Z",
       "conference": "big-12",
       "note": "Baylor UCF"
