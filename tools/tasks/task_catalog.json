@@ -5126,6 +5126,96 @@
     "timeout_minutes": 5,
     "python_version": "3.11"
    }
+  },
+  {
+   "id": "check-stegfin-phone-projection.validate",
+   "source": {
+    "workflow": ".github/workflows/check-stegfin-phone-projection.yml",
+    "workflow_name": "Check StegFin Phone Projection - Validation Only / No GitHub Token Authority",
+    "job": "validate",
+    "job_name": null,
+    "commit": "2c207c4c0",
+    "triggers_before": [
+     "workflow_dispatch",
+     "pull_request",
+     "push",
+     "workflow_run"
+    ],
+    "permissions_before": {},
+    "workflow_retained": "the file stays as the workflow_run-only publication observer (job observe-publication, no job-level if)"
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate Site pre-work claim registry",
+     "run_file": "tools/tasks/steps/check-stegfin-phone-projection.validate/01-validate-site-pre-work-claim-registry.sh",
+     "run_sha256": "354f2185aff2fa1639a75b2964ed6edcca2a90f7e83c4b7137ade0720b1c4645"
+    },
+    {
+     "name": "Validate exact StegFin phone projection plus SKAP extension",
+     "run_file": "tools/tasks/steps/check-stegfin-phone-projection.validate/02-validate-exact-stegfin-phone-projection-plus-skap-extension.sh",
+     "run_sha256": "f613a4e72dd8dde2ac6455b0746d1a159e2cb722c454d703d54317254c653750"
+    },
+    {
+     "name": "Validate USER_ONLY wallet handoff successor projection",
+     "run_file": "tools/tasks/steps/check-stegfin-phone-projection.validate/03-validate-user-only-wallet-handoff-successor-projection.sh",
+     "run_sha256": "b2857d68a1f47940479d70c92d7a2b6f99fc794bd9bcc5afa02aafbe2caa65c2"
+    },
+    {
+     "name": "Prove validation workflow is non-authorizing",
+     "run_file": "tools/tasks/steps/check-stegfin-phone-projection.validate/04-prove-validation-workflow-is-non-authorizing.sh",
+     "run_sha256": "9e0186b8c4b713ff39af196f5c574b197eb753b0871743fdf598b040f6b8b255"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10
+   },
+   "fold_notes": [
+    "the original anonymous public checkout (git init, fetch refs/pull/N/merge or GITHUB_SHA, GITHUB_TOKEN and GH_TOKEN asserted empty) -> the dispatcher's credential-free checkout of the event ref",
+    "the original job-level `if: github.event_name != 'workflow_run'` is not carried: this group runs only on pull_request and push, and the retained workflow_run observer no longer has an event-split job condition",
+    "workflow_dispatch is not carried (no manual dispatch)",
+    "the verbatim pre-split workflow is recorded at tools/tasks/folded/check-stegfin-phone-projection.yml (sha256 d0b0ac061cb2955243862f3b6307582505bdea21b63c9e53eccf34aef5a2672f)"
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "stegfin-trade.html",
+      "stegfinco.html",
+      "assets/stegfin-phone/**",
+      "scripts/check_stegfin_phone_projection.py",
+      "scripts/check_stegfin_phone_projection_with_skap.py",
+      "scripts/check_stegfin_user_wallet_handoff_projection.py",
+      "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
+      "data/session-work-claims.json",
+      ".github/workflows/check-stegfin-phone-projection.yml",
+      "tools/tasks/folded/check-stegfin-phone-projection.yml",
+      "tools/tasks/steps/check-stegfin-phone-projection.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "stegfin-trade.html",
+      "stegfinco.html",
+      "assets/stegfin-phone/**",
+      "scripts/check_stegfin_phone_projection.py",
+      "scripts/check_stegfin_phone_projection_with_skap.py",
+      "scripts/check_stegfin_user_wallet_handoff_projection.py",
+      "docs/STEGFIN_PHONE_PROJECTION_MIRROR_HANDOFF.md",
+      "data/session-work-claims.json",
+      ".github/workflows/check-stegfin-phone-projection.yml",
+      "tools/tasks/folded/check-stegfin-phone-projection.yml",
+      "tools/tasks/steps/check-stegfin-phone-projection.validate/**"
+     ]
+    }
+   },
+   "repairs": []
   }
  ]
 }
