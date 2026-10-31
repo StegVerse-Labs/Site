@@ -5,5 +5,6 @@
   root.document.write('<script src="/stegos-bootstrap/stegos-bootstrap-impl.js?v=20260911-v3"><\/script>');
   root.document.write('<script src="/stegos-bootstrap/device-local-autostart.js?v=20260915-unified-mykv-v1"><\/script>');
   root.document.write('<script src="/assets/stegverse-node-continuity-impl.js?v=20260911-v3"><\/script>');
-  root.document.write('<script src="/assets/stegos-resident-health.js?v=20260915-unified-mykv-v1"><\/script>');
+  root.document.write('<script src="/assets/stegos-resident-health.js?v=20261031-health-contract-v1"><\/script>');
 }(window));
+

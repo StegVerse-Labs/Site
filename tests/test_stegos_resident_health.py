@@ -9,8 +9,8 @@ BOOT_LOADER = (ROOT / "stegos-bootstrap/stegos-bootstrap.js").read_text(encoding
 
 class ResidentStegOSHealthTests(unittest.TestCase):
     def test_one_canonical_client_is_loaded_by_mykv_node_and_stegos_bootstrap(self):
-        self.assertIn('/assets/stegos-resident-health.js?v=20260915-unified-mykv-v1', NODE_LOADER)
-        self.assertIn('/assets/stegos-resident-health.js?v=20260915-v1', BOOT_LOADER)
+        self.assertIn('/assets/stegos-resident-health.js?v=20261031-health-contract-v1', NODE_LOADER)
+        self.assertIn('/assets/stegos-resident-health.js?v=20261031-health-contract-v1', BOOT_LOADER)
         self.assertIn('/stegos-bootstrap/stegos-bootstrap-impl.js', NODE_LOADER)
         self.assertIn('/stegos-bootstrap/device-local-autostart.js', NODE_LOADER)
         self.assertIn('root.StegOSResidentHealth=Object.freeze', HEALTH)
@@ -66,3 +66,4 @@ class ResidentStegOSHealthTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
