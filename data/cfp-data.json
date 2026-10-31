@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-10-31T03:15:18Z",
+  "last_updated": "2026-10-31T03:25:45Z",
   "freshness": {
-    "generated_at": "2026-10-31T03:15:18Z",
+    "generated_at": "2026-10-31T03:25:45Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -154,7 +154,7 @@
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 02:44",
+      "status": "2ND 13:39",
       "kickoff": "2026-10-31T02:30:00Z",
       "conference": "mac",
       "note": "Kent St. Sacramento St."
