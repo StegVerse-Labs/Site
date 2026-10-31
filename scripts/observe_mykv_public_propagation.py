@@ -31,7 +31,7 @@ LOADER_MARKERS = (
     "/stegos-bootstrap/stegos-bootstrap-impl.js",
     "/stegos-bootstrap/device-local-autostart.js?v=20260915-unified-mykv-v1",
     "/assets/stegverse-node-continuity-impl.js",
-    "/assets/stegos-resident-health.js?v=20260915-unified-mykv-v1",
+    "/assets/stegos-resident-health.js?v=20261031-health-contract-v1",
 )
 
 
@@ -181,3 +181,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
