@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-10-31T02:55:22Z",
+  "last_updated": "2026-10-31T03:15:18Z",
   "freshness": {
-    "generated_at": "2026-10-31T02:55:22Z",
+    "generated_at": "2026-10-31T03:15:18Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -128,7 +128,7 @@
       "away_score": 38,
       "home_record": "",
       "away_record": "",
-      "status": "OT 00:10",
+      "status": "FINAL",
       "kickoff": "2026-10-30T23:00:00Z",
       "conference": "american",
       "note": "Tulane Charlotte"
@@ -141,7 +141,7 @@
       "away_score": 41,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 03:19",
+      "status": "FINAL",
       "kickoff": "2026-10-30T23:30:00Z",
       "conference": "big-12",
       "note": "Baylor UCF"
@@ -151,10 +151,10 @@
       "home": "Sacramento St.",
       "away": "Kent St.",
       "home_score": 0,
-      "away_score": 0,
+      "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 09:14",
+      "status": "1ST 02:44",
       "kickoff": "2026-10-31T02:30:00Z",
       "conference": "mac",
       "note": "Kent St. Sacramento St."
