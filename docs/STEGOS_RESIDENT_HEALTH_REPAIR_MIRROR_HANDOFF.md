@@ -83,7 +83,8 @@ Implemented in this proposed revision:
 - Both existing loader cache keys and the existing MyKV publication observer
   reference the revised health client. Existing repair/Node/KV ownership remains.
 - Dependency-free behavior tests and an exact-byte GET publication verifier are
-  wired into the existing folded Node-continuity validation step.
+  invoked by the existing resident-health unittest module. The shared folded
+  validation step and catalog pins remain unchanged.
 
 Local checks: 17 Node behavior/contract tests, 5 existing resident-health tests,
 3 publication-verifier tests and 4 existing MyKV observer tests passed before draft submission (29 total). These use
