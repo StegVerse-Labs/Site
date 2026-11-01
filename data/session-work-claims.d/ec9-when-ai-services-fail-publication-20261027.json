@@ -6,7 +6,7 @@
       "claim_id": "EC9-WHEN-AI-SERVICES-FAIL-SITE-PUBLICATION-001-20261027",
       "session_worker_id": "claude:coordination:ec9-when-ai-services-fail-site-publication-001-20261027",
       "task_id": "EC9-WHEN-AI-SERVICES-FAIL-SITE-PUBLICATION-001",
-      "originating_goal": "Publish the final 19-page research paper 'When AI Services Fail: Computational Overcharging and the Cost of Failed Prompts' (SV-LLM/Ecosystem_Chat#9) on Site as an exact-byte PDF and DOCX with a landing page and a Papers discovery card, linking the full ERL research-process mirror, without creating research, governance or publication authority on Site.",
+      "originating_goal": "Publish the final research paper (current reviewed edition v1.0.3, 17 pages) 'When AI Services Fail: Computational Overcharging and the Cost of Failed Prompts' (SV-LLM/Ecosystem_Chat#9) on Site as an exact-byte PDF and DOCX with a landing page and a Papers discovery card, linking the full ERL research-process mirror, without creating research, governance or publication authority on Site.",
       "repository": "StegVerse-Labs/Site",
       "branch": "publication/when-ai-services-fail-20261027",
       "handoff": "docs/SITE_MIRROR_HANDOFF.md",
@@ -27,9 +27,9 @@
       "claim_created_at": "2026-10-27T18:40:00Z",
       "claim_expires_when": "Release after exact-byte PDF/DOCX installation, exact-head Site validation, non-author merge, and public observation of the paper page and PDF route.",
       "expected_evidence": [
-        "installed PDF is 19 pages, 229170 bytes, SHA-256 db163e297edaf01adb3b96a2702935b96b3928a799e6fb82f7e35b7b60d8565f",
-        "installed DOCX is 54683 bytes, SHA-256 2a93dd9682121a5738b0ec6a294833fc0a1dc07366a562ab7bf034fccf781c81",
-        "text-level publication review PASS by Claude and Kimi against the final bytes",
+        "installed PDF (v1.0.3) is 17 pages, 186269 bytes, SHA-256 463fce02c432dede1a5505376e1f41b67b05c81c2a34f0a2f9ab07c56373ab28 (superseded v1.0 expectation: 19 pages, 229170 bytes, db163e29...)",
+        "installed DOCX (v1.0.3) is 55591 bytes, SHA-256 be72df87676b07f9e6cef84d5c338abe5738344a82ffefc98edc592c52dd9db7 (superseded v1.0 expectation: 54683 bytes, 2a93dd96...)",
+        "non-author review PASS against the installed bytes: L2/L2b/L2c (v1.0.1/v1.0.2), L3/L3b (v1.0.3, Site#1633 6503943545), lane-6 visual/static review (6505019289)",
         "ERL mirror (Executive_Rhetoric_Ledger PR #249) merged so the provenance link resolves",
         "Site makes no independent research finding or publication-authority claim"
       ],
@@ -39,7 +39,7 @@
         "Do not alter other papers or release entries",
         "No private account screenshots or restricted ERL case contents"
       ],
-      "blocked_on": "Exact final binaries: custody transfer from the authoring conversation (SV-LLM/Ecosystem_Chat#9 lane A).",
+      "blocked_on": "Native publication authority: Q74-01 custody basis (.github#2810), DEP-EC9-MANUSCRIPT-V1_0_1 admitted event (.github#3195), TVC receipt ingestion (.github#3183), then exact-head SPPA ALLOW. Binary custody transfer completed (v1.0 KV custody, two readbacks).",
       "next_task_after_release": "None for Site unless a revised edition is issued.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",

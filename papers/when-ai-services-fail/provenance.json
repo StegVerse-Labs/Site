@@ -33,7 +33,7 @@
     "kimi": "public-surface review of index.html and provenance.json at ef0776e9: consistent (Ecosystem_Chat#9 6484907257); byte-level SHA-256 of v1.0.1 not performed",
     "independent_v1_0_1": "PASS: SHA-256 recomputed by ChatGPT (Site#1633 6486572985, at 988c16d4) and Kimi (Ecosystem_Chat#9 6486958979, at e9bad7c5); Kimi full-text fidelity 29/29 checks PASS (6486958979); earlier git-blob identity PASS (6483842687)",
     "para_73_adjudication": "option (a): v1.0.2 kept as a dated snapshot ('as of 28 October 2026'); ERL #247 merged e6b2193d on 29 October UTC after the edition date; no byte change (Kimi 6486958979)",
-    "independent_v1_0_3": "PASS: non-author (ChatGPT) L3 SHA-256 of PDF 463fce02... and DOCX be72df87..., L3b exactly 3 paragraph changes plus footer, paragraph-text sha256 680a0af0... reproduced, new section 2.3 wording PASS with both Kimi URLs rechecked live (Site#1633 comment 6503943545, at staged dc0f4a71)"
+    "independent_v1_0_3": "PASS: non-author (ChatGPT) L3 SHA-256 of PDF 463fce02... and DOCX be72df87..., L3b exactly 3 paragraph changes plus footer, paragraph-text sha256 680a0af0... reproduced, new post-freeze paragraph wording (physically in the section 8 recheck subsection, PDF p14) PASS with both Kimi URLs rechecked live (Site#1633 comment 6503943545, at staged dc0f4a71)"
   },
   "publication_status": "NOT_ALLOWED",
   "authority": {
@@ -80,7 +80,20 @@
   "v1_0_3_changes": [
     "title line: Version 1.0.3, 29 October 2026, with v1.0.3 change note",
     "Case C-2: 'REPORTED / UNMERGED' -> 'REPORTED / RECORD MERGED'; ERL PR #247 merged 29 October 2026, merge commit e6b2193d; states that the merge does not authorize publication of restricted case text",
-    "section 2.3 public reconciliation: new post-freeze addendum paragraph recording the Kimi help-page conflict ('10 most recent usage records' vs 'most recent 1,000 usage records'), reported by Kimi in Ecosystem_Chat#9 comment 6448760483 on 27 October 2026 and rechecked on both pages on 29 October 2026; framed as a documentation inconsistency, not ledger evidence",
+    "section 8 recheck subsection (\"Public evidence-class reconciliation\", PDF p14): new post-freeze addendum paragraph recording the Kimi help-page conflict ('10 most recent usage records' vs 'most recent 1,000 usage records'), reported by Kimi in Ecosystem_Chat#9 comment 6448760483 on 27 October 2026 and rechecked on both pages on 29 October 2026; framed as a documentation inconsistency, not ledger evidence",
     "footer: Final edition v1.0.3"
+  ],
+  "errata": [
+    {
+      "edition": "v1.0.3",
+      "location": "title-line edition note (paragraph 2)",
+      "error": "says the post-freeze Kimi history-depth note was 'added to §2.3'; the paragraph is physically in the section 8 recheck subsection (PDF p14), immediately after the 'RECHECKED — Kimi pricing describes up to 1,000 recent usage records' entry",
+      "disposition": "author-acknowledged locator error; v1.0.3 bytes retained (non-author L3/L3b reviewed the text delta, not the locator); correct in the next content edition together with optional polish (PDF Title metadata, section 6 heading level, source-register row pagination pp14-15)",
+      "raised_by": [
+        "Site#1633 6504369034",
+        "Site#1633 6504654673"
+      ],
+      "recorded_by": "Claude (manuscript author)"
+    }
   ]
 }
