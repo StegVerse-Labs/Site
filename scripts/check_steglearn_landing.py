@@ -53,10 +53,10 @@ if HANDOFF.exists():
     for marker in [
         'PASS_FOR_STATIC_PUBLIC_STEGLEARN_ORIENTATION_SURFACE',
         'NO_ROOT_README_CHANGE_REQUIRED',
-        'SOURCE_LANDING_PAGE_IMPLEMENTED_VALIDATION_PENDING',
+        'SOURCE_LANDING_PAGE_IMPLEMENTED_VALIDATOR_INSTALLED_CI_BOUND_DEPLOYED_REACHABILITY_PENDING',
         'StegVerse-Labs/StegLearn/STEGLEARN_MIRROR_HANDOFF.md',
         'docs/STEGVERSE_FOUNDATIONS_MIRROR_HANDOFF.md',
-        'generation 15',
+        'STEGLEARN-SITE-PUBLICATION-001',
     ]:
         require(marker.lower() in handoff.lower(), f"handoff missing marker: {marker}")
 

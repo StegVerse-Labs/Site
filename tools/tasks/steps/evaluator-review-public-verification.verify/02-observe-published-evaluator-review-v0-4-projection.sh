@@ -1,0 +1,1 @@
+python scripts/check_evaluator_review_public.py

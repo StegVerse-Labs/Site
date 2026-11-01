@@ -10,10 +10,19 @@
 if(!root)return;
 var SCHEMA="stegverse.workspace.search/v1";
 var MAX_HITS=50;
-var KIND_ORDER=["assistant","principal","organization","membership","task","commitment","feed","portfolio"];
+var KIND_ORDER=["assistant","principal","organization","membership","task","commitment","feed","portfolio","email_account","email_message"];
 // Searchable states are an explicit allow-list, never "not withheld": only an observed, stale or freshness-unknown
 // source for THIS context is searched, and the source projection itself must declare the same context.
 var SEARCHABLE=["OBSERVED","STALE","FRESHNESS_UNKNOWN"];
+// Plain-language reasons for the exclusion predicates only search produces (the panel and capability catalogs cover
+// theirs; the panels catalog lists only what panels produce, so search keeps its own).
+var REASONS=Object.freeze({
+ SEARCH_EXTRACTOR_NOT_DEFINED:"search has no rule yet for which fields of this family are safe to look at, so it is not searched",
+ SEARCH_CONTEXT_NOT_ADMITTED:"this family is projected from Personal KV only, so search never looks at it in another workspace context",
+ SEARCH_SOURCE_MALFORMED:"the projection for this family could not be read the way the panel reads it, so it is not searched",
+ EMAIL_VALIDATOR_UNAVAILABLE:"the email panel checks are not loaded, so search leaves email out rather than look at rows the panel has not checked"
+});
+function own(o,k){return Object.prototype.hasOwnProperty.call(o,k)?o[k]:null;}
 function isObject(v){return !!v&&typeof v==="object"&&!Array.isArray(v);}
 function text(v){return v===null||v===undefined?"":String(v);}
 function tokens(q){return text(q).toLowerCase().trim().split(/\s+/).filter(Boolean);}
@@ -33,8 +42,31 @@ var EXTRACT={
  assistant:function(v){return isObject(v)?[{kind:"assistant",id:text(v.principal_id),label:text(v.display_name||v.principal_id),detail:"WORKSPACE_ASSISTANT (display only; no invocation route)",parts:[v.display_name,v.principal_id,"assistant"]}]:[];},
  tasks:function(v){return (Array.isArray(v)?v:[]).filter(isObject).map(function(t){return {kind:"task",id:text(t.task_id),label:text(t.title),detail:[t.status,t.due_at?"due "+text(t.due_at):null].filter(Boolean).map(text).join(" · ")+" · action_eligible: false",parts:[t.title,t.task_id,t.status,t.source_ref]};});},
  commitments:function(v){return (Array.isArray(v)?v:[]).filter(isObject).map(function(c){return {kind:"commitment",id:text(c.commitment_id),label:text(c.statement),detail:[c.status,c.counterparty_principal_id?"with "+text(c.counterparty_principal_id):null,c.due_at?"due "+text(c.due_at):null].filter(Boolean).map(text).join(" · ")+" · action_eligible: false",parts:[c.statement,c.commitment_id,c.status,c.counterparty_principal_id,c.source_ref]};});},
- portfolio:function(v){var rows=isObject(v)&&Array.isArray(v.positions)?v.positions:[];return rows.filter(isObject).map(function(p){return {kind:"portfolio",id:text(p.product_id||p.asset),label:text(p.asset||p.product_id),detail:[p.product_id,p.quantity!==undefined?"qty "+text(p.quantity):null,p.value_usd!==undefined?"usd "+text(p.value_usd):null].filter(Boolean).join(" · "),parts:[p.asset,p.product_id,p.chain,p.contract]};});}
+ portfolio:function(v){var rows=isObject(v)&&Array.isArray(v.positions)?v.positions:[];return rows.filter(isObject).map(function(p){return {kind:"portfolio",id:text(p.product_id||p.asset),label:text(p.asset||p.product_id),detail:[p.product_id,p.quantity!==undefined?"qty "+text(p.quantity):null,p.value_usd!==undefined?"usd "+text(p.value_usd):null].filter(Boolean).join(" · "),parts:[p.asset,p.product_id,p.chain,p.contract]};});},
+ // Email family (stegverse.kv.email-family-projection/v1, Site#1509): searches exactly the rows the EMAIL panel shows,
+ // through the panel's own validator (StegVerseWorkspacePanels.emailView), never a weaker copy of it. A mailbox mapping
+ // matches on provider_id, mapping_state and mapping_id; a message row on canonical_message_id, receipt_id and
+ // mapping_id. skap_ref, cursor internals, staged_content_hash and every other field are never searched or shown.
+ // Without the panel validator the field is not searched (EMAIL_VALIDATOR_UNAVAILABLE).
+ accounts:function(v,source){
+  var P=root.StegVerseWorkspacePanels;
+  if(!P||typeof P.emailView!=="function")return {problem:"EMAIL_VALIDATOR_UNAVAILABLE",state:"UNAVAILABLE"};
+  var view=P.emailView(source);
+  if(view.problem)return {problem:view.problem};
+  var rows=[];
+  view.accounts.forEach(function(a){var id=a.mapping_id;
+   rows.push({kind:"email_account",id:id,label:id,detail:["mailbox mapping","provider "+text(a.provider_id),text(a.mapping_state)].join(" · ")+" · action_eligible: false",parts:[a.provider_id,a.mapping_state,id]});
+   a.messages.forEach(function(m){
+    rows.push({kind:"email_message",id:text(m.canonical_message_id),label:text(m.canonical_message_id),detail:"mapping "+id+" · ADMIT receipt "+text(m.receipt_id)+" · sequence "+text(m.sequence)+" · payload not present · action_eligible: false",parts:[m.canonical_message_id,m.receipt_id,id]});
+   });
+  });
+  return rows;
+ }
 };
+// Fields admitted only in some contexts: a personal email projection is never searched outside the personal context,
+// even if a projection declaring another context were handed in (no Org-KV email projection exists yet).
+var FIELD_CONTEXTS=Object.create(null);FIELD_CONTEXTS.accounts=["PERSONAL"];
+function fieldContexts(field){return own(FIELD_CONTEXTS,field);}
 function result(disposition,predicate,extra){
  var r={schema:SCHEMA,disposition:disposition,predicate:predicate,query:"",workspace_type:null,hits:[],hit_count:0,truncated:false,excluded:[],visibility_withheld:0,display_withheld:0,ambiguous:[],index:"NONE_EPHEMERAL_QUERY_ONLY",action_eligible:false,authority_effect:"NONE"};
  if(extra)for(var k in extra)if(Object.prototype.hasOwnProperty.call(extra,k))r[k]=extra[k];
@@ -58,13 +90,16 @@ function search(input){
  for(var i=0;i<descs.length;i++){
   var d=descs[i],s=statuses[i],field=s.projection_field;
   if(C.withholdsRows(s)||SEARCHABLE.indexOf(s.state)<0){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:s.predicate});continue;}
-  if(!EXTRACT[field]){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:"SEARCH_EXTRACTOR_NOT_DEFINED"});continue;}
+  if(fieldContexts(field)&&fieldContexts(field).indexOf(wt)<0){excluded.push({capability:s.capability,projection_field:field,state:"CONTEXT_MISMATCH",predicate:"SEARCH_CONTEXT_NOT_ADMITTED"});continue;}
+  var extract=own(EXTRACT,field);
+  if(!extract){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:"SEARCH_EXTRACTOR_NOT_DEFINED"});continue;}
   var schemas=Array.isArray(d.allowed_projection_schemas)?d.allowed_projection_schemas:[];
   var source=null;for(var j=0;j<projs.length;j++){if(isObject(projs[j])&&schemas.indexOf(projs[j].schema)>=0){source=projs[j];break;}}
   if(!source){excluded.push({capability:s.capability,projection_field:field,state:s.state,predicate:"PROJECTION_SOURCE_NOT_FOUND"});continue;}
   if(source.workspace_type!==wt){excluded.push({capability:s.capability,projection_field:field,state:"CONTEXT_MISMATCH",predicate:"PROJECTION_WORKSPACE_TYPE_MISMATCH"});continue;}
   if(!toks.length)continue;
-  var rows=EXTRACT[field](source[field]),prov=provenanceOf(s,source);
+  var rows=extract(source[field],source),prov=provenanceOf(s,source);
+  if(!Array.isArray(rows)){excluded.push({capability:s.capability,projection_field:field,state:rows&&rows.state==="UNAVAILABLE"?"UNAVAILABLE":"MALFORMED",predicate:text(rows&&rows.problem)||"SEARCH_SOURCE_MALFORMED"});continue;}
   for(var r=0;r<rows.length;r++){
    var row=rows[r];
    if(row.kind==="feed"&&visible&&!visible(row.row)){withheld++;continue;}
@@ -77,5 +112,5 @@ function search(input){
  var truncated=hits.length>MAX_HITS;if(truncated)hits=hits.slice(0,MAX_HITS);
  return result("ALLOW",toks.length?"SEARCH_COMPLETED":"QUERY_EMPTY",{query:q,workspace_type:wt,hits:hits,hit_count:hits.length,truncated:truncated,excluded:excluded,visibility_withheld:withheld,display_withheld:displayWithheld});
 }
-root.StegVerseWorkspaceSearch=Object.freeze({schema:SCHEMA,search:search,max_hits:MAX_HITS,index:"NONE_EPHEMERAL_QUERY_ONLY",authority_effect:"NONE"});
+root.StegVerseWorkspaceSearch=Object.freeze({schema:SCHEMA,search:search,reasons:REASONS,max_hits:MAX_HITS,index:"NONE_EPHEMERAL_QUERY_ONLY",authority_effect:"NONE"});
 }(typeof globalThis!=="undefined"?globalThis:this));

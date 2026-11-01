@@ -1,0 +1,1 @@
+python3 scripts/check_stegfin_user_wallet_handoff_projection.py

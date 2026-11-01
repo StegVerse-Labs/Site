@@ -1,0 +1,1 @@
+node tests/workspace-device-continuity.test.cjs

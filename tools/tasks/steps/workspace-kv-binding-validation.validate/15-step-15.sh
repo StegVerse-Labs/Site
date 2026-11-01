@@ -1,0 +1,1 @@
+node tests/workspace-context-isolation.test.cjs

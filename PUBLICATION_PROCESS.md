@@ -104,6 +104,53 @@ Before updating a public page, answer:
 [ ] Does the page preserve the Site boundary doctrine?
 ```
 
+## Downloadable PDF Procedure
+
+Applies to any PDF (or other binary) offered for download from the Site. First user: the real governance assessment sample (`docs/SITE_PUBLIC_PATHS.md`, "Real Governance Assessment Sample Path"; `StegVerse-Labs/.github#3398`).
+
+SKAP Vault invariant (existing source, quoted):
+
+> "SKAP Vault inside KV is the only PII and credential store for every user, the ecosystem's own included; the ecosystem holds none (HST citation pending P1 #163). (`docs/FEDERATION_DIRECTORY.md:3`)"
+>
+> Quoted from its existing source in `StegVerse-Labs/.github`; not restated as new. This Site holds no PII or credential, and no assessment page or download stores one.
+
+### Default: pointer plus digest only
+
+Until the owner rules on public-use licensing, the default is the `StegVerse-Labs/.github#3394` default: **pointer-and-digest only, no redistribution, no public use.**
+
+- The page shows a pointer to the source (repository, issue or comment URL) and the sha256 of the exact bytes. No file is hosted on the Site and no download link is rendered.
+- Public-use licensing is an owner-only ruling (`SOURCE_PUBLIC_REUSE_LICENSING_OWNER_ONLY`). A bot, reviewer or Site owner cannot supply it. Absent a recorded ruling, the default stands.
+
+### Pinning by sha256
+
+- Every PDF is pinned by the sha256 of its exact bytes, computed from the file itself (`sha256sum`), never copied from prose.
+- The digest appears on the page, in the pointer, and in the `public-registry.json` claim that covers it, together with the edition.
+- A changed byte is a new digest and a new edition. The old edition's entry becomes `DEPRECATED` and its digest must not be served as current.
+- A digest that has been recorded but whose bytes have not been located is labelled "recorded digest, bytes unverified" and cannot back a download.
+
+### Hosting the file (only after the owner's ruling)
+
+All of these must be evidenced first, each from its source, not asserted here:
+
+```text
+[ ] owner ruling on public-use licensing is recorded (not the default)
+[ ] source-use disposition and independent review acceptance are recorded
+[ ] Site publication authority is recorded
+[ ] the PDF bytes are in hand and their sha256 matches the pinned digest
+[ ] the page posture is assigned (MIRROR, or RECEIPT_BACKED for a receipt-tied claim)
+[ ] public-registry.json entry added for the claim
+```
+
+### Readback after publication
+
+- Live URL returns the page; the download URL (if hosted) returns the file and its bytes re-hash to the pinned sha256.
+- Mobile and desktop readback at 390px and 1280px: no horizontal overflow, document landmarks, keyboard skip-link, every local download target non-empty (the existing `check_html.cjs` handoff, `StegVerse-Labs/.github#3393` comment 6506838353).
+- Readback results are recorded as their own receipts, kept separate from test and build receipts. A passing CI run is not a live readback.
+
+### What this procedure does not do
+
+It grants no publication authority, no licence, and no endorsement; it does not advance any coordination state; and it adds no workflow, secret, schedule or dependency.
+
 ## Boundary Doctrine
 
 ```text

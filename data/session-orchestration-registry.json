@@ -35,7 +35,7 @@
         "data/session-orchestration-registry.json",
         "prompts/SESSION_SELF_AUDIT.md",
         "scripts/check_session_retirement.py",
-        ".github/workflows/session-retirement-validate.yml"
+        "tools/tasks/folded/session-retirement-validate.yml"
       ],
       "required_before_archive": [],
       "reason": "The original design session has been superseded by the active activation coordination tracked in issue #114; its unique state is preserved in repository authority.",

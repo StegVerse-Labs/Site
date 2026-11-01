@@ -1,0 +1,1 @@
+python scripts/advance_math_solver_public_activation.py

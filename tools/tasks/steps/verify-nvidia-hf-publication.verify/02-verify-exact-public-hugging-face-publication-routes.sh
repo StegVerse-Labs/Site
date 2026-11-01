@@ -1,0 +1,57 @@
+python - <<'PY'
+import time
+import urllib.request
+
+targets = [
+    ('https://stegverse.org/hugging-face.html', [
+        b"What does NVIDIA's acquisition actually do to Hugging Face?",
+        b'Baseline = Hugging Face before the acquisition announcement.',
+        b'Horizontal', b'Hugging Face capability',
+        b'Vertical', b'NVIDIA absorption',
+        b'The axes are not opposites.',
+    ]),
+    ('https://stegverse.org/hugging-face-analysis.html', [
+        b'Is NVIDIA expanding Hugging Face',
+        b"Baseline = Hugging Face before NVIDIA's acquisition announcement.",
+        b'What deviation from baseline means',
+        b'Hugging Face capability change',
+        b'NVIDIA absorption change',
+        b'Final combined metric',
+        b'The two-axis trajectory from the pre-acquisition baseline',
+        b'acquisition announcement alone is not a trajectory point',
+    ]),
+    ('https://stegverse.org/data/nvidia-hugging-face-living-analysis.json', [
+        b'stegverse.nvidia_hf_living_analysis.v2',
+        b'B0_PRE_ACQUISITION_HF',
+        b'HF_CAPABILITY_CHANGE',
+        b'NVIDIA_ABSORPTION_CHANGE',
+        b'PRE_ACQUISITION_REFERENCE_ESTABLISHED_POST_ACQUISITION_VECTOR_PENDING',
+    ]),
+    ('https://stegverse.org/nvidia-hugging-face-governance-analysis.html', [b'When Capability Becomes Infrastructure']),
+    ('https://stegverse.org/stegos-node/sv-dn1-resident-observation-v3.html', [b'SV-DN-1 Resident Observation']),
+    ('https://stegverse.org/Papers.html', [b'When Capability Becomes Infrastructure']),
+    ('https://stegverse.org/news-releases.html', [b'hugging-face.html', b'Hugging Face']),
+]
+last = []
+for attempt in range(18):
+    last = []
+    for url, markers in targets:
+        try:
+            req = urllib.request.Request(url, method='GET', headers={'User-Agent':'StegVerse-hf-publication-verifier/4.0'})
+            with urllib.request.urlopen(req, timeout=20) as response:
+                body = response.read(2_000_000)
+                missing = [m.decode('utf-8', 'replace') for m in markers if m not in body]
+                ok = response.status == 200 and not missing
+                last.append((url, response.status, missing, ok, body[:160]))
+        except Exception as exc:
+            last.append((url, None, ['REQUEST_FAILED'], False, repr(exc).encode()[:160]))
+    if all(item[3] for item in last):
+        for url, status, _, _, _ in last:
+            print(f'PUBLIC_ROUTE_PASS {status} {url}')
+        print('HUGGING_FACE_ACQUISITION_IMPACT_READY_TO_SHARE')
+        raise SystemExit(0)
+    time.sleep(10)
+for url, status, missing, ok, sample in last:
+    print(f'PUBLIC_ROUTE_FAIL status={status} missing={missing!r} marker_ok={ok} url={url} sample={sample!r}')
+raise SystemExit(1)
+PY

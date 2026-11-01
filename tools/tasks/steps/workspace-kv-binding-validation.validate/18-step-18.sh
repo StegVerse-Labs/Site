@@ -1,0 +1,1 @@
+node tests/workspace-session-authentication.test.cjs

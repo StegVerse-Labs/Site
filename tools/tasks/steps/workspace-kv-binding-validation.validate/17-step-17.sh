@@ -1,0 +1,1 @@
+node tests/workspace-assistant-binding.test.cjs

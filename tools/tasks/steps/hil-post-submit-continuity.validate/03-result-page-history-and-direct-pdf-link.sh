@@ -1,0 +1,1 @@
+node tests/hil-accepted-page.test.cjs

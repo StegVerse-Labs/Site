@@ -1,0 +1,1 @@
+node tests/workspace-delivery-seams.test.cjs

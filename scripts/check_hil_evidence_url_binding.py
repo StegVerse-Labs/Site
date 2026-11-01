@@ -66,7 +66,8 @@ def origin(value: str) -> tuple[str, str, int]:
 
 
 def main() -> None:
-    require(PACKET.is_file(), f"missing {PACKET.relative_to(ROOT)}")
+    if not PACKET.is_file():
+        require(False, f"missing {PACKET.relative_to(ROOT)}")
     packet = json.loads(PACKET.read_text(encoding="utf-8"))
     require(isinstance(packet, dict), "evidence packet must contain an object")
 

@@ -42,8 +42,26 @@ def check(path: Path, markers: tuple[str, ...]) -> list[str]:
     return [f"{path.relative_to(ROOT)} missing marker: {marker}" for marker in markers if marker not in text]
 
 
+def check_route_markers_against_source() -> list[str]:
+    """Every marker the live check requires must exist in the committed source of its route.
+
+    The live check compares the deployed file with these markers; a marker that the committed
+    source never carries can only fail, so the drift is caught here, offline, before merge.
+    """
+    namespace: dict = {}
+    source = CHECKER.read_text(encoding="utf-8")
+    start = source.index("ROUTES: dict[str, tuple[str, ...]] = {")
+    end = source.index("\n}\n", start) + 3
+    exec(compile("from __future__ import annotations\n" + source[start:end], "routes", "exec"), namespace)
+    failures = []
+    for route, markers in namespace["ROUTES"].items():
+        failures.extend(check(ROOT / route, tuple(markers)))
+    return failures
+
+
 def main() -> int:
     failures = []
+    failures.extend(check_route_markers_against_source())
     failures.extend(check(PAGE, REQUIRED_PAGE_MARKERS))
     failures.extend(check(CHECKER, REQUIRED_CHECKER_MARKERS))
     failures.extend(check(WORKFLOW, REQUIRED_WORKFLOW_MARKERS))

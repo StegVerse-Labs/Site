@@ -6,6 +6,7 @@ import json
 import re
 from pathlib import Path
 import sys
+from typing import Callable
 from urllib.parse import urljoin, urlparse
 from urllib.request import Request, urlopen
 
@@ -316,19 +317,42 @@ def validate_live_projection(
     offline_claim: str,
     *,
     require_offline_proof: bool,
+    fetch: Callable[[str], str] = fetch_public_text,
 ) -> list[str]:
+    """Observe the deployed projection the way a browser loads it.
+
+    The deployed stegos-node.js is the parser-load bootstrap; it document.writes
+    the scripts that carry the implementation (stegos-node-impl.js). The source
+    path validates the implementation file directly, so the live path must
+    follow the same bootstrap graph instead of checking implementation markers
+    against the bootstrap alone, which can never carry them.
+    """
     failures: list[str] = []
     if not base_url.endswith("/"):
         base_url += "/"
     try:
-        index = fetch_public_text(base_url)
-        js = fetch_public_text(urljoin(base_url, "stegos-node.js"))
-        sw = fetch_public_text(urljoin(base_url, "service-worker.js"))
-        manifest = fetch_public_text(urljoin(base_url, "manifest.webmanifest"))
-        readiness = fetch_public_text(urljoin(base_url, "kv-readiness-snapshot.json"))
+        index = fetch(base_url)
+        bootstrap = fetch(urljoin(base_url, "stegos-node.js"))
+        sw = fetch(urljoin(base_url, "service-worker.js"))
+        manifest = fetch(urljoin(base_url, "manifest.webmanifest"))
+        readiness = fetch(urljoin(base_url, "kv-readiness-snapshot.json"))
+        written = document_written_script_urls(bootstrap)
+        resolved = [urljoin(base_url, url) for url in written]
+        foreign = [
+            url
+            for url in resolved
+            if urlparse(url).scheme != "https" or urlparse(url).netloc != urlparse(base_url).netloc
+        ]
+        if foreign:
+            # The bootstrap is deployed content; it must not steer the observer
+            # to another origin. Fail closed without fetching anything foreign.
+            return [f"live observation failed: bootstrap writes off-origin script {url}" for url in foreign]
+        loaded = [fetch(url) for url in resolved]
     except Exception as exc:
         return [f"live observation failed: {exc}"]
 
+    js = "\n".join([bootstrap, *loaded])
+    failures.extend(validate_offline_script_graph(bootstrap, sw))
     failures.extend(
         validate_projection(
             index,

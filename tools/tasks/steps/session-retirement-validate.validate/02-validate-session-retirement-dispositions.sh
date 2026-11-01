@@ -1,0 +1,1 @@
+python scripts/check_session_retirement.py

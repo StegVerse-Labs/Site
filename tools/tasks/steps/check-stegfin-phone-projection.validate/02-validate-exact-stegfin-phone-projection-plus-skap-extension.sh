@@ -1,0 +1,1 @@
+python3 scripts/check_stegfin_phone_projection_with_skap.py

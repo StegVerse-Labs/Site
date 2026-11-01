@@ -1,0 +1,1 @@
+node tests/workspace-search.test.cjs

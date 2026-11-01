@@ -1,0 +1,1 @@
+node tests/workspace-kv-binding.test.cjs

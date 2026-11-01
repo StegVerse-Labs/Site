@@ -5,7 +5,7 @@
 const fs=require('fs');const path=require('path');const vm=require('vm');
 const root=path.join(__dirname,'..');
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
-const src=read('assets/workspace-assistant-continuity.js'),binding=read('assets/workspace-assistant-binding.js'),auth=read('assets/workspace-session-authentication.js'),caps=read('assets/workspace-capabilities.js'),ui=read('assets/workspace.js'),css=read('assets/workspace.css'),page=read('workspace.html'),workflow=read('.github/workflows/workspace-kv-binding-validation.yml');
+const src=read('assets/workspace-assistant-continuity.js'),binding=read('assets/workspace-assistant-binding.js'),auth=read('assets/workspace-session-authentication.js'),caps=read('assets/workspace-capabilities.js'),ui=read('assets/workspace.js'),css=read('assets/workspace.css'),page=read('workspace.html'),workflow=read('tools/tasks/folded/workspace-kv-binding-validation.yml');
 const bootstrap=JSON.parse(read('data/workspace/bootstrap.json'));
 function assert(ok,msg){if(!ok)throw new Error(msg)}
 let n=0;const check=(ok,msg)=>{n++;assert(ok,msg)};
