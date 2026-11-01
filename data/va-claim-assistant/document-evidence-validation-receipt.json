@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "receipt_id": "site-va-document-evidence-validation-001",
-  "observed_at": "2026-11-01T00:53:50+00:00",
+  "observed_at": "2026-11-01T01:42:37+00:00",
   "state": "VERIFIED",
   "task_location": "StegVerse-Labs/Site#116",
   "fixture": "data/va-claim-assistant/fixtures/document-evidence-session.json",
@@ -15,5 +15,5 @@
   "public_upload_enabled": false,
   "authority_effect": false,
   "activation_effect": false,
-  "receipt_sha256": "93d4e718106c12dc8e491f045202697ec0c93f8f3691967452327417ca68d767"
+  "receipt_sha256": "e18acc68191c99e5435bb235741163bd3da80d580c8bc3cf9cec3c21cfcef33c"
 }
