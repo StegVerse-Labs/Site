@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-01T06:33:06Z",
+  "last_updated": "2026-11-01T06:42:03Z",
   "freshness": {
-    "generated_at": "2026-11-01T06:33:06Z",
+    "generated_at": "2026-11-01T06:42:03Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -485,19 +485,6 @@
       "note": "FIU Liberty"
     },
     {
-      "id": "6604062",
-      "home": "TCU",
-      "away": "Kansas",
-      "home_score": 22,
-      "away_score": 16,
-      "home_record": "",
-      "away_record": "",
-      "status": "FINAL",
-      "kickoff": "2026-10-31T19:30:00Z",
-      "conference": "big-12",
-      "note": "Kansas TCU"
-    },
-    {
       "id": "6603909",
       "home": "North Dakota St.",
       "away": "UTEP",
@@ -509,6 +496,19 @@
       "kickoff": "2026-10-31T19:30:00Z",
       "conference": "mountain-west",
       "note": "UTEP North Dakota St."
+    },
+    {
+      "id": "6604062",
+      "home": "TCU",
+      "away": "Kansas",
+      "home_score": 22,
+      "away_score": 16,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-10-31T19:30:00Z",
+      "conference": "big-12",
+      "note": "Kansas TCU"
     },
     {
       "id": "6604101",
@@ -641,6 +641,19 @@
       "note": "Oklahoma St. Iowa St."
     },
     {
+      "id": "6604315",
+      "home": "North Carolina",
+      "away": "Miami (FL)",
+      "home_score": 35,
+      "away_score": 38,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-10-31T23:30:00Z",
+      "conference": "acc",
+      "note": "Miami (FL) North Carolina"
+    },
+    {
       "id": "6604340",
       "home": "Texas",
       "away": "Mississippi St.",
@@ -652,19 +665,6 @@
       "kickoff": "2026-10-31T23:30:00Z",
       "conference": "sec",
       "note": "Mississippi St. Texas"
-    },
-    {
-      "id": "6640619",
-      "home": "Pittsburgh",
-      "away": "Georgia Tech",
-      "home_score": 34,
-      "away_score": 11,
-      "home_record": "",
-      "away_record": "",
-      "status": "FINAL",
-      "kickoff": "2026-10-31T23:30:00Z",
-      "conference": "acc",
-      "note": "Georgia Tech Pittsburgh"
     },
     {
       "id": "6640445",
@@ -680,17 +680,17 @@
       "note": "Ohio St. Southern California"
     },
     {
-      "id": "6604315",
-      "home": "North Carolina",
-      "away": "Miami (FL)",
-      "home_score": 35,
-      "away_score": 38,
+      "id": "6640619",
+      "home": "Pittsburgh",
+      "away": "Georgia Tech",
+      "home_score": 34,
+      "away_score": 11,
       "home_record": "",
       "away_record": "",
       "status": "FINAL",
       "kickoff": "2026-10-31T23:30:00Z",
       "conference": "acc",
-      "note": "Miami (FL) North Carolina"
+      "note": "Georgia Tech Pittsburgh"
     },
     {
       "id": "6603773",
@@ -765,7 +765,7 @@
       "away_score": 22,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 01:27",
+      "status": "FINAL",
       "kickoff": "2026-11-01T03:00:00Z",
       "conference": "pac-12",
       "note": "Oregon St. Fresno St."
