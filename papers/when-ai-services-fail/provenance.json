@@ -35,7 +35,13 @@
     "para_73_adjudication": "option (a): v1.0.2 kept as a dated snapshot ('as of 28 October 2026'); ERL #247 merged e6b2193d on 29 October UTC after the edition date; no byte change (Kimi 6486958979)",
     "independent_v1_0_3": "PASS: non-author (ChatGPT) L3 SHA-256 of PDF 463fce02... and DOCX be72df87..., L3b exactly 3 paragraph changes plus footer, paragraph-text sha256 680a0af0... reproduced, new post-freeze paragraph wording (physically in the section 8 recheck subsection, PDF p14) PASS with both Kimi URLs rechecked live (Site#1633 comment 6503943545, at staged dc0f4a71)"
   },
-  "publication_status": "NOT_ALLOWED",
+  "publication_status": "PUBLISHED",
+  "publication": {
+    "date": "2026-11-01",
+    "route": "Owner ruling: direct publication ahead of Election Day 2026-11-03 (Rigel Randolph, owner direction in main chat, 2026-11-01 17:14 CST)",
+    "sppa_custody_chain": "NOT EXECUTED — the Q74-01 custody-basis chain remains owed; this publication does not represent an SPPA ALLOW and the authority fields below are unchanged",
+    "pages": ["papers/when-ai-services-fail/", "papers/before-you-vote/"]
+  },
   "authority": {
     "cosv_status": "NOT_ESTABLISHED",
     "workercoordinator_claim_fence": "NOT_ESTABLISHED",
