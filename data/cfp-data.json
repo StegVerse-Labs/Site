@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-01T05:55:44Z",
+  "last_updated": "2026-11-01T06:21:51Z",
   "freshness": {
-    "generated_at": "2026-11-01T05:55:44Z",
+    "generated_at": "2026-11-01T06:21:51Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -602,19 +602,6 @@
       "note": "App State Ga. Southern"
     },
     {
-      "id": "6603968",
-      "home": "Florida St.",
-      "away": "Clemson",
-      "home_score": 24,
-      "away_score": 36,
-      "home_record": "",
-      "away_record": "",
-      "status": "FINAL",
-      "kickoff": "2026-10-31T23:00:00Z",
-      "conference": "acc",
-      "note": "Clemson Florida St."
-    },
-    {
       "id": "6640771",
       "home": "San Diego St.",
       "away": "Washington St.",
@@ -626,6 +613,19 @@
       "kickoff": "2026-10-31T23:00:00Z",
       "conference": "pac-12",
       "note": "Washington St. San Diego St."
+    },
+    {
+      "id": "6603968",
+      "home": "Florida St.",
+      "away": "Clemson",
+      "home_score": 24,
+      "away_score": 36,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-10-31T23:00:00Z",
+      "conference": "acc",
+      "note": "Clemson Florida St."
     },
     {
       "id": "6603662",
@@ -641,17 +641,17 @@
       "note": "Oklahoma St. Iowa St."
     },
     {
-      "id": "6640445",
-      "home": "Southern California",
-      "away": "Ohio St.",
-      "home_score": 30,
-      "away_score": 18,
+      "id": "6604340",
+      "home": "Texas",
+      "away": "Mississippi St.",
+      "home_score": 31,
+      "away_score": 3,
       "home_record": "",
       "away_record": "",
       "status": "FINAL",
       "kickoff": "2026-10-31T23:30:00Z",
-      "conference": "big-ten",
-      "note": "Ohio St. Southern California"
+      "conference": "sec",
+      "note": "Mississippi St. Texas"
     },
     {
       "id": "6640619",
@@ -667,17 +667,17 @@
       "note": "Georgia Tech Pittsburgh"
     },
     {
-      "id": "6604340",
-      "home": "Texas",
-      "away": "Mississippi St.",
-      "home_score": 31,
-      "away_score": 3,
+      "id": "6640445",
+      "home": "Southern California",
+      "away": "Ohio St.",
+      "home_score": 30,
+      "away_score": 18,
       "home_record": "",
       "away_record": "",
       "status": "FINAL",
       "kickoff": "2026-10-31T23:30:00Z",
-      "conference": "sec",
-      "note": "Mississippi St. Texas"
+      "conference": "big-ten",
+      "note": "Ohio St. Southern California"
     },
     {
       "id": "6604315",
@@ -739,7 +739,7 @@
       "away_score": 45,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 02:40",
+      "status": "FINAL",
       "kickoff": "2026-11-01T02:00:00Z",
       "conference": "pac-12",
       "note": "Texas St. Boise St."
@@ -752,7 +752,7 @@
       "away_score": 24,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 00:00",
+      "status": "FINAL",
       "kickoff": "2026-11-01T02:30:00Z",
       "conference": "mountain-west",
       "note": "NIU UNLV"
@@ -765,7 +765,7 @@
       "away_score": 16,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 09:21",
+      "status": "4TH 01:56",
       "kickoff": "2026-11-01T03:00:00Z",
       "conference": "pac-12",
       "note": "Oregon St. Fresno St."
