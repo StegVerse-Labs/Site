@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-01T03:29:05Z",
+  "last_updated": "2026-11-01T03:40:16Z",
   "freshness": {
-    "generated_at": "2026-11-01T03:29:05Z",
+    "generated_at": "2026-11-01T03:40:16Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -687,7 +687,7 @@
       "away_score": 11,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 00:54",
+      "status": "FINAL",
       "kickoff": "2026-10-31T23:30:00Z",
       "conference": "acc",
       "note": "Georgia Tech Pittsburgh"
@@ -706,6 +706,19 @@
       "note": "Missouri Arkansas"
     },
     {
+      "id": "6604336",
+      "home": "Nebraska",
+      "away": "Washington",
+      "home_score": 10,
+      "away_score": 17,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-11-01T00:00:00Z",
+      "conference": "big-ten",
+      "note": "Washington Nebraska"
+    },
+    {
       "id": "6603721",
       "home": "Memphis",
       "away": "Army West Point",
@@ -719,19 +732,6 @@
       "note": "Army West Point Memphis"
     },
     {
-      "id": "6604336",
-      "home": "Nebraska",
-      "away": "Washington",
-      "home_score": 7,
-      "away_score": 3,
-      "home_record": "",
-      "away_record": "",
-      "status": "4TH 04:27",
-      "kickoff": "2026-11-01T00:00:00Z",
-      "conference": "big-ten",
-      "note": "Washington Nebraska"
-    },
-    {
       "id": "6604223",
       "home": "Boise St.",
       "away": "Texas St.",
@@ -739,7 +739,7 @@
       "away_score": 3,
       "home_record": "",
       "away_record": "",
-      "status": "2ND 02:58",
+      "status": "2ND 00:25",
       "kickoff": "2026-11-01T02:00:00Z",
       "conference": "pac-12",
       "note": "Texas St. Boise St."
@@ -748,11 +748,11 @@
       "id": "6604329",
       "home": "UNLV",
       "away": "NIU",
-      "home_score": 16,
+      "home_score": 17,
       "away_score": 17,
       "home_record": "",
       "away_record": "",
-      "status": "2ND 07:04",
+      "status": "2ND 02:43",
       "kickoff": "2026-11-01T02:30:00Z",
       "conference": "mountain-west",
       "note": "NIU UNLV"
@@ -761,11 +761,11 @@
       "id": "6604304",
       "home": "Fresno St.",
       "away": "Oregon St.",
-      "home_score": 0,
-      "away_score": 0,
+      "home_score": 6,
+      "away_score": 3,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 08:11",
+      "status": "1ST 01:47",
       "kickoff": "2026-11-01T03:00:00Z",
       "conference": "pac-12",
       "note": "Oregon St. Fresno St."
