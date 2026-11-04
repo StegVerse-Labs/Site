@@ -2,11 +2,15 @@
   "schema": "stegverse.site.node-provenance.v1",
   "node": "ECOSYSTEM-KV-SEAM",
   "page": "kv-seam/ (index.html + manifest.html)",
-  "page_generation": 11,
+  "page_generation": 12,
   "generated": "2026-11-04 (America/Chicago)",
   "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
   "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). These pages are projections of that record; they hold no authority of their own.",
   "source_records": [
+    {
+      "name": "NODE__PAGE__12.md",
+      "sha256": "31eadc01472f27bdbb2b8b9397e916ce2976922e4aa8f10972de0f81f96e93fc"
+    },
     {
       "name": "NODE__PAGE__11.md",
       "sha256": "c1a16fd1747c6e4ff19e9961464fc7563850c90e431fd105a81077f0ea467853"
@@ -68,8 +72,7 @@
     "custody": "refused — submitted content remains in submitters' own storage; the seam holds receipts",
     "honesty_bound": "Processing is performed by the ecosystem's lanes in their working sessions (the external automation, PROCESSING__TRIGGER__01) until the internal machinery (KV runtime, InTr) is proven; the page states the resulting latency bound. The node-projection channel remains machinery-present / protocol-unestablished, as recorded in MANIFOLD Addendum 05."
   },
-  "changes_from_generation_10": [
-    "The control surface moves to the TOP of the page (owner design, 2026-11-04 09:34 CST): a text card holding the result up to this moment, with three buttons — Replay/Reconstruct (rebuilds the card by replay from the pinned genesis receipt to the current HEAD), Share (the card's text and the page), Copy Text (copies exactly the card's output).",
-    "The generation-10 record-section replay button is retired; one control surface, at the top. Record section unchanged as provenance."
+  "changes_from_generation_11": [
+    "Naming correction (owner, 2026-11-04): the top card is the seam's LEDGER projected, not a 'result' — a result is one run's segment under RESULT__FILE__MODEL__01. Card heading, card text header, card paragraph, and share title renamed to match; the paragraph now states the distinction (a result file is one run's segment of this ledger). No mechanics changed."
   ]
 }
