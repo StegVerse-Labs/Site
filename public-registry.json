@@ -303,6 +303,19 @@
       ],
       "status": "source publication candidate; Site mirror creates discovery/contact only and no payment, contract, buyer-record, runtime, credential, Task Registry or COSV authority",
       "last_reviewed": "2026-10-01"
+    },
+    {
+      "id": "KV-SEAM-NODE-001",
+      "title": "The Ecosystem KV seam node (ECOSYSTEM-KV-SEAM) is the only entry point into the StegVerse Ecosystem KV; its StegVerse.org page is a receipt-backed projection of the seam ledger record, providing the complete instruction for submitting work from any storage.",
+      "posture": "RECEIPT_BACKED",
+      "source_repo": "StegVerse-Labs/.github",
+      "source_stage": "Ecosystem KV seam node record (KnowledgeVault .github boundary folder); paired record StegVerse-Labs/.github #3402; seam ledger HEAD 4024340f0fa00a1aec7e33e93a0311fb3be5da6f8a25961dded0eb1b09754e99 at page generation 01",
+      "public_pages": [
+        "kv-seam/index.html",
+        "kv-seam/provenance.json"
+      ],
+      "status": "published as projection; the page holds no authority, collects no user data, and keeps no in-browser record; the canonical record is the seam ledger in the Ecosystem KV",
+      "last_reviewed": "2026-11-04"
     }
   ],
   "publication_gate": [
