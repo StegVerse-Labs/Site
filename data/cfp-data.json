@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-04T03:26:23Z",
+  "last_updated": "2026-11-04T03:40:29Z",
   "freshness": {
-    "generated_at": "2026-11-04T03:26:23Z",
+    "generated_at": "2026-11-04T03:40:29Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -50,7 +50,7 @@
       "away_score": 28,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 01:40",
+      "status": "FINAL",
       "kickoff": "2026-11-04T00:00:00Z",
       "conference": "mac",
       "note": "Ohio Akron"
@@ -60,10 +60,10 @@
       "home": "Miami (OH)",
       "away": "Buffalo",
       "home_score": 24,
-      "away_score": 10,
+      "away_score": 16,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 08:44",
+      "status": "3RD 01:30",
       "kickoff": "2026-11-04T01:00:00Z",
       "conference": "mac",
       "note": "Buffalo Miami (OH)"
