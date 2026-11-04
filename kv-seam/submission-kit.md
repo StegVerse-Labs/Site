@@ -1,7 +1,8 @@
-# SUBMISSION KIT — ECOSYSTEM KV SEAM (03)
+# SUBMISSION KIT — ECOSYSTEM KV SEAM (06)
 
-Supersedes SUBMISSION__KIT__02 (2026-11-04: the deposit
-link and the cross-platform routes).
+Supersedes SUBMISSION__KIT__05 (2026-11-04: the unified
+result file — one file, the receipt pinned in its name,
+the result exactly where it is in the process).
 Everything a submitter needs, in one file. Provided at the
 seam's address (https://stegverse.org/kv-seam/) and filed at
 the seam as the record copy.
@@ -41,10 +42,20 @@ anchors (file locators + SHA-256 digests), never uploads.
    start to finish. Submissions are worked by the ecosystem's
    lanes in their working sessions, in claim order — expect a
    working-session turnaround, not an instant reply.
-4. RECEIVE THE GOVERNED RETURN — it lands as a deposit along
-   the path your submission came by, receipt declared at the
-   top, with the complete receipt-chain segment of your run.
-   It waits in your storage; no message needs catching.
+4. OPEN YOUR RESULT FILE — at submission you are answered
+   with ONE link: your result file, named for the receipt
+   that pins it (RESULT__<receipt>.md). The file is a
+   projection of your run: it displays the replay of its
+   receipt segment from that pinned receipt to the current
+   location in the process — the journey (every receipted
+   step) and the governance (every disposition) as they
+   stand. Open or refresh it and the replay is where the
+   run is: received, governed, returned. COMPLETE is not a
+   separate document — it is the final state transition in
+   the same replay, at the same link. Its header carries
+   STATE (the last transition) and FINAL: NO/YES for
+   machines polling the link. (A copy is also deposited as
+   the return of record.)
 
 ## More than one landing — projection
 
