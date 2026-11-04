@@ -2,71 +2,65 @@
   "schema": "stegverse.site.node-provenance.v1",
   "node": "ECOSYSTEM-KV-SEAM",
   "page": "kv-seam/ (index.html + manifest.html)",
-  "page_generation": 6,
+  "page_generation": 7,
   "generated": "2026-11-04 (America/Chicago)",
   "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
   "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). These pages are projections of that record; they hold no authority of their own.",
   "source_records": [
     {
-      "name": "NODE__PAGE__06.md",
-      "drive_id": "1M5TMGKdC6WP5QdMijZxbJPwUt4kFUugl",
-      "sha256": "cf1dff9c5a02cf60ba1139292c2e050a76c6d4205c87c74beb43299a01a98d43"
+      "name": "NODE__PAGE__07.md",
+      "sha256": "8776846691eefcc703622fb35533171f7c9f890375d9ba51cbc73a4ba0bbbf5b"
     },
     {
-      "name": "SUBMISSION__CHANNELS__01.md (coordination folder; per-channel wiring verification)",
-      "drive_id": "19CxQplitNGl9yNhoJll5UhqErmqj7Qbt",
-      "sha256": "0d29f25bb28ff8f28c81bd527ff46af9d2f1bb91395ba9b6175742c04a638cf2"
+      "name": "SUBMISSION__KIT__02.md (filed at the seam; mirrored as kv-seam/submission-kit.md)",
+      "drive_id": "13gf8E2zbiFpHKzG8Fd2Q4HeBIefKx66m",
+      "sha256": "736cf58dcab8e6be1a5e9e402d00ecf314c23330f0d5b5e8bcfb60e1de143146"
     },
     {
-      "name": "MANIFEST__PAGE__01.md (source of kv-seam/manifest.html)",
+      "name": "MANIFEST__PAGE__01.md (source of kv-seam/manifest.html, unchanged)",
       "drive_id": "1WMt34P-rEgoMj8T3AcT6RSqL2rjIgqbv",
       "sha256": "e554a06cce5510529ccdcaf5d64a71a272ebc2e626fe3b753ab2746ccefa4007"
     }
   ],
-  "changes_from_generation_05": [
-    "Step 3 presents all three submission channels (owner design, 2026-11-04 08:12 CST \u2014 all three, on the condition that all three surfaces are already wired; verified per channel in SUBMISSION__CHANNELS__01): (1) Ecosystem Chat \u2014 paste/attach the manifest, or paste the packet data-first; (2) Share from your storage \u2014 share the manifest with the Ecosystem KV boundary account (stegverse@gmail.com) and keep the packet shared at its locator; (3) Your node \u2014 native participants place the manifest in their node's KV and it projects to the seam (open exactly when step 1 reads 'Device registered.').",
-    "Step 3 now states the shared form on the page: sending is two grants \u2014 deliver the manifest; make the packet reachable at its locator. The packet never travels; the channel is a property of the submitter's surface, never of the work.",
-    "Stacked on generations 04-05 (PRs #1661, #1662): the diff against main reduces as those merge."
+  "changes_from_generation_06": [
+    "Step 3 channel 2 names the receiving form: the seam's watched inbox — the deposit itself is the signal; no email is needed or used by the process (PROCESSING__TRIGGER__01).",
+    "Step 3 states the latency bound: lanes work submissions in their working sessions, in claim order; the result waits in the submitter's storage.",
+    "Step 4 presents the return as built: same-path deposit, receipt at top; result PROJECTION under the manifest's scope (byte-identical landings, one run seen by everyone named); REPLAY and RECONSTRUCTION by receipt, open to any holder of the result's receipt.",
+    "Submission kit superseded by SUBMISSION__KIT__02 (watched inbox, projection scope in the scaffold, replay/reconstruction, latency bound).",
+    "Record block re-anchored: HEAD 994afe45..., 14 receipts; the first eleven re-verified from the store's bytes in RECONSTRUCTION RUN 001."
   ],
   "instruments_at_generation": [
     {
-      "name": "SEAM_NODE__DESIGNATION__01.md",
-      "sha256": "86822b417bde132b08eff7ff7abdef76b23bfdaccc708afec21ffff1e2a3b17f"
+      "name": "PROCESSING__PROMPT__02.md",
+      "drive_id": "1oiH5pav_DvK3tr61YJSh6rJA42JERNDW",
+      "sha256": "207acd86b641ae920cfa1912b9878d1795b2684bea9dae4cb63a32ad85a11c02"
     },
     {
-      "name": "SUBMISSION__KIT__01.md",
-      "drive_id": "1zIrtwfV4m3tCusPl51BvZl6Q0_XhHofM",
-      "sha256": "7d3dce479db58303edd69be02881d05841c1623e33636cc5da60294d55b24c20"
+      "name": "INBOX__WATCH__01.md",
+      "drive_id": "1ZHXnZCUEP4EMrGtaNozco0XuGqZZkpwL",
+      "sha256": "796be03d32c614150c73f2459d7d9c077eba35cd5fcf2019def34658f7457431"
     },
     {
-      "name": "SUBMITTER__BOOTSTRAP__02.md",
-      "sha256": "33b6a7e2d4c57d4c50faa53426d0b5ce69cc0ee38119b353a83e670262b9b17e"
-    },
-    {
-      "name": "LLM_ADAPTER__PROTOCOL__03.md",
-      "sha256": "940ff97f09d882a673be27f7eadb3295d793893a8772dc060274e41195535a1d"
-    },
-    {
-      "name": "SUBMISSION__INSTRUCTION__02.md (+ addenda 01-03)",
-      "sha256": "d9e8c306bef76d799908be080a00c59cb7bdd501e3c53d7a754e32534a4060f8"
+      "name": "RESULT__PROJECTION__01.md / REPLAY__RECONSTRUCTION__01.md / PROCESSING__TRIGGER__01.md",
+      "note": "coordination folder instruments; the page presents their public form"
     }
   ],
   "ledger": {
     "genesis_receipt_sha256": "f39d0a3c0f95348823b3b42e2f66dd1a5bed84a8fd5bcbad1542c38546140b25",
-    "head_receipt_sha256": "a826f096e8a9197dd8a9c96f8991c6d98cf344c8ce5c54857cfe61bb5935f3d6",
-    "receipts": 7,
+    "head_receipt_sha256": "994afe45b1a0e460b45878ccb88a7c523cd1f86820035dff069f8fe82935e100",
+    "receipts": 14,
     "breaks": 0,
     "orphans": 0,
-    "verification": "Anchors unchanged from generation 02 (no seam appends since the MANIFOLD-RUN-001 walk)."
+    "verification": "Receipts 1-11 walked and re-verified from the store's bytes in RECONSTRUCTION RUN 001 (2026-11-04); appends 12-14 minted under the verified-append rule (full-chain check before and after each append)."
   },
   "bounds": {
     "collects_user_data": false,
     "forms": false,
     "trackers": false,
-    "scripts": "copy handlers (device-side clipboard), plus \u2014 on index.html \u2014 the Site's StegOS node continuity stack powering the step-1 Register control",
+    "scripts": "copy handlers (device-side clipboard), plus — on index.html — the Site's StegOS node continuity stack powering the step-1 Register control",
     "receives_submissions": false,
     "in_browser_record": "the visitor's own StegOS device-node record only (browser-local by that node's design); the seam's record is the seam ledger",
-    "custody": "refused \u2014 submitted content remains in submitters' own storage; the seam holds receipts",
-    "honesty_bound": "Chain reconstruction from these pages' anchors proves chain integrity and derivability, not receipt content truth. Channel pickup and seam-side performance are participant-performed (the standing interim) until the manifold mechanism stands; the page's channel descriptions carry that bound in SUBMISSION__CHANNELS__01."
+    "custody": "refused — submitted content remains in submitters' own storage; the seam holds receipts",
+    "honesty_bound": "Processing is performed by the ecosystem's lanes in their working sessions (the external automation, PROCESSING__TRIGGER__01) until the internal machinery (KV runtime, InTr) is proven; the page states the resulting latency bound. The node-projection channel remains machinery-present / protocol-unestablished, as recorded in MANIFOLD Addendum 05."
   }
 }
