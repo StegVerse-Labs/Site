@@ -2,7 +2,7 @@
   "schema": "stegverse.site.node-provenance.v1",
   "node": "ECOSYSTEM-KV-SEAM",
   "page": "kv-seam/ (index.html + manifest.html)",
-  "page_generation": 14,
+  "page_generation": 15,
   "generated": "2026-11-04 (America/Chicago)",
   "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
   "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). These pages are projections of that record; they hold no authority of their own.",
@@ -66,5 +66,9 @@
   "changes_from_generation_13": [
     "The simplified page as the owner designed it in discussion (2026-11-04, landed 11:15 CST): four steps in his text. Step 1 register — 'Success!' plus the button grayed out on success; a remediation link appears below the button on failure; a returning registered device loads in the success state. Step 2 — the instructions and the worked examples are projections at the address, (Manifest.Instructions)@ and (Demos)@; the Ecosystem Chat builder is marked COMING SOON. Step 3 — the share to (Inbox)@stegverse@gmail.com is the one live path, its operated bounds stated; the Projection Tool and the Ecosystem Chat submission tool are marked COMING SOON. Step 4 — the result at (RESULT-[receipt.hash])@stegverse@gmail.com, with the owner's NOTE: the receipt hash should match the submission hash in the Seam's Ledger below.",
     "Removed: the top action row (copy address / kit download / begin in chat), the kit download button (the owner's correction: a Muse addition, not his design), the manifest.html sub-page link (file retained in the repo, unlinked), and the long channel prose. The ledger card remains at the bottom beside the record; the record itself is unchanged."
-  ]
+  ],
+  "generated_from": "NODE__PAGE__15 (coordination folder) — owner-directed label simplification + readable projection views + Results button populated with the latest receipted run; ledger record refreshed to HEAD 2e037ad8 (26 receipts, IDWORK-RUN-001)",
+  "ledger_head": "2e037ad85c0104769dc0149f84d76261c77445469cd7c309258adf2bc51bc744",
+  "receipt_count": 26,
+  "index_html_sha256": "e6cf6ca5df3b6e852ab6e342daa0defb7fbc85fe34f9dcb2e00bd09dabf8c016"
 }
