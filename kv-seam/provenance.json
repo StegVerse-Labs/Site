@@ -2,22 +2,27 @@
   "schema": "stegverse.site.node-provenance.v1",
   "node": "ECOSYSTEM-KV-SEAM",
   "page": "kv-seam/index.html",
-  "page_generation": 1,
+  "page_generation": 2,
   "generated": "2026-11-04 (America/Chicago)",
   "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
   "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). This page is a projection of that record; it holds no authority of its own.",
   "source_record": {
-    "name": "NODE__PAGE__01.md",
-    "drive_id": "1sQj8wLgpgW64dEqPn47EiHKPWzJgq2iY",
-    "sha256": "d8f535a83db3211dd61e364115dd23c5c85fb6ab3006316fb44e04846c3b75f8"
+    "name": "NODE__PAGE__02.md",
+    "drive_id": "18r4-OPPHBbNC8Hrlmd9BWePE0tcLSZOh",
+    "sha256": "44b7c7b419ad43a281906db83a356f0dc67b2bf152cbceb3b31b5a4288d38cf6"
   },
+  "changes_from_generation_01": [
+    "Presentation simplified on the owner's instruction (2026-11-04), modeled on the Site's VA Claims Instructions and Humans as the Interoperability Layer pages (step cards, plain imperatives). The visual idiom is adopted; those pages' interactive state is deliberately not \u2014 this page keeps no state and no record in the browser.",
+    "Step form corrected to SUBMITTER__BOOTSTRAP__02: the first submission is the healthy-node-established step whose response provides manifest generation and submission instructions (generation 01 carried the superseded conformance/establishment separation).",
+    "Record block advanced to the current ledger HEAD (7 receipts, incl. the MANIFOLD-RUN-001 query lineage)."
+  ],
   "ledger": {
     "genesis_receipt_sha256": "f39d0a3c0f95348823b3b42e2f66dd1a5bed84a8fd5bcbad1542c38546140b25",
-    "head_receipt_sha256": "4024340f0fa00a1aec7e33e93a0311fb3be5da6f8a25961dded0eb1b09754e99",
-    "receipts": 4,
+    "head_receipt_sha256": "a826f096e8a9197dd8a9c96f8991c6d98cf344c8ce5c54857cfe61bb5935f3d6",
+    "receipts": 7,
     "breaks": 0,
     "orphans": 0,
-    "verification": "Walked HEAD-to-genesis from the store's bytes, 2026-11-04; every receipt's stored hash recomputed and matched."
+    "verification": "Walked HEAD-to-genesis from the store's bytes, 2026-11-04 (extended walk after the MANIFOLD-RUN-001 appends); every receipt's stored hash recomputed and matched."
   },
   "instruments_at_generation": [
     {
@@ -25,8 +30,8 @@
       "sha256": "86822b417bde132b08eff7ff7abdef76b23bfdaccc708afec21ffff1e2a3b17f"
     },
     {
-      "name": "SUBMITTER__BOOTSTRAP__01.md",
-      "sha256": "583c8f0450717af998eab1925b020a6697831d6a2aa9c652fd1655971cda2e11"
+      "name": "SUBMITTER__BOOTSTRAP__02.md",
+      "sha256": "33b6a7e2d4c57d4c50faa53426d0b5ce69cc0ee38119b353a83e670262b9b17e"
     },
     {
       "name": "LLM_ADAPTER__PROTOCOL__03.md",
@@ -35,6 +40,10 @@
     {
       "name": "SUBMISSION__INSTRUCTION__02.md (+ addenda 01-03)",
       "sha256": "d9e8c306bef76d799908be080a00c59cb7bdd501e3c53d7a754e32534a4060f8"
+    },
+    {
+      "name": "STANDING__COMPOSITION__MANIFEST__01.md",
+      "sha256": "cdc1bb3623a5d7d19016a54f25b09e593ccfcb5b9bd0a0ca481b8d73ca038cf3"
     }
   ],
   "bounds": {
