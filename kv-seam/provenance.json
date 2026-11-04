@@ -2,22 +2,26 @@
   "schema": "stegverse.site.node-provenance.v1",
   "node": "ECOSYSTEM-KV-SEAM",
   "page": "kv-seam/ (index.html + manifest.html)",
-  "page_generation": 8,
+  "page_generation": 10,
   "generated": "2026-11-04 (America/Chicago)",
   "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
   "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). These pages are projections of that record; they hold no authority of their own.",
   "source_records": [
     {
-      "name": "NODE__PAGE__08.md",
-      "sha256": "decdefd35a881a130a3536545110128215b1270527f43a71b0b75184ff23e8b0"
+      "name": "NODE__PAGE__10.md",
+      "sha256": "bd2bc305901446dc68a8ab887469835c3c9a5466cb984906fed23dbc28f52041"
     },
     {
-      "name": "SUBMISSION__KIT__03.md (filed at the seam; mirrored as kv-seam/submission-kit.md)",
-      "drive_id": "1LeZdoWs09Poqba6iclYMN1pGyshix_X4",
-      "sha256": "d679413bad019fe5bff2d0a50331bd0a559f04ea469138ea9d8376f787bc0393"
+      "name": "SUBMISSION__KIT__06.md (filed at the seam; mirrored as kv-seam/submission-kit.md)",
+      "drive_id": "1bM5VmcLkhOLSTuK4lOdka1Emc0Gz0n6F",
+      "sha256": "78b2eface2522daa1a5a5125ac268c0f2846152c4608c76c6c71f3c53d1eec99"
     },
     {
-      "name": "DEPOSIT__LINK__01.md (the incoming/ link grant: anyoneWithLink/writer, set and read back 2026-11-04)",
+      "name": "RESULT__FILE__MODEL__01.md (coordination folder)",
+      "note": "the model step 4 and the replay button present"
+    },
+    {
+      "name": "DEPOSIT__LINK__01.md",
       "drive_id": "1OinAFtmNBMR2mt1nthQSa4uQu9skZ3RD"
     },
     {
@@ -44,26 +48,25 @@
   ],
   "ledger": {
     "genesis_receipt_sha256": "f39d0a3c0f95348823b3b42e2f66dd1a5bed84a8fd5bcbad1542c38546140b25",
-    "head_receipt_sha256": "994afe45b1a0e460b45878ccb88a7c523cd1f86820035dff069f8fe82935e100",
-    "receipts": 14,
+    "head_receipt_sha256": "407b70f1f1cf8886770db076dda38017aafc2ea3e23fff4440821b0ad9712eaf",
+    "receipts": 23,
     "breaks": 0,
     "orphans": 0,
-    "verification": "Receipts 1-11 walked and re-verified from the store's bytes in RECONSTRUCTION RUN 001 (2026-11-04); appends 12-14 minted under the verified-append rule (full-chain check before and after each append)."
+    "verification": "Receipts 1-11 re-verified in RECONSTRUCTION RUN 001; appends 12-23 under the verified-append rule."
   },
   "bounds": {
     "collects_user_data": false,
     "forms": false,
     "trackers": false,
-    "scripts": "copy handlers (device-side clipboard), plus — on index.html — the Site's StegOS node continuity stack powering the step-1 Register control",
+    "scripts": "copy handlers (device-side clipboard); the Site's StegOS node continuity stack (step-1 Register control); the record section's replay button (walks the printed anchors client-side; reads nothing external)",
     "receives_submissions": false,
     "in_browser_record": "the visitor's own StegOS device-node record only (browser-local by that node's design); the seam's record is the seam ledger",
     "custody": "refused — submitted content remains in submitters' own storage; the seam holds receipts",
     "honesty_bound": "Processing is performed by the ecosystem's lanes in their working sessions (the external automation, PROCESSING__TRIGGER__01) until the internal machinery (KV runtime, InTr) is proven; the page states the resulting latency bound. The node-projection channel remains machinery-present / protocol-unestablished, as recorded in MANIFOLD Addendum 05."
   },
-  "changes_from_generation_07": [
-    "Step 3 channel 2 names the destination plainly: a watched folder in a Google Drive owned by stegverse@gmail.com, with the deposit link on the page (standing approval to deposit; Google sign-in needed to add files; depositors can see one another's manifests).",
-    "Cross-platform route stated: files on another cloud service stay there — only the manifest travels; the packet is read at its own link.",
-    "Type admission stated as it works: only manifests are worked; anything else deposited is held, unprocessed.",
-    "Submission kit superseded by SUBMISSION__KIT__03. Ledger anchors unchanged from generation 07 (no seam appends since)."
+  "changes_from_generation_09": [
+    "Step 4 corrected to the unified result file model (owner precision, 2026-11-04 09:30 CST): one file, receipt pinned in the filename, display = replay of the segment to the current point, complete = the final transition. The gen-09 result+trace two-link presentation is superseded.",
+    "Record section gains a literal Replay button: on the push it walks the page's printed anchors from the genesis pin to the current HEAD — the model demonstrated on the seam's own segment, from data the page carries.",
+    "Record re-anchored: HEAD 407b70f1..., 23 receipts. Kit superseded by SUBMISSION__KIT__06."
   ]
 }
