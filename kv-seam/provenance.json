@@ -2,15 +2,20 @@
   "schema": "stegverse.site.node-provenance.v1",
   "node": "ECOSYSTEM-KV-SEAM",
   "page": "kv-seam/ (index.html + manifest.html)",
-  "page_generation": 5,
+  "page_generation": 6,
   "generated": "2026-11-04 (America/Chicago)",
   "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
   "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). These pages are projections of that record; they hold no authority of their own.",
   "source_records": [
     {
-      "name": "NODE__PAGE__05.md",
-      "drive_id": "1klsC74JLaWtr1L0-lxV0_inHokJ8oJdI",
-      "sha256": "8c408f1feecf397b04538146e40dbd07879dd5709ec817698188f0b849086939"
+      "name": "NODE__PAGE__06.md",
+      "drive_id": "1M5TMGKdC6WP5QdMijZxbJPwUt4kFUugl",
+      "sha256": "cf1dff9c5a02cf60ba1139292c2e050a76c6d4205c87c74beb43299a01a98d43"
+    },
+    {
+      "name": "SUBMISSION__CHANNELS__01.md (coordination folder; per-channel wiring verification)",
+      "drive_id": "19CxQplitNGl9yNhoJll5UhqErmqj7Qbt",
+      "sha256": "0d29f25bb28ff8f28c81bd527ff46af9d2f1bb91395ba9b6175742c04a638cf2"
     },
     {
       "name": "MANIFEST__PAGE__01.md (source of kv-seam/manifest.html)",
@@ -18,10 +23,10 @@
       "sha256": "e554a06cce5510529ccdcaf5d64a71a272ebc2e626fe3b753ab2746ccefa4007"
     }
   ],
-  "changes_from_generation_04": [
-    "Step 2 gains its two links (owner design, 2026-11-04 08:07 CST): a download link for the file (the submission kit) and a page link to the new manifest page.",
-    "New page kv-seam/manifest.html: a copyable card holding the manifest scaffold in text (clipboard button, same device-side pattern), and below it the explanation \u2014 what a manifest is, the fields, the fingerprints, how intent derives the stage set \u2014 with two worked examples (govern a packet -> [EXECUTE]; compare two systems -> [PROPOSAL, EVALUATION, FINAL REVIEW, FREEZE, EXECUTE]).",
-    "Stacked on generation 04 (the step-1 Register control, PR #1661): this generation's branch descends from generation 04's, and its diff against main reduces to generation 05 alone once #1661 merges."
+  "changes_from_generation_05": [
+    "Step 3 presents all three submission channels (owner design, 2026-11-04 08:12 CST \u2014 all three, on the condition that all three surfaces are already wired; verified per channel in SUBMISSION__CHANNELS__01): (1) Ecosystem Chat \u2014 paste/attach the manifest, or paste the packet data-first; (2) Share from your storage \u2014 share the manifest with the Ecosystem KV boundary account (stegverse@gmail.com) and keep the packet shared at its locator; (3) Your node \u2014 native participants place the manifest in their node's KV and it projects to the seam (open exactly when step 1 reads 'Device registered.').",
+    "Step 3 now states the shared form on the page: sending is two grants \u2014 deliver the manifest; make the packet reachable at its locator. The packet never travels; the channel is a property of the submitter's surface, never of the work.",
+    "Stacked on generations 04-05 (PRs #1661, #1662): the diff against main reduces as those merge."
   ],
   "instruments_at_generation": [
     {
@@ -62,6 +67,6 @@
     "receives_submissions": false,
     "in_browser_record": "the visitor's own StegOS device-node record only (browser-local by that node's design); the seam's record is the seam ledger",
     "custody": "refused \u2014 submitted content remains in submitters' own storage; the seam holds receipts",
-    "honesty_bound": "Chain reconstruction from these pages' anchors proves chain integrity and derivability, not receipt content truth."
+    "honesty_bound": "Chain reconstruction from these pages' anchors proves chain integrity and derivability, not receipt content truth. Channel pickup and seam-side performance are participant-performed (the standing interim) until the manifold mechanism stands; the page's channel descriptions carry that bound in SUBMISSION__CHANNELS__01."
   }
 }
