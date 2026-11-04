@@ -1,7 +1,7 @@
-# SUBMISSION KIT — ECOSYSTEM KV SEAM (03)
+# SUBMISSION KIT — ECOSYSTEM KV SEAM (05)
 
-Supersedes SUBMISSION__KIT__02 (2026-11-04: the deposit
-link and the cross-platform routes).
+Supersedes SUBMISSION__KIT__04 (2026-11-04: the trace —
+follow your submission's path to its last receipted point).
 Everything a submitter needs, in one file. Provided at the
 seam's address (https://stegverse.org/kv-seam/) and filed at
 the seam as the record copy.
@@ -41,10 +41,20 @@ anchors (file locators + SHA-256 digests), never uploads.
    start to finish. Submissions are worked by the ecosystem's
    lanes in their working sessions, in claim order — expect a
    working-session turnaround, not an instant reply.
-4. RECEIVE THE GOVERNED RETURN — it lands as a deposit along
-   the path your submission came by, receipt declared at the
-   top, with the complete receipt-chain segment of your run.
-   It waits in your storage; no message needs catching.
+4. FOLLOW YOUR RESULT LINK — at submission you are answered
+   with TWO links: your named result file, and its trace.
+   The result first reads STATUS: PENDING ("Results will be
+   available here. Refresh in a few minutes, or come back
+   later"). The TRACE shows your submission's path so far —
+   every receipted step, ending at its last receipted point
+   and current state — and is refreshed as the run advances.
+   When the work is done, the SAME result link holds the
+   governed result: STATUS: COMPLETE, receipt at the top,
+   the complete receipt-chain segment. Nothing to catch; the
+   links you already have are the result and its path. (A
+   copy also returns along your submission's path, as the
+   return of record.) Machines: poll either link; parse
+   STATUS in the result, STATE and PATH in the trace.
 
 ## More than one landing — projection
 
