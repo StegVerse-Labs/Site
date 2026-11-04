@@ -1,0 +1,49 @@
+{
+  "schema": "stegverse.site.node-provenance.v1",
+  "node": "ECOSYSTEM-KV-SEAM",
+  "page": "kv-seam/index.html",
+  "page_generation": 1,
+  "generated": "2026-11-04 (America/Chicago)",
+  "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
+  "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). This page is a projection of that record; it holds no authority of its own.",
+  "source_record": {
+    "name": "NODE__PAGE__01.md",
+    "drive_id": "1sQj8wLgpgW64dEqPn47EiHKPWzJgq2iY",
+    "sha256": "d8f535a83db3211dd61e364115dd23c5c85fb6ab3006316fb44e04846c3b75f8"
+  },
+  "ledger": {
+    "genesis_receipt_sha256": "f39d0a3c0f95348823b3b42e2f66dd1a5bed84a8fd5bcbad1542c38546140b25",
+    "head_receipt_sha256": "4024340f0fa00a1aec7e33e93a0311fb3be5da6f8a25961dded0eb1b09754e99",
+    "receipts": 4,
+    "breaks": 0,
+    "orphans": 0,
+    "verification": "Walked HEAD-to-genesis from the store's bytes, 2026-11-04; every receipt's stored hash recomputed and matched."
+  },
+  "instruments_at_generation": [
+    {
+      "name": "SEAM_NODE__DESIGNATION__01.md",
+      "sha256": "86822b417bde132b08eff7ff7abdef76b23bfdaccc708afec21ffff1e2a3b17f"
+    },
+    {
+      "name": "SUBMITTER__BOOTSTRAP__01.md",
+      "sha256": "583c8f0450717af998eab1925b020a6697831d6a2aa9c652fd1655971cda2e11"
+    },
+    {
+      "name": "LLM_ADAPTER__PROTOCOL__03.md",
+      "sha256": "940ff97f09d882a673be27f7eadb3295d793893a8772dc060274e41195535a1d"
+    },
+    {
+      "name": "SUBMISSION__INSTRUCTION__02.md (+ addenda 01-03)",
+      "sha256": "d9e8c306bef76d799908be080a00c59cb7bdd501e3c53d7a754e32534a4060f8"
+    }
+  ],
+  "bounds": {
+    "collects_user_data": false,
+    "forms": false,
+    "scripts": false,
+    "trackers": false,
+    "in_browser_record": "none \u2014 the node's record is the ledger at the seam; this page is a view of it",
+    "custody": "refused \u2014 submitted content remains in submitters' own storage; the seam holds receipts",
+    "honesty_bound": "Chain reconstruction from this page's anchors proves chain integrity and derivability, not receipt content truth."
+  }
+}
