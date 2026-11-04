@@ -2,11 +2,15 @@
   "schema": "stegverse.site.node-provenance.v1",
   "node": "ECOSYSTEM-KV-SEAM",
   "page": "kv-seam/ (index.html + manifest.html)",
-  "page_generation": 12,
+  "page_generation": 13,
   "generated": "2026-11-04 (America/Chicago)",
   "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
   "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). These pages are projections of that record; they hold no authority of their own.",
   "source_records": [
+    {
+      "name": "NODE__PAGE__13.md",
+      "sha256": "459ea2f5bf92e3255130d96ee96b17e91bc523bf5ce69de83cdb571411b88899"
+    },
     {
       "name": "NODE__PAGE__12.md",
       "sha256": "31eadc01472f27bdbb2b8b9397e916ce2976922e4aa8f10972de0f81f96e93fc"
@@ -72,7 +76,7 @@
     "custody": "refused — submitted content remains in submitters' own storage; the seam holds receipts",
     "honesty_bound": "Processing is performed by the ecosystem's lanes in their working sessions (the external automation, PROCESSING__TRIGGER__01) until the internal machinery (KV runtime, InTr) is proven; the page states the resulting latency bound. The node-projection channel remains machinery-present / protocol-unestablished, as recorded in MANIFOLD Addendum 05."
   },
-  "changes_from_generation_11": [
-    "Naming correction (owner, 2026-11-04): the top card is the seam's LEDGER projected, not a 'result' — a result is one run's segment under RESULT__FILE__MODEL__01. Card heading, card text header, card paragraph, and share title renamed to match; the paragraph now states the distinction (a result file is one run's segment of this ledger). No mechanics changed."
+  "changes_from_generation_12": [
+    "Placement and emphasis (owner design, 2026-11-04 10:25 CST): the ledger card moves to the bottom of the page beside the record, its three buttons with it; the first thing seen at the top is a simple link down to it. The page's highlight returns to the submission steps — submitting a manifest governance request is the page's purpose; the ledger is its proof, one tap away at the bottom."
   ]
 }
