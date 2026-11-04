@@ -6,9 +6,9 @@
       "claim_id": "EC9-WHEN-AI-SERVICES-FAIL-SITE-PUBLICATION-001-20261027",
       "session_worker_id": "claude:coordination:ec9-when-ai-services-fail-site-publication-001-20261027",
       "task_id": "EC9-WHEN-AI-SERVICES-FAIL-SITE-PUBLICATION-001",
-      "originating_goal": "Publish the final research paper (current reviewed edition v1.0.3, 17 pages) 'When AI Services Fail: Computational Overcharging and the Cost of Failed Prompts' (SV-LLM/Ecosystem_Chat#9) on Site as an exact-byte PDF and DOCX with a landing page and a Papers discovery card, linking the full ERL research-process mirror, without creating research, governance or publication authority on Site.",
+      "originating_goal": "Publish the final research paper (current reviewed edition v1.0.3, 17 pages) 'When AI Services Fail: Computational Overcharging and the Cost of Failed Prompts' (SV-LLM/Ecosystem_Chat#9) on Site as an exact-byte PDF and DOCX with a landing page and a Papers discovery card, linking the full ERL research-process mirror, without creating research, governance or publication authority on Site. Post-publication scope proposed for the same owner: review six accuracy corrections on the two landing pages in Site#1656.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "publication/when-ai-services-fail-20261027",
+      "branch": "ec9/landing-copy-author-review-20261103",
       "handoff": "docs/SITE_MIRROR_HANDOFF.md",
       "handoff_revision": null,
       "role": "IMPLEMENTATION",
@@ -18,20 +18,15 @@
         "site:when-ai-services-fail-paper"
       ],
       "claimed_paths": [
-        "data/session-work-claims.d/ec9-when-ai-services-fail-publication-20261027.json",
         "papers/when-ai-services-fail/index.html",
-        "papers/when-ai-services-fail/when-ai-services-fail.pdf",
-        "papers/when-ai-services-fail/when-ai-services-fail.docx",
-        "Papers.html"
+        "papers/before-you-vote/index.html"
       ],
       "claim_created_at": "2026-10-27T18:40:00Z",
-      "claim_expires_when": "Release after exact-byte PDF/DOCX installation, exact-head Site validation, non-author merge, and public observation of the paper page and PDF route.",
+      "claim_expires_when": "Release on merge or closure of #1656 after its final disposition is recorded.",
       "expected_evidence": [
-        "installed PDF (v1.0.3) is 17 pages, 186269 bytes, SHA-256 463fce02c432dede1a5505376e1f41b67b05c81c2a34f0a2f9ab07c56373ab28 (superseded v1.0 expectation: 19 pages, 229170 bytes, db163e29...)",
-        "installed DOCX (v1.0.3) is 55591 bytes, SHA-256 be72df87676b07f9e6cef84d5c338abe5738344a82ffefc98edc592c52dd9db7 (superseded v1.0 expectation: 54683 bytes, 2a93dd96...)",
-        "non-author review PASS against the installed bytes: L2/L2b/L2c (v1.0.1/v1.0.2), L3/L3b (v1.0.3, Site#1633 6503943545), lane-6 visual/static review (6505019289)",
-        "ERL mirror (Executive_Rhetoric_Ledger PR #249) merged so the provenance link resolves",
-        "Site makes no independent research finding or publication-authority claim"
+        "Publishing-owner disposition on six findings",
+        "Exact-head green checks on #1656",
+        "If merged, compare both live landing pages with the accepted text"
       ],
       "collision_boundaries": [
         "Do not modify Executive_Rhetoric_Ledger canonical source",
@@ -39,8 +34,8 @@
         "Do not alter other papers or release entries",
         "No private account screenshots or restricted ERL case contents"
       ],
-      "blocked_on": "Native publication authority: Q74-01 custody basis (.github#2810), DEP-EC9-MANUSCRIPT-V1_0_1 admitted event (.github#3195), TVC receipt ingestion (.github#3183), then exact-head SPPA ALLOW. Binary custody transfer completed (v1.0 KV custody, two readbacks).",
-      "next_task_after_release": "None for Site unless a revised edition is issued.",
+      "blocked_on": "Proposed amendment requires existing owner and claim/registry lane ratification. The publishing owner separately decides the wording.",
+      "next_task_after_release": "Record merge or closure and relinquish the local claim.",
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
@@ -48,7 +43,29 @@
       "render_required": false,
       "authority_effect": false,
       "activation_effect": false,
-      "archive_eligible": false
+      "archive_eligible": false,
+      "prior_publication_scope": {
+        "branch": "publication/when-ai-services-fail-20261027",
+        "claimed_paths": [
+          "data/session-work-claims.d/ec9-when-ai-services-fail-publication-20261027.json",
+          "papers/when-ai-services-fail/index.html",
+          "papers/when-ai-services-fail/when-ai-services-fail.pdf",
+          "papers/when-ai-services-fail/when-ai-services-fail.docx",
+          "Papers.html"
+        ],
+        "claim_expires_when": "Release after exact-byte PDF/DOCX installation, exact-head Site validation, non-author merge, and public observation of the paper page and PDF route.",
+        "expected_evidence": [
+          "installed PDF (v1.0.3) is 17 pages, 186269 bytes, SHA-256 463fce02c432dede1a5505376e1f41b67b05c81c2a34f0a2f9ab07c56373ab28 (superseded v1.0 expectation: 19 pages, 229170 bytes, db163e29...)",
+          "installed DOCX (v1.0.3) is 55591 bytes, SHA-256 be72df87676b07f9e6cef84d5c338abe5738344a82ffefc98edc592c52dd9db7 (superseded v1.0 expectation: 54683 bytes, 2a93dd96...)",
+          "non-author review PASS against the installed bytes: L2/L2b/L2c (v1.0.1/v1.0.2), L3/L3b (v1.0.3, Site#1633 6503943545), lane-6 visual/static review (6505019289)",
+          "ERL mirror (Executive_Rhetoric_Ledger PR #249) merged so the provenance link resolves",
+          "Site makes no independent research finding or publication-authority claim"
+        ],
+        "blocked_on": "Native publication authority: Q74-01 custody basis (.github#2810), DEP-EC9-MANUSCRIPT-V1_0_1 admitted event (.github#3195), TVC receipt ingestion (.github#3183), then exact-head SPPA ALLOW. Binary custody transfer completed (v1.0 KV custody, two readbacks).",
+        "next_task_after_release": "None for Site unless a revised edition is issued."
+      },
+      "pull_request_under_work": 1656,
+      "admission_basis": "Proposal only. Existing owner identity retained. Submission is not an owner attestation or a Ratify decision."
     }
   ]
 }
