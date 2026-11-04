@@ -1,7 +1,7 @@
-# SUBMISSION KIT — ECOSYSTEM KV SEAM (02)
+# SUBMISSION KIT — ECOSYSTEM KV SEAM (03)
 
-Supersedes SUBMISSION__KIT__01 (2026-11-04 finish pass: the
-watched inbox, result projection, replay/reconstruction).
+Supersedes SUBMISSION__KIT__02 (2026-11-04: the deposit
+link and the cross-platform routes).
 Everything a submitter needs, in one file. Provided at the
 seam's address (https://stegverse.org/kv-seam/) and filed at
 the seam as the record copy.
@@ -22,11 +22,22 @@ anchors (file locators + SHA-256 digests), never uploads.
 2. BUILD YOUR MANIFEST — fill in the scaffold below. The
    automated builder can draft it from your stated purpose;
    you confirm.
-3. SUBMIT — deliver the manifest (chat, or share it with
-   stegverse@gmail.com — it is received into the seam's watched
-   inbox; the deposit itself is the signal, no email is used
-   by the process) and keep your packet reachable at its
-   locator. The request itself is the work order, receipted
+3. SUBMIT — deliver the manifest and keep your packet
+   reachable at its locator. The seam's inbox is a folder in
+   a Google Drive owned by stegverse@gmail.com. Three ways in:
+   (a) deposit the manifest at the inbox link —
+   https://drive.google.com/drive/folders/1kZcD-BoKTl_b79iwH5pgNfE8c8U9QgDh
+   (depositing asks you to be signed in to any Google
+   account; the link is a standing approval to deposit, and
+   depositors can see one another's manifests there);
+   (b) share it with stegverse@gmail.com from your own Google
+   Drive; (c) paste it in Ecosystem Chat. If your files live
+   on another cloud service, they can stay there — only the
+   manifest travels; your packet is read at the link your
+   manifest names. The deposit itself is the signal that
+   starts the work; no email is used by the process. Only
+   manifests are worked — anything else deposited is held,
+   unprocessed. The request itself is the work order, receipted
    start to finish. Submissions are worked by the ecosystem's
    lanes in their working sessions, in claim order — expect a
    working-session turnaround, not an instant reply.
