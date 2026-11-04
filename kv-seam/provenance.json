@@ -1,20 +1,27 @@
 {
   "schema": "stegverse.site.node-provenance.v1",
   "node": "ECOSYSTEM-KV-SEAM",
-  "page": "kv-seam/index.html",
-  "page_generation": 4,
+  "page": "kv-seam/ (index.html + manifest.html)",
+  "page_generation": 5,
   "generated": "2026-11-04 (America/Chicago)",
   "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
-  "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). This page is a projection of that record; it holds no authority of its own.",
-  "source_record": {
-    "name": "NODE__PAGE__04.md",
-    "drive_id": "1W-5P7LwuwwG5ftYPngegTsRQoBaj9dw7",
-    "sha256": "8e4b36351fb8a7cb6230f8245648cd8fd85c7bfd9cb3cbcacf94d48c577bc867"
-  },
-  "changes_from_generation_03": [
-    "Step 1 is functional (owner design, 2026-11-04 07:49 CST: the step's prose 'isn't doing much' \u2014 a node that should be established gets a control that establishes it). The step-1 card carries a Register control wired to the Site's own StegOS node machinery: the same continuity loader the Site index loads (assets/stegverse-node-continuity.js), exposing window.StegVerseNodeContinuity (status / registerDevice).",
-    "Control states, per the owner's spec: 'Register device.' (enabled, no node in this browser); 'Device registered.' (disabled/grayed, a node stands \u2014 status() resolving registered=true is a validated state, since the API fails closed when a registration's genesis receipt does not validate); a flash line directly below the button shows green 'Success!' after a successful establishment, or 'Error - click HERE.' with HERE linked to the StegOS Node page (../stegos-node/) on any failure.",
-    "Script bound restated for generation 04: the page now loads the Site's node continuity stack so step 1 can act. Two records are kept distinct on the page and in this provenance: registering establishes the VISITOR'S OWN device node, whose record is browser-local by the node design (as on the StegOS Node page); the SEAM's record remains its ledger at the KV boundary. The Register control sends nothing to the seam; the page still receives no submissions and collects no user data."
+  "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). These pages are projections of that record; they hold no authority of their own.",
+  "source_records": [
+    {
+      "name": "NODE__PAGE__05.md",
+      "drive_id": "1klsC74JLaWtr1L0-lxV0_inHokJ8oJdI",
+      "sha256": "8c408f1feecf397b04538146e40dbd07879dd5709ec817698188f0b849086939"
+    },
+    {
+      "name": "MANIFEST__PAGE__01.md (source of kv-seam/manifest.html)",
+      "drive_id": "1WMt34P-rEgoMj8T3AcT6RSqL2rjIgqbv",
+      "sha256": "e554a06cce5510529ccdcaf5d64a71a272ebc2e626fe3b753ab2746ccefa4007"
+    }
+  ],
+  "changes_from_generation_04": [
+    "Step 2 gains its two links (owner design, 2026-11-04 08:07 CST): a download link for the file (the submission kit) and a page link to the new manifest page.",
+    "New page kv-seam/manifest.html: a copyable card holding the manifest scaffold in text (clipboard button, same device-side pattern), and below it the explanation \u2014 what a manifest is, the fields, the fingerprints, how intent derives the stage set \u2014 with two worked examples (govern a packet -> [EXECUTE]; compare two systems -> [PROPOSAL, EVALUATION, FINAL REVIEW, FREEZE, EXECUTE]).",
+    "Stacked on generation 04 (the step-1 Register control, PR #1661): this generation's branch descends from generation 04's, and its diff against main reduces to generation 05 alone once #1661 merges."
   ],
   "instruments_at_generation": [
     {
@@ -51,10 +58,10 @@
     "collects_user_data": false,
     "forms": false,
     "trackers": false,
-    "scripts": "the copy handler, plus the Site's StegOS node continuity stack (the loader the index uses) powering the step-1 Register control for the visitor's own device node",
+    "scripts": "copy handlers (device-side clipboard), plus \u2014 on index.html \u2014 the Site's StegOS node continuity stack powering the step-1 Register control",
     "receives_submissions": false,
-    "in_browser_record": "the visitor's own StegOS device-node record only (browser-local by that node's design, as on the StegOS Node page); the seam's record is never in the browser \u2014 it is the seam ledger",
+    "in_browser_record": "the visitor's own StegOS device-node record only (browser-local by that node's design); the seam's record is the seam ledger",
     "custody": "refused \u2014 submitted content remains in submitters' own storage; the seam holds receipts",
-    "honesty_bound": "Chain reconstruction from this page's anchors proves chain integrity and derivability, not receipt content truth. The Register control's 'Device registered.' state reports this browser's node state via the node's own API; it is not a seam attestation."
+    "honesty_bound": "Chain reconstruction from these pages' anchors proves chain integrity and derivability, not receipt content truth."
   }
 }
