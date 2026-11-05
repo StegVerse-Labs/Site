@@ -41,7 +41,13 @@ jobs:
           git checkout --detach FETCH_HEAD
           test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
 
+      - name: Read owner external-dependency decision
+        id: dependency_decision
+        shell: bash
+        run: python3 -c "import json; d = json.load(open('data/site-external-dependency-decisions.json'))['decisions']['PLAYWRIGHT_BROWSER_VERIFICATION']; print('remove=' + ('true' if d['remove'] is True else 'false'))" >> "$GITHUB_OUTPUT"
+
       - name: Install established browser validation dependency
+        if: steps.dependency_decision.outputs.remove != 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -49,6 +55,7 @@ jobs:
           python -m playwright install --with-deps chromium
 
       - name: Execute deployed bounded paper routes in Chromium
+        if: steps.dependency_decision.outputs.remove != 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -58,6 +65,32 @@ jobs:
           fi
           echo 'FAIL_CLOSED: Entity Economy Volume II public observation did not verify on this attempt; the next completed Pages deployment or a manual dispatch re-attempts.' >&2
           exit 1
+
+      - name: Declare browser verification not run (owner removed Playwright)
+        if: steps.dependency_decision.outputs.remove == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          record = {
+              "result": "FAIL_CLOSED",
+              "passed": False,
+              "browser_verification_performed": False,
+              "decision": "data/site-external-dependency-decisions.json#PLAYWRIGHT_BROWSER_VERIFICATION.remove=true",
+              "failure_code": "EXTERNAL_DEPENDENCY_REMOVED_BROWSER_VERIFICATION_NOT_RUN",
+              "failed_predicate": "deployed Entity Economy Volume II paper routes render in Chromium (scripts/check_entity_economy_volume_ii_public.py); browser verification is not performed because Playwright is not installed",
+              "required_evidence_or_repair": "owner sets PLAYWRIGHT_BROWSER_VERIFICATION.remove=false in data/site-external-dependency-decisions.json, or admits a dependency-free browser verifier; until then no public browser observation of these routes exists",
+              "retry_entrypoint": ".github/workflows/entity-economy-volume-ii-public-observation.yml",
+              "owning_existing_goal": "SITE-CURRENT-NEWS-RELEASES-967 (docs/CURRENT_NEWS_RELEASES_MIRROR_HANDOFF.md)",
+              "next_attempt": "the next completed Pages deployment or manual dispatch of entity-economy-volume-ii-public-observation.yml after the owner decision is reverted; no automatic retry while remove=true",
+              "authority_effect": "NONE",
+          }
+          Path("reports").mkdir(exist_ok=True)
+          Path("reports/entity-economy-volume-ii-public.json").write_text(json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          print(json.dumps(record, indent=2, sort_keys=True))
+          PY
 
       - name: Confirm non-authorizing observer boundary
         if: always()
