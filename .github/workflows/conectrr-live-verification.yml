@@ -17,25 +17,51 @@ concurrency:
 
 jobs:
   verify-conectrr-publication:
-    if: >-
-      github.event_name != 'workflow_run' ||
-      (github.event.workflow_run.conclusion == 'success' &&
-       github.event.workflow_run.head_branch == 'main' &&
-       !startsWith(github.event.workflow_run.head_commit.message, 'chore(conectrr): persist live verification status'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Select this run (NOT_SELECTED, never skipped)
+        id: select
+        env:
+          WORKFLOW_RUN_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          WORKFLOW_RUN_HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          WORKFLOW_RUN_HEAD_COMMIT_MESSAGE: ${{ github.event.workflow_run.head_commit.message }}
+        run: |
+          set -euo pipefail
+          # Same predicate as the former job-level condition: a manual dispatch always runs; a completed Pages
+          # deployment runs only when it succeeded on main and is not this workflow's own status commit.
+          selected=true
+          reason=''
+          if [ "${GITHUB_EVENT_NAME}" = "workflow_run" ]; then
+            if [ "${WORKFLOW_RUN_CONCLUSION}" != "success" ] || [ "${WORKFLOW_RUN_HEAD_BRANCH}" != "main" ]; then
+              selected=false
+              reason="the completed Pages deployment is not a successful deployment of main (conclusion=${WORKFLOW_RUN_CONCLUSION:-none}, head_branch=${WORKFLOW_RUN_HEAD_BRANCH:-none})"
+            elif [[ "${WORKFLOW_RUN_HEAD_COMMIT_MESSAGE}" == "chore(conectrr): persist live verification status"* ]]; then
+              selected=false
+              reason="the deployment is this workflow's own status commit, which is not re-verified"
+            fi
+          fi
+          echo "selected=${selected}" >> "$GITHUB_OUTPUT"
+          if [ "${selected}" = "false" ]; then
+            echo "NOT_SELECTED: ${reason}; nothing verified, nothing committed, no authority effect"
+            echo "## Conectrr Live Verification" >> "$GITHUB_STEP_SUMMARY"
+            echo "NOT_SELECTED: ${reason}." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Checkout Site
+        if: steps.select.outputs.selected == 'true'
         uses: actions/checkout@v4
         with:
           persist-credentials: true
 
       - name: Set up Python
+        if: steps.select.outputs.selected == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
       - name: Verify deployed Conectrr assets
+        if: steps.select.outputs.selected == 'true'
         run: |
           if python scripts/check_conectrr_live_routes.py; then
             exit 0
@@ -44,12 +70,14 @@ jobs:
           exit 1
 
       - name: Install remote-browser verifier
+        if: steps.select.outputs.selected == 'true'
         run: |
           python -m pip install --upgrade pip
           python -m pip install playwright
           python -m playwright install --with-deps chromium
 
       - name: Execute deployed Conectrr runtime in Chromium
+        if: steps.select.outputs.selected == 'true'
         env:
           STEGVERSE_PAGES_BASE_URL: https://stegverse-labs.github.io/Site
         run: |
@@ -60,11 +88,11 @@ jobs:
           exit 1
 
       - name: Persist finite live-verification state
-        if: always()
+        if: always() && steps.select.outputs.selected == 'true'
         run: python scripts/update_conectrr_live_status.py || true
 
       - name: Commit durable live status
-        if: always() && github.ref == 'refs/heads/main'
+        if: always() && github.ref == 'refs/heads/main' && steps.select.outputs.selected == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -95,7 +123,7 @@ jobs:
           fi
 
       - name: Upload Conectrr live verification evidence
-        if: always()
+        if: always() && steps.select.outputs.selected == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: conectrr-live-verification-${{ github.run_id }}-${{ github.run_attempt }}
@@ -107,7 +135,7 @@ jobs:
           retention-days: 30
 
       - name: Write verification summary
-        if: always()
+        if: always() && steps.select.outputs.selected == 'true'
         run: |
           echo "## Conectrr Live Verification" >> "$GITHUB_STEP_SUMMARY"
           if [ -f data/conectrr-live-status.json ]; then

@@ -31,3 +31,7 @@ The claim names this handoff, and it is released when that batch's PR is merged.
   ecosystem's own included.
 - No data file is deleted. Stored session-work claims that name folded workflow
   paths are left unedited.
+
+## Round 68 note (P4 a65c67bf)
+
+B12 (StegFin phone observer fold, Site#1653 @ `91eadc66`) released. B13 converts `conectrr-live-verification.yml` job-level `if` to an early NOT_SELECTED select step (pre-image sha256 `e6abdd45bcd07d2fe0c8659752314add641760fbc4c125173e8b206287f59bba` under `tools/tasks/folded/`). Workflow count remains 97 / FAIL_CLOSED on the exception ceiling.

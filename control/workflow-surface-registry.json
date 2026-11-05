@@ -339,7 +339,7 @@
     },
     {
       "path": ".github/workflows/conectrr-live-verification.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "classification": "KEEP_EXISTING_SURFACE_GATING_CONVERTED",
       "triggers": [
         "workflow_dispatch",
         "workflow_run"
@@ -347,13 +347,15 @@
       "permissions": {
         "contents": "write"
       },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "e6abdd45bcd07d2fe0c8659752314add641760fbc4c125173e8b206287f59bba",
+      "reason": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 68 / #166): job-level `if` removed so the job always runs; an early select step records NOT_SELECTED (a run, never a skipped job) when a workflow_run is not a successful Pages deployment of main or is this workflow's own status commit, and gates every later step on selected=true. workflow_dispatch still always selects. permissions {contents: write}, playwright install, and triggers are unchanged; no secret, dependency, cron, dispatch or polling is added. Pre-conversion file recorded at tools/tasks/folded/conectrr-live-verification.yml, sha256 e6abdd45bcd07d2fe0c8659752314add641760fbc4c125173e8b206287f59bba.",
+      "verbatim_sha256": "feba369e3d360fc92c97f4e3f71a4b15b48a324a80a1f7b710d44fb6562c009a",
       "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "lifecycle": "workflow_run/workflow_dispatch live verification (kept; job-level if converted to early NOT_SELECTED)",
+        "justification": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 68 / #166): job-level `if` removed so the job always runs; an early select step records NOT_SELECTED (a run, never a skipped job) when a workflow_run is not a successful Pages deployment of main or is this workflow's own status commit, and gates every later step on selected=true. workflow_dispatch still always selects. permissions {contents: write}, playwright install, and triggers are unchanged; no secret, dependency, cron, dispatch or polling is added. Pre-conversion file recorded at tools/tasks/folded/conectrr-live-verification.yml, sha256 e6abdd45bcd07d2fe0c8659752314add641760fbc4c125173e8b206287f59bba.",
         "within_exception_ceiling": true
-      }
+      },
+      "pre_conversion_record": "tools/tasks/folded/conectrr-live-verification.yml",
+      "pre_conversion_sha256": "e6abdd45bcd07d2fe0c8659752314add641760fbc4c125173e8b206287f59bba"
     },
     {
       "path": ".github/workflows/conectrr-security-overlay.yml",
@@ -2636,9 +2638,9 @@
     "workflow_count": 97,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 62: no workflow was folded or added (count stays 97). The validation of check-stegfin-phone-projection (pull_request and push) is now the catalog group check-stegfin-phone-projection.validate with its original path filters and NOT_SELECTED gating, and the kept file is the workflow_run-only observer with no job-level `if`, so no run of it shows a skipped job. this is batch 10 of the G17 surface reduction for this repository (98 to 97). Batches 1 to 9 took the count from 154 to 98 (batch 9, Site#1647, restored the original path filters through run_catalog selection). This batch folds one more validator: generic-login-test-validation. It has no permissions, no token or secret, one job and no job-level condition; its only network step is a read-only observation of two public stegverse.org URLs that is carried as a step with its original `github.event_name != 'pull_request'` condition. Its original push branch filter (main) is covered by the dispatcher's push trigger, and its original pull_request and push paths are carried by catalog path_filters, so it runs only when those paths change (NOT_SELECTED receipt otherwise, never skipped). The count stays above the three-file exception ceiling and remains FAIL_CLOSED on that contract. Five validators that DENY on main's tree carry a specific FAIL_CLOSED reason in the registry and stay kept byte-unchanged (none is repairable without a publication or freeze decision or without suppressing the check): check-sv002-authentic-runtime-evidence-harness, hil-announcement-contract, check-hil-linkedin-launch-readiness, task0011-product-source-transport and verify-thought-experiments-publication. Also kept with a specific reason: four validators with a job-level pull_request condition, stegmusic-browser-execution (browser install) and capture-validation-evidence and conectrr-security-overlay (named by generated data and by their own network source fetch). The remaining surfaces use a GITHUB_TOKEN, network access, an anonymous checkout re-initialization, write permissions, workflow_run, schedule or issue triggers, several jobs or reusable calls, or are named by canonical-workflow checks, and stay KEEP_PENDING_LATER_BATCH until their own admitted repair; their credentials belong only in the SKAP Vault inside KV. Each later batch lowers workflow_count and replaces this record with its exact new count.",
+    "required_evidence_or_repair": "Round 68: workflow_count stays 97 (no fold/add). conectrr-live-verification.yml converted from job-level `if` to an early NOT_SELECTED select step so non-selected Pages events no longer appear as skipped jobs; pre-image sha256 e6abdd45bcd07d2fe0c8659752314add641760fbc4c125173e8b206287f59bba under tools/tasks/folded/. The count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Prior batches 1\u201312 (through Site#1653 StegFin observer) remain. Remaining KEEP_PENDING / FAIL_CLOSED_KEEP surfaces are unchanged. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
-    "next_attempt": "the next pull request touching .github/workflows/ or those contracts"
+    "next_attempt": "the next pull request that can fold a credential-free surface without breaking a pinned contract"
   }
 }
