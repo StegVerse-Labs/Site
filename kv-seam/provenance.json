@@ -2,14 +2,14 @@
   "schema": "stegverse.site.node-provenance.v1",
   "node": "ECOSYSTEM-KV-SEAM",
   "page": "kv-seam/ (index.html + manifest.html)",
-  "page_generation": 16,
+  "page_generation": 17,
   "generated": "2026-11-04 (America/Chicago)",
   "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
   "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). These pages are projections of that record; they hold no authority of their own.",
   "source_records": [
     {
-      "name": "NODE__PAGE__16.md",
-      "sha256": "1ed0cc011beb921e33e3b08b0b642d1f7d443095fee45015f49200f5962ef257"
+      "name": "NODE__PAGE__17.md",
+      "sha256": "f251335e57e645366c4113d6032acc226f2f70088b94de3d1e5af6a9b15c0bbc"
     },
     {
       "name": "(Manifest.Instructions) projection at the seam (.github folder)",
@@ -63,13 +63,11 @@
     "custody": "refused \u2014 submitted content remains in submitters' own storage; the seam holds receipts",
     "honesty_bound": "Processing is performed by the ecosystem's lanes in their working sessions (the external automation, PROCESSING__TRIGGER__01) until the internal machinery (KV runtime, InTr) is proven; the page states the resulting latency bound. The node-projection channel remains machinery-present / protocol-unestablished, as recorded in MANIFOLD Addendum 05."
   },
-  "generated_from": "NODE__PAGE__16 (coordination folder) \u2014 record refresh to HEAD 4216a0ed (38 receipts) + Results re-pointed at CLAUDECODE-002 + the nonconforming-mint honesty entry",
+  "generated_from": "NODE__PAGE__17 (coordination folder) \u2014 scrollable ledger card + record block (owner direction 2026-11-04 22:26 CST); record unchanged from generation 16",
   "ledger_head": "4216a0ed87e96a3c052e580e0d57aaa7d8ed93b6dd6bbb468d137a576c626e60",
   "receipt_count": 38,
-  "index_html_sha256": "f38cc118e88e29016de07cf557defe8008a5c252eafd53ee55fba44a05d435a9",
-  "changes_from_generation_15": [
-    "Record refreshed to HEAD 4216a0ed (38 receipts): EXTERNAL-TEST-001/002, CLAUDECODE-ESTABLISH-001, and CLAUDECODE-002 segments appended to the ledger card and the record block.",
-    "Results button re-pointed at the most recent receipted run's result (CLAUDECODE-002, RESULT__eb05d4a6cbdfa45b.txt).",
-    "Record block carries the nonconforming-mint honesty entry (2d15bab3 superseded by 4216a0ed, retained, not part of the chain)."
+  "index_html_sha256": "9c726e2d11361608bc28922ce48ee6ef4c35652c7d5c771e7b56c25decb3244a",
+  "changes_from_generation_16": [
+    "The ledger card and The Record block are bounded scroll regions (max-height 60vh / 45vh, overflow-y auto, keyboard-focusable); ledger content unchanged (38 receipts, HEAD 4216a0ed)."
   ]
 }
