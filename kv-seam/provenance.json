@@ -1,0 +1,74 @@
+{
+  "schema": "stegverse.site.node-provenance.v1",
+  "node": "ECOSYSTEM-KV-SEAM",
+  "page": "kv-seam/ (index.html + manifest.html)",
+  "page_generation": 15,
+  "generated": "2026-11-04 (America/Chicago)",
+  "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
+  "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). These pages are projections of that record; they hold no authority of their own.",
+  "source_records": [
+    {
+      "name": "NODE__PAGE__14.md",
+      "sha256": "d5d40a74132f959de0ae235d1248e1b7455b04727ee9424d59b6fb9d24bbb797"
+    },
+    {
+      "name": "(Manifest.Instructions) projection at the seam (.github folder)",
+      "drive_id": "1jj18iYF72DztQu-QUJNbV7Vq9Sj9SoKg",
+      "sha256": "95e4d26bf4bad7265b39b327df0f3b83a48a56bb106eadcbc65fccfc35995e15",
+      "note": "public form of SUBMISSION__KIT__06 plus the beyond-the-basic-flow forms; link-readable"
+    },
+    {
+      "name": "(Demos) projection at the seam (.github folder)",
+      "drive_id": "1NAxhAwZDZCD7qQ-0VVvcugl2zh86SbJE",
+      "sha256": "201757b58e8cc7ab0af67ee35fb2c50905ed0c552725b9f44b3c86b68729efad",
+      "note": "index over the operated runs; each demo file link-readable"
+    },
+    {
+      "name": "DEPOSIT__LINK__01.md",
+      "drive_id": "1OinAFtmNBMR2mt1nthQSa4uQu9skZ3RD",
+      "note": "the (Inbox) projection's destination and bounds"
+    }
+  ],
+  "instruments_at_generation": [
+    {
+      "name": "PROCESSING__PROMPT__02.md",
+      "drive_id": "1oiH5pav_DvK3tr61YJSh6rJA42JERNDW",
+      "sha256": "207acd86b641ae920cfa1912b9878d1795b2684bea9dae4cb63a32ad85a11c02"
+    },
+    {
+      "name": "INBOX__WATCH__01.md",
+      "drive_id": "1ZHXnZCUEP4EMrGtaNozco0XuGqZZkpwL",
+      "sha256": "796be03d32c614150c73f2459d7d9c077eba35cd5fcf2019def34658f7457431"
+    },
+    {
+      "name": "RESULT__PROJECTION__01.md / REPLAY__RECONSTRUCTION__01.md / PROCESSING__TRIGGER__01.md",
+      "note": "coordination folder instruments; the page presents their public form"
+    }
+  ],
+  "ledger": {
+    "genesis_receipt_sha256": "f39d0a3c0f95348823b3b42e2f66dd1a5bed84a8fd5bcbad1542c38546140b25",
+    "head_receipt_sha256": "407b70f1f1cf8886770db076dda38017aafc2ea3e23fff4440821b0ad9712eaf",
+    "receipts": 23,
+    "breaks": 0,
+    "orphans": 0,
+    "verification": "Receipts 1-11 re-verified in RECONSTRUCTION RUN 001; appends 12-23 under the verified-append rule."
+  },
+  "bounds": {
+    "collects_user_data": false,
+    "forms": false,
+    "trackers": false,
+    "scripts": "device-side only: the register control (the Site's StegOS node continuity stack; success grays the button, failure reveals the remediation link below it) and the ledger card's Replay/Reconstruct, Share, and Copy Text handlers (the card text is built from anchors printed on this page)",
+    "receives_submissions": false,
+    "in_browser_record": "the visitor's own StegOS device-node record only (browser-local by that node's design); the seam's record is the seam ledger",
+    "custody": "refused — submitted content remains in submitters' own storage; the seam holds receipts",
+    "honesty_bound": "Processing is performed by the ecosystem's lanes in their working sessions (the external automation, PROCESSING__TRIGGER__01) until the internal machinery (KV runtime, InTr) is proven; the page states the resulting latency bound. The node-projection channel remains machinery-present / protocol-unestablished, as recorded in MANIFOLD Addendum 05."
+  },
+  "changes_from_generation_13": [
+    "The simplified page as the owner designed it in discussion (2026-11-04, landed 11:15 CST): four steps in his text. Step 1 register — 'Success!' plus the button grayed out on success; a remediation link appears below the button on failure; a returning registered device loads in the success state. Step 2 — the instructions and the worked examples are projections at the address, (Manifest.Instructions)@ and (Demos)@; the Ecosystem Chat builder is marked COMING SOON. Step 3 — the share to (Inbox)@stegverse@gmail.com is the one live path, its operated bounds stated; the Projection Tool and the Ecosystem Chat submission tool are marked COMING SOON. Step 4 — the result at (RESULT-[receipt.hash])@stegverse@gmail.com, with the owner's NOTE: the receipt hash should match the submission hash in the Seam's Ledger below.",
+    "Removed: the top action row (copy address / kit download / begin in chat), the kit download button (the owner's correction: a Muse addition, not his design), the manifest.html sub-page link (file retained in the repo, unlinked), and the long channel prose. The ledger card remains at the bottom beside the record; the record itself is unchanged."
+  ],
+  "generated_from": "NODE__PAGE__15 (coordination folder) — owner-directed label simplification + readable projection views + Results button populated with the latest receipted run; ledger record refreshed to HEAD 2e037ad8 (26 receipts, IDWORK-RUN-001)",
+  "ledger_head": "2e037ad85c0104769dc0149f84d76261c77445469cd7c309258adf2bc51bc744",
+  "receipt_count": 26,
+  "index_html_sha256": "e6cf6ca5df3b6e852ab6e342daa0defb7fbc85fe34f9dcb2e00bd09dabf8c016"
+}

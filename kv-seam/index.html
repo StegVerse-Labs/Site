@@ -1,0 +1,100 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ecosystem KV Seam — StegVerse</title><meta name="description" content="The front door of the StegVerse Ecosystem KnowledgeVault. Submit work from your own storage in four steps. You keep your files; the vault keeps the receipts."><link rel="stylesheet" href="../sv-shared.css"><script src="../assets/stegverse-node-continuity.js"></script><style>.seam-flow{max-width:820px;margin:0 auto;padding:0 1.2rem}.summary{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:16px 0 24px;flex-wrap:wrap}.state-chip{border:1px solid var(--border);border-radius:999px;padding:5px 9px;font-size:.86rem}.step-card{background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:16px;margin:0 0 18px}.step-head{display:flex;align-items:center;gap:12px}.step-number{display:grid;place-items:center;min-width:42px;height:42px;border-radius:50%;background:#4d7ddb;color:#fff;font-size:1.25rem;font-weight:900;flex:none}.step-card h2{margin:0;font-size:clamp(1.3rem,4.5vw,1.8rem)}.step-card p{line-height:1.7}.record{border-left:4px solid #4d7ddb;padding:1rem 1.2rem;margin:1.8rem 0;background:rgba(77,125,219,.06)}.note{border-left:4px solid #dba44d;padding:1rem;margin:1.5rem 0}code{overflow-wrap:anywhere}a{color:var(--accent)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 10px}.sv-action{display:inline-block;border:2px solid #4d7ddb;border-radius:999px;padding:9px 16px;background:var(--surface);color:inherit;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}.sv-action:hover{border-color:#dba44d}.addr-note{min-height:1.2em;font-size:.9rem;margin:0 0 14px}.flash{min-height:1.3em;font-weight:700;margin:.6rem 0 0}.flash.ok{color:#1f6f43}.flash.err{color:#b3261e}.sv-action[disabled]{opacity:.5;cursor:default}</style></head><body><main class="seam-flow"><nav><a href="../index.html">StegVerse</a> · <a href="../stegos-node/">StegOS Node</a> · <a href="../Papers.html">Papers</a></nav><h1>Ecosystem KV Seam</h1><p><strong>The front door of the StegVerse Ecosystem KnowledgeVault.</strong> Everything that enters the vault is received here, checked, recorded, and answered. You keep your files. The vault keeps the receipts.</p>
+
+<p><a href="#seamLedger">The seam’s ledger — every receipt, replayable — is at the bottom of this page ↓</a></p><section class="step-card"><div class="step-head"><span class="step-number">1</span><h2>Register your device</h2></div><p>Use the button below to register your device. A successful registration will show ‘Success!’ and the button will be grayed out. If it is not, then a link will appear just below the button to the StegOS Node page for remediation.</p><p>A healthy node is required to communicate from traditional runtime machines to StegVerse’s State Transition Ecosystem.</p><button class="sv-action" id="seamRegister" type="button" disabled>Checking node status…</button><p class="flash" id="seamFlash" role="status" aria-live="polite"></p><p id="seamRemedy" hidden><a href="../stegos-node/">StegOS Node page — remediation →</a></p></section>
+
+<section class="step-card"><div class="step-head"><span class="step-number">2</span><h2>Build the Manifest for Submission</h2></div><p>The instructions are a file at the seam — a projection at the seam’s address, like everything here. It gives the manifest’s proper build: the scaffold, the fields, the rules.</p><p><a class="sv-action" href="https://drive.google.com/file/d/1p8hXXTT4deTpc-QBsU_SeTbHVLYEaTGe/view">Manifest Instructions</a></p><p>Worked examples — complete runs you can open and replay before you submit anything:</p><p><a class="sv-action" href="https://drive.google.com/file/d/1Cg9vErmZov-RBKnKwjBQ3G1tENsmc8DH/view">Demos</a></p><p><em>COMING SOON: Ecosystem Chat automated manifest builder tool.</em></p></section>
+
+<section class="step-card"><div class="step-head"><span class="step-number">3</span><h2>Submit</h2></div><p><strong>1.</strong> Share the file from your storage drive to Google Drive — here’s the link:</p><p><a class="sv-action" href="https://drive.google.com/drive/folders/1kZcD-BoKTl_b79iwH5pgNfE8c8U9QgDh">Inbox</a></p><p>Adding a file asks you to be signed in to any Google account — not an ecosystem one. Only manifests are worked; anything else deposited is held, unprocessed. Your data packet never travels: it stays at the locator your manifest names, and is checked where it sits.</p><p><strong>2.</strong> <em>COMING SOON: Projection Tool — place your manifest and data packet in your node’s shared location, and it will automatically project the manifest and data packet to the Ecosystem KV Inbox.</em></p><p><strong>3.</strong> <em>COMING SOON: Ecosystem Chat Manifest and Data Packet Submission Tool.</em></p></section>
+
+<section class="step-card"><div class="step-head"><span class="step-number">4</span><h2>Your result</h2></div><p><a class="sv-action" href="https://drive.google.com/file/d/1TItvQj-2H2Sdso3Q_FM1i7DAdT1IhaB7/view">Results</a></p><p>This button carries the most recent receipted run’s result, re-pointed each time the page is generated from the record. Your own run’s result link is given in the acknowledgment at submission — anyone with that link can open it. The file at that link is the replay of your run from the receipt pinned in its name — the result is exactly where it is in the process, and complete is its final transition.</p><p><strong>NOTE:</strong> The receipt hash should match the submission hash in ‘The Seam’s Ledger’ below for the submission.</p></section>
+
+<section class="step-card" id="seamLedger"><div class="step-head"><h2>The seam’s ledger</h2></div><p>This card is the seam’s ledger, projected: the replay of its receipt chain from its pinned genesis receipt to the current location in the process. A submission’s result file (step 4) is one run’s segment of this ledger. <strong>Replay/Reconstruct</strong> rebuilds it on the push. <strong>Copy Text</strong> copies exactly this card’s output. <strong>Share</strong> shares it.</p><p><button class="sv-action" id="svReplay" type="button">Replay / Reconstruct</button> <button class="sv-action" id="svShare" type="button">Share</button> <button class="sv-action" id="svCopy" type="button">Copy Text</button></p><p class="sv-flash" id="svCardFlash" hidden></p><pre id="svResultCard" style="white-space:pre-wrap;word-break:break-all;">ECOSYSTEM KV SEAM — LEDGER (projection of the seam's chain)
+PINNED RECEIPT: sha256:f39d0a3c0f95348823b3b42e2f66dd1a5bed84a8fd5bcbad1542c38546140b25 (genesis — the segment starts here)
+1 · DESIGNATION · sha256:f39d0a3c0f95348823b3b42e2f66dd1a5bed84a8fd5bcbad1542c38546140b25
+2 · SUBMISSION_INGRESS · sha256:fd2c4bc45ab07ab454c0709a0d7308dd38c11018b2fccf17f5d5a32f59c02932
+3 · EVALUATION_DISPOSITION · sha256:0fea89c341b9a4ff3abc0d9482d51381aef9257a130f58769be8647c47c353ba
+4 · RETURN_EGRESS · sha256:4024340f0fa00a1aec7e33e93a0311fb3be5da6f8a25961dded0eb1b09754e99
+5 · QUERY_INGRESS · sha256:3cbf63a0224ca6c3f839ff224c004024c1c3d6dee26518ebe6f32382415e8743
+6 · COMPOSITION_DISPOSITION · sha256:a4804fbc31189b9c953636da177eba7a40518e592f436eb12ab8360e634521a5
+7 · RETURN_EGRESS · sha256:a826f096e8a9197dd8a9c96f8991c6d98cf344c8ce5c54857cfe61bb5935f3d6
+8 · SUBMISSION_INGRESS · sha256:1575473f280049797442c56c97488b4be36b8ed61bb97671ba8301e67a27d902
+9 · DISPOSITION · sha256:67c5143b073a1b015f515fa33f8b55f55dec2401df36a875dc685bb2e6518de9
+10 · RETURN_EGRESS · sha256:ad887419ca1336d12108dc301f4e636c7fea597873aaf03754d37c94fa3cb2f4
+11 · RESULT_PROJECTION · sha256:8b89e5c3034bfb94b934348a9f941cf94588d19242953f3f2065f799f818d321
+12 · SUBMISSION_INGRESS · sha256:75044ecef459e680e0a09de13ac6cdf1cc5a68f8c70943c5b1bec07cc1e2e4ba
+13 · DISPOSITION · sha256:4e4ac17d953a57cb12ec3ccd86885bf9110e7d008d0d4c5a591cce64de7f26c6
+14 · RETURN_EGRESS · sha256:994afe45b1a0e460b45878ccb88a7c523cd1f86820035dff069f8fe82935e100
+15 · QUERY_INGRESS · sha256:47ffa901ecd2569c5214610ffa549f3da099e0c44511c3068f5f41f050ab415b
+16 · COMPOSITION_DISPOSITION · sha256:008faf75f93c7b09ee75b6a4246604aecf26d19e4661f31fccb991caea3cd4b0
+17 · RETURN_EGRESS · sha256:d9b58409ccf531d473003ad695567304540a0510bf4e0fa435674ef65613135c
+18 · QUERY_INGRESS · sha256:59b4b21cbe13fe265cbb95d178bf06e36835d08cbb422906d487bd7e18a55aef
+19 · COMPOSITION_DISPOSITION · sha256:893a7ed68f6cd9b477a81f033fc8e3511bed4328872f24667890f0156dcfa851
+20 · RETURN_EGRESS · sha256:f4cc3b2a8668964f6b34bb0d147817433359bc4e72c17fb69491ea593abddd50
+21 · QUERY_INGRESS · sha256:6ecd076740e2fe53a358b4fe62e266d723dd22be5be478ea095d8066f4a4761f
+22 · COMPOSITION_DISPOSITION · sha256:ed2943c7d7183253ce41909f7ee71fa749f8933db987f359d1297ff64d5d44fc
+23 · RETURN_EGRESS · sha256:407b70f1f1cf8886770db076dda38017aafc2ea3e23fff4440821b0ad9712eaf
+
+24 · SUBMISSION_INGRESS · sha256:95fcb8319ba9cea518d1a6566b7538f765ae14bd8c7f387aae4014d7aae7f9b3
+
+25 · DISPOSITION · sha256:7190defb2c493f4d11408aed474d48eab6e5281470c515d443315fc08c84f2f2
+
+26 · RETURN_EGRESS · sha256:2e037ad85c0104769dc0149f84d76261c77445469cd7c309258adf2bc51bc744
+CURRENT LOCATION IN THE PROCESS: HEAD sha256:2e037ad85c0104769dc0149f84d76261c77445469cd7c309258adf2bc51bc744 — 26 receipts replayed from the pin.</pre></section>
+
+<h2>The record</h2>
+<div class="record"><p>Node <code>ECOSYSTEM-KV-SEAM</code> · Designation <code>SEAM_NODE__DESIGNATION__01</code>, SHA-256 <code>86822b417bde132b08eff7ff7abdef76b23bfdaccc708afec21ffff1e2a3b17f</code></p><p>Ledger HEAD (page generation 15): <code>2e037ad85c0104769dc0149f84d76261c77445469cd7c309258adf2bc51bc744</code> — <strong>26 receipts</strong>, 0 breaks, 0 orphans. In order: designation <code>f39d0a3c…</code>, submission ingress <code>fd2c4bc4…</code>, evaluation disposition <code>0fea89c3…</code>, return egress <code>4024340f…</code>, query ingress <code>3cbf63a0…</code>, composition disposition <code>a4804fbc…</code>, return egress <code>a826f096…</code>, submission ingress <code>1575473f…</code>, disposition <code>67c5143b…</code>, return egress <code>ad887419…</code>, result projection <code>8b89e5c3…</code>, submission ingress <code>75044ece…</code>, disposition <code>4e4ac17d…</code>, return egress <code>994afe45…</code>, query ingress <code>47ffa901…</code>, composition disposition <code>008faf75…</code>, return egress <code>d9b58409…</code>, query ingress <code>59b4b21c…</code>, composition disposition <code>893a7ed6…</code>, return egress <code>f4cc3b2a…</code>, query ingress <code>6ecd0767…</code>, composition disposition <code>ed2943c7…</code>, return egress <code>407b70f1…</code>, submission ingress <code>95fcb831…</code>, disposition <code>7190defb…</code>, return egress <code>2e037ad8…</code>. The first eleven were walked and re-verified from the store’s bytes in Reconstruction Run 001; every append since follows the same verified-append rule. Anyone can recompute this chain from these anchors — that is what they are for.</p></div>
+
+<h2>The rules here</h2>
+<p>No credentials are held and no user data is collected — anything that asks you for either is not this seam. Custody of your files never moves. A file that arrives changed is a mismatch, not an arrival. An answer from this seam is a governed response with its receipt, a HOLD, or silence; anything else is not from here. Every button on this page acts only on your own device — registering it, opening projections, replaying the ledger card, sharing, and copying. This page has no forms and no trackers and collects nothing. Its scripts run on your device: the ledger card's handlers, and the Site's StegOS node stack behind the register button — which keeps your device node's record in your browser, as that node's design intends. The seam's own record is never in your browser; it is the ledger at the seam.</p>
+<div class="note"><strong>What this page is.</strong> A picture of the record, not the record itself — the record is the ledger at the seam, and this page is generated from it (posture: MIRROR / RECEIPT_BACKED). If the two ever disagree, the disagreement is a finding: the page is corrected in a new generation, never quietly edited.</div>
+</main><script>
+(function(){
+  var btn=document.getElementById('seamRegister');
+  var flash=document.getElementById('seamFlash');
+  var remedy=document.getElementById('seamRemedy');
+  if(!btn||!flash)return;
+  function showError(){ flash.textContent=''; flash.className='flash'; if(remedy)remedy.hidden=false; }
+  function showSuccess(){ flash.className='flash ok'; flash.textContent='Success!'; }
+  function setRegistered(){ btn.disabled=true; btn.textContent='Device registered.'; }
+  var api=window.StegVerseNodeContinuity||null;
+  if(!api){ btn.disabled=true; btn.textContent='Register device.'; showError(); return; }
+  api.status().then(function(current){
+    if(current && current.registered){ setRegistered(); showSuccess(); }
+    else { btn.disabled=false; btn.textContent='Register device.'; }
+  }).catch(function(){ btn.disabled=true; btn.textContent='Register device.'; showError(); });
+  btn.addEventListener('click', function(){
+    if(btn.disabled)return;
+    btn.disabled=true; btn.textContent='Registering\u2026'; flash.textContent=''; flash.className='flash'; if(remedy)remedy.hidden=true;
+    api.registerDevice().then(function(){ return api.status(); }).then(function(current){
+      if(current && current.registered){ setRegistered(); showSuccess(); }
+      else { btn.disabled=false; btn.textContent='Register device.'; showError(); }
+    }).catch(function(){ btn.disabled=false; btn.textContent='Register device.'; showError(); });
+  });
+})();
+</script></body></html>
+<script>
+(function(){
+  var anchors = [["DESIGNATION", "f39d0a3c0f95348823b3b42e2f66dd1a5bed84a8fd5bcbad1542c38546140b25"], ["SUBMISSION_INGRESS", "fd2c4bc45ab07ab454c0709a0d7308dd38c11018b2fccf17f5d5a32f59c02932"], ["EVALUATION_DISPOSITION", "0fea89c341b9a4ff3abc0d9482d51381aef9257a130f58769be8647c47c353ba"], ["RETURN_EGRESS", "4024340f0fa00a1aec7e33e93a0311fb3be5da6f8a25961dded0eb1b09754e99"], ["QUERY_INGRESS", "3cbf63a0224ca6c3f839ff224c004024c1c3d6dee26518ebe6f32382415e8743"], ["COMPOSITION_DISPOSITION", "a4804fbc31189b9c953636da177eba7a40518e592f436eb12ab8360e634521a5"], ["RETURN_EGRESS", "a826f096e8a9197dd8a9c96f8991c6d98cf344c8ce5c54857cfe61bb5935f3d6"], ["SUBMISSION_INGRESS", "1575473f280049797442c56c97488b4be36b8ed61bb97671ba8301e67a27d902"], ["DISPOSITION", "67c5143b073a1b015f515fa33f8b55f55dec2401df36a875dc685bb2e6518de9"], ["RETURN_EGRESS", "ad887419ca1336d12108dc301f4e636c7fea597873aaf03754d37c94fa3cb2f4"], ["RESULT_PROJECTION", "8b89e5c3034bfb94b934348a9f941cf94588d19242953f3f2065f799f818d321"], ["SUBMISSION_INGRESS", "75044ecef459e680e0a09de13ac6cdf1cc5a68f8c70943c5b1bec07cc1e2e4ba"], ["DISPOSITION", "4e4ac17d953a57cb12ec3ccd86885bf9110e7d008d0d4c5a591cce64de7f26c6"], ["RETURN_EGRESS", "994afe45b1a0e460b45878ccb88a7c523cd1f86820035dff069f8fe82935e100"], ["QUERY_INGRESS", "47ffa901ecd2569c5214610ffa549f3da099e0c44511c3068f5f41f050ab415b"], ["COMPOSITION_DISPOSITION", "008faf75f93c7b09ee75b6a4246604aecf26d19e4661f31fccb991caea3cd4b0"], ["RETURN_EGRESS", "d9b58409ccf531d473003ad695567304540a0510bf4e0fa435674ef65613135c"], ["QUERY_INGRESS", "59b4b21cbe13fe265cbb95d178bf06e36835d08cbb422906d487bd7e18a55aef"], ["COMPOSITION_DISPOSITION", "893a7ed68f6cd9b477a81f033fc8e3511bed4328872f24667890f0156dcfa851"], ["RETURN_EGRESS", "f4cc3b2a8668964f6b34bb0d147817433359bc4e72c17fb69491ea593abddd50"], ["QUERY_INGRESS", "6ecd076740e2fe53a358b4fe62e266d723dd22be5be478ea095d8066f4a4761f"], ["COMPOSITION_DISPOSITION", "ed2943c7d7183253ce41909f7ee71fa749f8933db987f359d1297ff64d5d44fc"], ["RETURN_EGRESS", "407b70f1f1cf8886770db076dda38017aafc2ea3e23fff4440821b0ad9712eaf"]];
+  var card = document.getElementById("svResultCard");
+  var flash = document.getElementById("svCardFlash");
+  function showFlash(ok, msg){ flash.hidden = false; flash.textContent = msg; flash.style.color = ok ? "#1e7e34" : ""; if (!ok) { flash.innerHTML = ""; var a = document.createElement("a"); a.href = "../stegos-node/"; a.textContent = "HERE"; flash.appendChild(document.createTextNode("Error - click ")); flash.appendChild(a); flash.appendChild(document.createTextNode(".")); } }
+  function headerLines(){ return ["ECOSYSTEM KV SEAM \u2014 LEDGER (projection of the seam\u2019s chain)", "PINNED RECEIPT: sha256:" + anchors[0][1] + " (genesis \u2014 the segment starts here)"]; }
+  document.getElementById("svReplay").addEventListener("click", function(){
+    var lines = headerLines(); card.textContent = lines.join("\n"); var i = 0;
+    (function step(){
+      if (i >= anchors.length) { lines.push("CURRENT LOCATION IN THE PROCESS: HEAD sha256:" + anchors[anchors.length-1][1] + " \u2014 " + anchors.length + " receipts replayed from the pin."); card.textContent = lines.join("\n"); showFlash(true, "Success!"); return; }
+      lines.push((i+1) + " \u00b7 " + anchors[i][0] + " \u00b7 sha256:" + anchors[i][1]); card.textContent = lines.join("\n"); i++; setTimeout(step, 120);
+    })();
+  });
+  document.getElementById("svCopy").addEventListener("click", function(){
+    var done = function(){ showFlash(true, "Success!"); };
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(card.textContent).then(done, function(){ showFlash(false); }); } else { showFlash(false); }
+  });
+  document.getElementById("svShare").addEventListener("click", function(){
+    var payload = { title: "Ecosystem KV seam \u2014 ledger", text: card.textContent, url: location.href };
+    if (navigator.share) { navigator.share(payload).then(function(){ showFlash(true, "Success!"); }, function(){}); }
+    else if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(card.textContent + "\n" + location.href).then(function(){ showFlash(true, "Success! Copied for sharing."); }, function(){ showFlash(false); }); }
+    else { showFlash(false); }
+  });
+})();
+</script>

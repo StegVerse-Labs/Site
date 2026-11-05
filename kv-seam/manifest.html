@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Manifest — Ecosystem KV Seam — StegVerse</title><meta name="description" content="What a manifest is, the copyable scaffold, and worked examples — the submission instrument of the Ecosystem KV Seam."><link rel="stylesheet" href="../sv-shared.css"><style>.seam-flow{max-width:820px;margin:0 auto;padding:0 1.2rem}.card{background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:16px;margin:0 0 18px}.card pre{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6;margin:.4rem 0 1rem}.sv-action{display:inline-block;border:2px solid #4d7ddb;border-radius:999px;padding:9px 16px;background:var(--surface);color:inherit;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}.copy-state{min-height:1.2em;font-size:.9rem;margin:.5rem 0 0}.seam-flow p{line-height:1.7}code{overflow-wrap:anywhere}a{color:var(--accent)}h2{margin-top:2rem}</style></head><body><main class="seam-flow"><nav><a href="index.html">← Ecosystem KV Seam</a> · <a href="../index.html">StegVerse</a> · <a href="../stegos-node/">StegOS Node</a></nav><h1>The manifest</h1><p><strong>A submission to the seam is not an upload. It is a manifest</strong> — one file that describes the work precisely: who is submitting, where results go back to, which files are involved and where they sit, and the protocol — exactly what is to be done with them. The submission describes itself; there is no separate form and no account to create. Sending the manifest is the work order.</p>
+
+<div class="card"><h2 style="margin-top:0">The scaffold — copy it, fill it in, send it</h2><pre id="scaffoldText">SUBMITTER: &lt;your identity&gt;
+RETURN ADDRESS: &lt;in your own storage — where the return is sent&gt;
+PARTICIPATION CLASS: external / native
+FILES:
+  - name: &lt;file name&gt;
+    locator: &lt;where it sits in your storage&gt;
+    sha256: &lt;the file's SHA-256 digest&gt;
+PROTOCOL: &lt;what you want done, precisely — including the return form you want&gt;
+RETURN: &lt;chat / file at the return address&gt;</pre><button class="sv-action" id="copyScaffold" type="button">Copy the manifest scaffold</button><p class="copy-state" id="scaffoldState" role="status" aria-live="polite"></p><p>The full instruction file — the steps and the rules as well — is the submission kit: <a href="submission-kit.md" download>download the submission kit</a>.</p></div>
+
+<h2>The fields</h2>
+<p><strong>Submitter</strong> is who is asking — the identity the return is owed to. <strong>Return address</strong> is a place in your own storage; results are delivered there, never held at the seam. <strong>Participation class</strong> is external (arriving from outside the ecosystem) or native (you hold a registered, healthy node — step 1 on the seam page). <strong>Files</strong> lists each file by name, by the locator where it sits in your storage, and by its SHA-256 digest. <strong>Protocol</strong> is the heart of it: what you want done, stated precisely — the operation, the constraints that govern it, and the form you want the results in. <strong>Return</strong> says how the governed return reaches you.</p>
+
+<h2>The fingerprints</h2>
+<p>Your files never travel. They are checked where they sit, against the digests in your manifest — that is what the SHA-256 fingerprint is for. If the bytes at a locator do not match the digest, the disposition is a mismatch, not an arrival: nothing is processed on the strength of a file that is not the file you manifested.</p>
+
+<h2>Your intent decides the stages</h2>
+<p>The manifest is read — in the sandbox, by the manifest logic — and the reading derives how many stages your submission has. State that a data packet needs governing, and the derived set is a single stage: <strong>EXECUTE</strong>. State that you intend to compare systems, and the derived set is the staged pipeline — <strong>PROPOSAL</strong>, an evaluation of the test's intent against the ecosystem's purpose, <strong>FINAL REVIEW</strong>, <strong>FREEZE</strong>, <strong>EXECUTE</strong> — four submissions, each a governed decision, because collapsing a stage would delete a decision someone is entitled to make. The stages are never picked from a menu and never taken on trust from labels; they are computed from what your manifest says and what your packet contains.</p>
+
+<h2>Examples</h2>
+<div class="card"><h3 style="margin-top:0">Example A — govern a packet (one stage)</h3><pre>SUBMITTER: A founder testing governance
+RETURN ADDRESS: the founder's own storage
+PARTICIPATION CLASS: external
+FILES:
+  - name: diagnostic-packet.json
+    locator: founder storage / tests
+    sha256: 17db506b… (the packet's digest)
+PROTOCOL: Govern this data packet against the constraints
+  stated in it; disposition each transition individually;
+  return the results as a JSON file.
+RETURN: file at the return address</pre><p>The reading derives <strong>[EXECUTE]</strong> — govern it and return the results. The return is the per-transition dispositions in JSON, the receipt declared at the top.</p></div>
+
+<div class="card"><h3 style="margin-top:0">Example B — compare two systems (staged)</h3><pre>SUBMITTER: Two founders, by agreement
+RETURN ADDRESS: each founder's own storage
+PARTICIPATION CLASS: external
+FILES:
+  - name: shared-record-set (frozen)
+    locator: as agreed by the parties
+    sha256: the frozen set's digest
+PROTOCOL: Evaluate this data set for the purpose of
+  comparing two governance systems against the same record.
+RETURN: file at each return address</pre><p>The reading derives <strong>[PROPOSAL, EVALUATION, FINAL REVIEW, FREEZE, EXECUTE]</strong>: the proposal is submission one; the sandbox evaluation weighs the test's intent against the ecosystem's purpose; agreed final review is submission two; freeze, submission three; execute, submission four — the minimum four submissions of the staged form.</p></div>
+
+<p><a href="index.html">← Back to the seam</a></p>
+</main><script>
+document.getElementById('copyScaffold').addEventListener('click', function () {
+  var text = document.getElementById('scaffoldText').textContent;
+  var state = document.getElementById('scaffoldState');
+  function done(ok){ state.textContent = ok ? "Scaffold copied to your clipboard." : "Copy failed — select the text in the card and copy it manually."; }
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(function(){done(true);}, function(){done(false);}); }
+  else { done(false); }
+});
+</script></body></html>
