@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-05T00:57:04Z",
+  "last_updated": "2026-11-05T01:16:08Z",
   "freshness": {
-    "generated_at": "2026-11-05T00:57:04Z",
+    "generated_at": "2026-11-05T01:16:08Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -76,7 +76,7 @@
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "2ND 03:35",
+      "status": "2ND 04:41",
       "kickoff": "2026-11-05T00:00:00Z",
       "conference": "mac",
       "note": "Ball St. Massachusetts"
@@ -85,11 +85,11 @@
       "id": "6603979",
       "home": "Sacramento St.",
       "away": "Toledo",
-      "home_score": 3,
+      "home_score": 10,
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "2ND 09:34",
+      "status": "2ND 02:00",
       "kickoff": "2026-11-05T00:00:00Z",
       "conference": "mac",
       "note": "Toledo Sacramento St."
@@ -102,7 +102,7 @@
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 06:28",
+      "status": "2ND 14:55",
       "kickoff": "2026-11-05T00:30:00Z",
       "conference": "mac",
       "note": "Central Mich. Eastern Mich."
