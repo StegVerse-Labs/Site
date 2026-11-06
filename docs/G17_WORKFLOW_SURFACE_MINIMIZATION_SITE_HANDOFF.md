@@ -51,3 +51,7 @@ B15 (fold mykv-public-propagation-proof, Site#1674 @ `cb75d51b`) released. B16 f
 ## Round 72 note (P4 a65c67bf)
 
 B16 (fold homepage-chat public-asset observation, Site#1675 @ `455ccf74`) released. B17 fully folds both remaining converted observers (`sv002-sovereign-intr-profile-proof`, `sv002-status-public-http-proof`) into the stable dispatcher; workflow_count 95→93.
+
+## Round 73 note (P4 a65c67bf)
+
+B17 (fold both sv002 observers, Site#1676 @ `f0087fae`) released. B18 fully folds `evaluator-review-ui-validation` and `check-hil-deployed-controlled-cycle-evidence` into the stable dispatcher (anonymous checkout → dispatcher credential-free checkout); workflow_count 93→91.

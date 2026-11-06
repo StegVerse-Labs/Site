@@ -1,0 +1,1 @@
+python3 scripts/check_hil_deployed_controlled_cycle_evidence.py

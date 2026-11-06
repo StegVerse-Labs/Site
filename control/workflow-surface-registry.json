@@ -138,23 +138,6 @@
       }
     },
     {
-      "path": ".github/workflows/check-hil-deployed-controlled-cycle-evidence.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "6065eee812fe7831d778fcb4ac8381cbeba6711628dc93854c15ab597e7ba966",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/check-hil-end-to-end-protocol.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -445,22 +428,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "ca26ae446adc8312aa947fa58ae2ac67e87c7b1cdd4bda36f045e043f0f28ba5",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/evaluator-review-ui-validation.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "9cc0bc58861482de14b67d5da83d11149a2e6bb3417ee7252f68876a7311e6da",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -2619,16 +2586,47 @@
       ],
       "verbatim_record": "tools/tasks/folded/sv002-status-public-http-proof.yml",
       "verbatim_sha256": "e3da07dd67fdb7b2100abd32aa95181f45e1141863c99336f52a9b68f7c0fd6d"
+    },
+    {
+      "workflow": ".github/workflows/evaluator-review-ui-validation.yml",
+      "name": "Evaluator Review UI Source Validation",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "evaluator-review-ui-validation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/evaluator-review-ui-validation.yml",
+      "verbatim_sha256": "9cc0bc58861482de14b67d5da83d11149a2e6bb3417ee7252f68876a7311e6da"
+    },
+    {
+      "workflow": ".github/workflows/check-hil-deployed-controlled-cycle-evidence.yml",
+      "name": "Check HIL Deployed Controlled-Cycle Evidence",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-hil-deployed-controlled-cycle-evidence.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-hil-deployed-controlled-cycle-evidence.yml",
+      "verbatim_sha256": "6065eee812fe7831d778fcb4ac8381cbeba6711628dc93854c15ab597e7ba966"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 93,
+    "workflow_count": 91,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 72: workflow_count 95\u219293. Fully folded sv002-sovereign-intr-profile-proof and sv002-status-public-http-proof into the stable dispatcher (catalog groups sv002-sovereign-intr-profile-proof.validate and sv002-status-public-http-proof.validate): validate unittest always; observe/artifact gated with `if: github.event_name != 'pull_request'`. Verbatim pre-fold sha256 758b05c531348413557d413fee0da2824efc5839305bd9a883e6fed2095b8969 and e3da07dd67fdb7b2100abd32aa95181f45e1141863c99336f52a9b68f7c0fd6d under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 73: workflow_count 93\u219291. Fully folded evaluator-review-ui-validation and check-hil-deployed-controlled-cycle-evidence into the stable dispatcher (catalog groups evaluator-review-ui-validation.validate and check-hil-deployed-controlled-cycle-evidence.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin pattern). Verbatim pre-fold sha256 9cc0bc58861482de14b67d5da83d11149a2e6bb3417ee7252f68876a7311e6da and 6065eee812fe7831d778fcb4ac8381cbeba6711628dc93854c15ab597e7ba966 under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
-    "next_attempt": "the next pull request that folds another KEEP_PENDING / converted surface"
+    "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator (or converts a non-Pages job-level if); writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"
   }
 }
