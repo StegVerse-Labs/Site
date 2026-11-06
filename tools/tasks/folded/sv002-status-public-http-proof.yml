@@ -1,0 +1,48 @@
+name: StegVerse-002 Status Public HTTP Proof
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/observe_sv002_status_public_http.py'
+      - 'tests/test_observe_sv002_status_public_http.py'
+      - '.github/workflows/sv002-status-public-http-proof.yml'
+      - 'docs/SV002_STATUS_PUBLIC_HTTP_PROOF_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.d/site-sv002-status-public-http-847-20260831.json'
+      - 'data/tasks/SITE-SV002-STATUS-PUBLIC-HTTP-847.json'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/observe_sv002_status_public_http.py'
+      - 'tests/test_observe_sv002_status_public_http.py'
+      - '.github/workflows/sv002-status-public-http-proof.yml'
+      - 'docs/SV002_STATUS_PUBLIC_HTTP_PROOF_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.d/site-sv002-status-public-http-847-20260831.json'
+      - 'data/tasks/SITE-SV002-STATUS-PUBLIC-HTTP-847.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate observer semantics
+        run: python -m unittest -v tests.test_observe_sv002_status_public_http
+
+  observe:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Observe deployed public status
+        run: python scripts/observe_sv002_status_public_http.py --attempts 30 --delay-seconds 10
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sv002-status-public-http-proof-${{ github.run_id }}
+          path: evidence/sv002-status-public-http/
+          retention-days: 90
