@@ -1,0 +1,128 @@
+{
+  "schema": "stegverse.session-work-claim-request/v1",
+  "request_id": "SITE-WORKSPACE-INTEROPERABILITY-20260831-BRANCH-BINDING-REQUEST-001",
+  "state": "REQUESTED",
+  "requested_at": "2026-10-18T23:20:00Z",
+  "requester_session_worker_id": "claude:session_01CoqHFrwdZemtzkUWS88RWx",
+  "owning_existing_goal": "STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001",
+  "claim_fragment": "data/session-work-claims.d/site-workspace-interoperability-20260831.json",
+  "claim_id": "SITE-WORKSPACE-INTEROPERABILITY-20260831",
+  "requested_branch_bindings": [
+    {
+      "branch": "claude/1509-wu2-rehydration-six-fields",
+      "pull_request": 1609,
+      "head_at_request": "6c855854cc6627fa49c56992041091f669225b12"
+    },
+    {
+      "branch": "claude/1606-tidc-push-branches-main",
+      "pull_request": 1610,
+      "head_at_request": "0f7851543499095b498e8adfe0e1141c1fca1b61"
+    },
+    {
+      "branch": "claude/1509-b6-mykv-form-profile-worker-test",
+      "pull_request": 1611,
+      "head_at_request": "12945eb7c973d10452c8355d1012ff2d06c3badd"
+    },
+    {
+      "branch": "claude/1509-triage-fail-closed-harness-repairs",
+      "pull_request": 1612,
+      "head_at_request": "c1cc0f79704fadbde8280775db1fd3f09c119223"
+    },
+    {
+      "branch": "claude/3106-mykv-outcome-explanation",
+      "pull_request": 1613,
+      "head_at_request": "b5a33e6b468d445bea27c60a26d3f4c1ede1ae32"
+    },
+    {
+      "branch": "claude/1509-org-emp-kv-gate-consumer",
+      "pull_request": 1614,
+      "head_at_request": "a7092a8f75e9910b486f1bd758f7f66799f0a54c"
+    },
+    {
+      "branch": "claude/1509-dependency-reduction-fonts",
+      "pull_request": 1616,
+      "head_at_request": "a89a0bd7c7ec26323241a41f0d77d55e81590f5d"
+    },
+    {
+      "branch": "claude/1509-u3-remove-timer-triggers",
+      "pull_request": 1617,
+      "head_at_request": "eb012daed174638a5c0e8e674455bf3aabd1b77e"
+    },
+    {
+      "branch": "claude/1509-u4-stdlib-tests-no-pytest",
+      "pull_request": 1618,
+      "head_at_request": "46a12d5cd37008f2d5148553dc5b7825a0eabe16"
+    },
+    {
+      "branch": "claude/1509-u1-bridge-no-receiver-wait",
+      "pull_request": 1619,
+      "head_at_request": "af2b6d8a3e51d1a593fda2767dcc1e6681ac3cbe"
+    },
+    {
+      "branch": "claude/1509-mykv-receiver-credential-sentinel",
+      "pull_request": 1620,
+      "head_at_request": "9b0dcc14ec85e30b6e4dfaefba255ee932c48b7c"
+    },
+    {
+      "branch": "claude/1509-dp7-pin-workflow-actions",
+      "pull_request": 1621,
+      "head_at_request": "7c97f2839aed31ed9c6ddde25e985eb691e5fd62"
+    },
+    {
+      "branch": "claude/1509-dp9-claim-release-writer",
+      "pull_request": 1622,
+      "head_at_request": "f1aa9ae5d14b9e975255a04571c67bcead06d4cf"
+    },
+    {
+      "branch": "claude/1509-dp8-owner-flagged-dependency-removal",
+      "pull_request": 1623,
+      "head_at_request": "334d2aba03274142caf3cd6e84be955eed99f080"
+    },
+    {
+      "branch": "claude/1509-sv002-observe-syntax",
+      "pull_request": 1624,
+      "head_at_request": "465998a2595486edd907593754329964b3f01e2d"
+    },
+    {
+      "branch": "claude/1509-steglearn-checker-state",
+      "pull_request": 1625,
+      "head_at_request": "a6546d42dc4cbe91d0154321e0507c20cf1a1929"
+    }
+  ],
+  "canonical_allocator": {
+    "repository": "StegVerse-Labs/.github",
+    "entrypoint": "scripts/consume_org_claim_allocator_request.py::consume",
+    "admission_by_declaration": "a request is consumed only when its path is listed in REQUEST_RELS and bootstrap_sovereign_runtime.py REQUIRED_SOURCE_FILES and targets an org TASK projection",
+    "target_task_projection": null,
+    "target_task_projection_reason": "the TASK projection for the owning goal is itself an admission step, suspended by StegVerse-org/.github#167 r9; it is not created here",
+    "allocator_side_request": {
+      "pull_request": "StegVerse-Labs/.github#3231",
+      "task_projection": "TASK-2026-0015",
+      "request_ref": "control/resident-execution-request.d/org-claim-allocator-workspace-kv-site-001.json",
+      "branch_writer": "Grok Lane D (agent b699e0c0)",
+      "state": "OPEN_DRAFT_NOT_ADMITTED"
+    }
+  },
+  "materialization": {
+    "on": "ORGANIZATION_WORKER_CLAIM_GRANTED receipt naming this request_id",
+    "effect": "the grant's receipt binds each requested branch to the claim; this request never edits the claim fragment, and a session never waits on it",
+    "on_refusal": "ORGANIZATION_WORKER_CLAIM_REFUSED or _FAIL_CLOSED is recorded against this request_id with its own six fields"
+  },
+  "authority_effect": "NONE_REQUEST_ONLY",
+  "request_grants_claim_authority": false,
+  "allocator_remains_claim_authority": true,
+  "credential_authority": "TV/TVC",
+  "github_token_required": false,
+  "github_token_runtime_authority": "NONE",
+  "network_source_fetch_allowed": false,
+  "second_machine_required": false,
+  "actionable_disposition": {
+    "disposition": "FAIL_CLOSED",
+    "failure_code": "WORKERCOORDINATOR_CLAIM_NOT_GRANTED",
+    "failed_predicate": "SITE_WORKSPACE_INTEROPERABILITY_CLAIM_FENCED_BY_WORKERCOORDINATOR",
+    "required_evidence_or_repair": "an audit on StegVerse-org/.github#167 lifts r9, the org TASK projection and declared allocator request are admitted, and the allocator appends ORGANIZATION_WORKER_CLAIM_GRANTED for this request_id",
+    "retry_entrypoint": "StegVerse-Labs/.github:scripts/consume_org_claim_allocator_request.py::consume",
+    "owning_existing_goal": "STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001",
+    "next_attempt": "on the allocator's receipt for this request_id; nothing waits"
+  }
+}
