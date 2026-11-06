@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "cb75d51baf1f0aa1c99017ed73643d383dce0044",
+ "folded_from_commit": "455ccf747b2ef07459cb1051a39b495f418cbdc7",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -5383,6 +5383,168 @@
       "README.md",
       "tools/tasks/folded/site-homepage-chat-public-asset-observation.yml",
       "tools/tasks/steps/site-homepage-chat-public-asset-observation.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "sv002-sovereign-intr-profile-proof.validate",
+   "source": {
+    "workflow": ".github/workflows/sv002-sovereign-intr-profile-proof.yml",
+    "workflow_name": "SV002 Sovereign InTr Profile Proof",
+    "job": "validate+observe",
+    "job_name": null,
+    "commit": "455ccf747",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate observer semantics",
+     "run_file": "tools/tasks/steps/sv002-sovereign-intr-profile-proof.validate/01-validate-observer-semantics.sh",
+     "run_sha256": "d85d66f9c1837ae6158e5459328fbf743125145d7c39b604d8140144e6638718"
+    },
+    {
+     "name": "Observe public sovereign InTr profile",
+     "run_file": "tools/tasks/steps/sv002-sovereign-intr-profile-proof.validate/02-observe-public-sovereign-intr-profile.sh",
+     "run_sha256": "b540cac067c2d9424fc9b6338723e40754eb25c7e2019756c428cda9994d99a9",
+     "if": "github.event_name != 'pull_request'"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "sv002-sovereign-intr-profile-proof-${{ github.run_id }}",
+     "path": "evidence/sv002-sovereign-intr-profile/",
+     "if_no_files_found": "ignore",
+     "if": "github.event_name != 'pull_request'",
+     "retention-days": 90
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 8,
+    "python_version": "3.12",
+    "artifact_name": "sv002-sovereign-intr-profile-proof",
+    "artifact_if_no_files_found": "ignore"
+   },
+   "fold_notes": [
+    "Site round 72 / #166: full fold after B14 NOT_SELECTED conversion. Historical pre-NOT_SELECTED sha256 feb2671a6cfb6613fafdda621ef69570d8bc1b3a3c7f8b598580c5c7a53e9321.",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "scripts/observe_sv002_sovereign_intr_profile.py",
+      "tests/test_observe_sv002_sovereign_intr_profile.py",
+      "docs/SV002_SOVEREIGN_INTR_PROFILE_PROOF_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-sv002-sovereign-intr-profile-860-20260831.json",
+      "data/tasks/SITE-SV002-SOVEREIGN-INTR-PROFILE-860.json",
+      "tools/tasks/folded/sv002-sovereign-intr-profile-proof.yml",
+      "tools/tasks/steps/sv002-sovereign-intr-profile-proof.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "scripts/observe_sv002_sovereign_intr_profile.py",
+      "tests/test_observe_sv002_sovereign_intr_profile.py",
+      "docs/SV002_SOVEREIGN_INTR_PROFILE_PROOF_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-sv002-sovereign-intr-profile-860-20260831.json",
+      "data/tasks/SITE-SV002-SOVEREIGN-INTR-PROFILE-860.json",
+      "tools/tasks/folded/sv002-sovereign-intr-profile-proof.yml",
+      "tools/tasks/steps/sv002-sovereign-intr-profile-proof.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "sv002-status-public-http-proof.validate",
+   "source": {
+    "workflow": ".github/workflows/sv002-status-public-http-proof.yml",
+    "workflow_name": "StegVerse-002 Status Public HTTP Proof",
+    "job": "validate+observe",
+    "job_name": null,
+    "commit": "455ccf747",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate observer semantics",
+     "run_file": "tools/tasks/steps/sv002-status-public-http-proof.validate/01-validate-observer-semantics.sh",
+     "run_sha256": "15bf33f77446ff7ad23049938f223412e6f3d219e985447e7fdc4116e63b7a23"
+    },
+    {
+     "name": "Observe deployed public status",
+     "run_file": "tools/tasks/steps/sv002-status-public-http-proof.validate/02-observe-deployed-public-status.sh",
+     "run_sha256": "004a83f9bd69947f467762fba877581122918ce090647bc71512dac1bba64482",
+     "if": "github.event_name != 'pull_request'"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "sv002-status-public-http-proof-${{ github.run_id }}",
+     "path": "evidence/sv002-status-public-http/",
+     "if_no_files_found": "ignore",
+     "if": "github.event_name != 'pull_request'",
+     "retention-days": 90
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12",
+    "artifact_name": "sv002-status-public-http-proof",
+    "artifact_if_no_files_found": "ignore"
+   },
+   "fold_notes": [
+    "Site round 72 / #166: full fold after B14 NOT_SELECTED conversion. Historical pre-NOT_SELECTED sha256 c848e7e2ebda2af6159ac70050474b4b348bc1623d5dda94f66d7715f52299da.",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "scripts/observe_sv002_status_public_http.py",
+      "tests/test_observe_sv002_status_public_http.py",
+      "docs/SV002_STATUS_PUBLIC_HTTP_PROOF_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-sv002-status-public-http-847-20260831.json",
+      "data/tasks/SITE-SV002-STATUS-PUBLIC-HTTP-847.json",
+      "tools/tasks/folded/sv002-status-public-http-proof.yml",
+      "tools/tasks/steps/sv002-status-public-http-proof.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "scripts/observe_sv002_status_public_http.py",
+      "tests/test_observe_sv002_status_public_http.py",
+      "docs/SV002_STATUS_PUBLIC_HTTP_PROOF_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-sv002-status-public-http-847-20260831.json",
+      "data/tasks/SITE-SV002-STATUS-PUBLIC-HTTP-847.json",
+      "tools/tasks/folded/sv002-status-public-http-proof.yml",
+      "tools/tasks/steps/sv002-status-public-http-proof.validate/**"
      ]
     }
    }
