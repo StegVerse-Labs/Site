@@ -1,0 +1,1 @@
+python3 scripts/check_hil_end_to_end_protocol.py

@@ -122,22 +122,6 @@
       }
     },
     {
-      "path": ".github/workflows/check-hil-end-to-end-protocol.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "cda031f870cdf1ee930749eac8e04b9e5f746e029290210571bb7df501b1d7d1",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/check-hil-linkedin-launch-readiness.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -180,38 +164,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "c53da042b60ca8231d5cda3c95e41544c5ff682838e7b6bafb1997be502a9752",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/check-hil-v1-1-release.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "abcc7972cdcc7d1bc006ecd17ed3c0aec23e617419d2a2af8643994c97bcede6",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/check-hil-v1-upload-surface.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "99a04a80635a632dc1f7ed4f69537f5573300c8e52799f6e1a110ebecde47eee",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -540,22 +492,6 @@
       },
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "d3475d5e086ac1085efd4da9da8cb48db78f9613f4a92f3037842e8b2b971db3",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/hil-intr-submission-contract.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "1606dae6bdfc60276b155a12ba339662b2c05791898ab7115e8bdaec041a7f34",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -2615,16 +2551,76 @@
       ],
       "verbatim_record": "tools/tasks/folded/check-tvc-execution-receipt-import.yml",
       "verbatim_sha256": "4a44a9c1fe039da43bc4bf8b46691fd4298f9fe09c59b8ba5b0c57cb636dba24"
+    },
+    {
+      "workflow": ".github/workflows/hil-intr-submission-contract.yml",
+      "name": "HIL InTr Submission Contract",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "hil-intr-submission-contract.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/hil-intr-submission-contract.yml",
+      "verbatim_sha256": "1606dae6bdfc60276b155a12ba339662b2c05791898ab7115e8bdaec041a7f34"
+    },
+    {
+      "workflow": ".github/workflows/check-hil-end-to-end-protocol.yml",
+      "name": "Check HIL End-to-End Protocol",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-hil-end-to-end-protocol.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-hil-end-to-end-protocol.yml",
+      "verbatim_sha256": "cda031f870cdf1ee930749eac8e04b9e5f746e029290210571bb7df501b1d7d1"
+    },
+    {
+      "workflow": ".github/workflows/check-hil-v1-upload-surface.yml",
+      "name": "Check HIL v1 Upload Surface",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-hil-v1-upload-surface.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-hil-v1-upload-surface.yml",
+      "verbatim_sha256": "99a04a80635a632dc1f7ed4f69537f5573300c8e52799f6e1a110ebecde47eee"
+    },
+    {
+      "workflow": ".github/workflows/check-hil-v1-1-release.yml",
+      "name": "Check HIL v1.1 Release",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-hil-v1-1-release.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-hil-v1-1-release.yml",
+      "verbatim_sha256": "abcc7972cdcc7d1bc006ecd17ed3c0aec23e617419d2a2af8643994c97bcede6"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 89,
+    "workflow_count": 85,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 74: workflow_count 91\u219289. Fully folded canonical-generated-intr and check-tvc-execution-receipt-import into the stable dispatcher (catalog groups canonical-generated-intr.validate and check-tvc-execution-receipt-import.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin pattern). Verbatim pre-fold sha256 28073b7067583e257a3238b0cfeef97ccc7c0fd217a2292817f4d896bbbb64e4 and 4a44a9c1fe039da43bc4bf8b46691fd4298f9fe09c59b8ba5b0c57cb636dba24 under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 75: workflow_count 89\u219285. Fully folded hil-intr-submission-contract, check-hil-end-to-end-protocol, check-hil-v1-upload-surface, check-hil-v1-1-release into the stable dispatcher (catalog groups: hil-intr-submission-contract.validate, check-hil-end-to-end-protocol.validate, check-hil-v1-upload-surface.validate, check-hil-v1-1-release.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
-    "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator (or converts a non-Pages job-level if); writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"
+    "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator batch; writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"
   }
 }

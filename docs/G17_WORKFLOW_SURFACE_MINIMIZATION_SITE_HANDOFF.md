@@ -59,3 +59,7 @@ B17 (fold both sv002 observers, Site#1676 @ `f0087fae`) released. B18 fully fold
 ## Round 74 note (P4 a65c67bf)
 
 B18 (fold evaluator-ui + HIL deployed-cycle, Site#1677 @ `fc741ae0`) released. B19 fully folds `canonical-generated-intr` and `check-tvc-execution-receipt-import` into the stable dispatcher; workflow_count 91→89.
+
+## Round 75 note (P4 a65c67bf)
+
+G17-SITE-WORKFLOW-SURFACE-B19-20261105 released. G17-SITE-WORKFLOW-SURFACE-B20-20261105 fully folds hil-intr-submission-contract, check-hil-end-to-end-protocol, check-hil-v1-upload-surface, check-hil-v1-1-release into the stable dispatcher; workflow_count 89→85.

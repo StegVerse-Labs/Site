@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "fc741ae02182ecf4599399c82c55eeb9eb64e999",
+ "folded_from_commit": "adc671d40c610d91c8c8c4da432a35beb95cde80",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -5899,6 +5899,286 @@
       "tasks/SITE-TVC-RUNTIME-ASSIST-001.json",
       "tools/tasks/folded/check-tvc-execution-receipt-import.yml",
       "tools/tasks/steps/check-tvc-execution-receipt-import.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "hil-intr-submission-contract.validate",
+   "source": {
+    "workflow": ".github/workflows/hil-intr-submission-contract.yml",
+    "workflow_name": "HIL InTr Submission Contract",
+    "job": "validate",
+    "job_name": null,
+    "commit": "adc671d40",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate submission-triggered InTr contract",
+     "run_file": "tools/tasks/steps/hil-intr-submission-contract.validate/01-validate-submission-triggered-intr-contract.sh",
+     "run_sha256": "f273fda94444f809f7ff5bad39030a9b10500d0947bc13e170d7c974d2793ffc"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 75 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger (or push paths empty); push is declared so the folded group satisfies the dispatcher both-events contract."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/hil-direct-upload-v1.js",
+      "hil-receipt.html",
+      "docs/HIL_SITE_MIRROR_HANDOFF.md",
+      "scripts/check_hil_intr_submission.py",
+      "tools/tasks/folded/hil-intr-submission-contract.yml",
+      "tools/tasks/steps/hil-intr-submission-contract.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/hil-direct-upload-v1.js",
+      "hil-receipt.html",
+      "docs/HIL_SITE_MIRROR_HANDOFF.md",
+      "scripts/check_hil_intr_submission.py",
+      "tools/tasks/folded/hil-intr-submission-contract.yml",
+      "tools/tasks/steps/hil-intr-submission-contract.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-hil-end-to-end-protocol.validate",
+   "source": {
+    "workflow": ".github/workflows/check-hil-end-to-end-protocol.yml",
+    "workflow_name": "Check HIL End-to-End Protocol",
+    "job": "validate",
+    "job_name": null,
+    "commit": "adc671d40",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/check-hil-end-to-end-protocol.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "df1aed5ba01b6d1064b3a29f75b2b0dc531c51bcedc883c3747f5b2c92faeff0"
+    },
+    {
+     "name": "Validate current HIL protocol contract",
+     "run_file": "tools/tasks/steps/check-hil-end-to-end-protocol.validate/02-validate-current-hil-protocol-contract.sh",
+     "run_sha256": "4e6e6d789767fc70bb2c442a21300c23066864fb9d25da6a3b60fe261aa3fc3c"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 75 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger (or push paths empty); push is declared so the folded group satisfies the dispatcher both-events contract."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/HIL_END_TO_END_PROTOCOL.md",
+      "data/hil-experiment.json",
+      "data/HIL_Canonical_Paper_v1_1.pdf",
+      "scripts/check_hil_end_to_end_protocol.py",
+      "tools/tasks/folded/check-hil-end-to-end-protocol.yml",
+      "tools/tasks/steps/check-hil-end-to-end-protocol.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "docs/HIL_END_TO_END_PROTOCOL.md",
+      "data/hil-experiment.json",
+      "data/HIL_Canonical_Paper_v1_1.pdf",
+      "scripts/check_hil_end_to_end_protocol.py",
+      "tools/tasks/folded/check-hil-end-to-end-protocol.yml",
+      "tools/tasks/steps/check-hil-end-to-end-protocol.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-hil-v1-upload-surface.validate",
+   "source": {
+    "workflow": ".github/workflows/check-hil-v1-upload-surface.yml",
+    "workflow_name": "Check HIL v1 Upload Surface",
+    "job": "verify",
+    "job_name": null,
+    "commit": "adc671d40",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/check-hil-v1-upload-surface.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "e452d7e4cbf917823048d1d307e96a590c3831c18ac5d1f2905d74b0d88f9058"
+    },
+    {
+     "name": "Verify canonical HIL v1 upload compatibility surface",
+     "run_file": "tools/tasks/steps/check-hil-v1-upload-surface.validate/02-verify-canonical-hil-v1-upload-compatibility-surface.sh",
+     "run_sha256": "8ba851ee60cda7e24517b0afccb8acc0df0878c3721921781c012f61ec413850"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 75 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger (or push paths empty); push is declared so the folded group satisfies the dispatcher both-events contract."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "humans-as-interoperability-layer.html",
+      "assets/hil-experiment-v1.js",
+      "assets/hil-direct-upload-v1.js",
+      "hil-receipt.html",
+      "docs/HIL_SITE_MIRROR_HANDOFF.md",
+      "data/hil-experiment.json",
+      "data/hil-gateway-config.json",
+      "data/hil-primary-v1.0.pdf.b64",
+      "scripts/check_hil_v1_upload_surface.py",
+      "tools/tasks/folded/check-hil-v1-upload-surface.yml",
+      "tools/tasks/steps/check-hil-v1-upload-surface.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "humans-as-interoperability-layer.html",
+      "assets/hil-experiment-v1.js",
+      "assets/hil-direct-upload-v1.js",
+      "hil-receipt.html",
+      "docs/HIL_SITE_MIRROR_HANDOFF.md",
+      "data/hil-experiment.json",
+      "data/hil-gateway-config.json",
+      "data/hil-primary-v1.0.pdf.b64",
+      "scripts/check_hil_v1_upload_surface.py",
+      "tools/tasks/folded/check-hil-v1-upload-surface.yml",
+      "tools/tasks/steps/check-hil-v1-upload-surface.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-hil-v1-1-release.validate",
+   "source": {
+    "workflow": ".github/workflows/check-hil-v1-1-release.yml",
+    "workflow_name": "Check HIL v1.1 Release",
+    "job": "verify",
+    "job_name": null,
+    "commit": "adc671d40",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/check-hil-v1-1-release.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "bdb8daa47d60a8b99820cd765645e5bc16046465a41e26eb86a19158149f5bbb"
+    },
+    {
+     "name": "Verify exact canonical v1.1 release chain",
+     "run_file": "tools/tasks/steps/check-hil-v1-1-release.validate/02-verify-exact-canonical-v1-1-release-chain.sh",
+     "run_sha256": "42d2f9e103d922fee2dc4b627b0917dd199a4551be597bc31ea7ab0a3c755d5d"
+    },
+    {
+     "name": "Verify HIL compatibility projection",
+     "run_file": "tools/tasks/steps/check-hil-v1-1-release.validate/03-verify-hil-compatibility-projection.sh",
+     "run_sha256": "f776ff52d98eaaccb6559140b49372151a98ab18e0fd0fb50e33385902ff577b"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 75 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger (or push paths empty); push is declared so the folded group satisfies the dispatcher both-events contract."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "HIL_Canonical_Paper_v1_1.pdf",
+      "data/HIL_Canonical_Paper_v1_1.pdf",
+      "humans-as-interoperability-layer.html",
+      "assets/hil-experiment-v1.1.js",
+      "data/hil-experiment.json",
+      "scripts/check_hil_v1_1_release.py",
+      "scripts/check_hil_experiment.py",
+      "tools/tasks/folded/check-hil-v1-1-release.yml",
+      "tools/tasks/steps/check-hil-v1-1-release.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "HIL_Canonical_Paper_v1_1.pdf",
+      "data/HIL_Canonical_Paper_v1_1.pdf",
+      "humans-as-interoperability-layer.html",
+      "assets/hil-experiment-v1.1.js",
+      "data/hil-experiment.json",
+      "scripts/check_hil_v1_1_release.py",
+      "scripts/check_hil_experiment.py",
+      "tools/tasks/folded/check-hil-v1-1-release.yml",
+      "tools/tasks/steps/check-hil-v1-1-release.validate/**"
      ]
     }
    }
