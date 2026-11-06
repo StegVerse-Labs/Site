@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "p4/site-r72-fold-sv002-observers",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "g17-site-r72-fold-both-sv002-observers",
       "dependency_surface_keys": [
         "site:g17-site-r72-fold-both-sv002-observers"
@@ -54,7 +54,10 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1676,
+      "release_commit": "f0087faef786b4c929276ed83254eb6c1b3d6ecf",
+      "claim_released_at": "2026-11-06T00:24:21Z"
     }
   ]
 }

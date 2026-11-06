@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "455ccf747b2ef07459cb1051a39b495f418cbdc7",
+ "folded_from_commit": "f0087faef786b4c929276ed83254eb6c1b3d6ecf",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -5545,6 +5545,178 @@
       "data/tasks/SITE-SV002-STATUS-PUBLIC-HTTP-847.json",
       "tools/tasks/folded/sv002-status-public-http-proof.yml",
       "tools/tasks/steps/sv002-status-public-http-proof.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "evaluator-review-ui-validation.validate",
+   "source": {
+    "workflow": ".github/workflows/evaluator-review-ui-validation.yml",
+    "workflow_name": "Evaluator Review UI Source Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "f0087faef",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Static evaluator UI acceptance",
+     "run_file": "tools/tasks/steps/evaluator-review-ui-validation.validate/01-static-evaluator-ui-acceptance.sh",
+     "run_sha256": "88cbf96e0eb978b94b9cc7cdf0f0c98ae726f7eedc72eb8672d0b00d12d26447"
+    },
+    {
+     "name": "Deterministic review-state logic",
+     "run_file": "tools/tasks/steps/evaluator-review-ui-validation.validate/02-deterministic-review-state-logic.sh",
+     "run_sha256": "5cbb0faf81300a92ef811681a348b30428543909058fc3e0e739575890ea22b7"
+    },
+    {
+     "name": "Receipt-bound runtime projection discovery",
+     "run_file": "tools/tasks/steps/evaluator-review-ui-validation.validate/03-receipt-bound-runtime-projection-discovery.sh",
+     "run_sha256": "bb6f56d223ed79fafbc01a2f89f0520713e672973103cff377106310ece1e3d3"
+    },
+    {
+     "name": "Boundary summary",
+     "run_file": "tools/tasks/steps/evaluator-review-ui-validation.validate/04-boundary-summary.sh",
+     "run_sha256": "cd0d35d57f8d5bf10a25c944a4b4678ed32c61d570359191b0ee5924521a332a"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "node_version": "22"
+   },
+   "fold_notes": [
+    "Site round 73 / #166: fold KEEP_PENDING credential-free validator. Anonymous public checkout (git init/fetch) repaired to the dispatcher credential-free checkout of the event ref (stegfin pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger; push is declared so the folded group satisfies the dispatcher both-events contract (path filters preserved)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "evaluator-review.html",
+      "assets/evaluator-review.js",
+      "assets/evaluator-intr-connector.js",
+      "data/evaluator-review/**",
+      "data/tasks/SITE-EVALUATOR-MANIFEST-REVIEW-575.json",
+      "data/session-work-claims.d/site-evaluator-manifest-review-575-20260828.json",
+      "data/session-work-claims.d/site-evaluator-runtime-projection-660-20260830.json",
+      "tests/evaluator-review-ui.test.cjs",
+      "tests/evaluator-intr-runtime-projection.test.cjs",
+      "scripts/check_evaluator_review_ui.py",
+      "docs/EVALUATOR_REVIEW_API_CONTRACT.md",
+      "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
+      "docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+      "docs/EVALUATOR_RUNTIME_PROJECTION_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/evaluator-review-ui-validation.yml",
+      "tools/tasks/steps/evaluator-review-ui-validation.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "evaluator-review.html",
+      "assets/evaluator-review.js",
+      "assets/evaluator-intr-connector.js",
+      "data/evaluator-review/**",
+      "data/tasks/SITE-EVALUATOR-MANIFEST-REVIEW-575.json",
+      "data/session-work-claims.d/site-evaluator-manifest-review-575-20260828.json",
+      "data/session-work-claims.d/site-evaluator-runtime-projection-660-20260830.json",
+      "tests/evaluator-review-ui.test.cjs",
+      "tests/evaluator-intr-runtime-projection.test.cjs",
+      "scripts/check_evaluator_review_ui.py",
+      "docs/EVALUATOR_REVIEW_API_CONTRACT.md",
+      "docs/EVALUATOR_REVIEW_UI_MIRROR_HANDOFF.md",
+      "docs/EVALUATOR_REVIEW_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+      "docs/EVALUATOR_RUNTIME_PROJECTION_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/evaluator-review-ui-validation.yml",
+      "tools/tasks/steps/evaluator-review-ui-validation.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-hil-deployed-controlled-cycle-evidence.validate",
+   "source": {
+    "workflow": ".github/workflows/check-hil-deployed-controlled-cycle-evidence.yml",
+    "workflow_name": "Check HIL Deployed Controlled-Cycle Evidence",
+    "job": "verify",
+    "job_name": null,
+    "commit": "f0087faef",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/check-hil-deployed-controlled-cycle-evidence.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "e75f0a5c01598d2fe584a271779a1604f0938f816f3b7dbe55a9ac13b3298ca9"
+    },
+    {
+     "name": "Install public test dependency without credential",
+     "run_file": "tools/tasks/steps/check-hil-deployed-controlled-cycle-evidence.validate/02-install-public-test-dependency-without-credential.sh",
+     "run_sha256": "4c8d644f3072561eb1fe5b8f95dd4b0b65ded002f890fbbc040451b108c6db90"
+    },
+    {
+     "name": "Validate current evidence ledger and runbook",
+     "run_file": "tools/tasks/steps/check-hil-deployed-controlled-cycle-evidence.validate/03-validate-current-evidence-ledger-and-runbook.sh",
+     "run_sha256": "307b5c39c54fcfd2bf92467402d2581f62b2b1891559a85dd240d4e44d25b78c"
+    },
+    {
+     "name": "Prove fail-closed deployed-cycle behavior",
+     "run_file": "tools/tasks/steps/check-hil-deployed-controlled-cycle-evidence.validate/04-prove-fail-closed-deployed-cycle-behavior.sh",
+     "run_sha256": "fef98e79fcc409c579452e77151af0d10f900b1b805e11f90c9c6c9c16440eee"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 73 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout steps repaired away to the dispatcher credential-free checkout (stegfin pattern); substantive verify steps kept byte-for-byte including the original public pytest install.",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/HIL_DEPLOYED_CONTROLLED_CYCLE_RUNBOOK.md",
+      "scripts/check_hil_deployed_controlled_cycle_evidence.py",
+      "tests/test_hil_deployed_controlled_cycle_evidence.py",
+      "tools/tasks/folded/check-hil-deployed-controlled-cycle-evidence.yml",
+      "tools/tasks/steps/check-hil-deployed-controlled-cycle-evidence.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/hil-deployed-controlled-cycle-evidence.json",
+      "data/hil-activation-state.json",
+      "docs/HIL_DEPLOYED_CONTROLLED_CYCLE_RUNBOOK.md",
+      "scripts/check_hil_deployed_controlled_cycle_evidence.py",
+      "tests/test_hil_deployed_controlled_cycle_evidence.py",
+      "tools/tasks/folded/check-hil-deployed-controlled-cycle-evidence.yml",
+      "tools/tasks/steps/check-hil-deployed-controlled-cycle-evidence.validate/**"
      ]
     }
    }
