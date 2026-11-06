@@ -648,23 +648,6 @@
       }
     },
     {
-      "path": ".github/workflows/hil-semantic-continuity-tasks.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "4b18f8888e42597a7fd2bbe10c25475329050d6bfbbeb9147c86d6fffaca181d",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/import-hil-live-readiness-observation.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -894,38 +877,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "5f8a08599de0016a0318d76cf5fa7001f813875a9a2670cd10a44cdc625a8f5a",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/stegbrowser-sv002-lane-adaptation.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "ffacf8389f923722915a8964b71317ea9c010446e2f31459e87286bd67b986c5",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/stegbrowser-sv002-validated-lane-retest.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "615e2200351706802326880115c7cfd16afdc0e133875be5a951225ffd68faa8",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -1392,23 +1343,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "e0b3d7bf484a68696e37568fb88f19e2c3479135193963e9507f838c1ef00c6b",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/validate-stegos-persistent-card-ux.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "push",
-        "pull_request"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "1c9168dd9432116401cfdea7ea6708b15c8a6d43ceb04ded58e7652d73618cc4",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -2609,14 +2543,76 @@
       ],
       "verbatim_record": "tools/tasks/folded/hil-semantic-replay.yml",
       "verbatim_sha256": "66dde881d32ab2e8c7c5ca7c60a41a651a8644d3a8a00b1af57fbf1ae363ad96"
+    },
+    {
+      "workflow": ".github/workflows/stegbrowser-sv002-lane-adaptation.yml",
+      "name": "StegBrowser SV002 Lane Adaptation",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "stegbrowser-sv002-lane-adaptation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/stegbrowser-sv002-lane-adaptation.yml",
+      "verbatim_sha256": "ffacf8389f923722915a8964b71317ea9c010446e2f31459e87286bd67b986c5"
+    },
+    {
+      "workflow": ".github/workflows/stegbrowser-sv002-validated-lane-retest.yml",
+      "name": "StegBrowser SV002 Validated Lane Retest",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "stegbrowser-sv002-validated-lane-retest.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/stegbrowser-sv002-validated-lane-retest.yml",
+      "verbatim_sha256": "615e2200351706802326880115c7cfd16afdc0e133875be5a951225ffd68faa8"
+    },
+    {
+      "workflow": ".github/workflows/hil-semantic-continuity-tasks.yml",
+      "name": "HIL Semantic Continuity Tasks",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "hil-semantic-continuity-tasks.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/hil-semantic-continuity-tasks.yml",
+      "verbatim_sha256": "4b18f8888e42597a7fd2bbe10c25475329050d6bfbbeb9147c86d6fffaca181d"
+    },
+    {
+      "workflow": ".github/workflows/validate-stegos-persistent-card-ux.yml",
+      "name": "Validate StegOS Persistent Card UX",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "validate-stegos-persistent-card-ux.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/validate-stegos-persistent-card-ux.yml",
+      "verbatim_sha256": "1c9168dd9432116401cfdea7ea6708b15c8a6d43ceb04ded58e7652d73618cc4"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 81,
+    "workflow_count": 77,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 76: workflow_count 85\u219281. Fully folded validate-review-authority-projection, check-stegverse-endpoint-activation-readiness, hil-site-contract, hil-semantic-replay into the stable dispatcher (catalog groups: validate-review-authority-projection.validate-python3.9, validate-review-authority-projection.validate-python3.11, validate-review-authority-projection.validate-python3.12, check-stegverse-endpoint-activation-readiness.validate, hil-site-contract.validate, hil-semantic-replay.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 77: workflow_count 81\u219277. Fully folded stegbrowser-sv002-lane-adaptation, stegbrowser-sv002-validated-lane-retest, hil-semantic-continuity-tasks, validate-stegos-persistent-card-ux into the stable dispatcher (catalog groups: stegbrowser-sv002-lane-adaptation.validate, stegbrowser-sv002-validated-lane-retest.validate, hil-semantic-continuity-tasks.validate, validate-stegos-persistent-card-ux.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator batch; writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"

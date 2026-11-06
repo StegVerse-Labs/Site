@@ -1,0 +1,1 @@
+python3 scripts/validate_hil_semantic_transformation.py
