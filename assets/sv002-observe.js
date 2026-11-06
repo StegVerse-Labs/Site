@@ -276,7 +276,8 @@ async function observe(){
                   await root.StegVerseNodeContinuity.recordStep(CAPABILITY,"master-records-reconstruction","PASS",mr.reconstruction_receipt_sha256);
                 }
               }catch(mrError){
-                setText("reconstruction",JSON.stringify({state:"RECONSTRUCTION_UNAVAILABLE_NON_GATING",reason:String(mrError&&mrError.message||mrError)},null,2));\n                setText("dataState","PRINCIPAL EXECUTION PASS / RECONSTRUCTION UNAVAILABLE");
+                setText("reconstruction",JSON.stringify({state:"RECONSTRUCTION_UNAVAILABLE_NON_GATING",reason:String(mrError&&mrError.message||mrError)},null,2));
+                setText("dataState","PRINCIPAL EXECUTION PASS / RECONSTRUCTION UNAVAILABLE");
                 setText("gateMessage","SV002 principal execution PASS. Master Records reconstruction is unavailable for this view; Interlock/InTr evidence alone governs the canonical transition.");
               }
             }else{
