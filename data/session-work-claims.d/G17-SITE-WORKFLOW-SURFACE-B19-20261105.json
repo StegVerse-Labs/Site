@@ -30,7 +30,8 @@
         "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B18-20261105.json",
         "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
         ".github/workflows/canonical-generated-intr.yml",
-        ".github/workflows/check-tvc-execution-receipt-import.yml"
+        ".github/workflows/check-tvc-execution-receipt-import.yml",
+        "data/session-orchestration-registry.json"
       ],
       "handoff": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
       "handoff_revision": "f869261f3345f6f885e4c0d23591a3acc9acfc46",
