@@ -1066,27 +1066,6 @@
       }
     },
     {
-      "path": ".github/workflows/site-homepage-chat-public-asset-observation.yml",
-      "classification": "KEEP_EXISTING_SURFACE_GATING_CONVERTED",
-      "triggers": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 69 / #166): observe job-level `if: github.event_name != 'pull_request'` removed so the job always runs; an early select step records NOT_SELECTED on pull_request (validate already ran) and gates checkout/observation/upload on selected=true. push and workflow_dispatch still select. permissions {contents: read} unchanged; no secret, dependency, cron, dispatch or polling added. Pre-conversion file at tools/tasks/folded/site-homepage-chat-public-asset-observation.yml, sha256 aaef58c8640d80095f78cfb404de8eef4d153c1e21a89bf539b5b02f0dda96e2.",
-      "verbatim_sha256": "ccfb099dd02021575305131717925c32d9ec4e3fc8227d96a9e68c2e776eb2fb",
-      "exception": {
-        "lifecycle": "pull_request/push/workflow_dispatch observer (kept; observe job-level if converted to early NOT_SELECTED)",
-        "justification": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 69 / #166): observe job-level `if: github.event_name != 'pull_request'` removed so the job always runs; an early select step records NOT_SELECTED on pull_request (validate already ran) and gates checkout/observation/upload on selected=true. push and workflow_dispatch still select. permissions {contents: read} unchanged; no secret, dependency, cron, dispatch or polling added. Pre-conversion file at tools/tasks/folded/site-homepage-chat-public-asset-observation.yml, sha256 aaef58c8640d80095f78cfb404de8eef4d153c1e21a89bf539b5b02f0dda96e2.",
-        "within_exception_ceiling": true
-      },
-      "pre_conversion_record": "tools/tasks/folded/site-homepage-chat-public-asset-observation.yml",
-      "pre_conversion_sha256": "aaef58c8640d80095f78cfb404de8eef4d153c1e21a89bf539b5b02f0dda96e2"
-    },
-    {
       "path": ".github/workflows/site-task-runner.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -2634,16 +2613,32 @@
       ],
       "verbatim_record": "tools/tasks/folded/mykv-public-propagation-proof.yml",
       "verbatim_sha256": "db79dfb2551bfce8c9da2db698bb71e329906a6828d7ae39b76331ea4d01d9d2"
+    },
+    {
+      "workflow": ".github/workflows/site-homepage-chat-public-asset-observation.yml",
+      "name": "Site Homepage Chat Public Asset Observation",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "site-homepage-chat-public-asset-observation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/site-homepage-chat-public-asset-observation.yml",
+      "verbatim_sha256": "ccfb099dd02021575305131717925c32d9ec4e3fc8227d96a9e68c2e776eb2fb"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 96,
+    "workflow_count": 95,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 70: workflow_count 97\u219296. Fully folded mykv-public-propagation-proof into the stable dispatcher (catalog group mykv-public-propagation-proof.validate): validate unittest always; observe step and artifact gated with `if: github.event_name != 'pull_request'` (never a skipped job). Verbatim pre-fold (post-B14 NOT_SELECTED) sha256 db79dfb2551bfce8c9da2db698bb71e329906a6828d7ae39b76331ea4d01d9d2 under tools/tasks/folded/. Historical pre-NOT_SELECTED sha256 ba6727d50bbab7c927ed6ec3ba4ab5eb37543b0bac9916e3b4c03812e27e85a6. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 71: workflow_count 96\u219295. Fully folded site-homepage-chat-public-asset-observation into the stable dispatcher (catalog group site-homepage-chat-public-asset-observation.validate): validate unittest always; observe step and artifact gated with `if: github.event_name != 'pull_request'`. Verbatim pre-fold (post-B14 NOT_SELECTED) sha256 ccfb099dd02021575305131717925c32d9ec4e3fc8227d96a9e68c2e776eb2fb under tools/tasks/folded/. Historical pre-NOT_SELECTED sha256 aaef58c8640d80095f78cfb404de8eef4d153c1e21a89bf539b5b02f0dda96e2. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
-    "next_attempt": "the next pull request that folds another converted observer or KEEP_PENDING surface"
+    "next_attempt": "the next pull request that folds another converted observer (sv002-*) or KEEP_PENDING surface"
   }
 }
