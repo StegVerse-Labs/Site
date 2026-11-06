@@ -95,3 +95,7 @@ G17-SITE-WORKFLOW-SURFACE-B26-20261105 released. G17-SITE-WORKFLOW-SURFACE-B27-2
 ## Round 82 amendment (P4 a65c67bf)
 
 Dropped hil-announcement-contract and check-sv002-authentic-runtime-evidence-harness from B27 after pre-existing content/syntax failures on the fold PR; kept three folds; workflow_count 60→57.
+
+## Round 83 note (P4 a65c67bf)
+
+G17-SITE-WORKFLOW-SURFACE-B27-20261105 released. G17-SITE-WORKFLOW-SURFACE-B28-20261105 fully folds va-claim-assistant-activation, gp10-workspace-security into the stable dispatcher; workflow_count 57→55.
