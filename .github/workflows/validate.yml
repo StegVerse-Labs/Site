@@ -180,6 +180,9 @@ jobs:
           python3 scripts/write_site_workflow_inventory.py
           python3 scripts/check_site_workflow_inventory.py
 
+      - name: Validate Lane D workflows carry no timer triggers
+        run: python3 -m unittest -v tests.test_site_no_timer_triggers_lane_d
+
       - name: Validate exclusive claims and Site orchestration
         run: |
           python3 scripts/check_session_work_claims.py

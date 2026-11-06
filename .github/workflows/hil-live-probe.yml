@@ -8,8 +8,6 @@ on:
       - 'src/worker.js'
       - 'scripts/verify_hil_readiness_record.py'
       - '.github/workflows/hil-live-probe.yml'
-  schedule:
-    - cron: '17 * * * *'
 
 permissions:
   contents: read
