@@ -1,0 +1,1 @@
+python3 scripts/check_hil_v1_upload_surface.py
