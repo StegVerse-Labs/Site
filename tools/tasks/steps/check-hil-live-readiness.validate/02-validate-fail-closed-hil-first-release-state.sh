@@ -1,0 +1,1 @@
+python3 scripts/check_hil_first_release_readiness.py

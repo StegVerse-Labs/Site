@@ -1,0 +1,1 @@
+python3 scripts/check_hil_master_record_release.py
