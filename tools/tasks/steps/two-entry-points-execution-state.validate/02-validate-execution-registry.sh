@@ -1,0 +1,1 @@
+python3 scripts/validate_two_entry_points_execution_state.py

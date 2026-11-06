@@ -997,23 +997,6 @@
       }
     },
     {
-      "path": ".github/workflows/two-entry-points-execution-state.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "1389655ee8f45044f099e371619965d759423fea08344b1d9847c2f469ab086a",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/va-claim-assistant-activation.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -1023,23 +1006,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "3a2236d030098b6882dce09202ec4c5ebbf486f10189ba2c83ce70de158f3f4a",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/va-claims-chat-surface.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "pull_request",
-        "push"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "e0b0df87e74c2fe49801f0d0f41b1d395416635282aaa784a83f389f570edbde",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -1059,23 +1025,6 @@
       },
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "1d73a751e518e93d5507e7693834de24b387e0fbdd308ac03659fd1bc9c90138",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/va-governed-product-goals.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "pull_request",
-        "push"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "d7007f100e1b0fcc2aca8f7d82d785b91957afef9737ba111be64ecf0114de62",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -1113,39 +1062,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "9695ccf937f189af76b9538cdeea0f73c0efdbd77bd02e9bd3a12231ccd0431d",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/va-private-document-runtime.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "push"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "e8fbde51ea9bcf3813899ad8f1ee997a78a57d8ea42de06fd7b01b20e4189063",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/vacc-goal3-contract-suite.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "pull_request",
-        "push"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "3f885ecc48116299742e9ec1453fc632793ca63bf313704c6c70800e1b66c367",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -2595,14 +2511,93 @@
       ],
       "verbatim_record": "tools/tasks/folded/va-pii-redaction-working-copy-evidence.yml",
       "verbatim_sha256": "e84047949ba502e6bc1a658f88dca155112db6fc1f6097985996c69c607eb16c"
+    },
+    {
+      "workflow": ".github/workflows/va-private-document-runtime.yml",
+      "name": "VA Private Document Fixture Validation",
+      "triggers_before": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-private-document-runtime.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-private-document-runtime.yml",
+      "verbatim_sha256": "e8fbde51ea9bcf3813899ad8f1ee997a78a57d8ea42de06fd7b01b20e4189063"
+    },
+    {
+      "workflow": ".github/workflows/va-governed-product-goals.yml",
+      "name": "VA Governed Product Goals Validation",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-governed-product-goals.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-governed-product-goals.yml",
+      "verbatim_sha256": "d7007f100e1b0fcc2aca8f7d82d785b91957afef9737ba111be64ecf0114de62"
+    },
+    {
+      "workflow": ".github/workflows/two-entry-points-execution-state.yml",
+      "name": "Two Entry Points Execution State",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "two-entry-points-execution-state.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/two-entry-points-execution-state.yml",
+      "verbatim_sha256": "1389655ee8f45044f099e371619965d759423fea08344b1d9847c2f469ab086a"
+    },
+    {
+      "workflow": ".github/workflows/vacc-goal3-contract-suite.yml",
+      "name": "VACC Goal 3 Contract Suite Validation",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "vacc-goal3-contract-suite.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/vacc-goal3-contract-suite.yml",
+      "verbatim_sha256": "3f885ecc48116299742e9ec1453fc632793ca63bf313704c6c70800e1b66c367"
+    },
+    {
+      "workflow": ".github/workflows/va-claims-chat-surface.yml",
+      "name": "VA Claims Chat Surface Validation - No Persistence Authority",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-claims-chat-surface.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-claims-chat-surface.yml",
+      "verbatim_sha256": "e0b0df87e74c2fe49801f0d0f41b1d395416635282aaa784a83f389f570edbde"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 65,
+    "workflow_count": 60,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 80: workflow_count 71\u219265. Fully folded va-federal-plus-security-baseline, va-pii-detection-evaluation, va-pii-model-leakage-evidence, va-pii-production-detector-evidence, va-pii-redaction-credential-realignment, va-pii-redaction-working-copy-evidence into the stable dispatcher (catalog groups: va-federal-plus-security-baseline.validate, va-pii-detection-evaluation.validate, va-pii-model-leakage-evidence.validate, va-pii-production-detector-evidence.validate, va-pii-redaction-credential-realignment.validate, va-pii-redaction-working-copy-evidence.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 81: workflow_count 65\u219260. Fully folded va-private-document-runtime, va-governed-product-goals, two-entry-points-execution-state, vacc-goal3-contract-suite, va-claims-chat-surface into the stable dispatcher (catalog groups: va-private-document-runtime.validate, va-governed-product-goals.validate, two-entry-points-execution-state.validate, vacc-goal3-contract-suite.validate, va-claims-chat-surface.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator batch; writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"
