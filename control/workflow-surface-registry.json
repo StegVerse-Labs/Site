@@ -188,23 +188,6 @@
       "pre_conversion_sha256": "d0b0ac061cb2955243862f3b6307582505bdea21b63c9e53eccf34aef5a2672f"
     },
     {
-      "path": ".github/workflows/check-stegverse-endpoint-activation-readiness.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "69e3fd8131ce6c5a484de4923e930d01779d6065e40a087e45d4775a482672f4",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/check-sv002-authentic-runtime-evidence-harness.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -675,39 +658,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "4b18f8888e42597a7fd2bbe10c25475329050d6bfbbeb9147c86d6fffaca181d",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/hil-semantic-replay.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "66dde881d32ab2e8c7c5ca7c60a41a651a8644d3a8a00b1af57fbf1ae363ad96",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/hil-site-contract.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "6c77d3b9383be9b993d393979d06cbd6e1261086b836e19b5ff68758b08f567d",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -1442,23 +1392,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "e0b3d7bf484a68696e37568fb88f19e2c3479135193963e9507f838c1ef00c6b",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/validate-review-authority-projection.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "78c91d991dfc8ecbbd149b3b1429295922388fd47c0e3cb6c7fb8690b750b859",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -2611,14 +2544,79 @@
       ],
       "verbatim_record": "tools/tasks/folded/check-hil-v1-1-release.yml",
       "verbatim_sha256": "abcc7972cdcc7d1bc006ecd17ed3c0aec23e617419d2a2af8643994c97bcede6"
+    },
+    {
+      "workflow": ".github/workflows/validate-review-authority-projection.yml",
+      "name": "Validate Review Authority Projection",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "validate-review-authority-projection.validate-python3.9",
+        "validate-review-authority-projection.validate-python3.11",
+        "validate-review-authority-projection.validate-python3.12"
+      ],
+      "verbatim_record": "tools/tasks/folded/validate-review-authority-projection.yml",
+      "verbatim_sha256": "78c91d991dfc8ecbbd149b3b1429295922388fd47c0e3cb6c7fb8690b750b859"
+    },
+    {
+      "workflow": ".github/workflows/check-stegverse-endpoint-activation-readiness.yml",
+      "name": "Check StegVerse Endpoint Activation Readiness",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-stegverse-endpoint-activation-readiness.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-stegverse-endpoint-activation-readiness.yml",
+      "verbatim_sha256": "69e3fd8131ce6c5a484de4923e930d01779d6065e40a087e45d4775a482672f4"
+    },
+    {
+      "workflow": ".github/workflows/hil-site-contract.yml",
+      "name": "HIL Site Contract",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "hil-site-contract.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/hil-site-contract.yml",
+      "verbatim_sha256": "6c77d3b9383be9b993d393979d06cbd6e1261086b836e19b5ff68758b08f567d"
+    },
+    {
+      "workflow": ".github/workflows/hil-semantic-replay.yml",
+      "name": "HIL Semantic Replay",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "hil-semantic-replay.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/hil-semantic-replay.yml",
+      "verbatim_sha256": "66dde881d32ab2e8c7c5ca7c60a41a651a8644d3a8a00b1af57fbf1ae363ad96"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 85,
+    "workflow_count": 81,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 75: workflow_count 89\u219285. Fully folded hil-intr-submission-contract, check-hil-end-to-end-protocol, check-hil-v1-upload-surface, check-hil-v1-1-release into the stable dispatcher (catalog groups: hil-intr-submission-contract.validate, check-hil-end-to-end-protocol.validate, check-hil-v1-upload-surface.validate, check-hil-v1-1-release.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 76: workflow_count 85\u219281. Fully folded validate-review-authority-projection, check-stegverse-endpoint-activation-readiness, hil-site-contract, hil-semantic-replay into the stable dispatcher (catalog groups: validate-review-authority-projection.validate-python3.9, validate-review-authority-projection.validate-python3.11, validate-review-authority-projection.validate-python3.12, check-stegverse-endpoint-activation-readiness.validate, hil-site-contract.validate, hil-semantic-replay.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator batch; writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"

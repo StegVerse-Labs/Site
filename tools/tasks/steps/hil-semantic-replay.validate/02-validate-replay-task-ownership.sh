@@ -1,0 +1,1 @@
+python3 scripts/check_hil_semantic_replay_tasks.py

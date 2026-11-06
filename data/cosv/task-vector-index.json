@@ -5,7 +5,7 @@
   "notation": "L R U I V G O C M T B E A P",
   "width": 14,
   "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
-  "observed_at": "2026-11-06T00:37:14Z",
+  "observed_at": "2026-11-06T00:39:46Z",
   "authority_effect": "NONE",
   "tasks": [
     {
@@ -919,13 +919,23 @@
       "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B20-20261105.json",
       "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
       "projection_ref": "data/cosv/active-claim-projections.json",
+      "vector": "91000000100000",
+      "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+      "historical_claim_vector": "20010000100000"
+    },
+    {
+      "task_id": "G17-SITE-R76-FOLD-REVIEW-ENDPOINT-HIL",
+      "claim_id": "G17-SITE-WORKFLOW-SURFACE-B21-20261105",
+      "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B21-20261105.json",
+      "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+      "projection_ref": "data/cosv/active-claim-projections.json",
       "vector": "20010000100000",
       "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
     }
   ],
   "coverage": {
     "explicit_cosv_task_surfaces_discovered": 5,
-    "task_vectors_emitted": 101,
+    "task_vectors_emitted": 102,
     "source_bound_task_vectors": 2,
     "external_machine_owned_source_bindings": 1,
     "active_owner_deferred_source_bindings": 4,

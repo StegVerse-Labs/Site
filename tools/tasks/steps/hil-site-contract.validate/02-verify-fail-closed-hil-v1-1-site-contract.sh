@@ -1,0 +1,1 @@
+python3 scripts/verify_hil_site_contract.py
