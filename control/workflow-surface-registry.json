@@ -2591,9 +2591,9 @@
     "workflow_count": 54,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 84: workflow_count 55\u219254. Fully folded check-hil-live-readiness into the stable dispatcher (catalog groups: check-hil-live-readiness.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 85 Site progress ceiling note (after B29). workflow_count=54, still FAIL_CLOSED above the three-file exception ceiling. Safe KEEP_PENDING / anonymous-checkout fold inventory is empty: remaining surfaces are writers/Pages (31), credential/token (7), dispatch/schedule-only (4), pre-existing content/syntax failures deferred (3: hil-announcement-contract, check-sv002-authentic-runtime-evidence-harness, verify-thought-experiments-publication), cron/workflow_run load-bearing (3), workflow_run observers (2), pathless always-on bootstrap validate.yml (1; folding would drop universal PR coverage), pinned-ref checkout task0011-product-source-transport (1), and stegmusic-browser-execution (1; pip/playwright install deps). No safe job-level-if conversions remain outside writer/credential/Pages/dispatch-gate. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
-    "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator batch; writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"
+    "next_attempt": "continue G17 on StegVerse-Labs/StegVerse-SCW (or Labs) mechanical fold / six-field FAIL_CLOSED; Site remains at progress ceiling until a design decision on writers, credential-bound, Pages, dispatch-only, cron, or pre-broken content surfaces"
   }
 }
