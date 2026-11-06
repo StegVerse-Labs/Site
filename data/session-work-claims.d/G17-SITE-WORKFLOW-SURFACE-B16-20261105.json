@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "p4/site-r71-fold-homepage-chat-observer",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "g17-site-r71-fold-homepage-chat-public-assets",
       "dependency_surface_keys": [
         "site:g17-site-r71-fold-homepage-chat-public-assets"
@@ -51,7 +51,10 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1675,
+      "release_commit": "455ccf747b2ef07459cb1051a39b495f418cbdc7",
+      "claim_released_at": "2026-11-06T00:16:08Z"
     }
   ]
 }

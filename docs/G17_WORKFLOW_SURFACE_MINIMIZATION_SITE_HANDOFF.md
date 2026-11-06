@@ -47,3 +47,7 @@ B14 (four observers NOT_SELECTED, Site#1673 @ `44d2ee64`) released. B15 fully fo
 ## Round 71 note (P4 a65c67bf)
 
 B15 (fold mykv-public-propagation-proof, Site#1674 @ `cb75d51b`) released. B16 fully folds `site-homepage-chat-public-asset-observation` into the stable dispatcher; workflow_count 96→95.
+
+## Round 72 note (P4 a65c67bf)
+
+B16 (fold homepage-chat public-asset observation, Site#1675 @ `455ccf74`) released. B17 fully folds both remaining converted observers (`sv002-sovereign-intr-profile-proof`, `sv002-status-public-http-proof`) into the stable dispatcher; workflow_count 95→93.
