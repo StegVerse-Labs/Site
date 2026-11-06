@@ -79,3 +79,7 @@ B22 released. B23 fully folds `check-tidc-research` (multi-job + matrix) into th
 ## Round 79 note (P4 a65c67bf)
 
 G17-SITE-WORKFLOW-SURFACE-B23-20261105 released. G17-SITE-WORKFLOW-SURFACE-B24-20261105 fully folds validate-physical-economics-report-ui, check-hil-session-consolidation, no-required-third-party-runtime, check-coinbase-skap-intr-route-consumer, va-filing-integration-contract into the stable dispatcher; workflow_count 76→71.
+
+## Round 80 note (P4 a65c67bf)
+
+G17-SITE-WORKFLOW-SURFACE-B24-20261105 released. G17-SITE-WORKFLOW-SURFACE-B25-20261105 fully folds va-federal-plus-security-baseline, va-pii-detection-evaluation, va-pii-model-leakage-evidence, va-pii-production-detector-evidence, va-pii-redaction-credential-realignment, va-pii-redaction-working-copy-evidence into the stable dispatcher; workflow_count 71→65.
