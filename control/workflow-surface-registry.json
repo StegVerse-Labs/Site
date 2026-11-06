@@ -1066,22 +1066,6 @@
       }
     },
     {
-      "path": ".github/workflows/va-federal-plus-security-baseline.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "push"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "87398b812cbcea244eb640ce996d62890392d5c75ea6b1a6a7629e2e7260de7c",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/va-governed-product-goals.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -1092,54 +1076,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "d7007f100e1b0fcc2aca8f7d82d785b91957afef9737ba111be64ecf0114de62",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/va-pii-detection-evaluation.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "push"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "682de5fd57dc2c24ca87e44159aebedfa663aeebf26c2a14c130bd82a7816fa2",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/va-pii-model-leakage-evidence.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "38ed1e701e6a9259a62f9f8fc1abd2a45771f2c749a757e796668614ad63642f",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/va-pii-production-detector-evidence.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "600d67d8cc8bd62aba9ad42585a18f7df0efe8a3cd05206c7bc5ebf79e05073d",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -1160,38 +1096,6 @@
       },
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "cf3cd3ce358062e3b45d1c8f07b7413c11e646e2b4cd46793d274fdcaf33682a",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/va-pii-redaction-credential-realignment.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "push"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "0a66987c7605071b8558b9576f01de2142448e08dfa5293821a91758a092a56a",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/va-pii-redaction-working-copy-evidence.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "e84047949ba502e6bc1a658f88dca155112db6fc1f6097985996c69c607eb16c",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -2601,14 +2505,104 @@
       ],
       "verbatim_record": "tools/tasks/folded/va-filing-integration-contract.yml",
       "verbatim_sha256": "c81a4aa66340da1b1058f68f4a8801d82b9de823066037be4244b603f150d0dd"
+    },
+    {
+      "workflow": ".github/workflows/va-federal-plus-security-baseline.yml",
+      "name": "VA Federal-Plus Security Baseline Validation",
+      "triggers_before": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-federal-plus-security-baseline.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-federal-plus-security-baseline.yml",
+      "verbatim_sha256": "87398b812cbcea244eb640ce996d62890392d5c75ea6b1a6a7629e2e7260de7c"
+    },
+    {
+      "workflow": ".github/workflows/va-pii-detection-evaluation.yml",
+      "name": "VA PII Detection Evaluation",
+      "triggers_before": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-pii-detection-evaluation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-pii-detection-evaluation.yml",
+      "verbatim_sha256": "682de5fd57dc2c24ca87e44159aebedfa663aeebf26c2a14c130bd82a7816fa2"
+    },
+    {
+      "workflow": ".github/workflows/va-pii-model-leakage-evidence.yml",
+      "name": "VA PII Model Leakage Evidence Validation",
+      "triggers_before": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-pii-model-leakage-evidence.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-pii-model-leakage-evidence.yml",
+      "verbatim_sha256": "38ed1e701e6a9259a62f9f8fc1abd2a45771f2c749a757e796668614ad63642f"
+    },
+    {
+      "workflow": ".github/workflows/va-pii-production-detector-evidence.yml",
+      "name": "VA PII Production Detector Evidence Validation",
+      "triggers_before": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-pii-production-detector-evidence.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-pii-production-detector-evidence.yml",
+      "verbatim_sha256": "600d67d8cc8bd62aba9ad42585a18f7df0efe8a3cd05206c7bc5ebf79e05073d"
+    },
+    {
+      "workflow": ".github/workflows/va-pii-redaction-credential-realignment.yml",
+      "name": "VA PII Redaction and Credential Realignment Validation",
+      "triggers_before": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-pii-redaction-credential-realignment.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-pii-redaction-credential-realignment.yml",
+      "verbatim_sha256": "0a66987c7605071b8558b9576f01de2142448e08dfa5293821a91758a092a56a"
+    },
+    {
+      "workflow": ".github/workflows/va-pii-redaction-working-copy-evidence.yml",
+      "name": "VA PII Redaction Working-Copy Evidence Validation",
+      "triggers_before": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-pii-redaction-working-copy-evidence.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-pii-redaction-working-copy-evidence.yml",
+      "verbatim_sha256": "e84047949ba502e6bc1a658f88dca155112db6fc1f6097985996c69c607eb16c"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 71,
+    "workflow_count": 65,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 79: workflow_count 76\u219271. Fully folded validate-physical-economics-report-ui, check-hil-session-consolidation, no-required-third-party-runtime, check-coinbase-skap-intr-route-consumer, va-filing-integration-contract into the stable dispatcher (catalog groups: validate-physical-economics-report-ui.validate, check-hil-session-consolidation.validate, no-required-third-party-runtime.validate, check-coinbase-skap-intr-route-consumer.validate, va-filing-integration-contract.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 80: workflow_count 71\u219265. Fully folded va-federal-plus-security-baseline, va-pii-detection-evaluation, va-pii-model-leakage-evidence, va-pii-production-detector-evidence, va-pii-redaction-credential-realignment, va-pii-redaction-working-copy-evidence into the stable dispatcher (catalog groups: va-federal-plus-security-baseline.validate, va-pii-detection-evaluation.validate, va-pii-model-leakage-evidence.validate, va-pii-production-detector-evidence.validate, va-pii-redaction-credential-realignment.validate, va-pii-redaction-working-copy-evidence.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator batch; writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"

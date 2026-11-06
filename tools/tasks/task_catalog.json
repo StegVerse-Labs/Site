@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "4dd692754b36f133bf33f50dce87e64780b99df9",
+ "folded_from_commit": "de5df0c13e4c947ef60884dd7a5ac7bcb3d5cefb",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -7785,6 +7785,372 @@
       "docs/VA_FILING_INTEGRATION_MIRROR_HANDOFF.md",
       "tools/tasks/folded/va-filing-integration-contract.yml",
       "tools/tasks/steps/va-filing-integration-contract.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "va-federal-plus-security-baseline.validate",
+   "source": {
+    "workflow": ".github/workflows/va-federal-plus-security-baseline.yml",
+    "workflow_name": "VA Federal-Plus Security Baseline Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "de5df0c13",
+    "triggers_before": [
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Recompute and verify deterministic baseline receipt",
+     "run_file": "tools/tasks/steps/va-federal-plus-security-baseline.validate/01-recompute-and-verify-deterministic-baseline-receipt.sh",
+     "run_sha256": "6795779614be5cfca3b429ed20c09a4ed0d7dd73425e4a407857398a2f411547"
+    },
+    {
+     "name": "Confirm validation-only carrier",
+     "run_file": "tools/tasks/steps/va-federal-plus-security-baseline.validate/02-confirm-validation-only-carrier.sh",
+     "run_sha256": "3cee7c5b3aa8b96e2baeecebcec98e04804ffbedef68da83b8e75b724bb5371c"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 80 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "tools/tasks/folded/va-federal-plus-security-baseline.yml",
+      "tools/tasks/steps/va-federal-plus-security-baseline.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/va-claim-assistant/federal-plus-security-baseline.json",
+      "data/va-claim-assistant/federal-plus-security-baseline-validation.json",
+      "scripts/validate_va_federal_plus_security_baseline.py",
+      "docs/VA_FEDERAL_PLUS_SECURITY_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/va-federal-plus-security-baseline.yml",
+      "tools/tasks/steps/va-federal-plus-security-baseline.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "va-pii-detection-evaluation.validate",
+   "source": {
+    "workflow": ".github/workflows/va-pii-detection-evaluation.yml",
+    "workflow_name": "VA PII Detection Evaluation",
+    "job": "evaluate",
+    "job_name": null,
+    "commit": "de5df0c13",
+    "triggers_before": [
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Recompute and verify deterministic evaluation receipt",
+     "run_file": "tools/tasks/steps/va-pii-detection-evaluation.validate/01-recompute-and-verify-deterministic-evaluation-receipt.sh",
+     "run_sha256": "e9817bf2c3afb11cc5caecac6aadb0b726fe6c00d9c63435ac54ca89d2583032"
+    },
+    {
+     "name": "Confirm validation-only carrier",
+     "run_file": "tools/tasks/steps/va-pii-detection-evaluation.validate/02-confirm-validation-only-carrier.sh",
+     "run_sha256": "2c16c0f4a11db70cc50423d1bfecd721ac53d60495dc1e48241207c1f20cc363"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 80 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "tools/tasks/folded/va-pii-detection-evaluation.yml",
+      "tools/tasks/steps/va-pii-detection-evaluation.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/va-claim-assistant/fixtures/pii-detection-evaluation.json",
+      "data/va-claim-assistant/pii-detection-evaluation-receipt.json",
+      "scripts/evaluate_va_pii_detection_fixture.py",
+      "tools/tasks/folded/va-pii-detection-evaluation.yml",
+      "tools/tasks/steps/va-pii-detection-evaluation.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "va-pii-model-leakage-evidence.validate",
+   "source": {
+    "workflow": ".github/workflows/va-pii-model-leakage-evidence.yml",
+    "workflow_name": "VA PII Model Leakage Evidence Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "de5df0c13",
+    "triggers_before": [
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/va-pii-model-leakage-evidence.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "de05d04c2137c88fda5ec30edc06eb394d6040d5c008287329cd0c4f04bb8062"
+    },
+    {
+     "name": "Recompute and verify deterministic readiness",
+     "run_file": "tools/tasks/steps/va-pii-model-leakage-evidence.validate/02-recompute-and-verify-deterministic-readiness.sh",
+     "run_sha256": "107d041470e564abc24bf3ff06bdfa90a8d09a28080eaabfeb6ab775cc4ffa7a"
+    },
+    {
+     "name": "Confirm validation-only carrier",
+     "run_file": "tools/tasks/steps/va-pii-model-leakage-evidence.validate/03-confirm-validation-only-carrier.sh",
+     "run_sha256": "103cc83fe7770a878cfe85813d4ebef1c05b11392eae964ff386d8023b9d53a7"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 80 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "tools/tasks/folded/va-pii-model-leakage-evidence.yml",
+      "tools/tasks/steps/va-pii-model-leakage-evidence.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/va-claim-assistant/pii-model-leakage-evidence.json",
+      "data/va-claim-assistant/pii-model-leakage-readiness.json",
+      "scripts/observe_va_pii_model_leakage_evidence.py",
+      "tools/tasks/folded/va-pii-model-leakage-evidence.yml",
+      "tools/tasks/steps/va-pii-model-leakage-evidence.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "va-pii-production-detector-evidence.validate",
+   "source": {
+    "workflow": ".github/workflows/va-pii-production-detector-evidence.yml",
+    "workflow_name": "VA PII Production Detector Evidence Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "de5df0c13",
+    "triggers_before": [
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Recompute and verify deterministic readiness",
+     "run_file": "tools/tasks/steps/va-pii-production-detector-evidence.validate/01-recompute-and-verify-deterministic-readiness.sh",
+     "run_sha256": "686c16e45ab8e46a0635e7b11724da77459fc22be87529e7e539643ab1b9e9f3"
+    },
+    {
+     "name": "Confirm validation-only carrier",
+     "run_file": "tools/tasks/steps/va-pii-production-detector-evidence.validate/02-confirm-validation-only-carrier.sh",
+     "run_sha256": "c9dc07d7a3846e5ca2d26dc923eed3faa4ec32489d40552a8e0a17e028b45de9"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 80 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "tools/tasks/folded/va-pii-production-detector-evidence.yml",
+      "tools/tasks/steps/va-pii-production-detector-evidence.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/va-claim-assistant/pii-production-detector-evidence.json",
+      "data/va-claim-assistant/pii-production-detector-readiness.json",
+      "scripts/observe_va_pii_production_detector_evidence.py",
+      "tools/tasks/folded/va-pii-production-detector-evidence.yml",
+      "tools/tasks/steps/va-pii-production-detector-evidence.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "va-pii-redaction-credential-realignment.validate",
+   "source": {
+    "workflow": ".github/workflows/va-pii-redaction-credential-realignment.yml",
+    "workflow_name": "VA PII Redaction and Credential Realignment Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "de5df0c13",
+    "triggers_before": [
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Recompute and verify deterministic contract receipt",
+     "run_file": "tools/tasks/steps/va-pii-redaction-credential-realignment.validate/01-recompute-and-verify-deterministic-contract-receipt.sh",
+     "run_sha256": "cd3901fba268c85ec2633833221071388da43d388e6fd44cc7ca47f5ca3b3106"
+    },
+    {
+     "name": "Confirm validation-only carrier",
+     "run_file": "tools/tasks/steps/va-pii-redaction-credential-realignment.validate/02-confirm-validation-only-carrier.sh",
+     "run_sha256": "6cf2fcd05813cf3dbb007772074f1098f68fc55ca57e39e5695e0074e99fe48d"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 80 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "tools/tasks/folded/va-pii-redaction-credential-realignment.yml",
+      "tools/tasks/steps/va-pii-redaction-credential-realignment.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/va-claim-assistant/pii-redaction-credential-realignment-contract.json",
+      "data/va-claim-assistant/pii-redaction-credential-realignment-validation.json",
+      "scripts/validate_va_pii_redaction_credential_realignment.py",
+      "tools/tasks/folded/va-pii-redaction-credential-realignment.yml",
+      "tools/tasks/steps/va-pii-redaction-credential-realignment.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "va-pii-redaction-working-copy-evidence.validate",
+   "source": {
+    "workflow": ".github/workflows/va-pii-redaction-working-copy-evidence.yml",
+    "workflow_name": "VA PII Redaction Working-Copy Evidence Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "de5df0c13",
+    "triggers_before": [
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Recompute and verify deterministic readiness",
+     "run_file": "tools/tasks/steps/va-pii-redaction-working-copy-evidence.validate/01-recompute-and-verify-deterministic-readiness.sh",
+     "run_sha256": "1bf67a4d8d65fe7118d3d5037a52f312455f327c0d1edc1c48b5ed8014b0e9bb"
+    },
+    {
+     "name": "Confirm validation-only carrier",
+     "run_file": "tools/tasks/steps/va-pii-redaction-working-copy-evidence.validate/02-confirm-validation-only-carrier.sh",
+     "run_sha256": "ae4e095103424c0f27c92e63a59b202f0717fe9ce9fb719754e2dda668329daa"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 80 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "tools/tasks/folded/va-pii-redaction-working-copy-evidence.yml",
+      "tools/tasks/steps/va-pii-redaction-working-copy-evidence.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/va-claim-assistant/pii-redaction-working-copy-evidence.json",
+      "data/va-claim-assistant/pii-redaction-working-copy-readiness.json",
+      "scripts/observe_va_pii_redaction_working_copy_evidence.py",
+      "tools/tasks/folded/va-pii-redaction-working-copy-evidence.yml",
+      "tools/tasks/steps/va-pii-redaction-working-copy-evidence.validate/**"
      ]
     }
    }
