@@ -3,6 +3,25 @@
 Public mirror for the StegVerse ecosystem. Renders proof surfaces, transition status,
 governance documentation, and product information from canonical source data.
 
+### Node interface discovery
+
+`stegos-node/capabilities.json` describes existing browser-local genesis, health,
+repair and receipt interfaces without invoking them or exposing device data.
+`stegos-node/resident-health.schema.json` documents the shared resident health
+report used by MyKV and StegOS. `StegOSResidentHealth.last()` is a passive cached
+read; `diagnose()` runs local probes that can initialize or upgrade storage.
+`HEALTHY` means local substrate checks passed, never governed admission or Network
+membership. No remote health/genesis/repair endpoint is implied.
+
+Validate with `node --test tests/stegos-node-capabilities.test.cjs` and
+`python -m unittest discover -s tests -p test_verify_stegos_node_capabilities.py -v`.
+After authorized integration/publication, run
+`python scripts/verify_stegos_node_capabilities.py` against the exact released
+checkout. It compares deployed bytes and cannot register or repair a Node.
+Source preparation and publication state are tracked in
+`docs/STEGOS_RESIDENT_HEALTH_REPAIR_MIRROR_HANDOFF.md`; the manifold owner remains
+`StegVerse-Labs/StegOS#23`.
+
 **Live site:** https://stegverse-labs.github.io/Site/
 
 ---

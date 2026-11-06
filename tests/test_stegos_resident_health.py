@@ -1,4 +1,6 @@
 from pathlib import Path
+import subprocess
+import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -8,9 +10,20 @@ BOOT_LOADER = (ROOT / "stegos-bootstrap/stegos-bootstrap.js").read_text(encoding
 
 
 class ResidentStegOSHealthTests(unittest.TestCase):
+    def test_discovery_behavior_and_publication_regressions(self):
+        # The existing pinned Node-continuity task already runs this module.
+        # Keep its shared catalog/step hashes unchanged while extending coverage.
+        for command in (
+            ["node", "--test", "tests/stegos-node-capabilities.test.cjs"],
+            [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_verify_stegos_node_capabilities.py", "-v"],
+        ):
+            with self.subTest(command=command):
+                result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_one_canonical_client_is_loaded_by_mykv_node_and_stegos_bootstrap(self):
-        self.assertIn('/assets/stegos-resident-health.js?v=20260915-unified-mykv-v1', NODE_LOADER)
-        self.assertIn('/assets/stegos-resident-health.js?v=20260915-v1', BOOT_LOADER)
+        self.assertIn('/assets/stegos-resident-health.js?v=20261031-health-contract-v1', NODE_LOADER)
+        self.assertIn('/assets/stegos-resident-health.js?v=20261031-health-contract-v1', BOOT_LOADER)
         self.assertIn('/stegos-bootstrap/stegos-bootstrap-impl.js', NODE_LOADER)
         self.assertIn('/stegos-bootstrap/device-local-autostart.js', NODE_LOADER)
         self.assertIn('root.StegOSResidentHealth=Object.freeze', HEALTH)
@@ -66,3 +79,4 @@ class ResidentStegOSHealthTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

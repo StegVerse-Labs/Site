@@ -58,9 +58,13 @@ function serviceWorkerHealth(){
   var scopeUrl=new URL(STEGOS_SCOPE_PATH,root.location.origin).toString();
   return root.navigator.serviceWorker.getRegistration(scopeUrl).then(function(reg){
     if(!reg)return {state:"NOT_REGISTERED",scope:scopeUrl,script_url:null,freshness:"REPAIR_REQUIRED"};
-    var worker=reg.active||reg.waiting||reg.installing||null;
+    var worker=reg.active||null;
     var script=worker&&worker.scriptURL||null;
-    var canonical=!!(script&&script.indexOf(STEGOS_WORKER_SUFFIX)>=0);
+    var canonical=false;
+    try{
+      var scriptUrl=new URL(script);
+      canonical=scriptUrl.origin===root.location.origin&&scriptUrl.pathname===STEGOS_WORKER_SUFFIX&&reg.scope===scopeUrl&&worker.state==="activated";
+    }catch(_){ }
     return {
       state:worker?"REGISTERED":"REGISTERED_NO_WORKER",
       scope:reg.scope||scopeUrl,
@@ -116,7 +120,7 @@ function knownKvRelationship(){
 
 function classify(parts){
   var reasons=[];
-  if(!parts.runtime||String(parts.runtime.state).indexOf("READY")!==0)reasons.push("LOCAL_RUNTIME_NOT_READY");
+  if(!parts.runtime||parts.runtime.source!=="STEGOS_WEB_BOOTSTRAP"||parts.runtime.state!=="READY"||!parts.runtime.report||parts.runtime.report.indexeddb_operational!==true||parts.runtime.report.webcrypto_operational!==true)reasons.push("LOCAL_RUNTIME_NOT_READY");
   if(!parts.node||parts.node.registered!==true)reasons.push("VALID_NODE_NOT_OBSERVED");
   if(!parts.worker||parts.worker.state!=="REGISTERED"||parts.worker.canonical_script!==true)reasons.push("STEGOS_SERVICE_WORKER_REPAIR_REQUIRED");
   if(parts.continuity&&parts.continuity.state==="CHECK_FAILED")reasons.push("DEVICE_CONTINUITY_CHECK_FAILED");
@@ -129,6 +133,10 @@ function diagnose(){
     var classification=classify(parts);
     var report={
       schema:HEALTH_SCHEMA,
+      schema_ref:"/stegos-node/resident-health.schema.json",
+      health_scope:"LOCAL_RESIDENT_SUBSTRATE_ONLY",
+      node_authority:"NOT_EVALUATED",
+      network_membership:"NOT_EVALUATED",
       observed_at:new Date().toISOString(),
       surface:surface(),
       resident_install_health:classification.state,
@@ -141,7 +149,8 @@ function diagnose(){
       service_worker:parts.worker,
       governed_transition:parts.transition,
       kv_host_relationship:parts.kv_relationship,
-      diagnostic_is_read_only:true,
+      diagnostic_is_read_only:false,
+      diagnostic_storage_effect:"LOCAL_PROBES_MAY_INITIALIZE_OR_UPGRADE_STORAGE",
       device_kv_query_emitted:false,
       provider_operation_authorized:false,
       kv_mutation_authorized:false,
@@ -279,3 +288,4 @@ root.StegOSResidentHealth=Object.freeze({
 
 if(root.document.readyState==="loading")root.document.addEventListener("DOMContentLoaded",autoRun,{once:true});else root.setTimeout(autoRun,0);
 })(window);
+

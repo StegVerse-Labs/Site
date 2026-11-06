@@ -31,7 +31,7 @@ LOADER = b"""
 /stegos-bootstrap/stegos-bootstrap-impl.js
 /stegos-bootstrap/device-local-autostart.js?v=20260915-unified-mykv-v1
 /assets/stegverse-node-continuity-impl.js
-/assets/stegos-resident-health.js?v=20260915-unified-mykv-v1
+/assets/stegos-resident-health.js?v=20261031-health-contract-v1
 """
 
 
@@ -66,7 +66,7 @@ class MyKVPublicPropagationObserverTests(unittest.TestCase):
     def test_missing_unified_loader_marker_fails(self):
         bodies = self.bodies()
         bodies["node_continuity_loader"] = bodies["node_continuity_loader"].replace(
-            b"/assets/stegos-resident-health.js?v=20260915-unified-mykv-v1",
+            b"/assets/stegos-resident-health.js?v=20261031-health-contract-v1",
             b"/assets/stegos-resident-health.js",
         )
         checks = MODULE.validate(bodies)
@@ -75,3 +75,4 @@ class MyKVPublicPropagationObserverTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

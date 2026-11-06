@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stegverse.org/stegos-node/resident-health.schema.json",
+  "title": "Shared StegOS resident health report",
+  "description": "Local substrate diagnostic only. HEALTHY grants no Node, KV, Network or transition authority. A cached report is historical. Local probes may initialize or upgrade storage.",
+  "type": "object",
+  "required": ["schema", "schema_ref", "observed_at", "surface", "health_scope", "node_authority", "network_membership", "resident_install_health", "repair_required", "repair_reasons", "runtime", "node", "device_continuity", "schema_freshness", "service_worker", "governed_transition", "kv_host_relationship", "diagnostic_is_read_only", "diagnostic_storage_effect", "device_kv_query_emitted", "provider_operation_authorized", "kv_mutation_authorized", "authority_effect"],
+  "properties": {
+    "schema": {"const": "stegverse.stegos.resident-health-report/v1"},
+    "schema_ref": {"const": "/stegos-node/resident-health.schema.json"},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "surface": {"enum": ["MYKV", "STEGOS_OR_SITE"]},
+    "health_scope": {"const": "LOCAL_RESIDENT_SUBSTRATE_ONLY"},
+    "node_authority": {"const": "NOT_EVALUATED"},
+    "network_membership": {"const": "NOT_EVALUATED"},
+    "resident_install_health": {"enum": ["HEALTHY", "REPAIR_REQUIRED"]},
+    "repair_required": {"type": "boolean"},
+    "repair_reasons": {"type": "array", "items": {"enum": ["LOCAL_RUNTIME_NOT_READY", "VALID_NODE_NOT_OBSERVED", "STEGOS_SERVICE_WORKER_REPAIR_REQUIRED", "DEVICE_CONTINUITY_CHECK_FAILED"]}},
+    "runtime": {"type": "object", "required": ["source", "state"], "properties": {"source": {"enum": ["STEGOS_WEB_BOOTSTRAP", "CAPABILITY_ONLY"]}, "state": {"type": "string"}}},
+    "node": {"type": "object", "required": ["source", "registered", "node_id", "error"], "properties": {"source": {"type": "string"}, "registered": {"type": "boolean"}, "node_id": {"type": ["string", "null"]}, "error": {"type": ["string", "null"]}}},
+    "device_continuity": {"type": "object", "required": ["state", "device_continuity_id", "source"]},
+    "schema_freshness": {"type": "object", "required": ["state", "node_schema_loader_present"]},
+    "service_worker": {"type": "object", "required": ["state", "scope", "script_url", "freshness"]},
+    "governed_transition": {"type": "object", "required": ["state", "authority_effect"], "properties": {"authority_effect": {"const": "NONE_DIAGNOSTIC_ONLY"}}},
+    "kv_host_relationship": {"type": "object", "required": ["state", "source", "query_emitted", "authority_effect"], "properties": {"query_emitted": {"const": false}, "authority_effect": {"const": "NONE"}}},
+    "diagnostic_is_read_only": {"const": false},
+    "diagnostic_storage_effect": {"const": "LOCAL_PROBES_MAY_INITIALIZE_OR_UPGRADE_STORAGE"},
+    "device_kv_query_emitted": {"const": false},
+    "provider_operation_authorized": {"const": false},
+    "kv_mutation_authorized": {"const": false},
+    "authority_effect": {"const": "NONE"}
+  }
+}

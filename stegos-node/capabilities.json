@@ -1,0 +1,77 @@
+{
+  "schema": "stegos.node_capability_discovery.v1",
+  "document_kind": "STATIC_INTERFACE_DESCRIPTION",
+  "scope": "SITE_BROWSER_LOCAL_PROJECTION",
+  "authority_effect": "NONE",
+  "discovery_is_read_only": true,
+  "discovery_registers_node": false,
+  "discovery_proves_node_health": false,
+  "discovery_grants_execution_authority": false,
+  "credential_authority": "TV/TVC",
+  "transition_authority": "INTERLOCK_INTR",
+  "worker_claim_authority": "WORKERCOORDINATOR",
+  "goal_task_id": "STEGOS-NODE-MANIFOLD-001",
+  "handoff": "https://github.com/StegVerse-Labs/StegOS/blob/main/docs/STEGOS_NODE_MANIFOLD_MIRROR_HANDOFF.md",
+  "interfaces": {
+    "discovery": {"transport": "HTTPS", "method": "GET", "path": "/stegos-node/capabilities.json", "read_only": true},
+    "health": {
+      "transport": "BROWSER_LOCAL_JAVASCRIPT",
+      "script": "/assets/stegos-resident-health.js",
+      "schema": "stegverse.stegos.resident-health-report/v1",
+      "schema_path": "/stegos-node/resident-health.schema.json",
+      "cached_read": "StegOSResidentHealth.last",
+      "cached_read_is_read_only": true,
+      "cached_read_before_diagnosis": null,
+      "cached_read_is_current_observation": false,
+      "diagnostic": "StegOSResidentHealth.diagnose",
+      "diagnostic_is_read_only": false,
+      "diagnostic_storage_effect": "LOCAL_PROBES_MAY_INITIALIZE_OR_UPGRADE_STORAGE",
+      "event": "stegos-resident-health",
+      "http_endpoint": null,
+      "health_scope": "LOCAL_RESIDENT_SUBSTRATE_ONLY",
+      "healthy_implies_governed_admission": false
+    },
+    "genesis": {
+      "transport": "EXISTING_BROWSER_UI",
+      "path": "/stegos-node/",
+      "control_id": "register-device",
+      "transition": "UNREGISTERED_TO_REGISTERED",
+      "receipt_number": 1,
+      "continuity_parent": "GENESIS",
+      "explicit_user_action_required": true,
+      "read_only": false,
+      "http_endpoint": null
+    },
+    "repair": {
+      "transport": "BROWSER_LOCAL_JAVASCRIPT",
+      "method": "StegOSResidentHealth.repair",
+      "schema": "stegverse.stegos.resident-repair-report/v1",
+      "owner_entry": "/my-kv-install.html",
+      "explicit_owner_install_or_repair_required": true,
+      "preserves_valid_node_identity": true,
+      "kv_mutation_authorized": false,
+      "read_only": false,
+      "http_endpoint": null
+    },
+    "receipts": {
+      "transport": "EXISTING_BROWSER_UI_DOWNLOAD",
+      "path": "/stegos-node/",
+      "control_id": "export-node-evidence",
+      "schema": "stegos.node_physical_evidence_export.v1",
+      "registered_node_required": true,
+      "explicit_user_action_required": true,
+      "contains_local_identity_and_receipts": true,
+      "sovereign_organization_readback_proven": false,
+      "network_activation_claimed": false,
+      "http_endpoint": null
+    }
+  },
+  "unavailable_interface": {
+    "failure_code": "NODE_REMOTE_RUNTIME_INTERFACE_NOT_EXPOSED",
+    "failed_predicate": "This static document exposes no remote genesis, health, repair or receipt-execution endpoint.",
+    "required_evidence_or_repair": "Use existing browser-local interfaces only in their authorized context; route native remote invocation to the current SDK/Interlock/InTr owner with authenticated claim/fence and receipt evidence.",
+    "retry_entrypoint": "StegVerse-Labs/StegOS#23",
+    "owning_existing_goal": "STEGOS-NODE-MANIFOLD-001",
+    "next_attempt": "On an admitted interface revision; discovery alone never invokes an action."
+  }
+}
