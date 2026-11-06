@@ -43,3 +43,7 @@ B13 (Conectrr NOT_SELECTED, Site#1672 @ `144041e7`) released. B14 converts four 
 ## Round 70 note (P4 a65c67bf)
 
 B14 (four observers NOT_SELECTED, Site#1673 @ `44d2ee64`) released. B15 fully folds `mykv-public-propagation-proof` into the stable dispatcher (catalog group `mykv-public-propagation-proof.validate`); workflow_count 97→96.
+
+## Round 71 note (P4 a65c67bf)
+
+B15 (fold mykv-public-propagation-proof, Site#1674 @ `cb75d51b`) released. B16 fully folds `site-homepage-chat-public-asset-observation` into the stable dispatcher; workflow_count 96→95.

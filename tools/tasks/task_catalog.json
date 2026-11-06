@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "44d2ee644877a7484045145dff48077652de25be",
+ "folded_from_commit": "cb75d51baf1f0aa1c99017ed73643d383dce0044",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -5292,6 +5292,97 @@
       "data/session-work-claims.d/site-mykv-public-propagation-observer-20260916.json",
       "tools/tasks/folded/mykv-public-propagation-proof.yml",
       "tools/tasks/steps/mykv-public-propagation-proof.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "site-homepage-chat-public-asset-observation.validate",
+   "source": {
+    "workflow": ".github/workflows/site-homepage-chat-public-asset-observation.yml",
+    "workflow_name": "Site Homepage Chat Public Asset Observation",
+    "job": "validate+observe",
+    "job_name": null,
+    "commit": "cb75d51ba",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate bounded observer",
+     "run_file": "tools/tasks/steps/site-homepage-chat-public-asset-observation.validate/01-validate-bounded-observer.sh",
+     "run_sha256": "8e0965cb7b52b7e2b7acdb303b765d965d052a8cb8a22b476fef609cf933ef48"
+    },
+    {
+     "name": "Observe deployed homepage chat asset bytes",
+     "run_file": "tools/tasks/steps/site-homepage-chat-public-asset-observation.validate/02-observe-deployed-homepage-chat-asset-bytes.sh",
+     "run_sha256": "e72cf8e5947efe695edecda4e28a1b173f6619d9a625384263a590bd3c0219c0",
+     "if": "github.event_name != 'pull_request'"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "site-homepage-chat-public-assets-${{ github.run_id }}",
+     "path": "evidence/site-homepage-chat-public-assets/",
+     "if_no_files_found": "ignore",
+     "if": "github.event_name != 'pull_request'",
+     "retention-days": 90
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "python_version": "3.12",
+    "artifact_name": "site-homepage-chat-public-assets",
+    "artifact_if_no_files_found": "ignore"
+   },
+   "fold_notes": [
+    "Site round 71 / #166: full fold after B14 NOT_SELECTED conversion. Observe job-level if is now step-level if on the observe step (mykv/generic-login pattern). Historical pre-NOT_SELECTED sha256 aaef58c8640d80095f78cfb404de8eef4d153c1e21a89bf539b5b02f0dda96e2.",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "index.html",
+      "ecosystem-chat.html",
+      "assets/ecosystem-chat-runtime.js",
+      "assets/ecosystem-chat-va-runtime.js",
+      "assets/stegverse-node-continuity-impl.js",
+      "assets/ecosystem-chat-simple.js",
+      "scripts/observe_site_homepage_chat_assets.py",
+      "tests/test_observe_site_homepage_chat_assets.py",
+      "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+      "README.md",
+      "tools/tasks/folded/site-homepage-chat-public-asset-observation.yml",
+      "tools/tasks/steps/site-homepage-chat-public-asset-observation.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "index.html",
+      "ecosystem-chat.html",
+      "assets/ecosystem-chat-runtime.js",
+      "assets/ecosystem-chat-va-runtime.js",
+      "assets/stegverse-node-continuity-impl.js",
+      "assets/ecosystem-chat-simple.js",
+      "scripts/observe_site_homepage_chat_assets.py",
+      "tests/test_observe_site_homepage_chat_assets.py",
+      "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+      "README.md",
+      "tools/tasks/folded/site-homepage-chat-public-asset-observation.yml",
+      "tools/tasks/steps/site-homepage-chat-public-asset-observation.validate/**"
      ]
     }
    }
