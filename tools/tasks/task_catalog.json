@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "c949442feea9567f5b250421e17b7f8792de75b5",
+ "folded_from_commit": "2d902ec0ef3f98a1ab555a40a03b1556da2c74df",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -8775,6 +8775,204 @@
       "docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md",
       "tools/tasks/folded/capture-validation-evidence.yml",
       "tools/tasks/steps/capture-validation-evidence.capture/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "va-claim-assistant-activation.validate",
+   "source": {
+    "workflow": ".github/workflows/va-claim-assistant-activation.yml",
+    "workflow_name": "VA Claim Assistant Source-Grounded Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "2d902ec0e",
+    "triggers_before": [
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/va-claim-assistant-activation.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "70195f85cc5de48e5df699f27e93e629a6f9c84ec2a7d79cc9665241fd008d9b"
+    },
+    {
+     "name": "Validate Site governance contracts",
+     "run_file": "tools/tasks/steps/va-claim-assistant-activation.validate/02-validate-site-governance-contracts.sh",
+     "run_sha256": "df409d9c50802ce8541d790bc34087f10e58cc0494c6208528bec30c3c3da0ed"
+    },
+    {
+     "name": "Derive ephemeral governance receipt",
+     "run_file": "tools/tasks/steps/va-claim-assistant-activation.validate/03-derive-ephemeral-governance-receipt.sh",
+     "run_sha256": "1c889f09e95763e5803b985acfb4deb4612f0f17ff2c4259e5b33e59ec629d3f"
+    },
+    {
+     "name": "Validate cross-repository evidence manifest",
+     "run_file": "tools/tasks/steps/va-claim-assistant-activation.validate/04-validate-cross-repository-evidence-manifest.sh",
+     "run_sha256": "054d1e83d01b4f1ab78a538413c56757b3c98b9395cd337c20a09cd2d9a584f2"
+    },
+    {
+     "name": "Reconcile repository and deployed evidence ephemerally",
+     "run_file": "tools/tasks/steps/va-claim-assistant-activation.validate/05-reconcile-repository-and-deployed-evidence-ephemerally.sh",
+     "run_sha256": "e8c2bd681cc21b4df316546470cc9dcb6cdb53a4f82b5f94534762f8e0102983"
+    },
+    {
+     "name": "Apply verified governance and evidence chain ephemerally",
+     "run_file": "tools/tasks/steps/va-claim-assistant-activation.validate/06-apply-verified-governance-and-evidence-chain-ephemerally.sh",
+     "run_sha256": "777540de39d7bdceac53d6af3957904a7a5307941f99fae79a14bb34e79b5c78"
+    },
+    {
+     "name": "Enforce completed source-grounded invariants",
+     "run_file": "tools/tasks/steps/va-claim-assistant-activation.validate/07-enforce-completed-source-grounded-invariants.sh",
+     "run_sha256": "799b4b09350649cadb5fbbda5d3b6058ad2909df57f5421bf22dca41e1452a3c"
+    },
+    {
+     "name": "Discard ephemeral derivations and prove no persistence authority",
+     "run_file": "tools/tasks/steps/va-claim-assistant-activation.validate/08-discard-ephemeral-derivations-and-prove-no-persistence-autho.sh",
+     "run_sha256": "fe9fe158ef79428246dec59fc239e21738563a5095e3139b7da605d43c461376"
+    },
+    {
+     "name": "Confirm validation-only containment",
+     "run_file": "tools/tasks/steps/va-claim-assistant-activation.validate/09-confirm-validation-only-containment.sh",
+     "run_sha256": "d4a482343d98b795093df33eb677961a7e474440f795feccfe511314c5b47373"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 83 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "tools/tasks/folded/va-claim-assistant-activation.yml",
+      "tools/tasks/steps/va-claim-assistant-activation.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "api/va-claim-assistant/evidence-requirement.json",
+      "va-claim-assistant-source-grounded.html",
+      "data/va-claim-assistant/source-registry.json",
+      "data/va-claim-assistant/source-registry.schema.json",
+      "data/va-claim-assistant/answer-record.schema.json",
+      "data/va-claim-assistant/fixtures/**",
+      "data/va-claim-assistant/source-grounded-evidence-manifest.json",
+      "data/tasks/SITE-0001-VA-SOURCE-GROUNDED-EVIDENCE.json",
+      "scripts/check_va_claim_assistant_governance.py",
+      "scripts/write_va_governance_validation_receipt.py",
+      "scripts/check_va_source_grounded_evidence_manifest.py",
+      "scripts/apply_va_source_grounded_evidence_manifest.py",
+      "scripts/reconcile_va_claim_assistant_activation.py",
+      "tools/tasks/folded/va-claim-assistant-activation.yml",
+      "tools/tasks/steps/va-claim-assistant-activation.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "gp10-workspace-security.validate",
+   "source": {
+    "workflow": ".github/workflows/gp10-workspace-security.yml",
+    "workflow_name": "GP10 workspace security",
+    "job": "validate",
+    "job_name": null,
+    "commit": "2d902ec0e",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {
+    "SOURCE_REPOSITORY": "StegVerse-Labs/Site",
+    "SOURCE_SHA": "${{ github.event.pull_request.head.sha || github.sha }}"
+   },
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/gp10-workspace-security.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "07a78e2ad5cdfedf01100f0eef10d2f6e21ca095c7a986b8e68a31833c657b64"
+    },
+    {
+     "name": "Validate GP10 workspace security and isolation",
+     "run_file": "tools/tasks/steps/gp10-workspace-security.validate/02-validate-gp10-workspace-security-and-isolation.sh",
+     "run_sha256": "122630d111cf9f18bea61a6044e798432f7fe3996938c7ef29003f8f92afe83b"
+    },
+    {
+     "name": "Observe deployed GP10 pages without GitHub custody",
+     "run_file": "tools/tasks/steps/gp10-workspace-security.validate/03-observe-deployed-gp10-pages-without-github-custody.sh",
+     "run_sha256": "d1d66878abb03da700d0017fc9967053bd9e67b71c44d16c33d18e5943aaa203",
+     "if": "github.event_name != 'pull_request'"
+    },
+    {
+     "name": "Record pull-request deployment boundary",
+     "run_file": "tools/tasks/steps/gp10-workspace-security.validate/04-record-pull-request-deployment-boundary.sh",
+     "run_sha256": "4f1efd67f7952d88880f472ff2a126d82d40153ef19bde7ca25054fdb61a3f8f",
+     "if": "github.event_name == 'pull_request'"
+    },
+    {
+     "name": "Confirm validation-only boundary",
+     "run_file": "tools/tasks/steps/gp10-workspace-security.validate/05-confirm-validation-only-boundary.sh",
+     "run_sha256": "e6c524aca202f1ac1e3aef9479820b467207735a662a33e6deba8e64b8231b27"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 15,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 83 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "gp10-workspace.html",
+      "gp10-workspace-examples.html",
+      "assets/gp10-*.js",
+      "scripts/check_gp10_workspace.py",
+      "scripts/check_gp10_workspace_deployment.py",
+      "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md",
+      "docs/GP10_WORKSPACE_SECURITY_BASELINE.md",
+      "tools/tasks/folded/gp10-workspace-security.yml",
+      "tools/tasks/steps/gp10-workspace-security.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "gp10-workspace.html",
+      "gp10-workspace-examples.html",
+      "assets/gp10-*.js",
+      "scripts/check_gp10_workspace.py",
+      "scripts/check_gp10_workspace_deployment.py",
+      "docs/GP10_WORKSPACE_MIRROR_HANDOFF.md",
+      "docs/GP10_WORKSPACE_SECURITY_BASELINE.md",
+      "data/operations/gp10_workspace_tasks.json",
+      "tools/tasks/folded/gp10-workspace-security.yml",
+      "tools/tasks/steps/gp10-workspace-security.validate/**"
      ]
     }
    }

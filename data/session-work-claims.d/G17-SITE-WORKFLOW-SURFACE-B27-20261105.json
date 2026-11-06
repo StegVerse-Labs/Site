@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "p4/site-r82-fold-hil-sv002-conectrr-capture",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "g17-site-workflow-surface-b27",
       "dependency_surface_keys": [
         "site:g17-site-workflow-surface-b27"
@@ -60,7 +60,10 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1686,
+      "release_commit": "48cc0ddcc65ff8e9dd1d8a31fb687d0fe5238e82",
+      "claim_released_at": "2026-11-06T01:17:58Z"
     }
   ]
 }

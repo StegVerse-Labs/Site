@@ -1,0 +1,1 @@
+python3 scripts/write_va_governance_validation_receipt.py

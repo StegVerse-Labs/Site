@@ -1,0 +1,1 @@
+python3 scripts/reconcile_va_claim_assistant_activation.py
