@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "p4/site-r78-fold-tidc-research",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "g17-site-r78-fold-tidc-research",
       "dependency_surface_keys": [
         "site:g17-site-r78-fold-tidc-research"
@@ -53,7 +53,10 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1682,
+      "release_commit": "4dd692754b36f133bf33f50dce87e64780b99df9",
+      "claim_released_at": "2026-11-06T00:53:29Z"
     }
   ]
 }

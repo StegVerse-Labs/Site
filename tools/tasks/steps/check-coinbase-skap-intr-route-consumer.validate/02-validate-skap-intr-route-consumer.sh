@@ -1,0 +1,1 @@
+python3 scripts/check_coinbase_skap_intr_route_consumer.py

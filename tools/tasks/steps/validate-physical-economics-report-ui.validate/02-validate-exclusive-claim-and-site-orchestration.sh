@@ -1,0 +1,5 @@
+set -euo pipefail
+python3 scripts/check_session_work_claims.py
+python3 scripts/site_handoff_orchestrator.py
+echo 'PHYSICAL_ECONOMICS_UI_SESSION_WORK_CLAIMS=PASS'
+echo 'PHYSICAL_ECONOMICS_UI_SITE_HANDOFF_ORCHESTRATION=PASS'

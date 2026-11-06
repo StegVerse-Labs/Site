@@ -205,7 +205,7 @@
         "data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json",
         "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
         "scripts/check_hil_session_consolidation.py",
-        ".github/workflows/check-hil-session-consolidation.yml",
+        "tools/tasks/folded/check-hil-session-consolidation.yml",
         "schemas/tvc_execution_receipt_import.schema.json",
         "scripts/check_tvc_execution_receipt_import.py",
         "tests/test_tvc_execution_receipt_import.py",

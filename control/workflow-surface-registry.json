@@ -105,23 +105,6 @@
       }
     },
     {
-      "path": ".github/workflows/check-coinbase-skap-intr-route-consumer.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "push",
-        "pull_request"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "aaa17d9fb552564e3842b0249511f691b5fd53f4cc1744bd51684b0cacd2d61b",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/check-hil-linkedin-launch-readiness.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -148,22 +131,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "8f6d21276596737145d71f5cdd165f497fa0100dee002f6023dc338f72134493",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/check-hil-session-consolidation.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "c53da042b60ca8231d5cda3c95e41544c5ff682838e7b6bafb1997be502a9752",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -665,25 +632,6 @@
       }
     },
     {
-      "path": ".github/workflows/no-required-third-party-runtime.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {
-        "contents": "read"
-      },
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "933c737bf555f7faeae41786bbfff93729e9a37ebfc1cc69df7d2a4344bfba42",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/observe-and-complete-repository-tasks.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -1134,22 +1082,6 @@
       }
     },
     {
-      "path": ".github/workflows/va-filing-integration-contract.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "c81a4aa66340da1b1058f68f4a8801d82b9de823066037be4244b603f150d0dd",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/va-governed-product-goals.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -1310,22 +1242,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "3f885ecc48116299742e9ec1453fc632793ca63bf313704c6c70800e1b66c367",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/validate-physical-economics-report-ui.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "e0b3d7bf484a68696e37568fb88f19e2c3479135193963e9507f838c1ef00c6b",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -2608,16 +2524,93 @@
       ],
       "verbatim_record": "tools/tasks/folded/check-tidc-research.yml",
       "verbatim_sha256": "605428771dfbafd313f100713fdb9e38e7029a3079efbd44972fb5414849bbdd"
+    },
+    {
+      "workflow": ".github/workflows/validate-physical-economics-report-ui.yml",
+      "name": "Validate Physical Economics Report UI",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "validate-physical-economics-report-ui.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/validate-physical-economics-report-ui.yml",
+      "verbatim_sha256": "e0b3d7bf484a68696e37568fb88f19e2c3479135193963e9507f838c1ef00c6b"
+    },
+    {
+      "workflow": ".github/workflows/check-hil-session-consolidation.yml",
+      "name": "Check HIL Session Consolidation",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-hil-session-consolidation.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-hil-session-consolidation.yml",
+      "verbatim_sha256": "c53da042b60ca8231d5cda3c95e41544c5ff682838e7b6bafb1997be502a9752"
+    },
+    {
+      "workflow": ".github/workflows/no-required-third-party-runtime.yml",
+      "name": "No Required Third-Party Runtime",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "no-required-third-party-runtime.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/no-required-third-party-runtime.yml",
+      "verbatim_sha256": "933c737bf555f7faeae41786bbfff93729e9a37ebfc1cc69df7d2a4344bfba42"
+    },
+    {
+      "workflow": ".github/workflows/check-coinbase-skap-intr-route-consumer.yml",
+      "name": "Check Coinbase SKAP InTr Route Consumer",
+      "triggers_before": [
+        "pull_request",
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-coinbase-skap-intr-route-consumer.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-coinbase-skap-intr-route-consumer.yml",
+      "verbatim_sha256": "aaa17d9fb552564e3842b0249511f691b5fd53f4cc1744bd51684b0cacd2d61b"
+    },
+    {
+      "workflow": ".github/workflows/va-filing-integration-contract.yml",
+      "name": "VA Filing Integration Contract Validation",
+      "triggers_before": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "va-filing-integration-contract.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/va-filing-integration-contract.yml",
+      "verbatim_sha256": "c81a4aa66340da1b1058f68f4a8801d82b9de823066037be4244b603f150d0dd"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 76,
+    "workflow_count": 71,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 78: workflow_count 77\u219276. Fully folded check-tidc-research into the stable dispatcher (catalog groups: check-tidc-research.verify-publication-python3.9, check-tidc-research.verify-publication-python3.11, check-tidc-research.verify-publication-python3.12, check-tidc-research.process-blinded-returns, check-tidc-research.authority-boundary). Anonymous checkout repaired to the dispatcher credential-free checkout. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 79: workflow_count 76\u219271. Fully folded validate-physical-economics-report-ui, check-hil-session-consolidation, no-required-third-party-runtime, check-coinbase-skap-intr-route-consumer, va-filing-integration-contract into the stable dispatcher (catalog groups: validate-physical-economics-report-ui.validate, check-hil-session-consolidation.validate, no-required-third-party-runtime.validate, check-coinbase-skap-intr-route-consumer.validate, va-filing-integration-contract.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
-    "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator batch"
+    "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator batch; writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"
   }
 }

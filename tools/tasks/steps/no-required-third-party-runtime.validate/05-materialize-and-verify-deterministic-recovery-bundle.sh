@@ -1,0 +1,1 @@
+python3 scripts/check_site_recovery_bundle_manifest.py
