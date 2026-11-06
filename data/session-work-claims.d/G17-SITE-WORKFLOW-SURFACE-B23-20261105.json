@@ -1,0 +1,59 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "G17-SITE-WORKFLOW-SURFACE-B23-20261105",
+      "session_worker_id": "p4-maintenance-lane-a65c67bf",
+      "task_id": "G17-SITE-R78-FOLD-TIDC-RESEARCH",
+      "originating_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168) under StegVerse-org/.github#166",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "p4/site-r78-fold-tidc-research",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "g17-site-r78-fold-tidc-research",
+      "dependency_surface_keys": [
+        "site:g17-site-r78-fold-tidc-research"
+      ],
+      "claimed_paths": [
+        "control/workflow-surface-registry.json",
+        "tests/test_workflow_surface_registry.py",
+        "tools/tasks/task_catalog.json",
+        "tools/tasks/run_catalog.py",
+        "tools/tasks/folded/check-tidc-research.yml",
+        ".github/workflows/check-tidc-research.yml",
+        "data/cosv/active-claim-projections.json",
+        "data/cosv/task-vector-index.json",
+        "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B23-20261105.json",
+        "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B22-20261105.json",
+        "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+        "tools/tasks/steps/check-tidc-research.verify-publication-python3.9/",
+        "tools/tasks/steps/check-tidc-research.verify-publication-python3.11/",
+        "tools/tasks/steps/check-tidc-research.verify-publication-python3.12/",
+        "tools/tasks/steps/check-tidc-research.process-blinded-returns/",
+        "tools/tasks/steps/check-tidc-research.authority-boundary/"
+      ],
+      "handoff": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+      "handoff_revision": "f869261f3345f6f885e4c0d23591a3acc9acfc46",
+      "claim_created_at": "2026-11-06T00:48:21Z",
+      "claim_expires_when": "Release when workflow_count is 76, CI green 0 skipped, PR merged.",
+      "expected_evidence": [
+        "registry count 76",
+        "run_catalog ALLOW",
+        "tidc catalog groups present"
+      ],
+      "collision_boundaries": [
+        "Delete only check-tidc-research.yml",
+        "No secrets/dispatch/cron added"
+      ],
+      "next_task_after_release": "Site round 79: next KEEP_PENDING batch.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
