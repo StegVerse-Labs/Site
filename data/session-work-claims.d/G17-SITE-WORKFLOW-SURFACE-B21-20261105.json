@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "p4/site-r76-fold-review-endpoint-hil",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "g17-site-r76-fold-review-endpoint-hil",
       "dependency_surface_keys": [
         "site:g17-site-r76-fold-review-endpoint-hil"
@@ -68,7 +68,10 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1680,
+      "release_commit": "68b2ef299e13ed33690421eb96ed5cce8015f5e8",
+      "claim_released_at": "2026-11-06T00:45:28Z"
     }
   ]
 }

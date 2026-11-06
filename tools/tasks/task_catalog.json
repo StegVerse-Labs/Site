@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "7b0eb18e9aaae92d0c233b0b31feaeb578b435e6",
+ "folded_from_commit": "68b2ef299e13ed33690421eb96ed5cce8015f5e8",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -6623,6 +6623,336 @@
       "scripts/check_hil_semantic_replay_tasks.py",
       "tools/tasks/folded/hil-semantic-replay.yml",
       "tools/tasks/steps/hil-semantic-replay.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "stegbrowser-sv002-lane-adaptation.validate",
+   "source": {
+    "workflow": ".github/workflows/stegbrowser-sv002-lane-adaptation.yml",
+    "workflow_name": "StegBrowser SV002 Lane Adaptation",
+    "job": "validate-adapted-lane",
+    "job_name": null,
+    "commit": "68b2ef299",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Re-run unchanged validated SV002 mechanics tests",
+     "run_file": "tools/tasks/steps/stegbrowser-sv002-lane-adaptation.validate/01-re-run-unchanged-validated-sv002-mechanics-tests.sh",
+     "run_sha256": "0dec6112e20b936901775cf9cdebe68dcc837c7452a001efb7d683f277e482ab"
+    },
+    {
+     "name": "Run exact StegBrowser binding adaptation tests",
+     "run_file": "tools/tasks/steps/stegbrowser-sv002-lane-adaptation.validate/02-run-exact-stegbrowser-binding-adaptation-tests.sh",
+     "run_sha256": "4bf8f7897b5fe8cc3701980f9847467aeb23fd9994ce51e958aaed8d296b287a"
+    },
+    {
+     "name": "Run canonical browser-to-sovereign retention tests",
+     "run_file": "tools/tasks/steps/stegbrowser-sv002-lane-adaptation.validate/03-run-canonical-browser-to-sovereign-retention-tests.sh",
+     "run_sha256": "ed22cad79b3c411e2d11eb410c121223b6770fd98361af46204023047b5a8b3e"
+    },
+    {
+     "name": "Confirm bounded source-validation result",
+     "run_file": "tools/tasks/steps/stegbrowser-sv002-lane-adaptation.validate/04-confirm-bounded-source-validation-result.sh",
+     "run_sha256": "18c3ed38325b024beff7e53314bf15f6d1809c27fbd508e662f91cd321cd4a25"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 77 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger (or push paths empty); push is declared so the folded group satisfies the dispatcher both-events contract."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/stegbrowser-manifest-runtime-materializer.js",
+      "data/stegbrowser-manifest-runtime-binding.v1.json",
+      "tests/test_stegbrowser_sv002_lane_adaptation.py",
+      "tests/test_stegbrowser_canonical_sovereign_ingress_retention.py",
+      "stegos-node/stegbrowser-intr-sync-target.json",
+      "stegos-node/stegbrowser-intr-sync.js",
+      "stegos-bootstrap/canonical-work-runtime-consumption.html",
+      "stegos-bootstrap/canonical-work-runtime-consumption.js",
+      "docs/STEGBROWSER_SV002_LANE_ADAPTATION.md",
+      "tools/tasks/folded/stegbrowser-sv002-lane-adaptation.yml",
+      "tools/tasks/steps/stegbrowser-sv002-lane-adaptation.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/stegbrowser-manifest-runtime-materializer.js",
+      "data/stegbrowser-manifest-runtime-binding.v1.json",
+      "tests/test_stegbrowser_sv002_lane_adaptation.py",
+      "tests/test_stegbrowser_canonical_sovereign_ingress_retention.py",
+      "stegos-node/stegbrowser-intr-sync-target.json",
+      "stegos-node/stegbrowser-intr-sync.js",
+      "stegos-bootstrap/canonical-work-runtime-consumption.html",
+      "stegos-bootstrap/canonical-work-runtime-consumption.js",
+      "docs/STEGBROWSER_SV002_LANE_ADAPTATION.md",
+      "tools/tasks/folded/stegbrowser-sv002-lane-adaptation.yml",
+      "tools/tasks/steps/stegbrowser-sv002-lane-adaptation.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "stegbrowser-sv002-validated-lane-retest.validate",
+   "source": {
+    "workflow": ".github/workflows/stegbrowser-sv002-validated-lane-retest.yml",
+    "workflow_name": "StegBrowser SV002 Validated Lane Retest",
+    "job": "retest-existing-validated-lane",
+    "job_name": null,
+    "commit": "68b2ef299",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Run unchanged SV002 self-contained runtime test",
+     "run_file": "tools/tasks/steps/stegbrowser-sv002-validated-lane-retest.validate/01-run-unchanged-sv002-self-contained-runtime-test.sh",
+     "run_sha256": "3e7b9942c764c275de4850c2104cec1d489efedabab37eb9213d896f7c482b2e"
+    },
+    {
+     "name": "Run unchanged SV002 canonical InTr destination test",
+     "run_file": "tools/tasks/steps/stegbrowser-sv002-validated-lane-retest.validate/02-run-unchanged-sv002-canonical-intr-destination-test.sh",
+     "run_sha256": "fb8ab6ee2c68de69c9bb79a8d2a7e90499de58c1722e77e0592160339ea3fb2a"
+    },
+    {
+     "name": "Confirm source-validation authority boundary",
+     "run_file": "tools/tasks/steps/stegbrowser-sv002-validated-lane-retest.validate/03-confirm-source-validation-authority-boundary.sh",
+     "run_sha256": "792e3e0c278aa06de783c45733bea9bf377992b89a108bf65ed22140fc188148"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 77 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger (or push paths empty); push is declared so the folded group satisfies the dispatcher both-events contract."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/STEGBROWSER_SV002_VALIDATED_LANE_RETEST.md",
+      "data/session-work-claims.d/site-stegbrowser-sv002-validated-lane-retest-20260915.json",
+      "assets/sv002-local-runtime-materializer.js",
+      "assets/sv002-principal-worker.js",
+      "assets/generated/site-browser-intr-connectors.js",
+      "tests/test_sv002_self_contained_runtime.py",
+      "tests/test_sv002_canonical_destination.py",
+      "tools/tasks/folded/stegbrowser-sv002-validated-lane-retest.yml",
+      "tools/tasks/steps/stegbrowser-sv002-validated-lane-retest.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "docs/STEGBROWSER_SV002_VALIDATED_LANE_RETEST.md",
+      "data/session-work-claims.d/site-stegbrowser-sv002-validated-lane-retest-20260915.json",
+      "assets/sv002-local-runtime-materializer.js",
+      "assets/sv002-principal-worker.js",
+      "assets/generated/site-browser-intr-connectors.js",
+      "tests/test_sv002_self_contained_runtime.py",
+      "tests/test_sv002_canonical_destination.py",
+      "tools/tasks/folded/stegbrowser-sv002-validated-lane-retest.yml",
+      "tools/tasks/steps/stegbrowser-sv002-validated-lane-retest.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "hil-semantic-continuity-tasks.validate",
+   "source": {
+    "workflow": ".github/workflows/hil-semantic-continuity-tasks.yml",
+    "workflow_name": "HIL Semantic Continuity Tasks",
+    "job": "observe-validate-and-activate",
+    "job_name": null,
+    "commit": "68b2ef299",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/hil-semantic-continuity-tasks.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "393c7691c19c264391e03fd7d910c2b337933b45f2af6edc81a35831117d309d"
+    },
+    {
+     "name": "Validate task graph and select next task",
+     "run_file": "tools/tasks/steps/hil-semantic-continuity-tasks.validate/02-validate-task-graph-and-select-next-task.sh",
+     "run_sha256": "94f8fb372dcae6057e90712c992a98378acb322ae714e8510659afd8b5295608"
+    },
+    {
+     "name": "Validate bounded semantic transformation",
+     "run_file": "tools/tasks/steps/hil-semantic-continuity-tasks.validate/03-validate-bounded-semantic-transformation.sh",
+     "run_sha256": "f57a72252f07cdf56f94e24722a435dc9087299e2bbde4a065e46e31695d5697"
+    },
+    {
+     "name": "Validate JSON artifacts",
+     "run_file": "tools/tasks/steps/hil-semantic-continuity-tasks.validate/04-validate-json-artifacts.sh",
+     "run_sha256": "60bbc67deb651b7dad2941d401f07a4b88f6b27c7cc14cb8285d722f0b139c5f"
+    },
+    {
+     "name": "Declare activation eligibility",
+     "run_file": "tools/tasks/steps/hil-semantic-continuity-tasks.validate/05-declare-activation-eligibility.sh",
+     "run_sha256": "6f5f98708ba21ba1586d6af08c90c2d5f6daf84078769cd293e853d8385db848"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 77 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md",
+      "docs/hil-semantic-continuity/**",
+      "data/hil-semantic-continuity-projection-manifest.json",
+      "data/schemas/hil-semantic-transformation.schema.json",
+      "data/fixtures/hil-semantic-transformation/**",
+      "scripts/check_hil_semantic_continuity_tasks.py",
+      "scripts/validate_hil_semantic_transformation.py",
+      "tools/tasks/folded/hil-semantic-continuity-tasks.yml",
+      "tools/tasks/steps/hil-semantic-continuity-tasks.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "docs/HIL_SEMANTIC_CONTINUITY_MIRROR_HANDOFF.md",
+      "docs/hil-semantic-continuity/**",
+      "data/hil-semantic-continuity-task-state.json",
+      "data/hil-semantic-continuity-projection-manifest.json",
+      "data/schemas/hil-semantic-transformation.schema.json",
+      "data/fixtures/hil-semantic-transformation/**",
+      "scripts/check_hil_semantic_continuity_tasks.py",
+      "scripts/validate_hil_semantic_transformation.py",
+      "tools/tasks/folded/hil-semantic-continuity-tasks.yml",
+      "tools/tasks/steps/hil-semantic-continuity-tasks.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "validate-stegos-persistent-card-ux.validate",
+   "source": {
+    "workflow": ".github/workflows/validate-stegos-persistent-card-ux.yml",
+    "workflow_name": "Validate StegOS Persistent Card UX",
+    "job": "validate",
+    "job_name": null,
+    "commit": "68b2ef299",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate persistent card, exact G23 recovery, offline shell, custody governance, and proof relay contracts",
+     "run_file": "tools/tasks/steps/validate-stegos-persistent-card-ux.validate/01-validate-persistent-card-exact-g23-recovery-offline-shell-cu.sh",
+     "run_sha256": "674eb7eeadd08e84335fdad770d076b8875683adf0b5f90a56b67ea171b0f087"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 77 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "stegos-bootstrap/**",
+      "intr-service-worker.js",
+      "scripts/validate_stegos_persistent_card_ux.py",
+      "scripts/check_stegos_ipod_bootstrap_projection.py",
+      "scripts/check_mr_sv001_intr_governance.py",
+      "tests/test_mr_sv001_intr_governance.py",
+      "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+      "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+      "README.md",
+      "data/preflight/sv001-mr-intr-governance-20260905.json",
+      "data/session-work-claims.d/site-sv001-mr-intr-governance-20260905.json",
+      "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-offline-shell-20260905.json",
+      "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-auto-recovery-20260906.json",
+      "tools/tasks/folded/validate-stegos-persistent-card-ux.yml",
+      "tools/tasks/steps/validate-stegos-persistent-card-ux.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "stegos-bootstrap/**",
+      "intr-service-worker.js",
+      "scripts/validate_stegos_persistent_card_ux.py",
+      "scripts/check_stegos_ipod_bootstrap_projection.py",
+      "scripts/check_mr_sv001_intr_governance.py",
+      "tests/test_mr_sv001_intr_governance.py",
+      "docs/STEGOS_PERSISTENT_CARD_UX_MIRROR_HANDOFF.md",
+      "docs/MR_SV001_CURRENT_IPHONE_CUSTODY_MIRROR_HANDOFF.md",
+      "README.md",
+      "data/preflight/sv001-mr-intr-governance-20260905.json",
+      "data/session-work-claims.d/site-sv001-mr-intr-governance-20260905.json",
+      "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-offline-shell-20260905.json",
+      "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-auto-recovery-20260906.json",
+      "tools/tasks/folded/validate-stegos-persistent-card-ux.yml",
+      "tools/tasks/steps/validate-stegos-persistent-card-ux.validate/**"
      ]
     }
    }

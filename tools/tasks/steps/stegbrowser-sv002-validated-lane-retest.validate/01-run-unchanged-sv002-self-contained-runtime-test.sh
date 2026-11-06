@@ -1,0 +1,1 @@
+python3 tests/test_sv002_self_contained_runtime.py

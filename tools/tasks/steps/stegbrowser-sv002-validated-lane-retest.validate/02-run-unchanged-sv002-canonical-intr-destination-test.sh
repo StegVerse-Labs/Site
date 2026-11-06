@@ -1,0 +1,1 @@
+python3 tests/test_sv002_canonical_destination.py
