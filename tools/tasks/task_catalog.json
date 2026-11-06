@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "66794b714e6120bc57ed3933e5a1646ccead2927",
+ "folded_from_commit": "c949442feea9567f5b250421e17b7f8792de75b5",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -8554,6 +8554,227 @@
       "docs/VA_CLAIMS_CHAT_ACTIONS_FANOUT_MIRROR_HANDOFF.md",
       "tools/tasks/folded/va-claims-chat-surface.yml",
       "tools/tasks/steps/va-claims-chat-surface.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-hil-linkedin-launch-readiness.verify",
+   "source": {
+    "workflow": ".github/workflows/check-hil-linkedin-launch-readiness.yml",
+    "workflow_name": "Check HIL LinkedIn Launch Readiness",
+    "job": "verify",
+    "job_name": null,
+    "commit": "c949442fe",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify HIL v1.1 LinkedIn launch boundary",
+     "run_file": "tools/tasks/steps/check-hil-linkedin-launch-readiness.verify/01-verify-hil-v1-1-linkedin-launch-boundary.sh",
+     "run_sha256": "4d04fad42a3f8758969ad9e9d9a0c3c3c36e3f6215ea833e570c447b3390e69d"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 82 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger (or push paths empty); push is declared so the folded group satisfies the dispatcher both-events contract."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/HIL_Canonical_Paper_v1_1.pdf",
+      "data/hil-linkedin-launch-readiness.json",
+      "docs/HIL_LINKEDIN_LAUNCH_CHECKLIST.md",
+      "humans-as-interoperability-layer.html",
+      "assets/hil-experiment-v1.1.js",
+      "scripts/check_hil_linkedin_launch_readiness.py",
+      "tools/tasks/folded/check-hil-linkedin-launch-readiness.yml",
+      "tools/tasks/steps/check-hil-linkedin-launch-readiness.verify/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/HIL_Canonical_Paper_v1_1.pdf",
+      "data/hil-linkedin-launch-readiness.json",
+      "docs/HIL_LINKEDIN_LAUNCH_CHECKLIST.md",
+      "humans-as-interoperability-layer.html",
+      "assets/hil-experiment-v1.1.js",
+      "scripts/check_hil_linkedin_launch_readiness.py",
+      "tools/tasks/folded/check-hil-linkedin-launch-readiness.yml",
+      "tools/tasks/steps/check-hil-linkedin-launch-readiness.verify/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "conectrr-security-overlay.validate-security-overlay",
+   "source": {
+    "workflow": ".github/workflows/conectrr-security-overlay.yml",
+    "workflow_name": "Conectrr Security Overlay",
+    "job": "validate-security-overlay",
+    "job_name": null,
+    "commit": "c949442fe",
+    "triggers_before": [
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {
+    "SOURCE_REPOSITORY": "StegVerse-Labs/Site",
+    "SOURCE_SHA": "${{ github.event.pull_request.head.sha || github.sha }}"
+   },
+   "steps": [
+    {
+     "name": "Validate security-above-baseline overlay",
+     "run_file": "tools/tasks/steps/conectrr-security-overlay.validate-security-overlay/01-validate-security-above-baseline-overlay.sh",
+     "run_sha256": "adbe0a6c1167ca1afb13ffde546752da8d6cd5e3ee6a1a0afa5950dc94834bc8"
+    },
+    {
+     "name": "Validate integrated Conectrr runtime gate",
+     "run_file": "tools/tasks/steps/conectrr-security-overlay.validate-security-overlay/02-validate-integrated-conectrr-runtime-gate.sh",
+     "run_sha256": "82266123074c9350a33d5cb734b738ec00fbe103f06c89f400adc9ad3baca36a"
+    },
+    {
+     "name": "Emit ephemeral validation receipt",
+     "run_file": "tools/tasks/steps/conectrr-security-overlay.validate-security-overlay/03-emit-ephemeral-validation-receipt.sh",
+     "run_sha256": "69470ebcb54fada454d4e0066999ecec040726658cbcecec1bada1d83ef4afe6"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 82 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "tools/tasks/folded/conectrr-security-overlay.yml",
+      "tools/tasks/steps/conectrr-security-overlay.validate-security-overlay/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "docs/CONECTRR_SECURITY_EXCEEDS_FEDERAL_BASELINE.md",
+      "data/conectrr-security-overlay.json",
+      "scripts/check_conectrr_security_overlay.py",
+      "scripts/check_conectrr_runtime_projection.py",
+      "docs/CONECTRR_INTEROP_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/conectrr-security-overlay.yml",
+      "tools/tasks/steps/conectrr-security-overlay.validate-security-overlay/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "capture-validation-evidence.capture",
+   "source": {
+    "workflow": ".github/workflows/capture-validation-evidence.yml",
+    "workflow_name": "Capture Validation Evidence",
+    "job": "capture",
+    "job_name": null,
+    "commit": "c949442fe",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {
+    "SOURCE_REPOSITORY": "StegVerse-Labs/Site",
+    "SOURCE_SHA": "${{ github.event.pull_request.head.sha || github.sha }}"
+   },
+   "steps": [
+    {
+     "name": "Use preinstalled Python and repository-local schema validator",
+     "run_file": "tools/tasks/steps/capture-validation-evidence.capture/01-use-preinstalled-python-and-repository-local-schema-validato.sh",
+     "run_sha256": "ee591cce9984d320191a988fb14de3cafefd477c1aeeede32cff077d003f1d19"
+    },
+    {
+     "name": "Execute declared validators and write local receipt",
+     "run_file": "tools/tasks/steps/capture-validation-evidence.capture/02-execute-declared-validators-and-write-local-receipt.sh",
+     "run_sha256": "72402b9c00e2be462822ed0dcc0903ab819c825839662d4f590eb8cc0ebdcf97"
+    },
+    {
+     "name": "Enforce receipt status without artifact or issue custody",
+     "run_file": "tools/tasks/steps/capture-validation-evidence.capture/03-enforce-receipt-status-without-artifact-or-issue-custody.sh",
+     "run_sha256": "d8fc718299f3bc4c2fc7fa0b7805304ebef5b3d224b7be6bc73cb39743b97d8d"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 82 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger (or push paths empty); push is declared so the folded group satisfies the dispatcher both-events contract."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "validation_manifests/repository-core.json",
+      "schemas/validation-execution-receipt.schema.json",
+      "scripts/capture_validation_manifest.py",
+      "scripts/stegverse_jsonschema.py",
+      "scripts/write_site_current_main_validation_receipt.py",
+      "scripts/check_site_current_main_validation_receipt_writer.py",
+      "scripts/check_site_current_main_validation_evidence.py",
+      "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
+      "data/tasks/SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817.json",
+      "docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/capture-validation-evidence.yml",
+      "tools/tasks/steps/capture-validation-evidence.capture/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "validation_manifests/repository-core.json",
+      "schemas/validation-execution-receipt.schema.json",
+      "scripts/capture_validation_manifest.py",
+      "scripts/stegverse_jsonschema.py",
+      "scripts/write_site_current_main_validation_receipt.py",
+      "scripts/check_site_current_main_validation_receipt_writer.py",
+      "scripts/check_site_current_main_validation_evidence.py",
+      "data/tasks/SITE-ST018-VALIDATION-EVIDENCE.json",
+      "data/tasks/SITE-ST018-GITHUB-TOKEN-RETIREMENT-20260817.json",
+      "docs/ST018_VALIDATION_EVIDENCE_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/capture-validation-evidence.yml",
+      "tools/tasks/steps/capture-validation-evidence.capture/**"
      ]
     }
    }

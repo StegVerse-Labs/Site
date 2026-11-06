@@ -1,0 +1,1 @@
+python scripts/check_hil_linkedin_launch_readiness.py

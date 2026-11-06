@@ -23,17 +23,6 @@
   },
   "surfaces": [
     {
-      "path": ".github/workflows/validation-dispatcher.yml",
-      "classification": "KEEP_STABLE_DISPATCHER",
-      "triggers": [
-        "pull_request",
-        "push"
-      ],
-      "permissions": {
-        "contents": "read"
-      }
-    },
-    {
       "path": ".github/workflows/advance-tidc-internal-work.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -70,22 +59,6 @@
       }
     },
     {
-      "path": ".github/workflows/capture-validation-evidence.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "pull_request"
-      ],
-      "permissions": {},
-      "reason": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-      "verbatim_sha256": "ff37ee6c0f73ea80ad7fcfb525f596b0f1226f6a4b7c53e39dd026df64ef1d09",
-      "exception": {
-        "lifecycle": "named by generated census or session data",
-        "justification": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/cfp_ingest.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -101,22 +74,6 @@
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/check-hil-linkedin-launch-readiness.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "FAIL_CLOSED_KEEP: the job re-initializes the checkout and fetches the exact source anonymously, which is itself the boundary it proves; the catalog runner cannot carry a checkout re-initialization, and on this private repository the anonymous fetch is refused. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-      "verbatim_sha256": "cd7a649906810bfdb97d1e8459df279790f1a5edffdca0720dce294ff865a4a1",
-      "exception": {
-        "lifecycle": "anonymous exact-source fetch re-initializes the checkout",
-        "justification": "FAIL_CLOSED_KEEP: the job re-initializes the checkout and fetches the exact source anonymously, which is itself the boundary it proves; the catalog runner cannot carry a checkout re-initialization, and on this private repository the anonymous fetch is refused. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -191,22 +148,6 @@
       },
       "pre_conversion_record": "tools/tasks/folded/conectrr-live-verification.yml",
       "pre_conversion_sha256": "e6abdd45bcd07d2fe0c8659752314add641760fbc4c125173e8b206287f59bba"
-    },
-    {
-      "path": ".github/workflows/conectrr-security-overlay.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "push",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-      "verbatim_sha256": "4053b3cd781ab0dddb17d2cb0ee7ea07b6693b7c3337587706f34977b442a758",
-      "exception": {
-        "lifecycle": "named by generated census or session data",
-        "justification": "FAIL_CLOSED_KEEP: it is named by generated census, inventory or session-registry data that would need regeneration; stored data is not edited by this consolidation. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-        "within_exception_ceiling": true
-      }
     },
     {
       "path": ".github/workflows/development-without-domination-publication.yml",
@@ -1083,6 +1024,17 @@
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
         "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/validation-dispatcher.yml",
+      "classification": "KEEP_STABLE_DISPATCHER",
+      "triggers": [
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
       }
     },
     {
@@ -2590,14 +2542,59 @@
       ],
       "verbatim_record": "tools/tasks/folded/va-claims-chat-surface.yml",
       "verbatim_sha256": "e0b0df87e74c2fe49801f0d0f41b1d395416635282aaa784a83f389f570edbde"
+    },
+    {
+      "workflow": ".github/workflows/check-hil-linkedin-launch-readiness.yml",
+      "name": "Check HIL LinkedIn Launch Readiness",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-hil-linkedin-launch-readiness.verify"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-hil-linkedin-launch-readiness.yml",
+      "verbatim_sha256": "cd7a649906810bfdb97d1e8459df279790f1a5edffdca0720dce294ff865a4a1"
+    },
+    {
+      "workflow": ".github/workflows/conectrr-security-overlay.yml",
+      "name": "Conectrr Security Overlay",
+      "triggers_before": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "conectrr-security-overlay.validate-security-overlay"
+      ],
+      "verbatim_record": "tools/tasks/folded/conectrr-security-overlay.yml",
+      "verbatim_sha256": "4053b3cd781ab0dddb17d2cb0ee7ea07b6693b7c3337587706f34977b442a758"
+    },
+    {
+      "workflow": ".github/workflows/capture-validation-evidence.yml",
+      "name": "Capture Validation Evidence",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "capture-validation-evidence.capture"
+      ],
+      "verbatim_record": "tools/tasks/folded/capture-validation-evidence.yml",
+      "verbatim_sha256": "ff37ee6c0f73ea80ad7fcfb525f596b0f1226f6a4b7c53e39dd026df64ef1d09"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 60,
+    "workflow_count": 57,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 81: workflow_count 65\u219260. Fully folded va-private-document-runtime, va-governed-product-goals, two-entry-points-execution-state, vacc-goal3-contract-suite, va-claims-chat-surface into the stable dispatcher (catalog groups: va-private-document-runtime.validate, va-governed-product-goals.validate, two-entry-points-execution-state.validate, vacc-goal3-contract-suite.validate, va-claims-chat-surface.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 82: workflow_count 60\u219257. Fully folded check-hil-linkedin-launch-readiness, conectrr-security-overlay, capture-validation-evidence into the stable dispatcher (catalog groups: check-hil-linkedin-launch-readiness.verify, conectrr-security-overlay.validate-security-overlay, capture-validation-evidence.capture). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. hil-announcement-contract and check-sv002-authentic-runtime-evidence-harness deferred: pre-existing content/syntax failures surface when path filters match the fold PR (launch-page phrase drift; assets/sv002-observe.js literal \\\\n). Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator batch; writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"

@@ -126,7 +126,7 @@
         "assets/ecosystem-music-six-track-registry.js",
         "assets/ecosystem-music-adaptive.js",
         "tests/test_stegmusic_browser.py",
-        ".github/workflows/capture-validation-evidence.yml",
+        "tools/tasks/folded/capture-validation-evidence.yml",
         "validation_manifests/repository-core.json",
         "schemas/validation-execution-receipt.schema.json",
         "scripts/capture_validation_manifest.py",

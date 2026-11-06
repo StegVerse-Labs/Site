@@ -87,3 +87,11 @@ G17-SITE-WORKFLOW-SURFACE-B24-20261105 released. G17-SITE-WORKFLOW-SURFACE-B25-2
 ## Round 81 note (P4 a65c67bf)
 
 G17-SITE-WORKFLOW-SURFACE-B25-20261105 released. G17-SITE-WORKFLOW-SURFACE-B26-20261105 fully folds va-private-document-runtime, va-governed-product-goals, two-entry-points-execution-state, vacc-goal3-contract-suite, va-claims-chat-surface into the stable dispatcher; workflow_count 65→60.
+
+## Round 82 note (P4 a65c67bf)
+
+G17-SITE-WORKFLOW-SURFACE-B26-20261105 released. G17-SITE-WORKFLOW-SURFACE-B27-20261105 fully folds check-hil-linkedin-launch-readiness, hil-announcement-contract, check-sv002-authentic-runtime-evidence-harness, conectrr-security-overlay, capture-validation-evidence into the stable dispatcher; workflow_count 60→55.
+
+## Round 82 amendment (P4 a65c67bf)
+
+Dropped hil-announcement-contract and check-sv002-authentic-runtime-evidence-harness from B27 after pre-existing content/syntax failures on the fold PR; kept three folds; workflow_count 60→57.
