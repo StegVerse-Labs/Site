@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "f0087faef786b4c929276ed83254eb6c1b3d6ecf",
+ "folded_from_commit": "fc741ae02182ecf4599399c82c55eeb9eb64e999",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -5717,6 +5717,188 @@
       "tests/test_hil_deployed_controlled_cycle_evidence.py",
       "tools/tasks/folded/check-hil-deployed-controlled-cycle-evidence.yml",
       "tools/tasks/steps/check-hil-deployed-controlled-cycle-evidence.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "canonical-generated-intr.validate",
+   "source": {
+    "workflow": ".github/workflows/canonical-generated-intr.yml",
+    "workflow_name": "Canonical Generated InTr Connectors",
+    "job": "verify-source-projection",
+    "job_name": null,
+    "commit": "fc741ae02",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify checked-in generator output",
+     "run_file": "tools/tasks/steps/canonical-generated-intr.validate/01-verify-checked-in-generator-output.sh",
+     "run_sha256": "495f8d356fa60fe37d52d4a68b75151b57253d26f01a7be7d6ab2ae9fe245b0b"
+    },
+    {
+     "name": "Verify lane integration tests",
+     "run_file": "tools/tasks/steps/canonical-generated-intr.validate/02-verify-lane-integration-tests.sh",
+     "run_sha256": "fff4220d8324a4d480910fc38e3cbbc370d83c14ffae7bd700fd8ff51d91b0e3"
+    },
+    {
+     "name": "Validate exclusive pre-work claims",
+     "run_file": "tools/tasks/steps/canonical-generated-intr.validate/03-validate-exclusive-pre-work-claims.sh",
+     "run_sha256": "69782b484de963fc26d10d3b0b949d838f882e057197145eca748234a7a54768"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12",
+    "node_version": "22"
+   },
+   "fold_notes": [
+    "Site round 74 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin pattern); original combined verify step split into three pinned run files.",
+    "Original surface had no push trigger; push is declared so the folded group satisfies the dispatcher both-events contract.",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/generated/site-browser-intr-connectors.js",
+      "assets/generated/site-browser-intr-connectors.manifest.json",
+      "assets/hil-direct-upload-v1.js",
+      "assets/hil-experiment-v1.1.js",
+      "assets/evaluator-intr-connector.js",
+      "assets/sv002-observe.js",
+      "assets/kv-ui/intr-kv-client.js",
+      "humans-as-interoperability-layer.html",
+      "humans-as-interoperability-layer-v1.1.html",
+      "evaluator-review.html",
+      "sv002-observe/index.html",
+      "generic-login-test.html",
+      "scripts/check_generated_intr_connector.py",
+      "tests/canonical-generated-intr.test.cjs",
+      "data/session-work-claims.d/site-canonical-generated-intr-757-20260830.json",
+      "docs/CANONICAL_GENERATED_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/canonical-generated-intr.yml",
+      "tools/tasks/steps/canonical-generated-intr.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/generated/site-browser-intr-connectors.js",
+      "assets/generated/site-browser-intr-connectors.manifest.json",
+      "assets/hil-direct-upload-v1.js",
+      "assets/hil-experiment-v1.1.js",
+      "assets/evaluator-intr-connector.js",
+      "assets/sv002-observe.js",
+      "assets/kv-ui/intr-kv-client.js",
+      "humans-as-interoperability-layer.html",
+      "humans-as-interoperability-layer-v1.1.html",
+      "evaluator-review.html",
+      "sv002-observe/index.html",
+      "generic-login-test.html",
+      "scripts/check_generated_intr_connector.py",
+      "tests/canonical-generated-intr.test.cjs",
+      "data/session-work-claims.d/site-canonical-generated-intr-757-20260830.json",
+      "docs/CANONICAL_GENERATED_INTR_CONNECTOR_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/canonical-generated-intr.yml",
+      "tools/tasks/steps/canonical-generated-intr.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-tvc-execution-receipt-import.validate",
+   "source": {
+    "workflow": ".github/workflows/check-tvc-execution-receipt-import.yml",
+    "workflow_name": "Check TVC Execution Receipt Import - Validation Only / No GitHub Token Authority",
+    "job": "validate",
+    "job_name": null,
+    "commit": "fc741ae02",
+    "triggers_before": [
+     "workflow_dispatch",
+     "pull_request",
+     "push"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python 3.12+",
+     "run_file": "tools/tasks/steps/check-tvc-execution-receipt-import.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "e78821b066c234047521643ec18aae20d5532b07961a830393b8b757b69003bc"
+    },
+    {
+     "name": "Install public test dependency without credential",
+     "run_file": "tools/tasks/steps/check-tvc-execution-receipt-import.validate/02-install-public-test-dependency-without-credential.sh",
+     "run_sha256": "4e44ec175bcd8fb67cb4feb9295959d52ccab4c36ca3f6495b8c75fc54c4a5e7"
+    },
+    {
+     "name": "Compile validator",
+     "run_file": "tools/tasks/steps/check-tvc-execution-receipt-import.validate/03-compile-validator.sh",
+     "run_sha256": "9b6cacfcc1165ca3d104acd39a11f89cad02e79a4f5556dbc96d97bf8427922c"
+    },
+    {
+     "name": "Run regression tests",
+     "run_file": "tools/tasks/steps/check-tvc-execution-receipt-import.validate/04-run-regression-tests.sh",
+     "run_sha256": "21e523313085c60d5baa4aeffe1c8ec03f9aff28f3dff6d8010e4dd61781b7a1"
+    },
+    {
+     "name": "Validate schema JSON",
+     "run_file": "tools/tasks/steps/check-tvc-execution-receipt-import.validate/05-validate-schema-json.sh",
+     "run_sha256": "366bcd5d8550db065f637a5e2b30f37f42234d82f1332e230899f8dba4d8d5bd"
+    },
+    {
+     "name": "Confirm validation-only authority boundary",
+     "run_file": "tools/tasks/steps/check-tvc-execution-receipt-import.validate/06-confirm-validation-only-authority-boundary.sh",
+     "run_sha256": "9d4c7cb60759cf4557d4d183316b7d5b711eac00098a4eba42be1cd683a8ee60"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 74 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin pattern).",
+    "Authority-boundary assertion retargeted from the deleted workflow path to tools/tasks/folded/check-tvc-execution-receipt-import.yml (verbatim pre-fold bytes still prove permissions {} and no checkout/write markers).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "schemas/tvc_execution_receipt_import.schema.json",
+      "scripts/check_tvc_execution_receipt_import.py",
+      "tests/test_tvc_execution_receipt_import.py",
+      "tools/tasks/folded/check-tvc-execution-receipt-import.yml",
+      "tools/tasks/steps/check-tvc-execution-receipt-import.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "schemas/tvc_execution_receipt_import.schema.json",
+      "scripts/check_tvc_execution_receipt_import.py",
+      "tests/test_tvc_execution_receipt_import.py",
+      "tasks/SITE-TVC-RUNTIME-ASSIST-001.json",
+      "tools/tasks/folded/check-tvc-execution-receipt-import.yml",
+      "tools/tasks/steps/check-tvc-execution-receipt-import.validate/**"
      ]
     }
    }

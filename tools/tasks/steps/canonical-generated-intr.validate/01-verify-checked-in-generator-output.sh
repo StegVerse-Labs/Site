@@ -1,0 +1,1 @@
+python3 scripts/check_generated_intr_connector.py

@@ -209,7 +209,7 @@
         "schemas/tvc_execution_receipt_import.schema.json",
         "scripts/check_tvc_execution_receipt_import.py",
         "tests/test_tvc_execution_receipt_import.py",
-        ".github/workflows/check-tvc-execution-receipt-import.yml",
+        "tools/tasks/folded/check-tvc-execution-receipt-import.yml",
         "data/validation-receipts/HIL-TVC-RECEIPT-IMPORT-2026-08-02.json",
         "data/session-orchestration-registry.json"
       ],

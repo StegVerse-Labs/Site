@@ -55,3 +55,7 @@ B16 (fold homepage-chat public-asset observation, Site#1675 @ `455ccf74`) releas
 ## Round 73 note (P4 a65c67bf)
 
 B17 (fold both sv002 observers, Site#1676 @ `f0087fae`) released. B18 fully folds `evaluator-review-ui-validation` and `check-hil-deployed-controlled-cycle-evidence` into the stable dispatcher (anonymous checkout → dispatcher credential-free checkout); workflow_count 93→91.
+
+## Round 74 note (P4 a65c67bf)
+
+B18 (fold evaluator-ui + HIL deployed-cycle, Site#1677 @ `fc741ae0`) released. B19 fully folds `canonical-generated-intr` and `check-tvc-execution-receipt-import` into the stable dispatcher; workflow_count 91→89.

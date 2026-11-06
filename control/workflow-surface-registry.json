@@ -70,22 +70,6 @@
       }
     },
     {
-      "path": ".github/workflows/canonical-generated-intr.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "28073b7067583e257a3238b0cfeef97ccc7c0fd217a2292817f4d896bbbb64e4",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/capture-validation-evidence.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -297,23 +281,6 @@
       "permissions": {},
       "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
       "verbatim_sha256": "605428771dfbafd313f100713fdb9e38e7029a3079efbd44972fb5414849bbdd",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
-      "path": ".github/workflows/check-tvc-execution-receipt-import.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "pull_request",
-        "push"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "4a44a9c1fe039da43bc4bf8b46691fd4298f9fe09c59b8ba5b0c57cb636dba24",
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
@@ -2617,14 +2584,45 @@
       ],
       "verbatim_record": "tools/tasks/folded/check-hil-deployed-controlled-cycle-evidence.yml",
       "verbatim_sha256": "6065eee812fe7831d778fcb4ac8381cbeba6711628dc93854c15ab597e7ba966"
+    },
+    {
+      "workflow": ".github/workflows/canonical-generated-intr.yml",
+      "name": "Canonical Generated InTr Connectors",
+      "triggers_before": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "canonical-generated-intr.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/canonical-generated-intr.yml",
+      "verbatim_sha256": "28073b7067583e257a3238b0cfeef97ccc7c0fd217a2292817f4d896bbbb64e4"
+    },
+    {
+      "workflow": ".github/workflows/check-tvc-execution-receipt-import.yml",
+      "name": "Check TVC Execution Receipt Import - Validation Only / No GitHub Token Authority",
+      "triggers_before": [
+        "workflow_dispatch",
+        "pull_request",
+        "push"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-tvc-execution-receipt-import.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-tvc-execution-receipt-import.yml",
+      "verbatim_sha256": "4a44a9c1fe039da43bc4bf8b46691fd4298f9fe09c59b8ba5b0c57cb636dba24"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 91,
+    "workflow_count": 89,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 73: workflow_count 93\u219291. Fully folded evaluator-review-ui-validation and check-hil-deployed-controlled-cycle-evidence into the stable dispatcher (catalog groups evaluator-review-ui-validation.validate and check-hil-deployed-controlled-cycle-evidence.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin pattern). Verbatim pre-fold sha256 9cc0bc58861482de14b67d5da83d11149a2e6bb3417ee7252f68876a7311e6da and 6065eee812fe7831d778fcb4ac8381cbeba6711628dc93854c15ab597e7ba966 under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 74: workflow_count 91\u219289. Fully folded canonical-generated-intr and check-tvc-execution-receipt-import into the stable dispatcher (catalog groups canonical-generated-intr.validate and check-tvc-execution-receipt-import.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin pattern). Verbatim pre-fold sha256 28073b7067583e257a3238b0cfeef97ccc7c0fd217a2292817f4d896bbbb64e4 and 4a44a9c1fe039da43bc4bf8b46691fd4298f9fe09c59b8ba5b0c57cb636dba24 under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator (or converts a non-Pages job-level if); writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"
