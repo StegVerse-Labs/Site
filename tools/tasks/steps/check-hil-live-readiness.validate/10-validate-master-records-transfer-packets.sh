@@ -1,0 +1,1 @@
+python3 scripts/check_hil_master_records_transfer.py

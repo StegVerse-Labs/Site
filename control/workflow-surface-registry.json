@@ -78,23 +78,6 @@
       }
     },
     {
-      "path": ".github/workflows/check-hil-live-readiness.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
-      "triggers": [
-        "workflow_dispatch",
-        "push",
-        "pull_request"
-      ],
-      "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "8f6d21276596737145d71f5cdd165f497fa0100dee002f6023dc338f72134493",
-      "exception": {
-        "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-        "within_exception_ceiling": true
-      }
-    },
-    {
       "path": ".github/workflows/check-stegfin-phone-projection.yml",
       "classification": "KEEP_EXISTING_SURFACE_GATING_CONVERTED",
       "triggers": [
@@ -2585,14 +2568,30 @@
       ],
       "verbatim_record": "tools/tasks/folded/gp10-workspace-security.yml",
       "verbatim_sha256": "e6ebae6afcbd3a50c5d81858c8cc130dfe3369ec0e8723379a9170474c65b9ec"
+    },
+    {
+      "workflow": ".github/workflows/check-hil-live-readiness.yml",
+      "name": "HIL Validation and Live Readiness - No Non-TV/TVC Credential Authority",
+      "triggers_before": [
+        "push",
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
+      "status": "DONE",
+      "catalog_groups": [
+        "check-hil-live-readiness.validate"
+      ],
+      "verbatim_record": "tools/tasks/folded/check-hil-live-readiness.yml",
+      "verbatim_sha256": "8f6d21276596737145d71f5cdd165f497fa0100dee002f6023dc338f72134493"
     }
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 55,
+    "workflow_count": 54,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 83: workflow_count 57\u219255. Fully folded va-claim-assistant-activation, gp10-workspace-security into the stable dispatcher (catalog groups: va-claim-assistant-activation.validate, gp10-workspace-security.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 84: workflow_count 55\u219254. Fully folded check-hil-live-readiness into the stable dispatcher (catalog groups: check-hil-live-readiness.validate). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator batch; writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"

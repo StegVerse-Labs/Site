@@ -1,0 +1,1 @@
+python3 scripts/check_hil_full_cycle_artifact_verification_import.py

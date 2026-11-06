@@ -1,0 +1,1 @@
+python3 scripts/check_hil_public_response_import.py

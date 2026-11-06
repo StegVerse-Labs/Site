@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "2d902ec0ef3f98a1ab555a40a03b1556da2c74df",
+ "folded_from_commit": "f67169de3f2e7e2deb6bc1ba10914c8201a0831a",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -8973,6 +8973,194 @@
       "data/operations/gp10_workspace_tasks.json",
       "tools/tasks/folded/gp10-workspace-security.yml",
       "tools/tasks/steps/gp10-workspace-security.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-hil-live-readiness.validate",
+   "source": {
+    "workflow": ".github/workflows/check-hil-live-readiness.yml",
+    "workflow_name": "HIL Validation and Live Readiness - No Non-TV/TVC Credential Authority",
+    "job": "validate",
+    "job_name": null,
+    "commit": "f67169de3",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "b8f0e6076200b45e8f6fee62c2b827938fd8d3814d48eee39ef7e2446deb28f7"
+    },
+    {
+     "name": "Validate fail-closed HIL first-release state",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/02-validate-fail-closed-hil-first-release-state.sh",
+     "run_sha256": "d4bc5f435679653c062d978777d75ebf576731df211c41dd9ce1a934388b049c"
+    },
+    {
+     "name": "Validate fail-closed HIL activation state",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/03-validate-fail-closed-hil-activation-state.sh",
+     "run_sha256": "f30fe87daffa90133ffe53eb45111965245cb70afe845c344dd0ccb4443e3753"
+    },
+    {
+     "name": "Validate HIL public response import boundary",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/04-validate-hil-public-response-import-boundary.sh",
+     "run_sha256": "10fdd28175f849125df6074d709304387021aadb95bca39fbdf946182934a5b4"
+    },
+    {
+     "name": "Validate governed full-cycle artifact verification imports",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/05-validate-governed-full-cycle-artifact-verification-imports.sh",
+     "run_sha256": "2502460bb0c838e80f96f6aa7f59cba676383ae22a7962964865ceaa59f50909"
+    },
+    {
+     "name": "Validate governed HTTPS receiver probe imports",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/06-validate-governed-https-receiver-probe-imports.sh",
+     "run_sha256": "9e8eb254957702b3bf7a681de41f175cda802935539508fcaa3b16a2f4b487ba"
+    },
+    {
+     "name": "Run governed receiver import regression tests",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/07-run-governed-receiver-import-regression-tests.sh",
+     "run_sha256": "a9cbbfcbe407d246a116ee670f8638e169731d059b5fc5933878e552c06e6f98"
+    },
+    {
+     "name": "Validate Site-side HIL Master Record release-chain projection",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/08-validate-site-side-hil-master-record-release-chain-projectio.sh",
+     "run_sha256": "f44ae0d99d72d7d0e72a497ca6d9811521611187015d1ac9339d6d8be512ec61"
+    },
+    {
+     "name": "Validate Master Records organization-record/reconstruction return receipts",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/09-validate-master-records-organization-record-reconstruction-r.sh",
+     "run_sha256": "f744da3809cd829d8a1172b15fee5f3d16e0335e97f001e714542438adccd3b9"
+    },
+    {
+     "name": "Validate Master Records transfer packets",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/10-validate-master-records-transfer-packets.sh",
+     "run_sha256": "db739cce4bdbc6f90a960baecaee71414d55a071225d9aa3a655ac612c06e8ca"
+    },
+    {
+     "name": "Validate fail-closed HIL Federal-Plus security profile",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/11-validate-fail-closed-hil-federal-plus-security-profile.sh",
+     "run_sha256": "785de58b5bf2297b7fef6d29f2a68149d8471fdc2a06238e87692b783c3a7ebc"
+    },
+    {
+     "name": "Observe deployed HIL Site, artifact, intake, review, and publication surfaces",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/12-observe-deployed-hil-site-artifact-intake-review-and-publica.sh",
+     "run_sha256": "9fa7b7855237e92ac308a37b86b8f6699f0405159c2785a5c0dcb5f63ff03b49",
+     "id": "observe",
+     "if": "github.event_name != 'pull_request'"
+    },
+    {
+     "name": "Write validation summary",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/13-write-validation-summary.sh",
+     "run_sha256": "4971cccc0171bd3c527c34078777e0f79106b990bfc38ab8d14275339a236f4a",
+     "if": "always()"
+    },
+    {
+     "name": "Enforce approved deployed Site surface",
+     "run_file": "tools/tasks/steps/check-hil-live-readiness.validate/14-enforce-approved-deployed-site-surface.sh",
+     "run_sha256": "f7a8695b2de3083fb2c3791b2be7a5191185a8b8056b386f7700f765c8476774",
+     "if": "github.event_name != 'pull_request' && steps.observe.outcome == 'failure'"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 20,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 84 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "humans-as-interoperability-layer.html",
+      "assets/hil-experiment.js",
+      "data/hil-experiment.json",
+      "data/hil-federal-plus-security-baseline.json",
+      "data/hil-federal-control-floor.json",
+      "schemas/hil_public_response_import.schema.json",
+      "schemas/hil_full_cycle_artifact_verification_import.schema.json",
+      "schemas/hil_https_receiver_probe_import.schema.json",
+      "schemas/hil_master_record_release.schema.json",
+      "schemas/hil_master_records_return_receipt.schema.json",
+      "schemas/hil_master_records_transfer.schema.json",
+      "schemas/hil-federal-plus-security-baseline.schema.json",
+      "schemas/hil-federal-control-floor.schema.json",
+      "docs/HIL_FEDERAL_PLUS_SECURITY_BASELINE.md",
+      "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+      "data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json",
+      "scripts/check_hil_first_release_readiness.py",
+      "scripts/check_hil_activation_state.py",
+      "scripts/check_hil_live_readiness.py",
+      "scripts/check_hil_public_response_import.py",
+      "scripts/check_hil_full_cycle_artifact_verification_import.py",
+      "scripts/check_hil_https_receiver_probe_import.py",
+      "tests/test_hil_https_receiver_probe_import.py",
+      "scripts/check_hil_master_record_release.py",
+      "scripts/check_hil_master_records_return_receipts.py",
+      "scripts/check_hil_master_records_transfer.py",
+      "scripts/check_hil_federal_plus_security_baseline.py",
+      "tools/tasks/folded/check-hil-live-readiness.yml",
+      "tools/tasks/steps/check-hil-live-readiness.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "humans-as-interoperability-layer.html",
+      "assets/hil-experiment.js",
+      "data/hil-first-release-readiness.json",
+      "data/hil-activation-state.json",
+      "data/hil-experiment.json",
+      "data/hil-primary-v0.5-review.pdf.b64",
+      "data/hil-responses.json",
+      "data/hil-public-response-imports/**",
+      "data/hil-traces/**",
+      "data/hil-full-cycle-artifact-verifications/**",
+      "data/hil-https-receiver-probes/**",
+      "data/hil-master-records.json",
+      "data/hil-master-record-releases/**",
+      "data/hil-master-records-return-receipts/**",
+      "data/hil-master-record-transfers/**",
+      "data/hil-federal-plus-security-baseline.json",
+      "data/hil-federal-control-floor.json",
+      "schemas/hil_public_response_import.schema.json",
+      "schemas/hil_full_cycle_artifact_verification_import.schema.json",
+      "schemas/hil_https_receiver_probe_import.schema.json",
+      "schemas/hil_master_record_release.schema.json",
+      "schemas/hil_master_records_return_receipt.schema.json",
+      "schemas/hil_master_records_transfer.schema.json",
+      "schemas/hil-federal-plus-security-baseline.schema.json",
+      "schemas/hil-federal-control-floor.schema.json",
+      "docs/HIL_FEDERAL_PLUS_SECURITY_BASELINE.md",
+      "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+      "data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json",
+      "scripts/check_hil_first_release_readiness.py",
+      "scripts/check_hil_activation_state.py",
+      "scripts/check_hil_live_readiness.py",
+      "scripts/check_hil_public_response_import.py",
+      "scripts/check_hil_full_cycle_artifact_verification_import.py",
+      "scripts/check_hil_https_receiver_probe_import.py",
+      "tests/test_hil_https_receiver_probe_import.py",
+      "scripts/check_hil_master_record_release.py",
+      "scripts/check_hil_master_records_return_receipts.py",
+      "scripts/check_hil_master_records_transfer.py",
+      "scripts/check_hil_federal_plus_security_baseline.py",
+      "tools/tasks/folded/check-hil-live-readiness.yml",
+      "tools/tasks/steps/check-hil-live-readiness.validate/**"
      ]
     }
    }
