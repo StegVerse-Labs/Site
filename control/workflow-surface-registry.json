@@ -23,17 +23,6 @@
   },
   "surfaces": [
     {
-      "path": ".github/workflows/validation-dispatcher.yml",
-      "classification": "KEEP_STABLE_DISPATCHER",
-      "triggers": [
-        "pull_request",
-        "push"
-      ],
-      "permissions": {
-        "contents": "read"
-      }
-    },
-    {
       "path": ".github/workflows/advance-tidc-internal-work.yml",
       "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
       "triggers": [
@@ -121,6 +110,24 @@
       },
       "pre_conversion_record": "tools/tasks/folded/check-stegfin-phone-projection.yml",
       "pre_conversion_sha256": "d0b0ac061cb2955243862f3b6307582505bdea21b63c9e53eccf34aef5a2672f"
+    },
+    {
+      "path": ".github/workflows/check-sv002-authentic-runtime-evidence-harness.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "FAIL_CLOSED_KEEP: the source-contract step refuses runtime-evidence interpretation and exits 1 by design (SOURCE_VALIDATION_ONLY_NOT_RUNTIME_EVIDENCE) until authentic runtime evidence exists; folding it would make the dispatcher fail by design for every pull request. Owning goal: StegVerse-Labs/Site#1509 (sv002 harness). Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
+      "verbatim_sha256": "878c2153e3ab0339819779e248253898eb8785ade13c30149ba89aae1039587b",
+      "exception": {
+        "lifecycle": "by-design refusal while runtime evidence is absent",
+        "justification": "FAIL_CLOSED_KEEP: the source-contract step refuses runtime-evidence interpretation and exits 1 by design (SOURCE_VALIDATION_ONLY_NOT_RUNTIME_EVIDENCE) until authentic runtime evidence exists; folding it would make the dispatcher fail by design for every pull request. Owning goal: StegVerse-Labs/Site#1509 (sv002 harness). Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
+        "within_exception_ceiling": true
+      }
     },
     {
       "path": ".github/workflows/conectrr-live-verification.yml",
@@ -290,6 +297,24 @@
       "exception": {
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/hil-announcement-contract.yml",
+      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "triggers": [
+        "push",
+        "workflow_dispatch"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "reason": "FAIL_CLOSED_KEEP: the machine-derived status reads ANNOUNCEMENT_READY_WITH_MANAGED_RETURN, but the launch page lacks the boundary phrases `participant-managed return` and `does not falsely claim server custody`, and the announcement page lacks `The study may be announced now` and `Persistent server custody and automated publication remain intentionally unclaimed`. The repair is a published-content change that belongs to the HIL announcement goal, not a check change; suppressing the phrases would hide the drift. Failing on main since 2026-08-27. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
+      "verbatim_sha256": "f3a3c18143f04fb02567f087f70f1db5f59d913b0ea53a4512b2b055f780ff3d",
+      "exception": {
+        "lifecycle": "announcement and launch pages drift from the derived status",
+        "justification": "FAIL_CLOSED_KEEP: the machine-derived status reads ANNOUNCEMENT_READY_WITH_MANAGED_RETURN, but the launch page lacks the boundary phrases `participant-managed return` and `does not falsely claim server custody`, and the announcement page lacks `The study may be announced now` and `Persistent server custody and automated publication remain intentionally unclaimed`. The repair is a published-content change that belongs to the HIL announcement goal, not a check change; suppressing the phrases would hide the drift. Failing on main since 2026-08-27. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
         "within_exception_ceiling": true
       }
     },
@@ -999,6 +1024,17 @@
         "lifecycle": "pending later G17 batch",
         "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
         "within_exception_ceiling": true
+      }
+    },
+    {
+      "path": ".github/workflows/validation-dispatcher.yml",
+      "classification": "KEEP_STABLE_DISPATCHER",
+      "triggers": [
+        "pull_request",
+        "push"
+      ],
+      "permissions": {
+        "contents": "read"
       }
     },
     {
@@ -2523,36 +2559,6 @@
       "verbatim_sha256": "cd7a649906810bfdb97d1e8459df279790f1a5edffdca0720dce294ff865a4a1"
     },
     {
-      "workflow": ".github/workflows/hil-announcement-contract.yml",
-      "name": "HIL Announcement Contract",
-      "triggers_before": [
-        "push",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "hil-announcement-contract.verify"
-      ],
-      "verbatim_record": "tools/tasks/folded/hil-announcement-contract.yml",
-      "verbatim_sha256": "f3a3c18143f04fb02567f087f70f1db5f59d913b0ea53a4512b2b055f780ff3d"
-    },
-    {
-      "workflow": ".github/workflows/check-sv002-authentic-runtime-evidence-harness.yml",
-      "name": "SV002 Runtime Evidence Harness Contract",
-      "triggers_before": [
-        "pull_request",
-        "workflow_dispatch"
-      ],
-      "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
-      "status": "DONE",
-      "catalog_groups": [
-        "check-sv002-authentic-runtime-evidence-harness.source-contract-only"
-      ],
-      "verbatim_record": "tools/tasks/folded/check-sv002-authentic-runtime-evidence-harness.yml",
-      "verbatim_sha256": "878c2153e3ab0339819779e248253898eb8785ade13c30149ba89aae1039587b"
-    },
-    {
       "workflow": ".github/workflows/conectrr-security-overlay.yml",
       "name": "Conectrr Security Overlay",
       "triggers_before": [
@@ -2585,10 +2591,10 @@
   ],
   "ceiling_fail_closed": {
     "disposition": "FAIL_CLOSED",
-    "workflow_count": 55,
+    "workflow_count": 57,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 82: workflow_count 60\u219255. Fully folded check-hil-linkedin-launch-readiness, hil-announcement-contract, check-sv002-authentic-runtime-evidence-harness, conectrr-security-overlay, capture-validation-evidence into the stable dispatcher (catalog groups: check-hil-linkedin-launch-readiness.verify, hil-announcement-contract.verify, check-sv002-authentic-runtime-evidence-harness.source-contract-only, conectrr-security-overlay.validate-security-overlay, capture-validation-evidence.capture). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 82: workflow_count 60\u219257. Fully folded check-hil-linkedin-launch-readiness, conectrr-security-overlay, capture-validation-evidence into the stable dispatcher (catalog groups: check-hil-linkedin-launch-readiness.verify, conectrr-security-overlay.validate-security-overlay, capture-validation-evidence.capture). Anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern). Verbatim under tools/tasks/folded/. hil-announcement-contract and check-sv002-authentic-runtime-evidence-harness deferred: pre-existing content/syntax failures surface when path filters match the fold PR (launch-page phrase drift; assets/sv002-observe.js literal \\\\n). Count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
     "next_attempt": "the next pull request that folds another KEEP_PENDING credential-free validator batch; writers, credential-bound, Pages-conditional, and dispatch-only gates stay excluded without a design decision"

@@ -28,12 +28,6 @@
         "tools/tasks/folded/check-hil-linkedin-launch-readiness.yml",
         ".github/workflows/check-hil-linkedin-launch-readiness.yml",
         "tools/tasks/steps/check-hil-linkedin-launch-readiness.verify/",
-        "tools/tasks/folded/hil-announcement-contract.yml",
-        ".github/workflows/hil-announcement-contract.yml",
-        "tools/tasks/steps/hil-announcement-contract.verify/",
-        "tools/tasks/folded/check-sv002-authentic-runtime-evidence-harness.yml",
-        ".github/workflows/check-sv002-authentic-runtime-evidence-harness.yml",
-        "tools/tasks/steps/check-sv002-authentic-runtime-evidence-harness.source-contract-only/",
         "tools/tasks/folded/conectrr-security-overlay.yml",
         ".github/workflows/conectrr-security-overlay.yml",
         "tools/tasks/steps/conectrr-security-overlay.validate-security-overlay/",
@@ -41,20 +35,18 @@
         ".github/workflows/capture-validation-evidence.yml",
         "tools/tasks/steps/capture-validation-evidence.capture/",
         "tools/tasks/steps/check-hil-linkedin-launch-readiness.verify/",
-        "tools/tasks/steps/hil-announcement-contract.verify/",
-        "tools/tasks/steps/check-sv002-authentic-runtime-evidence-harness.source-contract-only/",
         "tools/tasks/steps/conectrr-security-overlay.validate-security-overlay/",
         "tools/tasks/steps/capture-validation-evidence.capture/"
       ],
       "handoff": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
       "handoff_revision": "f869261f3345f6f885e4c0d23591a3acc9acfc46",
       "claim_created_at": "2026-11-06T01:08:00Z",
-      "claim_expires_when": "Release when workflow_count is 55, CI is green at the head with 0 skipped, and the PR is merged.",
+      "claim_expires_when": "Release when workflow_count is 57, CI is green at the head with 0 skipped, and the PR is merged.",
       "expected_evidence": [
-        "tests/test_workflow_surface_registry.py passes with workflow_count 55",
+        "tests/test_workflow_surface_registry.py passes with workflow_count 57",
         "run_catalog verify returns ALLOW",
-        "new catalog groups exist",
-        "standalone workflow files do not exist"
+        "new catalog groups exist for the three folded validators",
+        "standalone workflow files for the three folded validators do not exist"
       ],
       "collision_boundaries": [
         "Delete only the named validator workflow files in this batch",
