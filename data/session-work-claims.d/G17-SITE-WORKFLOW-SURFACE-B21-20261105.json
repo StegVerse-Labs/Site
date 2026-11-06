@@ -1,0 +1,72 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "G17-SITE-WORKFLOW-SURFACE-B21-20261105",
+      "session_worker_id": "p4-maintenance-lane-a65c67bf",
+      "task_id": "G17-SITE-R76-FOLD-REVIEW-ENDPOINT-HIL",
+      "originating_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168) under StegVerse-org/.github#166: fold KEEP_PENDING credential-free validators into the stable dispatcher.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "p4/site-r76-fold-review-endpoint-hil",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "g17-site-r76-fold-review-endpoint-hil",
+      "dependency_surface_keys": [
+        "site:g17-site-r76-fold-review-endpoint-hil"
+      ],
+      "claimed_paths": [
+        "control/workflow-surface-registry.json",
+        "tests/test_workflow_surface_registry.py",
+        "tools/tasks/task_catalog.json",
+        "tools/tasks/run_catalog.py",
+        "data/cosv/active-claim-projections.json",
+        "data/cosv/task-vector-index.json",
+        "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B21-20261105.json",
+        "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B20-20261105.json",
+        "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+        "tools/tasks/folded/validate-review-authority-projection.yml",
+        ".github/workflows/validate-review-authority-projection.yml",
+        "tools/tasks/steps/validate-review-authority-projection.validate-python3.12/",
+        "tools/tasks/folded/check-stegverse-endpoint-activation-readiness.yml",
+        ".github/workflows/check-stegverse-endpoint-activation-readiness.yml",
+        "tools/tasks/steps/check-stegverse-endpoint-activation-readiness.validate/",
+        "tools/tasks/folded/hil-site-contract.yml",
+        ".github/workflows/hil-site-contract.yml",
+        "tools/tasks/steps/hil-site-contract.validate/",
+        "tools/tasks/folded/hil-semantic-replay.yml",
+        ".github/workflows/hil-semantic-replay.yml",
+        "tools/tasks/steps/hil-semantic-replay.validate/",
+        "tools/tasks/steps/validate-review-authority-projection.validate-python3.9/",
+        "tools/tasks/steps/validate-review-authority-projection.validate-python3.11/",
+        "tools/tasks/steps/validate-review-authority-projection.validate-python3.12/",
+        "tools/tasks/steps/check-stegverse-endpoint-activation-readiness.validate/",
+        "tools/tasks/steps/hil-site-contract.validate/",
+        "tools/tasks/steps/hil-semantic-replay.validate/"
+      ],
+      "handoff": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+      "handoff_revision": "f869261f3345f6f885e4c0d23591a3acc9acfc46",
+      "claim_created_at": "2026-11-06T00:39:46Z",
+      "claim_expires_when": "Release when workflow_count is 81, CI is green at the head with 0 skipped, and the PR is merged.",
+      "expected_evidence": [
+        "tests/test_workflow_surface_registry.py passes with workflow_count 81",
+        "run_catalog verify returns ALLOW",
+        "new catalog groups exist",
+        "standalone workflow files do not exist"
+      ],
+      "collision_boundaries": [
+        "Delete only the named validator workflow files in this batch",
+        "Do not edit other kept workflow files",
+        "No secret, token, credential, dependency, cron, dispatch or polling is added or changed"
+      ],
+      "next_task_after_release": "Site round 77: next KEEP_PENDING credential-free validator fold batch.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

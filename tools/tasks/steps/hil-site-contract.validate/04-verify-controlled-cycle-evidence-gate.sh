@@ -1,0 +1,1 @@
+python3 tests/test_verify_hil_controlled_cycle.py

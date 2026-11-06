@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "adc671d40c610d91c8c8c4da432a35beb95cde80",
+ "folded_from_commit": "7b0eb18e9aaae92d0c233b0b31feaeb578b435e6",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -6179,6 +6179,450 @@
       "scripts/check_hil_experiment.py",
       "tools/tasks/folded/check-hil-v1-1-release.yml",
       "tools/tasks/steps/check-hil-v1-1-release.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "validate-review-authority-projection.validate-python3.9",
+   "source": {
+    "workflow": ".github/workflows/validate-review-authority-projection.yml",
+    "workflow_name": "Validate Review Authority Projection",
+    "job": "validate",
+    "job_name": null,
+    "commit": "7b0eb18e9",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {},
+    "matrix_cell": {
+     "python-version": "3.9"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Compile validator",
+     "run_file": "tools/tasks/steps/validate-review-authority-projection.validate-python3.9/01-compile-validator.sh",
+     "run_sha256": "523658f1fb5d4a8c822ff31fd2894e1cc7c9878ec19ae7e80d308567ab57295f"
+    },
+    {
+     "name": "Validate Site projection",
+     "run_file": "tools/tasks/steps/validate-review-authority-projection.validate-python3.9/02-validate-site-projection.sh",
+     "run_sha256": "1a66704bdda00dd0629a9fdce1d18a9893d8e82878852dd1095b7de5e38e6ba5"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.9"
+   },
+   "fold_notes": [
+    "Site round 76 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original matrix python-version 3.9/3.11/3.12 expanded to three catalog groups (steglearn pattern)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "review-authority.html",
+      "assets/review-authority-projection.js",
+      "data/review-authority-projection.fixture.json",
+      "scripts/check_review_authority_projection.py",
+      "tools/tasks/folded/validate-review-authority-projection.yml",
+      "tools/tasks/steps/validate-review-authority-projection.validate-python3.9/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "review-authority.html",
+      "assets/review-authority-projection.js",
+      "data/review-authority-projection.fixture.json",
+      "scripts/check_review_authority_projection.py",
+      "tools/tasks/folded/validate-review-authority-projection.yml",
+      "tools/tasks/steps/validate-review-authority-projection.validate-python3.9/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "validate-review-authority-projection.validate-python3.11",
+   "source": {
+    "workflow": ".github/workflows/validate-review-authority-projection.yml",
+    "workflow_name": "Validate Review Authority Projection",
+    "job": "validate",
+    "job_name": null,
+    "commit": "7b0eb18e9",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {},
+    "matrix_cell": {
+     "python-version": "3.11"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Compile validator",
+     "run_file": "tools/tasks/steps/validate-review-authority-projection.validate-python3.11/01-compile-validator.sh",
+     "run_sha256": "523658f1fb5d4a8c822ff31fd2894e1cc7c9878ec19ae7e80d308567ab57295f"
+    },
+    {
+     "name": "Validate Site projection",
+     "run_file": "tools/tasks/steps/validate-review-authority-projection.validate-python3.11/02-validate-site-projection.sh",
+     "run_sha256": "1a66704bdda00dd0629a9fdce1d18a9893d8e82878852dd1095b7de5e38e6ba5"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.11"
+   },
+   "fold_notes": [
+    "Site round 76 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original matrix python-version 3.9/3.11/3.12 expanded to three catalog groups (steglearn pattern)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "review-authority.html",
+      "assets/review-authority-projection.js",
+      "data/review-authority-projection.fixture.json",
+      "scripts/check_review_authority_projection.py",
+      "tools/tasks/folded/validate-review-authority-projection.yml",
+      "tools/tasks/steps/validate-review-authority-projection.validate-python3.11/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "review-authority.html",
+      "assets/review-authority-projection.js",
+      "data/review-authority-projection.fixture.json",
+      "scripts/check_review_authority_projection.py",
+      "tools/tasks/folded/validate-review-authority-projection.yml",
+      "tools/tasks/steps/validate-review-authority-projection.validate-python3.11/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "validate-review-authority-projection.validate-python3.12",
+   "source": {
+    "workflow": ".github/workflows/validate-review-authority-projection.yml",
+    "workflow_name": "Validate Review Authority Projection",
+    "job": "validate",
+    "job_name": null,
+    "commit": "7b0eb18e9",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {},
+    "matrix_cell": {
+     "python-version": "3.12"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Compile validator",
+     "run_file": "tools/tasks/steps/validate-review-authority-projection.validate-python3.12/01-compile-validator.sh",
+     "run_sha256": "523658f1fb5d4a8c822ff31fd2894e1cc7c9878ec19ae7e80d308567ab57295f"
+    },
+    {
+     "name": "Validate Site projection",
+     "run_file": "tools/tasks/steps/validate-review-authority-projection.validate-python3.12/02-validate-site-projection.sh",
+     "run_sha256": "1a66704bdda00dd0629a9fdce1d18a9893d8e82878852dd1095b7de5e38e6ba5"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 76 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original matrix python-version 3.9/3.11/3.12 expanded to three catalog groups (steglearn pattern)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "review-authority.html",
+      "assets/review-authority-projection.js",
+      "data/review-authority-projection.fixture.json",
+      "scripts/check_review_authority_projection.py",
+      "tools/tasks/folded/validate-review-authority-projection.yml",
+      "tools/tasks/steps/validate-review-authority-projection.validate-python3.12/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "review-authority.html",
+      "assets/review-authority-projection.js",
+      "data/review-authority-projection.fixture.json",
+      "scripts/check_review_authority_projection.py",
+      "tools/tasks/folded/validate-review-authority-projection.yml",
+      "tools/tasks/steps/validate-review-authority-projection.validate-python3.12/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-stegverse-endpoint-activation-readiness.validate",
+   "source": {
+    "workflow": ".github/workflows/check-stegverse-endpoint-activation-readiness.yml",
+    "workflow_name": "Check StegVerse Endpoint Activation Readiness",
+    "job": "verify",
+    "job_name": null,
+    "commit": "7b0eb18e9",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/check-stegverse-endpoint-activation-readiness.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "c5c58e0f3121430a4dbea5b51505b5a613582e92edad51c4a645dc6b784dba8f"
+    },
+    {
+     "name": "Validate endpoint activation readiness boundary",
+     "run_file": "tools/tasks/steps/check-stegverse-endpoint-activation-readiness.validate/02-validate-endpoint-activation-readiness-boundary.sh",
+     "run_sha256": "3f1913b132a29d44b924ce47236357e22c129238b9c4795df9516816a615f47d"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 76 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/stegverse-endpoint-activation-readiness.json",
+      "assets/ecosystem-chat-live-binding.js",
+      "scripts/check_stegverse_endpoint_activation_readiness.py",
+      "tools/tasks/folded/check-stegverse-endpoint-activation-readiness.yml",
+      "tools/tasks/steps/check-stegverse-endpoint-activation-readiness.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/stegverse-endpoint-activation-readiness.json",
+      "assets/ecosystem-chat-live-binding.js",
+      "scripts/check_stegverse_endpoint_activation_readiness.py",
+      "tools/tasks/folded/check-stegverse-endpoint-activation-readiness.yml",
+      "tools/tasks/steps/check-stegverse-endpoint-activation-readiness.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "hil-site-contract.validate",
+   "source": {
+    "workflow": ".github/workflows/hil-site-contract.yml",
+    "workflow_name": "HIL Site Contract",
+    "job": "verify",
+    "job_name": null,
+    "commit": "7b0eb18e9",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/hil-site-contract.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "393c7691c19c264391e03fd7d910c2b337933b45f2af6edc81a35831117d309d"
+    },
+    {
+     "name": "Verify fail-closed HIL v1.1 Site contract",
+     "run_file": "tools/tasks/steps/hil-site-contract.validate/02-verify-fail-closed-hil-v1-1-site-contract.sh",
+     "run_sha256": "92486370045c88275bd218d9bd468c02eb512733a62b6e8973be1c212333421b"
+    },
+    {
+     "name": "Verify conforming HIL readiness fixture",
+     "run_file": "tools/tasks/steps/hil-site-contract.validate/03-verify-conforming-hil-readiness-fixture.sh",
+     "run_sha256": "44defe73f95095098f8e7921928ab2523fb502971baab0819957938fd520a076"
+    },
+    {
+     "name": "Verify controlled-cycle evidence gate",
+     "run_file": "tools/tasks/steps/hil-site-contract.validate/04-verify-controlled-cycle-evidence-gate.sh",
+     "run_sha256": "f7d743894f1fd0a4244ec291a136dea5fc5f74efa9a581a745c2884f9b47f5a4"
+    },
+    {
+     "name": "Verify restart-persistence evidence gate",
+     "run_file": "tools/tasks/steps/hil-site-contract.validate/05-verify-restart-persistence-evidence-gate.sh",
+     "run_sha256": "983658c9345e155b86d85bdd2d4cb420ad6840c048994fe37445a2c87b538325"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 76 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger (or push paths empty); push is declared so the folded group satisfies the dispatcher both-events contract."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/hil-experiment-v1.1.js",
+      "data/hil-experiment.json",
+      "data/hil-receiver-config.json",
+      "data/hil-start-announcement-receipt.template.json",
+      "scripts/verify_hil_site_contract.py",
+      "scripts/verify_hil_readiness_record.py",
+      "scripts/verify_hil_controlled_cycle.py",
+      "scripts/verify_hil_restart_persistence.py",
+      "tests/fixtures/hil-readiness-ready-v1.1.json",
+      "tests/test_verify_hil_controlled_cycle.py",
+      "tests/test_verify_hil_restart_persistence.py",
+      "tools/tasks/folded/hil-site-contract.yml",
+      "tools/tasks/steps/hil-site-contract.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/hil-experiment-v1.1.js",
+      "data/hil-experiment.json",
+      "data/hil-receiver-config.json",
+      "data/hil-start-announcement-receipt.template.json",
+      "scripts/verify_hil_site_contract.py",
+      "scripts/verify_hil_readiness_record.py",
+      "scripts/verify_hil_controlled_cycle.py",
+      "scripts/verify_hil_restart_persistence.py",
+      "tests/fixtures/hil-readiness-ready-v1.1.json",
+      "tests/test_verify_hil_controlled_cycle.py",
+      "tests/test_verify_hil_restart_persistence.py",
+      "tools/tasks/folded/hil-site-contract.yml",
+      "tools/tasks/steps/hil-site-contract.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "hil-semantic-replay.validate",
+   "source": {
+    "workflow": ".github/workflows/hil-semantic-replay.yml",
+    "workflow_name": "HIL Semantic Replay",
+    "job": "replay-and-reconstruct",
+    "job_name": null,
+    "commit": "7b0eb18e9",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/hil-semantic-replay.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "393c7691c19c264391e03fd7d910c2b337933b45f2af6edc81a35831117d309d"
+    },
+    {
+     "name": "Validate replay task ownership",
+     "run_file": "tools/tasks/steps/hil-semantic-replay.validate/02-validate-replay-task-ownership.sh",
+     "run_sha256": "e5ea995c67ebff87e8f72ecbd07e12864c2d2f43db89a6c8696041ac4678e95c"
+    },
+    {
+     "name": "Validate deterministic reconstruction",
+     "run_file": "tools/tasks/steps/hil-semantic-replay.validate/03-validate-deterministic-reconstruction.sh",
+     "run_sha256": "5fe9eaa2412c4659700e4bf0987addc2173daebcc78f11244151458d27fa4131"
+    },
+    {
+     "name": "Validate replay packet syntax",
+     "run_file": "tools/tasks/steps/hil-semantic-replay.validate/04-validate-replay-packet-syntax.sh",
+     "run_sha256": "e01f3f35c2fcd09717e189fde86fdb0c542ba2dc51c9d09ca143f0ab12a8263e"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 76 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/fixtures/hil-semantic-transformation/semantic-event-replay-packet.json",
+      "scripts/validate_hil_semantic_replay.py",
+      "scripts/check_hil_semantic_replay_tasks.py",
+      "tools/tasks/folded/hil-semantic-replay.yml",
+      "tools/tasks/steps/hil-semantic-replay.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/hil-semantic-replay-task-state.json",
+      "data/fixtures/hil-semantic-transformation/semantic-event-replay-packet.json",
+      "scripts/validate_hil_semantic_replay.py",
+      "scripts/check_hil_semantic_replay_tasks.py",
+      "tools/tasks/folded/hil-semantic-replay.yml",
+      "tools/tasks/steps/hil-semantic-replay.validate/**"
      ]
     }
    }

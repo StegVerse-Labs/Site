@@ -1,0 +1,1 @@
+python3 scripts/check_stegverse_endpoint_activation_readiness.py
