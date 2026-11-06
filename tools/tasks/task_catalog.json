@@ -7556,7 +7556,10 @@
     {
      "name": "Materialize exportable recovery bundle",
      "run_file": "tools/tasks/steps/no-required-third-party-runtime.validate/07-materialize-exportable-recovery-bundle.sh",
-     "run_sha256": "734f5abd0d8822aba389f79903032b0a8b1dd7f2bc484edfef6c19e65086bad6"
+     "run_sha256": "734f5abd0d8822aba389f79903032b0a8b1dd7f2bc484edfef6c19e65086bad6",
+     "env": {
+      "STEGVERSE_SITE_SOURCE_COMMIT": "${{ github.event.pull_request.head.sha || github.sha }}"
+     }
     },
     {
      "name": "Verify Ecosystem Chat gateway cutover contract",
