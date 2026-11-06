@@ -9,9 +9,16 @@
     "data/fixtures/hil-semantic-transformation/semantic-event-replay-packet.json",
     "scripts/validate_hil_semantic_replay.py",
     "scripts/check_hil_semantic_replay_tasks.py",
-    ".github/workflows/hil-semantic-replay.yml"
+    "tools/tasks/folded/hil-semantic-replay.yml"
   ],
-  "reconstruction_chain": ["source","output","semantic_receipt","canonical_event","replay_packet","deterministic_result"],
+  "reconstruction_chain": [
+    "source",
+    "output",
+    "semantic_receipt",
+    "canonical_event",
+    "replay_packet",
+    "deterministic_result"
+  ],
   "validation_posture": "DETERMINISTIC_REPOSITORY_VALIDATION_INSTALLED",
   "hosted_workflow_observed": false,
   "hosted_workflow_observation_required_for_foundational_activation": false,

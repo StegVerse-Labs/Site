@@ -42,7 +42,9 @@
         "tools/tasks/steps/validate-review-authority-projection.validate-python3.12/",
         "tools/tasks/steps/check-stegverse-endpoint-activation-readiness.validate/",
         "tools/tasks/steps/hil-site-contract.validate/",
-        "tools/tasks/steps/hil-semantic-replay.validate/"
+        "tools/tasks/steps/hil-semantic-replay.validate/",
+        "data/hil-semantic-replay-task-state.json",
+        "data/hil-semantic-replay-activation-receipt.json"
       ],
       "handoff": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
       "handoff_revision": "f869261f3345f6f885e4c0d23591a3acc9acfc46",
