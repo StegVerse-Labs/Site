@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "p4/site-r73-fold-evaluator-hil-deployed",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "g17-site-r73-fold-evaluator-hil-deployed",
       "dependency_surface_keys": [
         "site:g17-site-r73-fold-evaluator-hil-deployed"
@@ -54,7 +54,10 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1677,
+      "release_commit": "fc741ae02182ecf4599399c82c55eeb9eb64e999",
+      "claim_released_at": "2026-11-06T00:28:38Z"
     }
   ]
 }
