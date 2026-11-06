@@ -39,3 +39,7 @@ B12 (StegFin phone observer fold, Site#1653 @ `91eadc66`) released. B13 converts
 ## Round 69 note (P4 a65c67bf)
 
 B13 (Conectrr NOT_SELECTED, Site#1672 @ `144041e7`) released. B14 converts four read-only public observers' observe-job `if: github.event_name != 'pull_request'` to early NOT_SELECTED select steps. Workflow count remains 97 / FAIL_CLOSED on the exception ceiling.
+
+## Round 70 note (P4 a65c67bf)
+
+B14 (four observers NOT_SELECTED, Site#1673 @ `44d2ee64`) released. B15 fully folds `mykv-public-propagation-proof` into the stable dispatcher (catalog group `mykv-public-propagation-proof.validate`); workflow_count 97→96.

@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "dc6a2f680395ceab99f1b1ee164d3af5692b1123",
+ "folded_from_commit": "44d2ee644877a7484045145dff48077652de25be",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -5216,6 +5216,85 @@
     }
    },
    "repairs": []
+  },
+  {
+   "id": "mykv-public-propagation-proof.validate",
+   "source": {
+    "workflow": ".github/workflows/mykv-public-propagation-proof.yml",
+    "workflow_name": "MyKV Public Propagation Proof",
+    "job": "validate+observe",
+    "job_name": null,
+    "commit": "44d2ee644",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {
+     "contents": "read"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate MyKV observer semantics",
+     "run_file": "tools/tasks/steps/mykv-public-propagation-proof.validate/01-validate-mykv-observer-semantics.sh",
+     "run_sha256": "600b8fe7dd235ecae8f18555c7dade05ee2e384e5862704e11ffb638ef34deeb"
+    },
+    {
+     "name": "Observe public MyKV served bodies",
+     "run_file": "tools/tasks/steps/mykv-public-propagation-proof.validate/02-observe-public-mykv-served-bodies.sh",
+     "run_sha256": "beb2c3857e4c08384f6710ad719073abea80a90e7306072bfa199315eac62b44",
+     "if": "github.event_name != 'pull_request'"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "mykv-public-propagation-proof-${{ github.run_id }}",
+     "path": "evidence/mykv-public-propagation/",
+     "if_no_files_found": "ignore",
+     "if": "github.event_name != 'pull_request'",
+     "retention-days": 90
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12",
+    "artifact_name": "mykv-public-propagation-proof",
+    "artifact_if_no_files_found": "ignore"
+   },
+   "fold_notes": [
+    "Site round 70 / #166: full fold after B14 NOT_SELECTED conversion. Observe job-level if is now step-level if on the observe step (generic-login pattern). Historical pre-NOT_SELECTED sha256 ba6727d50bbab7c927ed6ec3ba4ab5eb37543b0bac9916e3b4c03812e27e85a6.",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "scripts/observe_mykv_public_propagation.py",
+      "tests/test_observe_mykv_public_propagation.py",
+      "docs/MYKV_PUBLIC_PROPAGATION_OBSERVER_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-mykv-public-propagation-observer-20260916.json",
+      "tools/tasks/folded/mykv-public-propagation-proof.yml",
+      "tools/tasks/steps/mykv-public-propagation-proof.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "scripts/observe_mykv_public_propagation.py",
+      "tests/test_observe_mykv_public_propagation.py",
+      "docs/MYKV_PUBLIC_PROPAGATION_OBSERVER_MIRROR_HANDOFF.md",
+      "data/session-work-claims.d/site-mykv-public-propagation-observer-20260916.json",
+      "tools/tasks/folded/mykv-public-propagation-proof.yml",
+      "tools/tasks/steps/mykv-public-propagation-proof.validate/**"
+     ]
+    }
+   }
   }
  ]
 }

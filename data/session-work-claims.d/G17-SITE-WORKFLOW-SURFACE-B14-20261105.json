@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "p4/site-r69-observer-not-selected",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "g17-site-r69-four-observer-not-selected",
       "dependency_surface_keys": [
         "site:g17-site-r69-four-observer-not-selected"
@@ -54,7 +54,10 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1673,
+      "release_commit": "44d2ee644877a7484045145dff48077652de25be",
+      "claim_released_at": "2026-11-06T00:08:37Z"
     }
   ]
 }
