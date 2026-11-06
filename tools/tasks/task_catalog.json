@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "de5df0c13e4c947ef60884dd7a5ac7bcb3d5cefb",
+ "folded_from_commit": "66794b714e6120bc57ed3933e5a1646ccead2927",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -8151,6 +8151,409 @@
       "scripts/observe_va_pii_redaction_working_copy_evidence.py",
       "tools/tasks/folded/va-pii-redaction-working-copy-evidence.yml",
       "tools/tasks/steps/va-pii-redaction-working-copy-evidence.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "va-private-document-runtime.validate",
+   "source": {
+    "workflow": ".github/workflows/va-private-document-runtime.yml",
+    "workflow_name": "VA Private Document Fixture Validation",
+    "job": "validate-private-intake",
+    "job_name": null,
+    "commit": "66794b714",
+    "triggers_before": [
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {
+    "PRIVATE_DOCUMENT_RECEIPT": "/tmp/va-private-document-runtime-receipt.json"
+   },
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/va-private-document-runtime.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "f8a94e522f7cd74c6e9e57414e7ddb9b605c977dec72d0076d776dd95ff51c4b"
+    },
+    {
+     "name": "Execute bounded private-document fixture ephemerally",
+     "run_file": "tools/tasks/steps/va-private-document-runtime.validate/02-execute-bounded-private-document-fixture-ephemerally.sh",
+     "run_sha256": "08ad1e64b658eaf90b2ff7c5147032893d743bc4f271b10bf2fa28933dbbd957"
+    },
+    {
+     "name": "Enforce privacy and authority boundaries",
+     "run_file": "tools/tasks/steps/va-private-document-runtime.validate/03-enforce-privacy-and-authority-boundaries.sh",
+     "run_sha256": "a4f50d51fdf81caa80728c2766ee949a51440aea2e8eb1dce328d58edae10758"
+    },
+    {
+     "name": "Confirm validation-only containment",
+     "run_file": "tools/tasks/steps/va-private-document-runtime.validate/04-confirm-validation-only-containment.sh",
+     "run_sha256": "f3eda4cd916ac913b3b299e6bc39fc00c65b70e281474fd2821495818a5802da"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 81 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "tools/tasks/folded/va-private-document-runtime.yml",
+      "tools/tasks/steps/va-private-document-runtime.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/va-claim-assistant/private-document-intake.schema.json",
+      "data/va-claim-assistant/fixtures/private-document-intake.json",
+      "scripts/process_va_private_document_fixture.py",
+      "tools/tasks/folded/va-private-document-runtime.yml",
+      "tools/tasks/steps/va-private-document-runtime.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "va-governed-product-goals.validate",
+   "source": {
+    "workflow": ".github/workflows/va-governed-product-goals.yml",
+    "workflow_name": "VA Governed Product Goals Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "66794b714",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/va-governed-product-goals.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "3d975044326b9e17f202533b6b5f7a3435419fece6aa3490dfb0b024445023be"
+    },
+    {
+     "name": "Validate governed product goal contract ephemerally",
+     "run_file": "tools/tasks/steps/va-governed-product-goals.validate/02-validate-governed-product-goal-contract-ephemerally.sh",
+     "run_sha256": "068916bca364de5e6ba2502f3153cfa555b59df7db7c62274c8cef55ad1ec513"
+    },
+    {
+     "name": "Verify goal states and authority boundaries are unchanged",
+     "run_file": "tools/tasks/steps/va-governed-product-goals.validate/03-verify-goal-states-and-authority-boundaries-are-unchanged.sh",
+     "run_sha256": "ac9990de4f390c8c5364074c1e43b081b63473794c79efb30f36a8a1e23fb6b9"
+    },
+    {
+     "name": "Restore ephemeral receipt and prove no persistence authority",
+     "run_file": "tools/tasks/steps/va-governed-product-goals.validate/04-restore-ephemeral-receipt-and-prove-no-persistence-authority.sh",
+     "run_sha256": "6618daaea786c4c9cfee57f1d3104406bb7726e0cd50a9fbc291d614d5de1bcb"
+    },
+    {
+     "name": "Confirm validation-only containment",
+     "run_file": "tools/tasks/steps/va-governed-product-goals.validate/05-confirm-validation-only-containment.sh",
+     "run_sha256": "57e39de2ad39e81a8090b42043bc78282a8a88c66d6876074cbd8b0e72d99238"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 81 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/va-claim-assistant/governed-product-goals.json",
+      "scripts/validate_va_governed_product_goals.py",
+      "docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md",
+      "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md",
+      "va-disability-claim-guide.html",
+      "tools/tasks/folded/va-governed-product-goals.yml",
+      "tools/tasks/steps/va-governed-product-goals.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/va-claim-assistant/governed-product-goals.json",
+      "scripts/validate_va_governed_product_goals.py",
+      "docs/VA_CLAIM_ASSISTANT_GOVERNED_SESSION.md",
+      "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md",
+      "va-disability-claim-guide.html",
+      "tools/tasks/folded/va-governed-product-goals.yml",
+      "tools/tasks/steps/va-governed-product-goals.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "two-entry-points-execution-state.validate",
+   "source": {
+    "workflow": ".github/workflows/two-entry-points-execution-state.yml",
+    "workflow_name": "Two Entry Points Execution State",
+    "job": "validate",
+    "job_name": null,
+    "commit": "66794b714",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/two-entry-points-execution-state.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "57d8fb6315eb4790b50dd6306d86a93b438448924580864a2f84dbf0881bf1c4"
+    },
+    {
+     "name": "Validate execution registry",
+     "run_file": "tools/tasks/steps/two-entry-points-execution-state.validate/02-validate-execution-registry.sh",
+     "run_sha256": "ed0274667e2108519f01f5c2273745379cdb93b8863df80a6e7e0be91bd18749"
+    },
+    {
+     "name": "Validate receipt hash and authority boundary",
+     "run_file": "tools/tasks/steps/two-entry-points-execution-state.validate/03-validate-receipt-hash-and-authority-boundary.sh",
+     "run_sha256": "858d4034761da52f731f6dd66fa00f070b76ba05c99515c1fba42e7ce7575863"
+    },
+    {
+     "name": "Confirm validation-only carrier",
+     "run_file": "tools/tasks/steps/two-entry-points-execution-state.validate/04-confirm-validation-only-carrier.sh",
+     "run_sha256": "e25dbf6bce5ffaa82801e81918cce3096334e303518c71b710744997dc0c1798"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 81 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md",
+      "data/two-entry-points-execution-state.json",
+      "scripts/validate_two_entry_points_execution_state.py",
+      "tools/tasks/folded/two-entry-points-execution-state.yml",
+      "tools/tasks/steps/two-entry-points-execution-state.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "docs/TWO_ENTRY_POINTS_MIRROR_HANDOFF.md",
+      "data/two-entry-points-execution-state.json",
+      "scripts/validate_two_entry_points_execution_state.py",
+      "tools/tasks/folded/two-entry-points-execution-state.yml",
+      "tools/tasks/steps/two-entry-points-execution-state.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "vacc-goal3-contract-suite.validate",
+   "source": {
+    "workflow": ".github/workflows/vacc-goal3-contract-suite.yml",
+    "workflow_name": "VACC Goal 3 Contract Suite Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "66794b714",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/vacc-goal3-contract-suite.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "1eb5678fdafed1762b6eed8476a3f3be95393705f321f7ec77ec2970d91ff94a"
+    },
+    {
+     "name": "Validate Goal 3 contracts and fixtures",
+     "run_file": "tools/tasks/steps/vacc-goal3-contract-suite.validate/02-validate-goal-3-contracts-and-fixtures.sh",
+     "run_sha256": "a5e71993599d762931bccce9f1d1e9fd9cdd27d411fe8d3984bef24c0e228245"
+    },
+    {
+     "name": "Build and verify ephemeral contract receipt",
+     "run_file": "tools/tasks/steps/vacc-goal3-contract-suite.validate/03-build-and-verify-ephemeral-contract-receipt.sh",
+     "run_sha256": "2a5fa8ed209714a9dc74dab44b126561ce9cd7decff2da54ce82cdd1fb16fed0"
+    },
+    {
+     "name": "Prove no repository persistence authority",
+     "run_file": "tools/tasks/steps/vacc-goal3-contract-suite.validate/04-prove-no-repository-persistence-authority.sh",
+     "run_sha256": "daf7447560375f2706ac2443cbbee477c6449859128064d17ae9d93827518caf"
+    },
+    {
+     "name": "Confirm validation-only containment",
+     "run_file": "tools/tasks/steps/vacc-goal3-contract-suite.validate/05-confirm-validation-only-containment.sh",
+     "run_sha256": "d6e21582c70721e69478e18f847abc28d9181f6d3f48734cc2698358dc4dcacd"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 81 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/va-claim-assistant/provenance-workload.schema.json",
+      "data/va-claim-assistant/claimant-submission-binding.schema.json",
+      "data/va-claim-assistant/redirect-retrieval.schema.json",
+      "data/va-claim-assistant/sanitized-document-derivative.schema.json",
+      "data/va-claim-assistant/evidence-criteria-mapping.schema.json",
+      "data/va-claim-assistant/fixtures/vacc-goal3-contract-suite.json",
+      "scripts/check_vacc_goal3_contract_suite.py",
+      "tools/tasks/folded/vacc-goal3-contract-suite.yml",
+      "tools/tasks/steps/vacc-goal3-contract-suite.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/va-claim-assistant/provenance-workload.schema.json",
+      "data/va-claim-assistant/claimant-submission-binding.schema.json",
+      "data/va-claim-assistant/redirect-retrieval.schema.json",
+      "data/va-claim-assistant/sanitized-document-derivative.schema.json",
+      "data/va-claim-assistant/evidence-criteria-mapping.schema.json",
+      "data/va-claim-assistant/fixtures/vacc-goal3-contract-suite.json",
+      "scripts/check_vacc_goal3_contract_suite.py",
+      "tools/tasks/folded/vacc-goal3-contract-suite.yml",
+      "tools/tasks/steps/vacc-goal3-contract-suite.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "va-claims-chat-surface.validate",
+   "source": {
+    "workflow": ".github/workflows/va-claims-chat-surface.yml",
+    "workflow_name": "VA Claims Chat Surface Validation - No Persistence Authority",
+    "job": "validate",
+    "job_name": null,
+    "commit": "66794b714",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/va-claims-chat-surface.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "94e5caf9da5983a0c3efec3a6a8da30d103e9902aacb1d35211f159fc6f97d85"
+    },
+    {
+     "name": "Preserve tracked receipt before validation",
+     "run_file": "tools/tasks/steps/va-claims-chat-surface.validate/02-preserve-tracked-receipt-before-validation.sh",
+     "run_sha256": "ae43b9099e9f8c626e176530a4c58aebd0443c8c93bff6218f9ca75c5cde2a61"
+    },
+    {
+     "name": "Validate governed Claims Chat surface ephemerally",
+     "run_file": "tools/tasks/steps/va-claims-chat-surface.validate/03-validate-governed-claims-chat-surface-ephemerally.sh",
+     "run_sha256": "5b38faec9ede931a585b22e722e5246355dcbea21ebd9cb004467ecba2ad2afc"
+    },
+    {
+     "name": "Restore tracked receipt and prove no persistence authority",
+     "run_file": "tools/tasks/steps/va-claims-chat-surface.validate/04-restore-tracked-receipt-and-prove-no-persistence-authority.sh",
+     "run_sha256": "e818ea1b87565042227e80c8918f9f7fb2ecb965d779d7e6bd03cd4ee15c9989"
+    },
+    {
+     "name": "Confirm validation-only containment",
+     "run_file": "tools/tasks/steps/va-claims-chat-surface.validate/05-confirm-validation-only-containment.sh",
+     "run_sha256": "3ede47f40b0d886dbb6a7cc049748a9e5bbbde69d39c4ceb3b5ff3a9fd813b8b"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 81 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "va-claims-chat.html",
+      "data/va-claim-assistant/chat-capability-state.json",
+      "api/va-claim-assistant/runtime-projection.json",
+      "assets/va-claims-chat-runtime.js",
+      "scripts/validate_va_claims_chat_surface.py",
+      "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md",
+      "docs/VA_CLAIMS_CHAT_ACTIONS_FANOUT_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/va-claims-chat-surface.yml",
+      "tools/tasks/steps/va-claims-chat-surface.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "va-claims-chat.html",
+      "data/va-claim-assistant/chat-capability-state.json",
+      "api/va-claim-assistant/runtime-projection.json",
+      "assets/va-claims-chat-runtime.js",
+      "scripts/validate_va_claims_chat_surface.py",
+      "docs/VA_CLAIM_ASSISTANT_MIRROR_HANDOFF.md",
+      "docs/VA_CLAIMS_CHAT_ACTIONS_FANOUT_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/va-claims-chat-surface.yml",
+      "tools/tasks/steps/va-claims-chat-surface.validate/**"
      ]
     }
    }

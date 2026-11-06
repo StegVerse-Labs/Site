@@ -83,3 +83,7 @@ G17-SITE-WORKFLOW-SURFACE-B23-20261105 released. G17-SITE-WORKFLOW-SURFACE-B24-2
 ## Round 80 note (P4 a65c67bf)
 
 G17-SITE-WORKFLOW-SURFACE-B24-20261105 released. G17-SITE-WORKFLOW-SURFACE-B25-20261105 fully folds va-federal-plus-security-baseline, va-pii-detection-evaluation, va-pii-model-leakage-evidence, va-pii-production-detector-evidence, va-pii-redaction-credential-realignment, va-pii-redaction-working-copy-evidence into the stable dispatcher; workflow_count 71→65.
+
+## Round 81 note (P4 a65c67bf)
+
+G17-SITE-WORKFLOW-SURFACE-B25-20261105 released. G17-SITE-WORKFLOW-SURFACE-B26-20261105 fully folds va-private-document-runtime, va-governed-product-goals, two-entry-points-execution-state, vacc-goal3-contract-suite, va-claims-chat-surface into the stable dispatcher; workflow_count 65→60.

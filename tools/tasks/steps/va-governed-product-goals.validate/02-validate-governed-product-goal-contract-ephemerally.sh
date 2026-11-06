@@ -1,0 +1,1 @@
+python3 scripts/validate_va_governed_product_goals.py
