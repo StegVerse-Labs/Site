@@ -880,7 +880,7 @@
     },
     {
       "path": ".github/workflows/mykv-public-propagation-proof.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "classification": "KEEP_EXISTING_SURFACE_GATING_CONVERTED",
       "triggers": [
         "pull_request",
         "push",
@@ -889,13 +889,15 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-      "verbatim_sha256": "ba6727d50bbab7c927ed6ec3ba4ab5eb37543b0bac9916e3b4c03812e27e85a6",
+      "reason": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 69 / #166): observe job-level `if: github.event_name != 'pull_request'` removed so the job always runs; an early select step records NOT_SELECTED on pull_request (validate already ran) and gates checkout/observation/upload on selected=true. push and workflow_dispatch still select. permissions {contents: read} unchanged; no secret, dependency, cron, dispatch or polling added. Pre-conversion file at tools/tasks/folded/mykv-public-propagation-proof.yml, sha256 ba6727d50bbab7c927ed6ec3ba4ab5eb37543b0bac9916e3b4c03812e27e85a6.",
+      "verbatim_sha256": "db79dfb2551bfce8c9da2db698bb71e329906a6828d7ae39b76331ea4d01d9d2",
       "exception": {
-        "lifecycle": "job-level observe condition the catalog does not carry",
-        "justification": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
+        "lifecycle": "pull_request/push/workflow_dispatch observer (kept; observe job-level if converted to early NOT_SELECTED)",
+        "justification": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 69 / #166): observe job-level `if: github.event_name != 'pull_request'` removed so the job always runs; an early select step records NOT_SELECTED on pull_request (validate already ran) and gates checkout/observation/upload on selected=true. push and workflow_dispatch still select. permissions {contents: read} unchanged; no secret, dependency, cron, dispatch or polling added. Pre-conversion file at tools/tasks/folded/mykv-public-propagation-proof.yml, sha256 ba6727d50bbab7c927ed6ec3ba4ab5eb37543b0bac9916e3b4c03812e27e85a6.",
         "within_exception_ceiling": true
-      }
+      },
+      "pre_conversion_record": "tools/tasks/folded/mykv-public-propagation-proof.yml",
+      "pre_conversion_sha256": "ba6727d50bbab7c927ed6ec3ba4ab5eb37543b0bac9916e3b4c03812e27e85a6"
     },
     {
       "path": ".github/workflows/no-required-third-party-runtime.yml",
@@ -1086,7 +1088,7 @@
     },
     {
       "path": ".github/workflows/site-homepage-chat-public-asset-observation.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "classification": "KEEP_EXISTING_SURFACE_GATING_CONVERTED",
       "triggers": [
         "pull_request",
         "push",
@@ -1095,13 +1097,15 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-      "verbatim_sha256": "aaef58c8640d80095f78cfb404de8eef4d153c1e21a89bf539b5b02f0dda96e2",
+      "reason": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 69 / #166): observe job-level `if: github.event_name != 'pull_request'` removed so the job always runs; an early select step records NOT_SELECTED on pull_request (validate already ran) and gates checkout/observation/upload on selected=true. push and workflow_dispatch still select. permissions {contents: read} unchanged; no secret, dependency, cron, dispatch or polling added. Pre-conversion file at tools/tasks/folded/site-homepage-chat-public-asset-observation.yml, sha256 aaef58c8640d80095f78cfb404de8eef4d153c1e21a89bf539b5b02f0dda96e2.",
+      "verbatim_sha256": "ccfb099dd02021575305131717925c32d9ec4e3fc8227d96a9e68c2e776eb2fb",
       "exception": {
-        "lifecycle": "job-level observe condition the catalog does not carry",
-        "justification": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
+        "lifecycle": "pull_request/push/workflow_dispatch observer (kept; observe job-level if converted to early NOT_SELECTED)",
+        "justification": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 69 / #166): observe job-level `if: github.event_name != 'pull_request'` removed so the job always runs; an early select step records NOT_SELECTED on pull_request (validate already ran) and gates checkout/observation/upload on selected=true. push and workflow_dispatch still select. permissions {contents: read} unchanged; no secret, dependency, cron, dispatch or polling added. Pre-conversion file at tools/tasks/folded/site-homepage-chat-public-asset-observation.yml, sha256 aaef58c8640d80095f78cfb404de8eef4d153c1e21a89bf539b5b02f0dda96e2.",
         "within_exception_ceiling": true
-      }
+      },
+      "pre_conversion_record": "tools/tasks/folded/site-homepage-chat-public-asset-observation.yml",
+      "pre_conversion_sha256": "aaef58c8640d80095f78cfb404de8eef4d153c1e21a89bf539b5b02f0dda96e2"
     },
     {
       "path": ".github/workflows/site-task-runner.yml",
@@ -1261,7 +1265,7 @@
     },
     {
       "path": ".github/workflows/sv002-sovereign-intr-profile-proof.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "classification": "KEEP_EXISTING_SURFACE_GATING_CONVERTED",
       "triggers": [
         "pull_request",
         "push",
@@ -1270,17 +1274,19 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-      "verbatim_sha256": "feb2671a6cfb6613fafdda621ef69570d8bc1b3a3c7f8b598580c5c7a53e9321",
+      "reason": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 69 / #166): observe job-level `if: github.event_name != 'pull_request'` removed so the job always runs; an early select step records NOT_SELECTED on pull_request (validate already ran) and gates checkout/observation/upload on selected=true. push and workflow_dispatch still select. permissions {contents: read} unchanged; no secret, dependency, cron, dispatch or polling added. Pre-conversion file at tools/tasks/folded/sv002-sovereign-intr-profile-proof.yml, sha256 feb2671a6cfb6613fafdda621ef69570d8bc1b3a3c7f8b598580c5c7a53e9321.",
+      "verbatim_sha256": "758b05c531348413557d413fee0da2824efc5839305bd9a883e6fed2095b8969",
       "exception": {
-        "lifecycle": "job-level observe condition the catalog does not carry",
-        "justification": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
+        "lifecycle": "pull_request/push/workflow_dispatch observer (kept; observe job-level if converted to early NOT_SELECTED)",
+        "justification": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 69 / #166): observe job-level `if: github.event_name != 'pull_request'` removed so the job always runs; an early select step records NOT_SELECTED on pull_request (validate already ran) and gates checkout/observation/upload on selected=true. push and workflow_dispatch still select. permissions {contents: read} unchanged; no secret, dependency, cron, dispatch or polling added. Pre-conversion file at tools/tasks/folded/sv002-sovereign-intr-profile-proof.yml, sha256 feb2671a6cfb6613fafdda621ef69570d8bc1b3a3c7f8b598580c5c7a53e9321.",
         "within_exception_ceiling": true
-      }
+      },
+      "pre_conversion_record": "tools/tasks/folded/sv002-sovereign-intr-profile-proof.yml",
+      "pre_conversion_sha256": "feb2671a6cfb6613fafdda621ef69570d8bc1b3a3c7f8b598580c5c7a53e9321"
     },
     {
       "path": ".github/workflows/sv002-status-public-http-proof.yml",
-      "classification": "KEEP_EXISTING_SURFACE_UNCHANGED",
+      "classification": "KEEP_EXISTING_SURFACE_GATING_CONVERTED",
       "triggers": [
         "pull_request",
         "push",
@@ -1289,13 +1295,15 @@
       "permissions": {
         "contents": "read"
       },
-      "reason": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
-      "verbatim_sha256": "c848e7e2ebda2af6159ac70050474b4b348bc1623d5dda94f66d7715f52299da",
+      "reason": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 69 / #166): observe job-level `if: github.event_name != 'pull_request'` removed so the job always runs; an early select step records NOT_SELECTED on pull_request (validate already ran) and gates checkout/observation/upload on selected=true. push and workflow_dispatch still select. permissions {contents: read} unchanged; no secret, dependency, cron, dispatch or polling added. Pre-conversion file at tools/tasks/folded/sv002-status-public-http-proof.yml, sha256 c848e7e2ebda2af6159ac70050474b4b348bc1623d5dda94f66d7715f52299da.",
+      "verbatim_sha256": "e3da07dd67fdb7b2100abd32aa95181f45e1141863c99336f52a9b68f7c0fd6d",
       "exception": {
-        "lifecycle": "job-level observe condition the catalog does not carry",
-        "justification": "FAIL_CLOSED_KEEP: its observe job carries `if: github.event_name != 'pull_request'`, and the catalog carries step-level `if` only, so a fold would run the public observation on pull requests. Kept byte-unchanged; the per-repository ceiling is recorded in the registry.",
+        "lifecycle": "pull_request/push/workflow_dispatch observer (kept; observe job-level if converted to early NOT_SELECTED)",
+        "justification": "KEEP_AFTER_NOT_SELECTED_CONVERSION (Site round 69 / #166): observe job-level `if: github.event_name != 'pull_request'` removed so the job always runs; an early select step records NOT_SELECTED on pull_request (validate already ran) and gates checkout/observation/upload on selected=true. push and workflow_dispatch still select. permissions {contents: read} unchanged; no secret, dependency, cron, dispatch or polling added. Pre-conversion file at tools/tasks/folded/sv002-status-public-http-proof.yml, sha256 c848e7e2ebda2af6159ac70050474b4b348bc1623d5dda94f66d7715f52299da.",
         "within_exception_ceiling": true
-      }
+      },
+      "pre_conversion_record": "tools/tasks/folded/sv002-status-public-http-proof.yml",
+      "pre_conversion_sha256": "c848e7e2ebda2af6159ac70050474b4b348bc1623d5dda94f66d7715f52299da"
     },
     {
       "path": ".github/workflows/sync-executive-rhetoric-ledger.yml",
@@ -2638,9 +2646,9 @@
     "workflow_count": 97,
     "failure_code": "G17_CONTRACT_FLOOR_ABOVE_EXCEPTION_CEILING",
     "failed_predicate": "workflow_count <= exception_repository_workflow_count_max (3)",
-    "required_evidence_or_repair": "Round 68: workflow_count stays 97 (no fold/add). conectrr-live-verification.yml converted from job-level `if` to an early NOT_SELECTED select step so non-selected Pages events no longer appear as skipped jobs; pre-image sha256 e6abdd45bcd07d2fe0c8659752314add641760fbc4c125173e8b206287f59bba under tools/tasks/folded/. The count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Prior batches 1\u201312 (through Site#1653 StegFin observer) remain. Remaining KEEP_PENDING / FAIL_CLOSED_KEEP surfaces are unchanged. Credentials belong only in the SKAP Vault inside KV.",
+    "required_evidence_or_repair": "Round 69: workflow_count stays 97 (no fold/add). Four read-only public observers converted from job-level `if: github.event_name != 'pull_request'` on their observe jobs to early NOT_SELECTED select steps (mykv-public-propagation-proof, site-homepage-chat-public-asset-observation, sv002-sovereign-intr-profile-proof, sv002-status-public-http-proof); pre-images under tools/tasks/folded/. This removes the FAIL_CLOSED_KEEP reason that blocked catalog folds for those four. The count remains above the three-file exception ceiling and stays FAIL_CLOSED on that contract. Credentials belong only in the SKAP Vault inside KV.",
     "retry_entrypoint": "tests/test_workflow_surface_registry.py",
     "owning_existing_goal": "G17-WORKFLOW-SURFACE-MINIMIZATION (StegVerse-Labs/.github#167/#168); StegVerse-org/.github#166",
-    "next_attempt": "the next pull request that can fold a credential-free surface without breaking a pinned contract"
+    "next_attempt": "the next pull request that can fold a now-converted credential-free observer or another KEEP_PENDING surface"
   }
 }

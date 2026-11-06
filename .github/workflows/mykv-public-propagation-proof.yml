@@ -30,16 +30,32 @@ jobs:
         run: python -m unittest -v tests.test_observe_mykv_public_propagation
 
   observe:
-    if: github.event_name != 'pull_request'
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Select this run (NOT_SELECTED, never skipped)
+        id: select
+        run: |
+          set -euo pipefail
+          # Same predicate as the former job-level condition: public observation runs on push/main
+          # and workflow_dispatch, not on pull_request (validate already ran).
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            echo "selected=false" >> "$GITHUB_OUTPUT"
+            echo "NOT_SELECTED: public observation does not run on pull_request (validate already ran); nothing observed, no authority effect"
+            echo "## Observer" >> "$GITHUB_STEP_SUMMARY"
+            echo "NOT_SELECTED: public observation does not run on pull_request." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "selected=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/checkout@v4
+        if: steps.select.outputs.selected == 'true'
       - name: Observe public MyKV served bodies
+        if: steps.select.outputs.selected == 'true'
         run: python scripts/observe_mykv_public_propagation.py --attempts 30 --delay-seconds 10
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.select.outputs.selected == 'true'
         with:
           name: mykv-public-propagation-proof-${{ github.run_id }}
           path: evidence/mykv-public-propagation/

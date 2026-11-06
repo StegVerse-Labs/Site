@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "p4/site-r68-conectrr-not-selected",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "g17-site-r68-conectrr-not-selected-guard",
       "dependency_surface_keys": [
         "site:g17-site-r68-conectrr-not-selected-guard"
@@ -48,7 +48,10 @@
       "github_token_runtime_authority": "NONE",
       "render_required": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1672,
+      "release_commit": "144041e7cca3de0de4d2512e5b20fd4051ef8450",
+      "claim_released_at": "2026-11-06T00:03:17Z"
     }
   ]
 }

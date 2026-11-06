@@ -1,0 +1,46 @@
+name: MyKV Public Propagation Proof
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/observe_mykv_public_propagation.py'
+      - 'tests/test_observe_mykv_public_propagation.py'
+      - '.github/workflows/mykv-public-propagation-proof.yml'
+      - 'docs/MYKV_PUBLIC_PROPAGATION_OBSERVER_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.d/site-mykv-public-propagation-observer-20260916.json'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/observe_mykv_public_propagation.py'
+      - 'tests/test_observe_mykv_public_propagation.py'
+      - '.github/workflows/mykv-public-propagation-proof.yml'
+      - 'docs/MYKV_PUBLIC_PROPAGATION_OBSERVER_MIRROR_HANDOFF.md'
+      - 'data/session-work-claims.d/site-mykv-public-propagation-observer-20260916.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate MyKV observer semantics
+        run: python -m unittest -v tests.test_observe_mykv_public_propagation
+
+  observe:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Observe public MyKV served bodies
+        run: python scripts/observe_mykv_public_propagation.py --attempts 30 --delay-seconds 10
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mykv-public-propagation-proof-${{ github.run_id }}
+          path: evidence/mykv-public-propagation/
+          retention-days: 90
