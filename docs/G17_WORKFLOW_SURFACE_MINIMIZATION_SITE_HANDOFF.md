@@ -71,3 +71,7 @@ G17-SITE-WORKFLOW-SURFACE-B20-20261105 released. G17-SITE-WORKFLOW-SURFACE-B21-2
 ## Round 77 note (P4 a65c67bf)
 
 G17-SITE-WORKFLOW-SURFACE-B21-20261105 released. G17-SITE-WORKFLOW-SURFACE-B22-20261105 fully folds stegbrowser-sv002-lane-adaptation, stegbrowser-sv002-validated-lane-retest, hil-semantic-continuity-tasks, validate-stegos-persistent-card-ux into the stable dispatcher; workflow_count 81→77.
+
+## Round 78 note (P4 a65c67bf)
+
+B22 released. B23 fully folds `check-tidc-research` (multi-job + matrix) into the stable dispatcher; workflow_count 77→76.

@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "68b2ef299e13ed33690421eb96ed5cce8015f5e8",
+ "folded_from_commit": "ab2dd76670d2a25d1ca3ea73a3f5bbecc9dc66b9",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -6953,6 +6953,408 @@
       "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-auto-recovery-20260906.json",
       "tools/tasks/folded/validate-stegos-persistent-card-ux.yml",
       "tools/tasks/steps/validate-stegos-persistent-card-ux.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-tidc-research.verify-publication-python3.9",
+   "source": {
+    "workflow": ".github/workflows/check-tidc-research.yml",
+    "workflow_name": "Check TIDC Research Surface",
+    "job": "verify-publication",
+    "job_name": null,
+    "commit": "ab2dd7667",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {},
+    "matrix_cell": {
+     "python-version": "3.9"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Compile TIDC validators",
+     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.9/01-compile-tidc-validators.sh",
+     "run_sha256": "e434e7d1c6cb50d4bcdff9431de60d504d452e1cedcd17b7d3ffd1184efac9fc"
+    },
+    {
+     "name": "Validate public research publication",
+     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.9/02-validate-public-research-publication.sh",
+     "run_sha256": "bf1b6363cfb1ba833108fe68264ff3b248064abaae5c524cadaea2848351cac4"
+    },
+    {
+     "name": "Validate issued blinded packet markers",
+     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.9/03-validate-issued-blinded-packet-markers.sh",
+     "run_sha256": "5ac909845c2216f88dbeec490a5a0ad56a5f90330110fa6477166ee404ca72b4"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.9"
+   },
+   "fold_notes": [
+    "Site round 78 / #166: fold KEEP_PENDING multi-job TIDC research validator. Refuse/anonymous checkout repaired to dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "verify-publication matrix expanded to three catalog groups; process-blinded-returns artifact retained with if_no_files_found=ignore (no GITHUB_OUTPUT gate).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "technology-induced-discovery-clustering.html",
+      "public-registry.json",
+      "docs/TIDC_*.md",
+      "data/tidc/blinded-coding/**",
+      "data/tidc/pilot-events-v0.1.json",
+      "scripts/check_tidc_publication.py",
+      "scripts/validate_tidc_blinded_return.py",
+      "scripts/create_tidc_blinded_return_receipt.py",
+      "scripts/compare_tidc_blinded_coding.py",
+      "tools/tasks/folded/check-tidc-research.yml",
+      "tools/tasks/steps/check-tidc-research.verify-publication-python3.9/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "technology-induced-discovery-clustering.html",
+      "public-registry.json",
+      "docs/TIDC_*.md",
+      "data/tidc/**",
+      "scripts/check_tidc_publication.py",
+      "scripts/validate_tidc_blinded_return.py",
+      "scripts/create_tidc_blinded_return_receipt.py",
+      "scripts/compare_tidc_blinded_coding.py",
+      "tools/tasks/folded/check-tidc-research.yml",
+      "tools/tasks/steps/check-tidc-research.verify-publication-python3.9/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-tidc-research.verify-publication-python3.11",
+   "source": {
+    "workflow": ".github/workflows/check-tidc-research.yml",
+    "workflow_name": "Check TIDC Research Surface",
+    "job": "verify-publication",
+    "job_name": null,
+    "commit": "ab2dd7667",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {},
+    "matrix_cell": {
+     "python-version": "3.11"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Compile TIDC validators",
+     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.11/01-compile-tidc-validators.sh",
+     "run_sha256": "e434e7d1c6cb50d4bcdff9431de60d504d452e1cedcd17b7d3ffd1184efac9fc"
+    },
+    {
+     "name": "Validate public research publication",
+     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.11/02-validate-public-research-publication.sh",
+     "run_sha256": "bf1b6363cfb1ba833108fe68264ff3b248064abaae5c524cadaea2848351cac4"
+    },
+    {
+     "name": "Validate issued blinded packet markers",
+     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.11/03-validate-issued-blinded-packet-markers.sh",
+     "run_sha256": "5ac909845c2216f88dbeec490a5a0ad56a5f90330110fa6477166ee404ca72b4"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.11"
+   },
+   "fold_notes": [
+    "Site round 78 / #166: fold KEEP_PENDING multi-job TIDC research validator. Refuse/anonymous checkout repaired to dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "verify-publication matrix expanded to three catalog groups; process-blinded-returns artifact retained with if_no_files_found=ignore (no GITHUB_OUTPUT gate).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "technology-induced-discovery-clustering.html",
+      "public-registry.json",
+      "docs/TIDC_*.md",
+      "data/tidc/blinded-coding/**",
+      "data/tidc/pilot-events-v0.1.json",
+      "scripts/check_tidc_publication.py",
+      "scripts/validate_tidc_blinded_return.py",
+      "scripts/create_tidc_blinded_return_receipt.py",
+      "scripts/compare_tidc_blinded_coding.py",
+      "tools/tasks/folded/check-tidc-research.yml",
+      "tools/tasks/steps/check-tidc-research.verify-publication-python3.11/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "technology-induced-discovery-clustering.html",
+      "public-registry.json",
+      "docs/TIDC_*.md",
+      "data/tidc/**",
+      "scripts/check_tidc_publication.py",
+      "scripts/validate_tidc_blinded_return.py",
+      "scripts/create_tidc_blinded_return_receipt.py",
+      "scripts/compare_tidc_blinded_coding.py",
+      "tools/tasks/folded/check-tidc-research.yml",
+      "tools/tasks/steps/check-tidc-research.verify-publication-python3.11/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-tidc-research.verify-publication-python3.12",
+   "source": {
+    "workflow": ".github/workflows/check-tidc-research.yml",
+    "workflow_name": "Check TIDC Research Surface",
+    "job": "verify-publication",
+    "job_name": null,
+    "commit": "ab2dd7667",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {},
+    "matrix_cell": {
+     "python-version": "3.12"
+    }
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Compile TIDC validators",
+     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.12/01-compile-tidc-validators.sh",
+     "run_sha256": "e434e7d1c6cb50d4bcdff9431de60d504d452e1cedcd17b7d3ffd1184efac9fc"
+    },
+    {
+     "name": "Validate public research publication",
+     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.12/02-validate-public-research-publication.sh",
+     "run_sha256": "bf1b6363cfb1ba833108fe68264ff3b248064abaae5c524cadaea2848351cac4"
+    },
+    {
+     "name": "Validate issued blinded packet markers",
+     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.12/03-validate-issued-blinded-packet-markers.sh",
+     "run_sha256": "5ac909845c2216f88dbeec490a5a0ad56a5f90330110fa6477166ee404ca72b4"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 78 / #166: fold KEEP_PENDING multi-job TIDC research validator. Refuse/anonymous checkout repaired to dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "verify-publication matrix expanded to three catalog groups; process-blinded-returns artifact retained with if_no_files_found=ignore (no GITHUB_OUTPUT gate).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "technology-induced-discovery-clustering.html",
+      "public-registry.json",
+      "docs/TIDC_*.md",
+      "data/tidc/blinded-coding/**",
+      "data/tidc/pilot-events-v0.1.json",
+      "scripts/check_tidc_publication.py",
+      "scripts/validate_tidc_blinded_return.py",
+      "scripts/create_tidc_blinded_return_receipt.py",
+      "scripts/compare_tidc_blinded_coding.py",
+      "tools/tasks/folded/check-tidc-research.yml",
+      "tools/tasks/steps/check-tidc-research.verify-publication-python3.12/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "technology-induced-discovery-clustering.html",
+      "public-registry.json",
+      "docs/TIDC_*.md",
+      "data/tidc/**",
+      "scripts/check_tidc_publication.py",
+      "scripts/validate_tidc_blinded_return.py",
+      "scripts/create_tidc_blinded_return_receipt.py",
+      "scripts/compare_tidc_blinded_coding.py",
+      "tools/tasks/folded/check-tidc-research.yml",
+      "tools/tasks/steps/check-tidc-research.verify-publication-python3.12/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-tidc-research.process-blinded-returns",
+   "source": {
+    "workflow": ".github/workflows/check-tidc-research.yml",
+    "workflow_name": "Check TIDC Research Surface",
+    "job": "process-blinded-returns",
+    "job_name": null,
+    "commit": "ab2dd7667",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate and process committed blinded returns",
+     "run_file": "tools/tasks/steps/check-tidc-research.process-blinded-returns/01-validate-and-process-committed-blinded-returns.sh",
+     "run_sha256": "254b95d64de6a09a809a841f678744f10be55748ba439551028abe9fb8e99ffa"
+    }
+   ],
+   "artifacts": [
+    {
+     "name": "tidc-blinded-coding-results-${{ github.run_id }}",
+     "path": "generated/tidc-blinded-results/",
+     "if_no_files_found": "ignore",
+     "retention-days": 90
+    }
+   ],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12",
+    "artifact_name": "tidc-blinded-coding-results",
+    "artifact_if_no_files_found": "ignore"
+   },
+   "fold_notes": [
+    "Site round 78 / #166: fold KEEP_PENDING multi-job TIDC research validator. Refuse/anonymous checkout repaired to dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "verify-publication matrix expanded to three catalog groups; process-blinded-returns artifact retained with if_no_files_found=ignore (no GITHUB_OUTPUT gate).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "technology-induced-discovery-clustering.html",
+      "public-registry.json",
+      "docs/TIDC_*.md",
+      "data/tidc/blinded-coding/**",
+      "data/tidc/pilot-events-v0.1.json",
+      "scripts/check_tidc_publication.py",
+      "scripts/validate_tidc_blinded_return.py",
+      "scripts/create_tidc_blinded_return_receipt.py",
+      "scripts/compare_tidc_blinded_coding.py",
+      "tools/tasks/folded/check-tidc-research.yml",
+      "tools/tasks/steps/check-tidc-research.process-blinded-returns/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "technology-induced-discovery-clustering.html",
+      "public-registry.json",
+      "docs/TIDC_*.md",
+      "data/tidc/**",
+      "scripts/check_tidc_publication.py",
+      "scripts/validate_tidc_blinded_return.py",
+      "scripts/create_tidc_blinded_return_receipt.py",
+      "scripts/compare_tidc_blinded_coding.py",
+      "tools/tasks/folded/check-tidc-research.yml",
+      "tools/tasks/steps/check-tidc-research.process-blinded-returns/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-tidc-research.authority-boundary",
+   "source": {
+    "workflow": ".github/workflows/check-tidc-research.yml",
+    "workflow_name": "Check TIDC Research Surface",
+    "job": "authority-boundary",
+    "job_name": null,
+    "commit": "ab2dd7667",
+    "triggers_before": [
+     "push",
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Enforce non-confirmatory and disagreement-preservation markers",
+     "run_file": "tools/tasks/steps/check-tidc-research.authority-boundary/01-enforce-non-confirmatory-and-disagreement-preserva.sh",
+     "run_sha256": "745785a2ca7b852ce0873a71ea3df5381f7fa774ac5f94729d4ea9b18a307c97"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10
+   },
+   "fold_notes": [
+    "Site round 78 / #166: fold KEEP_PENDING multi-job TIDC research validator. Refuse/anonymous checkout repaired to dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "verify-publication matrix expanded to three catalog groups; process-blinded-returns artifact retained with if_no_files_found=ignore (no GITHUB_OUTPUT gate).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "technology-induced-discovery-clustering.html",
+      "public-registry.json",
+      "docs/TIDC_*.md",
+      "data/tidc/blinded-coding/**",
+      "data/tidc/pilot-events-v0.1.json",
+      "scripts/check_tidc_publication.py",
+      "scripts/validate_tidc_blinded_return.py",
+      "scripts/create_tidc_blinded_return_receipt.py",
+      "scripts/compare_tidc_blinded_coding.py",
+      "tools/tasks/folded/check-tidc-research.yml",
+      "tools/tasks/steps/check-tidc-research.authority-boundary/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "technology-induced-discovery-clustering.html",
+      "public-registry.json",
+      "docs/TIDC_*.md",
+      "data/tidc/**",
+      "scripts/check_tidc_publication.py",
+      "scripts/validate_tidc_blinded_return.py",
+      "scripts/create_tidc_blinded_return_receipt.py",
+      "scripts/compare_tidc_blinded_coding.py",
+      "tools/tasks/folded/check-tidc-research.yml",
+      "tools/tasks/steps/check-tidc-research.authority-boundary/**"
      ]
     }
    }
