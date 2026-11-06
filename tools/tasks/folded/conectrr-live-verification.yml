@@ -1,0 +1,125 @@
+name: Conectrr Live Verification
+
+# Bound to a state transition: a completed GitHub Pages deployment. One attempt per check, no waiting
+# for propagation, and no timer. A deployment of this workflow's own status commit is not re-verified.
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [pages-build-deployment]
+    types: [completed]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: conectrr-live-verification-main
+  cancel-in-progress: false
+
+jobs:
+  verify-conectrr-publication:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       !startsWith(github.event.workflow_run.head_commit.message, 'chore(conectrr): persist live verification status'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Site
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify deployed Conectrr assets
+        run: |
+          if python scripts/check_conectrr_live_routes.py; then
+            exit 0
+          fi
+          echo 'FAIL_CLOSED: Conectrr live verification did not verify on this attempt; the next completed Pages deployment or a manual dispatch re-attempts.' >&2
+          exit 1
+
+      - name: Install remote-browser verifier
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Execute deployed Conectrr runtime in Chromium
+        env:
+          STEGVERSE_PAGES_BASE_URL: https://stegverse-labs.github.io/Site
+        run: |
+          if python scripts/check_conectrr_remote_browser.py; then
+            exit 0
+          fi
+          echo 'FAIL_CLOSED: Conectrr live verification did not verify on this attempt; the next completed Pages deployment or a manual dispatch re-attempts.' >&2
+          exit 1
+
+      - name: Persist finite live-verification state
+        if: always()
+        run: python scripts/update_conectrr_live_status.py || true
+
+      - name: Commit durable live status
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Commit only a change of outcome: a status that differs from the committed one only in its
+          # check timestamps is not a new state, so it is not written (and cannot start another deployment).
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          STAMPS = {"checked_at", "last_checked_at", "updated_at"}
+          def strip(value):
+              if isinstance(value, dict):
+                  return {k: strip(v) for k, v in value.items() if k not in STAMPS}
+              if isinstance(value, list):
+                  return [strip(v) for v in value]
+              return value
+          for path in ("data/conectrr-live-status.json", "data/conectrr-session-goal-inventory.json"):
+              old = subprocess.run(["git", "show", f"HEAD:{path}"], capture_output=True, text=True)
+              if old.returncode == 0 and Path(path).exists() and strip(json.loads(old.stdout)) == strip(json.loads(Path(path).read_text())):
+                  subprocess.run(["git", "checkout", "--", path], check=True)
+          PY
+          git add data/conectrr-live-status.json data/conectrr-session-goal-inventory.json || true
+          if git diff --cached --quiet; then
+            echo "Conectrr live status unchanged."
+          else
+            git commit -m "chore(conectrr): persist live verification status [skip ci]"
+            git pull --rebase
+            git push
+          fi
+
+      - name: Upload Conectrr live verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: conectrr-live-verification-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            reports/conectrr-live-verification.json
+            reports/conectrr-remote-browser-verification.json
+            data/conectrr-live-status.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Write verification summary
+        if: always()
+        run: |
+          echo "## Conectrr Live Verification" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f data/conectrr-live-status.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          status = json.loads(Path('data/conectrr-live-status.json').read_text())
+          print(f"State: {status.get('state')}")
+          print(f"Public assets present: {status.get('deployed_publication_passed')}")
+          print(f"Remote browser execution observed: {status.get('remote_browser_execution_passed')}")
+          print(f"Authority effect: {status.get('authority_effect')}")
+          print(f"Next executable action: {status.get('next_executable_action')}")
+          PY
+          fi
+          echo "Boundary: browser fixture execution proves deployed runtime behavior only; it does not create live external interoperability, custody, admissibility, certification, or authority." >> "$GITHUB_STEP_SUMMARY"
