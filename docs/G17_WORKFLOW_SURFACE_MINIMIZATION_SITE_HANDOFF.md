@@ -103,3 +103,22 @@ G17-SITE-WORKFLOW-SURFACE-B27-20261105 released. G17-SITE-WORKFLOW-SURFACE-B28-2
 ## Round 84 note (P4 a65c67bf)
 
 G17-SITE-WORKFLOW-SURFACE-B28-20261105 released. G17-SITE-WORKFLOW-SURFACE-B29-20261105 fully folds check-hil-live-readiness into the stable dispatcher; workflow_count 55→54.
+
+## Round 85 Site progress ceiling (P4 a65c67bf)
+
+B29 released (Site#1688). Safe fold inventory empty at workflow_count **54** / FAIL_CLOSED.
+
+Left and why:
+- **31** writer/Pages
+- **7** credential/token (incl. github.token)
+- **4** dispatch/schedule-only gates
+- **3** deferred pre-existing content/syntax fails (hil-announcement-contract, check-sv002-authentic-runtime-evidence-harness, verify-thought-experiments-publication)
+- **3** cron / load-bearing schedule retainers
+- **2** workflow_run public observers (stegos-*)
+- **1** pathless bootstrap validate.yml (fold would drop always-on PR coverage)
+- **1** pinned-ref checkout task0011-product-source-transport
+- **1** stegmusic-browser-execution (playwright install deps)
+- **1** KEEP_STABLE_DISPATCHER
+
+No safe job-level-if conversion remains outside writer/credential/Pages/dispatch-gate.
+Next: Labs or StegVerse-SCW mechanical G17 item. Credentials belong only in the SKAP Vault inside KV.
