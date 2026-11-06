@@ -1,0 +1,1 @@
+python3 scripts/check_source_publication_recovery.py

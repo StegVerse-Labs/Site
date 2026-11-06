@@ -1,0 +1,1 @@
+python3 scripts/check_no_required_third_party_runtime.py

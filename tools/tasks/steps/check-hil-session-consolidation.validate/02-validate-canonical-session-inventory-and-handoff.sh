@@ -1,0 +1,1 @@
+python3 scripts/check_hil_session_consolidation.py

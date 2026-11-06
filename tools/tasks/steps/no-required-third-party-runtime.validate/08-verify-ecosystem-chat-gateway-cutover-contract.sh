@@ -1,0 +1,1 @@
+python3 scripts/check_ecosystem_chat_gateway_activation.py

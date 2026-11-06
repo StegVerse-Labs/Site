@@ -1,0 +1,2 @@
+python3 scripts/check_third_party_dependency_reconciliation.py
+python3 scripts/check_third_party_dependency_invariant.py

@@ -75,3 +75,7 @@ G17-SITE-WORKFLOW-SURFACE-B21-20261105 released. G17-SITE-WORKFLOW-SURFACE-B22-2
 ## Round 78 note (P4 a65c67bf)
 
 B22 released. B23 fully folds `check-tidc-research` (multi-job + matrix) into the stable dispatcher; workflow_count 77→76.
+
+## Round 79 note (P4 a65c67bf)
+
+G17-SITE-WORKFLOW-SURFACE-B23-20261105 released. G17-SITE-WORKFLOW-SURFACE-B24-20261105 fully folds validate-physical-economics-report-ui, check-hil-session-consolidation, no-required-third-party-runtime, check-coinbase-skap-intr-route-consumer, va-filing-integration-contract into the stable dispatcher; workflow_count 76→71.

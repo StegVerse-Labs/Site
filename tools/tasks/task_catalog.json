@@ -11,7 +11,7 @@
  "repairs": [
   "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
  ],
- "folded_from_commit": "ab2dd76670d2a25d1ca3ea73a3f5bbecc9dc66b9",
+ "folded_from_commit": "4dd692754b36f133bf33f50dce87e64780b99df9",
  "groups": [
   {
    "id": "app-store-connect-skap-phone-ingress-validation.validate",
@@ -7355,6 +7355,433 @@
       "scripts/compare_tidc_blinded_coding.py",
       "tools/tasks/folded/check-tidc-research.yml",
       "tools/tasks/steps/check-tidc-research.authority-boundary/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "validate-physical-economics-report-ui.validate",
+   "source": {
+    "workflow": ".github/workflows/validate-physical-economics-report-ui.yml",
+    "workflow_name": "Validate Physical Economics Report UI",
+    "job": "validate",
+    "job_name": null,
+    "commit": "4dd692754",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify runtime",
+     "run_file": "tools/tasks/steps/validate-physical-economics-report-ui.validate/01-verify-runtime.sh",
+     "run_sha256": "af532eb35ecae4f4fe7e55ba0f6be961ae422b7e3fba098652c05fc2bd23da84"
+    },
+    {
+     "name": "Validate exclusive claim and Site orchestration",
+     "run_file": "tools/tasks/steps/validate-physical-economics-report-ui.validate/02-validate-exclusive-claim-and-site-orchestration.sh",
+     "run_sha256": "e859bdb7968fea89b07864cfeada0e4092e162d670f95f835a391d7358515d6a"
+    },
+    {
+     "name": "Validate Physical Economics report UI contract",
+     "run_file": "tools/tasks/steps/validate-physical-economics-report-ui.validate/03-validate-physical-economics-report-ui-contract.sh",
+     "run_sha256": "405c4d6d45a80074e2bfee7d226e8f866839cdf2ab2a7df5ca4cbaacbefd7a70"
+    },
+    {
+     "name": "Verify fail-closed publication boundary",
+     "run_file": "tools/tasks/steps/validate-physical-economics-report-ui.validate/04-verify-fail-closed-publication-boundary.sh",
+     "run_sha256": "07b63070544b7ffc4027e0beda347427d28d922f30a87b15be05eaba6994f0d5"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12",
+    "node_version": "22"
+   },
+   "fold_notes": [
+    "Site round 79 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger (or push paths empty); push is declared so the folded group satisfies the dispatcher both-events contract."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "Physical-Economics.html",
+      "js/physical-economics-report.js",
+      "tests/physical-economics-report-ui.test.js",
+      "docs/physical-economics/PUBLIC_REPORT_UI_MIRROR_HANDOFF.md",
+      "data/session-work-claims.json",
+      "tools/tasks/folded/validate-physical-economics-report-ui.yml",
+      "tools/tasks/steps/validate-physical-economics-report-ui.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "Physical-Economics.html",
+      "js/physical-economics-report.js",
+      "tests/physical-economics-report-ui.test.js",
+      "docs/physical-economics/PUBLIC_REPORT_UI_MIRROR_HANDOFF.md",
+      "data/session-work-claims.json",
+      "tools/tasks/folded/validate-physical-economics-report-ui.yml",
+      "tools/tasks/steps/validate-physical-economics-report-ui.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-hil-session-consolidation.validate",
+   "source": {
+    "workflow": ".github/workflows/check-hil-session-consolidation.yml",
+    "workflow_name": "Check HIL Session Consolidation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "4dd692754",
+    "triggers_before": [
+     "pull_request",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify preinstalled Python",
+     "run_file": "tools/tasks/steps/check-hil-session-consolidation.validate/01-verify-preinstalled-python.sh",
+     "run_sha256": "e949b821895d494f8d6b7a9069e50bffe2266daf8c1ad3ba9468a59006476995"
+    },
+    {
+     "name": "Validate canonical session inventory and handoff",
+     "run_file": "tools/tasks/steps/check-hil-session-consolidation.validate/02-validate-canonical-session-inventory-and-handoff.sh",
+     "run_sha256": "8bf7c6775ffd8019d00ac9491872f573c5a0db5bead7fc0053946996eb788fe7"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 79 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
+    "Original surface had no push trigger (or push paths empty); push is declared so the folded group satisfies the dispatcher both-events contract."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json",
+      "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+      "scripts/check_hil_session_consolidation.py",
+      "tools/tasks/folded/check-hil-session-consolidation.yml",
+      "tools/tasks/steps/check-hil-session-consolidation.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/session-goal-inventories/HIL-RUNTIME-SESSION-2026-08-02.json",
+      "docs/HIL_SESSION_CONSOLIDATION_MIRROR_HANDOFF.md",
+      "scripts/check_hil_session_consolidation.py",
+      "tools/tasks/folded/check-hil-session-consolidation.yml",
+      "tools/tasks/steps/check-hil-session-consolidation.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "no-required-third-party-runtime.validate",
+   "source": {
+    "workflow": ".github/workflows/no-required-third-party-runtime.yml",
+    "workflow_name": "No Required Third-Party Runtime",
+    "job": "validate",
+    "job_name": null,
+    "commit": "4dd692754",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify no required third-party runtime",
+     "run_file": "tools/tasks/steps/no-required-third-party-runtime.validate/01-verify-no-required-third-party-runtime.sh",
+     "run_sha256": "7576b11695ae6221f0bc5262b228729ac5da62662cf6a6c420eb56d2157df4fe"
+    },
+    {
+     "name": "Reconcile historical inventory with current carrier cutover",
+     "run_file": "tools/tasks/steps/no-required-third-party-runtime.validate/02-reconcile-historical-inventory-with-current-carrier-cutover.sh",
+     "run_sha256": "07ae8cfdd6f85936ee1fc1cd6894069583c84a2252541fcc70636fef70bc4bf4"
+    },
+    {
+     "name": "Validate deterministic DNS and edge portability contract",
+     "run_file": "tools/tasks/steps/no-required-third-party-runtime.validate/03-validate-deterministic-dns-and-edge-portability-contract.sh",
+     "run_sha256": "ab44a9be1cceaffd56266c95c32f8390e513ab6bf7d17fc64589fd0c84f067fd"
+    },
+    {
+     "name": "Validate deterministic source and publication recovery contract",
+     "run_file": "tools/tasks/steps/no-required-third-party-runtime.validate/04-validate-deterministic-source-and-publication-recovery-contr.sh",
+     "run_sha256": "56c51e2dd1000e9858c39ab434907a5b524f7b9bcfd61037184de2fc7d6aa7c3"
+    },
+    {
+     "name": "Materialize and verify deterministic recovery bundle",
+     "run_file": "tools/tasks/steps/no-required-third-party-runtime.validate/05-materialize-and-verify-deterministic-recovery-bundle.sh",
+     "run_sha256": "5e26cd3c719af42de81ce6c765e6f5ca286193a7971b262bf9ef68b0f8b3d8eb"
+    },
+    {
+     "name": "Materialize and verify provider-neutral static publication artifact",
+     "run_file": "tools/tasks/steps/no-required-third-party-runtime.validate/06-materialize-and-verify-provider-neutral-static-publication-a.sh",
+     "run_sha256": "89fed778f1cbae21408d0a78f73f33f6aa0e4df94763b4e8ee4a9c629e6093f7"
+    },
+    {
+     "name": "Materialize exportable recovery bundle",
+     "run_file": "tools/tasks/steps/no-required-third-party-runtime.validate/07-materialize-exportable-recovery-bundle.sh",
+     "run_sha256": "734f5abd0d8822aba389f79903032b0a8b1dd7f2bc484edfef6c19e65086bad6"
+    },
+    {
+     "name": "Verify Ecosystem Chat gateway cutover contract",
+     "run_file": "tools/tasks/steps/no-required-third-party-runtime.validate/08-verify-ecosystem-chat-gateway-cutover-contract.sh",
+     "run_sha256": "7118c5e7386ca675ad8f012b148bd655af900da88564b7ad23b4a890af40e91a"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 79 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "README.md",
+      "data/ecosystem-chat-gateway.json",
+      "data/hil-gateway-config.json",
+      "data/dns-edge-portability.json",
+      "data/source-publication-recovery.json",
+      "data/site-recovery-bundle-materialization.json",
+      "data/off-github-recovery-evidence-2026-09-09.json",
+      "data/publication-equivalence-contract.json",
+      "data/session-work-claims.d/site-third-party-dependency-eradication-497-20260826.json",
+      "docs/SITE_497_STEGGATE_DEPENDENCY_RECONCILIATION_MIRROR_HANDOFF.md",
+      "assets/ecosystem-chat-node-discovery.js",
+      "assets/hil-experiment.js",
+      "stegos-bootstrap/master-records-auto-recovery.js",
+      "scripts/check_ecosystem_chat_gateway_activation.py",
+      "scripts/check_no_required_third_party_runtime.py",
+      "scripts/check_third_party_dependency_invariant.py",
+      "scripts/check_third_party_dependency_reconciliation.py",
+      "scripts/check_dns_edge_portability.py",
+      "scripts/check_source_publication_recovery.py",
+      "scripts/materialize_site_recovery_bundle.py",
+      "scripts/check_site_recovery_bundle_manifest.py",
+      "scripts/materialize_site_publication_artifact.py",
+      "scripts/check_site_publication_artifact.py",
+      "scripts/check_mr_sv001_intr_governance.py",
+      "scripts/check_stegos_ipod_bootstrap_projection.py",
+      "data/render-gateway-replacement-plan.json",
+      "data/third-party-dependency-inventory.json",
+      "data/third-party-dependency-inventory-supersession.json",
+      "data/third-party-runtime-cutover-current.json",
+      "data/third-party-dependency-reconciliation-2026-09-09.json",
+      "tools/tasks/folded/no-required-third-party-runtime.yml",
+      "tools/tasks/steps/no-required-third-party-runtime.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "README.md",
+      "data/ecosystem-chat-gateway.json",
+      "data/hil-gateway-config.json",
+      "data/dns-edge-portability.json",
+      "data/source-publication-recovery.json",
+      "data/site-recovery-bundle-materialization.json",
+      "data/off-github-recovery-evidence-2026-09-09.json",
+      "data/publication-equivalence-contract.json",
+      "data/session-work-claims.d/site-third-party-dependency-eradication-497-20260826.json",
+      "docs/SITE_497_STEGGATE_DEPENDENCY_RECONCILIATION_MIRROR_HANDOFF.md",
+      "assets/ecosystem-chat-node-discovery.js",
+      "assets/hil-experiment.js",
+      "stegos-bootstrap/master-records-auto-recovery.js",
+      "scripts/check_ecosystem_chat_gateway_activation.py",
+      "scripts/check_no_required_third_party_runtime.py",
+      "scripts/check_third_party_dependency_invariant.py",
+      "scripts/check_third_party_dependency_reconciliation.py",
+      "scripts/check_dns_edge_portability.py",
+      "scripts/check_source_publication_recovery.py",
+      "scripts/materialize_site_recovery_bundle.py",
+      "scripts/check_site_recovery_bundle_manifest.py",
+      "scripts/materialize_site_publication_artifact.py",
+      "scripts/check_site_publication_artifact.py",
+      "scripts/check_mr_sv001_intr_governance.py",
+      "scripts/check_stegos_ipod_bootstrap_projection.py",
+      "data/render-gateway-replacement-plan.json",
+      "data/third-party-dependency-inventory.json",
+      "data/third-party-dependency-inventory-supersession.json",
+      "data/third-party-runtime-cutover-current.json",
+      "data/third-party-dependency-reconciliation-2026-09-09.json",
+      "tools/tasks/folded/no-required-third-party-runtime.yml",
+      "tools/tasks/steps/no-required-third-party-runtime.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "check-coinbase-skap-intr-route-consumer.validate",
+   "source": {
+    "workflow": ".github/workflows/check-coinbase-skap-intr-route-consumer.yml",
+    "workflow_name": "Check Coinbase SKAP InTr Route Consumer",
+    "job": "validate",
+    "job_name": null,
+    "commit": "4dd692754",
+    "triggers_before": [
+     "pull_request",
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate exclusive Site pre-work claims",
+     "run_file": "tools/tasks/steps/check-coinbase-skap-intr-route-consumer.validate/01-validate-exclusive-site-pre-work-claims.sh",
+     "run_sha256": "69782b484de963fc26d10d3b0b949d838f882e057197145eca748234a7a54768"
+    },
+    {
+     "name": "Validate SKAP InTr route consumer",
+     "run_file": "tools/tasks/steps/check-coinbase-skap-intr-route-consumer.validate/02-validate-skap-intr-route-consumer.sh",
+     "run_sha256": "886117480b8ae6aa8ec1902d6cfb3af7a5688d83055e83db1745107d4c6c91d5"
+    },
+    {
+     "name": "Prove workflow is non-authorizing",
+     "run_file": "tools/tasks/steps/check-coinbase-skap-intr-route-consumer.validate/03-prove-workflow-is-non-authorizing.sh",
+     "run_sha256": "b5c979e4999ec12f2d6fe095ccd0b5f64d3d29816035dc8bb79df18b9fa383d8"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 79 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "assets/stegfin-phone/coinbase-skap-ingress.js",
+      "assets/stegfin-phone/coinbase-skap-submission.js",
+      "assets/stegfin-phone/coinbase-skap-ingress-ui.js",
+      "assets/stegfin-phone/coinbase-skap-intr-route.json",
+      "scripts/check_coinbase_skap_intr_route_consumer.py",
+      "data/session-work-claims.d/SITE-SKAP-INTR-PUBLIC-ROUTE-CONSUMER-20260825.json",
+      "tools/tasks/folded/check-coinbase-skap-intr-route-consumer.yml",
+      "tools/tasks/steps/check-coinbase-skap-intr-route-consumer.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "assets/stegfin-phone/coinbase-skap-ingress.js",
+      "assets/stegfin-phone/coinbase-skap-submission.js",
+      "assets/stegfin-phone/coinbase-skap-ingress-ui.js",
+      "assets/stegfin-phone/coinbase-skap-intr-route.json",
+      "scripts/check_coinbase_skap_intr_route_consumer.py",
+      "data/session-work-claims.d/SITE-SKAP-INTR-PUBLIC-ROUTE-CONSUMER-20260825.json",
+      "tools/tasks/folded/check-coinbase-skap-intr-route-consumer.yml",
+      "tools/tasks/steps/check-coinbase-skap-intr-route-consumer.validate/**"
+     ]
+    }
+   }
+  },
+  {
+   "id": "va-filing-integration-contract.validate",
+   "source": {
+    "workflow": ".github/workflows/va-filing-integration-contract.yml",
+    "workflow_name": "VA Filing Integration Contract Validation",
+    "job": "validate",
+    "job_name": null,
+    "commit": "4dd692754",
+    "triggers_before": [
+     "push",
+     "workflow_dispatch"
+    ],
+    "permissions_before": {}
+   },
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Recompute and verify deterministic filing-contract receipt",
+     "run_file": "tools/tasks/steps/va-filing-integration-contract.validate/01-recompute-and-verify-deterministic-filing-contract-receipt.sh",
+     "run_sha256": "4a5d66ac1df107adb6e0ead998b23343785829b28accd084f29d209fb6f3b251"
+    },
+    {
+     "name": "Confirm validation-only carrier",
+     "run_file": "tools/tasks/steps/va-filing-integration-contract.validate/02-confirm-validation-only-carrier.sh",
+     "run_sha256": "2a2724fc782c823eba40cdfa72be993f35c482a2090983f03599a6c5a0f24244"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.12"
+   },
+   "fold_notes": [
+    "Site round 79 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
+    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
+   ],
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "tools/tasks/folded/va-filing-integration-contract.yml",
+      "tools/tasks/steps/va-filing-integration-contract.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "data/va-claim-assistant/filing-integration-contract.json",
+      "data/va-claim-assistant/filing-integration-contract-validation.json",
+      "scripts/validate_va_filing_integration_contract.py",
+      "docs/VA_FILING_INTEGRATION_MIRROR_HANDOFF.md",
+      "tools/tasks/folded/va-filing-integration-contract.yml",
+      "tools/tasks/steps/va-filing-integration-contract.validate/**"
      ]
     }
    }
