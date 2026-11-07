@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-07T04:15:48Z",
+  "last_updated": "2026-11-07T04:25:59Z",
   "freshness": {
-    "generated_at": "2026-11-07T04:15:48Z",
+    "generated_at": "2026-11-07T04:25:59Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -167,7 +167,7 @@
       "away_score": 13,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 06:38",
+      "status": "4TH 02:00",
       "kickoff": "2026-11-07T01:00:00Z",
       "conference": "big-ten",
       "note": "Nebraska Illinois"
@@ -180,7 +180,7 @@
       "away_score": 21,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 07:16",
+      "status": "3RD 00:55",
       "kickoff": "2026-11-07T02:00:00Z",
       "conference": "mountain-west",
       "note": "New Mexico Nevada"
@@ -193,7 +193,7 @@
       "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 15:00",
+      "status": "2ND 13:14",
       "kickoff": "2026-11-07T03:15:00Z",
       "conference": "big-12",
       "note": "TCU Arizona"
