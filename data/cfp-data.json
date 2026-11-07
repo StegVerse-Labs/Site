@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-07T04:25:59Z",
+  "last_updated": "2026-11-07T04:40:20Z",
   "freshness": {
-    "generated_at": "2026-11-07T04:25:59Z",
+    "generated_at": "2026-11-07T04:40:20Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -167,7 +167,7 @@
       "away_score": 13,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 02:00",
+      "status": "FINAL",
       "kickoff": "2026-11-07T01:00:00Z",
       "conference": "big-ten",
       "note": "Nebraska Illinois"
@@ -177,10 +177,10 @@
       "home": "Nevada",
       "away": "New Mexico",
       "home_score": 3,
-      "away_score": 21,
+      "away_score": 27,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 00:55",
+      "status": "4TH 11:17",
       "kickoff": "2026-11-07T02:00:00Z",
       "conference": "mountain-west",
       "note": "New Mexico Nevada"
@@ -190,13 +190,26 @@
       "home": "Arizona",
       "away": "TCU",
       "home_score": 10,
-      "away_score": 0,
+      "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "2ND 13:14",
+      "status": "2ND 08:53",
       "kickoff": "2026-11-07T03:15:00Z",
       "conference": "big-12",
       "note": "TCU Arizona"
+    },
+    {
+      "id": "6604102",
+      "home": "Utah",
+      "away": "BYU",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "12:00 PM ET",
+      "kickoff": "2026-11-07T17:00:00Z",
+      "conference": "big-12",
+      "note": "BYU Utah"
     },
     {
       "id": "6604029",
@@ -223,19 +236,6 @@
       "kickoff": "2026-11-07T17:00:00Z",
       "conference": "acc",
       "note": "Florida St. Boston College"
-    },
-    {
-      "id": "6604102",
-      "home": "Utah",
-      "away": "BYU",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "12:00 PM ET",
-      "kickoff": "2026-11-07T17:00:00Z",
-      "conference": "big-12",
-      "note": "BYU Utah"
     },
     {
       "id": "6640401",
