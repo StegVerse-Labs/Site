@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-07T02:17:18Z",
+  "last_updated": "2026-11-07T02:26:38Z",
   "freshness": {
-    "generated_at": "2026-11-07T02:17:18Z",
+    "generated_at": "2026-11-07T02:26:38Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -141,7 +141,7 @@
       "away_score": 14,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 07:29",
+      "status": "3RD 05:30",
       "kickoff": "2026-11-07T00:00:00Z",
       "conference": "acc",
       "note": "Virginia Tech SMU"
@@ -167,7 +167,7 @@
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "2ND 05:16",
+      "status": "2ND 01:48",
       "kickoff": "2026-11-07T01:00:00Z",
       "conference": "big-ten",
       "note": "Nebraska Illinois"
@@ -180,7 +180,7 @@
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 09:36",
+      "status": "1ST 06:40",
       "kickoff": "2026-11-07T02:00:00Z",
       "conference": "mountain-west",
       "note": "New Mexico Nevada"
