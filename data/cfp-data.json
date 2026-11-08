@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-08T06:20:53Z",
+  "last_updated": "2026-11-08T06:32:37Z",
   "freshness": {
-    "generated_at": "2026-11-08T06:20:53Z",
+    "generated_at": "2026-11-08T06:32:37Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -810,6 +810,19 @@
       "note": "Fresno St. Utah St."
     },
     {
+      "id": "6640721",
+      "home": "Texas Tech",
+      "away": "West Virginia",
+      "home_score": 53,
+      "away_score": 48,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-11-08T02:30:00Z",
+      "conference": "big-12",
+      "note": "West Virginia Texas Tech"
+    },
+    {
       "id": "6603910",
       "home": "UTEP",
       "away": "Hawaii",
@@ -823,27 +836,14 @@
       "note": "Hawaii UTEP"
     },
     {
-      "id": "6640721",
-      "home": "Texas Tech",
-      "away": "West Virginia",
-      "home_score": 53,
-      "away_score": 48,
-      "home_record": "",
-      "away_record": "",
-      "status": "4TH 01:14",
-      "kickoff": "2026-11-08T02:30:00Z",
-      "conference": "big-12",
-      "note": "West Virginia Texas Tech"
-    },
-    {
       "id": "6604224",
       "home": "Oregon St.",
       "away": "Texas St.",
       "home_score": 7,
-      "away_score": 28,
+      "away_score": 35,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 00:33",
+      "status": "4TH 13:09",
       "kickoff": "2026-11-08T03:30:00Z",
       "conference": "pac-12",
       "note": "Texas St. Oregon St."
@@ -852,11 +852,11 @@
       "id": "6640497",
       "home": "UNLV",
       "away": "Wyoming",
-      "home_score": 27,
+      "home_score": 28,
       "away_score": 41,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 00:22",
+      "status": "4TH 12:43",
       "kickoff": "2026-11-08T03:30:00Z",
       "conference": "mountain-west",
       "note": "Wyoming UNLV"
