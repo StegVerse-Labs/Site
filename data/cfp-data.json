@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-09T19:25:44Z",
+  "last_updated": "2026-11-09T19:40:20Z",
   "freshness": {
-    "generated_at": "2026-11-09T19:25:44Z",
+    "generated_at": "2026-11-09T19:40:20Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -550,19 +550,6 @@
       "note": "Purdue Iowa"
     },
     {
-      "id": "6603664",
-      "home": "Iowa St.",
-      "away": "Cincinnati",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "1:00 AM ET",
-      "kickoff": "2026-11-14T06:00:00Z",
-      "conference": "big-12",
-      "note": "Cincinnati Iowa St."
-    },
-    {
       "id": "6603841",
       "home": "Oklahoma St.",
       "away": "Texas Tech",
@@ -691,6 +678,19 @@
       "kickoff": "2026-11-14T17:00:00Z",
       "conference": "fbs-independent",
       "note": "James Madison UConn"
+    },
+    {
+      "id": "6603664",
+      "home": "Iowa St.",
+      "away": "Cincinnati",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "12:00 PM ET",
+      "kickoff": "2026-11-14T17:00:00Z",
+      "conference": "big-12",
+      "note": "Cincinnati Iowa St."
     },
     {
       "id": "6604030",
