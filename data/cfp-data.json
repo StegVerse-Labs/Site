@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-10T20:14:03Z",
+  "last_updated": "2026-11-10T20:25:26Z",
   "freshness": {
-    "generated_at": "2026-11-10T20:14:03Z",
+    "generated_at": "2026-11-10T20:25:26Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -82,19 +82,6 @@
       "note": "Ohio Miami (OH)"
     },
     {
-      "id": "6604358",
-      "home": "Ball St.",
-      "away": "Buffalo",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "TBA",
-      "kickoff": "2026-11-11T05:00:00Z",
-      "conference": "mac",
-      "note": "Buffalo Ball St."
-    },
-    {
       "id": "6603898",
       "home": "Central Mich.",
       "away": "Sacramento St.",
@@ -119,6 +106,19 @@
       "kickoff": "2026-11-12T00:30:00Z",
       "conference": "mac",
       "note": "Massachusetts Toledo"
+    },
+    {
+      "id": "6604358",
+      "home": "Ball St.",
+      "away": "Buffalo",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:30 PM ET",
+      "kickoff": "2026-11-12T00:30:00Z",
+      "conference": "mac",
+      "note": "Buffalo Ball St."
     },
     {
       "id": "6603722",
