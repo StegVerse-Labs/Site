@@ -1,73 +1,91 @@
 {
-  "schema": "stegverse.site.node-provenance.v1",
-  "node": "ECOSYSTEM-KV-SEAM",
-  "page": "kv-seam/ (index.html + manifest.html)",
-  "page_generation": 17,
-  "generated": "2026-11-04 (America/Chicago)",
-  "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
-  "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). These pages are projections of that record; they hold no authority of their own.",
-  "source_records": [
-    {
-      "name": "NODE__PAGE__17.md",
-      "sha256": "f251335e57e645366c4113d6032acc226f2f70088b94de3d1e5af6a9b15c0bbc"
-    },
-    {
-      "name": "(Manifest.Instructions) projection at the seam (.github folder)",
-      "drive_id": "1jj18iYF72DztQu-QUJNbV7Vq9Sj9SoKg",
-      "sha256": "95e4d26bf4bad7265b39b327df0f3b83a48a56bb106eadcbc65fccfc35995e15",
-      "note": "public form of SUBMISSION__KIT__06 plus the beyond-the-basic-flow forms; link-readable"
-    },
-    {
-      "name": "(Demos) projection at the seam (.github folder)",
-      "drive_id": "1NAxhAwZDZCD7qQ-0VVvcugl2zh86SbJE",
-      "sha256": "201757b58e8cc7ab0af67ee35fb2c50905ed0c552725b9f44b3c86b68729efad",
-      "note": "index over the operated runs; each demo file link-readable"
-    },
-    {
-      "name": "DEPOSIT__LINK__01.md",
-      "drive_id": "1OinAFtmNBMR2mt1nthQSa4uQu9skZ3RD",
-      "note": "the (Inbox) projection's destination and bounds"
-    }
-  ],
-  "instruments_at_generation": [
-    {
-      "name": "PROCESSING__PROMPT__02.md",
-      "drive_id": "1oiH5pav_DvK3tr61YJSh6rJA42JERNDW",
-      "sha256": "207acd86b641ae920cfa1912b9878d1795b2684bea9dae4cb63a32ad85a11c02"
-    },
-    {
-      "name": "INBOX__WATCH__01.md",
-      "drive_id": "1ZHXnZCUEP4EMrGtaNozco0XuGqZZkpwL",
-      "sha256": "796be03d32c614150c73f2459d7d9c077eba35cd5fcf2019def34658f7457431"
-    },
-    {
-      "name": "RESULT__PROJECTION__01.md / REPLAY__RECONSTRUCTION__01.md / PROCESSING__TRIGGER__01.md",
-      "note": "coordination folder instruments; the page presents their public form"
-    }
-  ],
-  "ledger": {
-    "genesis_receipt_sha256": "f39d0a3c0f95348823b3b42e2f66dd1a5bed84a8fd5bcbad1542c38546140b25",
-    "head_receipt_sha256": "4216a0ed87e96a3c052e580e0d57aaa7d8ed93b6dd6bbb468d137a576c626e60",
-    "receipts": 38,
-    "breaks": 0,
-    "orphans": 0,
-    "verification": "Full walk at generation 16 build: 38 conforming receipts HEAD-to-genesis, 0 breaks / 0 orphans. One nonconforming mint (2d15bab3..., malformed egress body) is retained in the ledger store, superseded by the corrected receipt 4216a0ed... before any verification consumed it, and is not part of the chain."
+ "schema": "stegverse.site.node-provenance.v1",
+ "node": "ECOSYSTEM-KV-SEAM",
+ "page": "kv-seam/ (index.html + manifest.html)",
+ "page_generation": 18,
+ "generated": "2026-11-11 (America/Chicago)",
+ "public_posture": "MIRROR / RECEIPT_BACKED (StegVerse Site Publication Process)",
+ "authority_source": "The seam node record in the StegVerse Ecosystem KV (.github boundary folder, Drive 1slb-viDAOWyaGBsBXJvud6PDl5TstcKm). These pages are projections of that record; they hold no authority of their own.",
+ "source_records": [
+  {
+   "name": "NODE__PAGE__17.md",
+   "sha256": "f251335e57e645366c4113d6032acc226f2f70088b94de3d1e5af6a9b15c0bbc"
   },
-  "bounds": {
-    "collects_user_data": false,
-    "forms": false,
-    "trackers": false,
-    "scripts": "device-side only: the register control (the Site's StegOS node continuity stack; success grays the button, failure reveals the remediation link below it) and the ledger card's Replay/Reconstruct, Share, and Copy Text handlers (the card text is built from anchors printed on this page)",
-    "receives_submissions": false,
-    "in_browser_record": "the visitor's own StegOS device-node record only (browser-local by that node's design); the seam's record is the seam ledger",
-    "custody": "refused \u2014 submitted content remains in submitters' own storage; the seam holds receipts",
-    "honesty_bound": "Processing is performed by the ecosystem's lanes in their working sessions (the external automation, PROCESSING__TRIGGER__01) until the internal machinery (KV runtime, InTr) is proven; the page states the resulting latency bound. The node-projection channel remains machinery-present / protocol-unestablished, as recorded in MANIFOLD Addendum 05."
+  {
+   "name": "(Manifest.Instructions) projection at the seam (.github folder)",
+   "drive_id": "1jj18iYF72DztQu-QUJNbV7Vq9Sj9SoKg",
+   "sha256": "95e4d26bf4bad7265b39b327df0f3b83a48a56bb106eadcbc65fccfc35995e15",
+   "note": "public form of SUBMISSION__KIT__06 plus the beyond-the-basic-flow forms; link-readable"
   },
-  "generated_from": "NODE__PAGE__17 (coordination folder) \u2014 scrollable ledger card + record block (owner direction 2026-11-04 22:26 CST); record unchanged from generation 16",
-  "ledger_head": "4216a0ed87e96a3c052e580e0d57aaa7d8ed93b6dd6bbb468d137a576c626e60",
-  "receipt_count": 38,
-  "index_html_sha256": "9c726e2d11361608bc28922ce48ee6ef4c35652c7d5c771e7b56c25decb3244a",
-  "changes_from_generation_16": [
-    "The ledger card and The Record block are bounded scroll regions (max-height 60vh / 45vh, overflow-y auto, keyboard-focusable); ledger content unchanged (38 receipts, HEAD 4216a0ed)."
-  ]
+  {
+   "name": "(Demos) projection at the seam (.github folder)",
+   "drive_id": "1NAxhAwZDZCD7qQ-0VVvcugl2zh86SbJE",
+   "sha256": "201757b58e8cc7ab0af67ee35fb2c50905ed0c552725b9f44b3c86b68729efad",
+   "note": "index over the operated runs; each demo file link-readable"
+  },
+  {
+   "name": "DEPOSIT__LINK__01.md",
+   "drive_id": "1OinAFtmNBMR2mt1nthQSa4uQu9skZ3RD",
+   "note": "the (Inbox) projection's destination and bounds"
+  }
+ ],
+ "instruments_at_generation": [
+  {
+   "name": "PROCESSING__PROMPT__02.md",
+   "drive_id": "1oiH5pav_DvK3tr61YJSh6rJA42JERNDW",
+   "sha256": "207acd86b641ae920cfa1912b9878d1795b2684bea9dae4cb63a32ad85a11c02"
+  },
+  {
+   "name": "INBOX__WATCH__01.md",
+   "drive_id": "1ZHXnZCUEP4EMrGtaNozco0XuGqZZkpwL",
+   "sha256": "796be03d32c614150c73f2459d7d9c077eba35cd5fcf2019def34658f7457431"
+  },
+  {
+   "name": "RESULT__PROJECTION__01.md / REPLAY__RECONSTRUCTION__01.md / PROCESSING__TRIGGER__01.md",
+   "note": "coordination folder instruments; the page presents their public form"
+  }
+ ],
+ "ledger": {
+  "genesis_receipt_sha256": "f39d0a3c0f95348823b3b42e2f66dd1a5bed84a8fd5bcbad1542c38546140b25",
+  "head_receipt_sha256": "4216a0ed87e96a3c052e580e0d57aaa7d8ed93b6dd6bbb468d137a576c626e60",
+  "receipts": 38,
+  "breaks": 0,
+  "orphans": 0,
+  "verification": "Full walk at generation 16 build: 38 conforming receipts HEAD-to-genesis, 0 breaks / 0 orphans. One nonconforming mint (2d15bab3..., malformed egress body) is retained in the ledger store, superseded by the corrected receipt 4216a0ed... before any verification consumed it, and is not part of the chain."
+ },
+ "bounds": {
+  "collects_user_data": false,
+  "forms": false,
+  "trackers": false,
+  "scripts": "device-side only: the register control (the Site's StegOS node continuity stack; success grays the button, failure reveals the remediation link below it) and the ledger card's Replay/Reconstruct, Share, and Copy Text handlers (the card text is built from anchors printed on this page)",
+  "receives_submissions": false,
+  "in_browser_record": "the visitor's own StegOS device-node record only (browser-local by that node's design); the seam's record is the seam ledger",
+  "custody": "refused \u2014 submitted content remains in submitters' own storage; the seam holds receipts",
+  "honesty_bound": "Processing is performed by the ecosystem's lanes in their working sessions (the external automation, PROCESSING__TRIGGER__01) until the internal machinery (KV runtime, InTr) is proven; the page states the resulting latency bound. The node-projection channel remains machinery-present / protocol-unestablished, as recorded in MANIFOLD Addendum 05."
+ },
+ "generated_from": "NODE__PAGE__17 (coordination folder) \u2014 scrollable ledger card + record block (owner direction 2026-11-04 22:26 CST); record unchanged from generation 16",
+ "ledger_head": "4216a0ed87e96a3c052e580e0d57aaa7d8ed93b6dd6bbb468d137a576c626e60",
+ "receipt_count": 38,
+ "index_html_sha256": "c7a4705a6a128787e6ca1024e735e14593c713a30fc98abddc549b6efe9f7c94",
+ "changes_from_generation_16": [
+  "The ledger card and The Record block are bounded scroll regions (max-height 60vh / 45vh, overflow-y auto, keyboard-focusable); ledger content unchanged (38 receipts, HEAD 4216a0ed)."
+ ],
+ "build_lane_chain": {
+  "segment_id": "COORD-SEG-01",
+  "span": 1843,
+  "segment_fingerprint_sha256": "235752a0d37b64e604108e1b4d72de78de0c506ec26a7ffa938995f7ab50f6cc",
+  "close_record_drive_id": "1Fxo4bsfdVzsK-y5fv1aCCujfi2mFL2P9",
+  "replay_record_drive_id": "1DZrJFdzQ5TjQ4sHXT8r5rhqMKV7t3FL3",
+  "replay_verdict": "MATCH",
+  "link_index": {
+   "file": "build-lane-chain-seg01.json",
+   "drive_id": "185uJFOfP8I4uNIg-GLUYuyxlVlS_7Zin",
+   "sha256": "7ab0c4f4d7e0f1fe62c3a2eeca7528fe5b554f77bdbb5a2c144b797a86cec05f",
+   "coverage_status": "receipt links complete; covers links not yet extracted (graded pass SEG01-LINKX-001)",
+   "md5": "7381367845cc983434fd21b28364266c"
+  }
+ },
+ "changes_from_generation_17": [
+  "Added the Build Lane receipt chain section (segment COORD-SEG-01: boundaries, span 1,843, fingerprint, close + replay anchors, full per-receipt Drive links from the generated link index). Seam ledger unchanged (38 receipts, HEAD 4216a0ed)."
+ ]
 }
