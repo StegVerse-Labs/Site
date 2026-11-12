@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-12T02:55:20Z",
+  "last_updated": "2026-11-12T03:17:09Z",
   "freshness": {
-    "generated_at": "2026-11-12T02:55:20Z",
+    "generated_at": "2026-11-12T03:17:09Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -89,7 +89,7 @@
       "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 08:57",
+      "status": "3RD 15:00",
       "kickoff": "2026-11-12T00:30:00Z",
       "conference": "mac",
       "note": "Massachusetts Toledo"
@@ -102,7 +102,7 @@
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 11:58",
+      "status": "4TH 05:15",
       "kickoff": "2026-11-12T00:30:00Z",
       "conference": "mac",
       "note": "Sacramento St. Central Mich."
@@ -112,10 +112,10 @@
       "home": "Ball St.",
       "away": "Buffalo",
       "home_score": 7,
-      "away_score": 13,
+      "away_score": 14,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 03:10",
+      "status": "4TH 12:29",
       "kickoff": "2026-11-12T00:30:00Z",
       "conference": "mac",
       "note": "Buffalo Ball St."
