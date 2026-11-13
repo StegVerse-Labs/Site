@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-13T03:55:24Z",
+  "last_updated": "2026-11-13T04:16:14Z",
   "freshness": {
-    "generated_at": "2026-11-13T03:55:24Z",
+    "generated_at": "2026-11-13T04:16:14Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -128,7 +128,7 @@
       "away_score": 38,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 00:17",
+      "status": "4TH 08:04",
       "kickoff": "2026-11-13T01:00:00Z",
       "conference": "american",
       "note": "Memphis South Fla."
@@ -138,10 +138,10 @@
       "home": "ULM",
       "away": "Louisiana",
       "home_score": 14,
-      "away_score": 14,
+      "away_score": 20,
       "home_record": "",
       "away_record": "",
-      "status": "HALF 0:00",
+      "status": "3RD 12:27",
       "kickoff": "2026-11-13T02:00:00Z",
       "conference": "sun-belt",
       "note": "Louisiana ULM"
