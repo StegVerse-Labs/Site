@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-14T05:25:38Z",
+  "last_updated": "2026-11-14T05:40:21Z",
   "freshness": {
-    "generated_at": "2026-11-14T05:25:38Z",
+    "generated_at": "2026-11-14T05:40:21Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -163,11 +163,11 @@
       "id": "6604090",
       "home": "UCLA",
       "away": "Illinois",
-      "home_score": 19,
+      "home_score": 22,
       "away_score": 14,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 02:00",
+      "status": "FINAL",
       "kickoff": "2026-11-14T02:00:00Z",
       "conference": "big-ten",
       "note": "Illinois UCLA"
@@ -176,11 +176,11 @@
       "id": "6604071",
       "home": "Colorado",
       "away": "Houston",
-      "home_score": 27,
+      "home_score": 28,
       "away_score": 20,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 13:21",
+      "status": "3RD 05:34",
       "kickoff": "2026-11-14T03:15:00Z",
       "conference": "big-12",
       "note": "Houston Colorado"
@@ -290,19 +290,6 @@
       "note": "James Madison UConn"
     },
     {
-      "id": "6604030",
-      "home": "Clemson",
-      "away": "Georgia Tech",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "12:30 PM ET",
-      "kickoff": "2026-11-14T17:30:00Z",
-      "conference": "acc",
-      "note": "Georgia Tech Clemson"
-    },
-    {
       "id": "6604035",
       "home": "Rutgers",
       "away": "Nebraska",
@@ -314,6 +301,19 @@
       "kickoff": "2026-11-14T17:30:00Z",
       "conference": "big-ten",
       "note": "Nebraska Rutgers"
+    },
+    {
+      "id": "6604030",
+      "home": "Clemson",
+      "away": "Georgia Tech",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "12:30 PM ET",
+      "kickoff": "2026-11-14T17:30:00Z",
+      "conference": "acc",
+      "note": "Georgia Tech Clemson"
     },
     {
       "id": "6640742",
