@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-14T06:41:20Z",
+  "last_updated": "2026-11-14T06:55:09Z",
   "freshness": {
-    "generated_at": "2026-11-14T06:41:20Z",
+    "generated_at": "2026-11-14T06:55:09Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -82,6 +82,19 @@
       "note": "Ohio Miami (OH)"
     },
     {
+      "id": "6604358",
+      "home": "Ball St.",
+      "away": "Buffalo",
+      "home_score": 7,
+      "away_score": 28,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-11-12T00:30:00Z",
+      "conference": "mac",
+      "note": "Buffalo Ball St."
+    },
+    {
       "id": "6603875",
       "home": "Toledo",
       "away": "Massachusetts",
@@ -106,19 +119,6 @@
       "kickoff": "2026-11-12T00:30:00Z",
       "conference": "mac",
       "note": "Sacramento St. Central Mich."
-    },
-    {
-      "id": "6604358",
-      "home": "Ball St.",
-      "away": "Buffalo",
-      "home_score": 7,
-      "away_score": 28,
-      "home_record": "",
-      "away_record": "",
-      "status": "FINAL",
-      "kickoff": "2026-11-12T00:30:00Z",
-      "conference": "mac",
-      "note": "Buffalo Ball St."
     },
     {
       "id": "6603722",
@@ -177,10 +177,10 @@
       "home": "Colorado",
       "away": "Houston",
       "home_score": 42,
-      "away_score": 26,
+      "away_score": 32,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 02:00",
+      "status": "FINAL",
       "kickoff": "2026-11-14T03:15:00Z",
       "conference": "big-12",
       "note": "Houston Colorado"
@@ -290,19 +290,6 @@
       "note": "James Madison UConn"
     },
     {
-      "id": "6604035",
-      "home": "Rutgers",
-      "away": "Nebraska",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "12:30 PM ET",
-      "kickoff": "2026-11-14T17:30:00Z",
-      "conference": "big-ten",
-      "note": "Nebraska Rutgers"
-    },
-    {
       "id": "6604030",
       "home": "Clemson",
       "away": "Georgia Tech",
@@ -314,6 +301,19 @@
       "kickoff": "2026-11-14T17:30:00Z",
       "conference": "acc",
       "note": "Georgia Tech Clemson"
+    },
+    {
+      "id": "6604035",
+      "home": "Rutgers",
+      "away": "Nebraska",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "12:30 PM ET",
+      "kickoff": "2026-11-14T17:30:00Z",
+      "conference": "big-ten",
+      "note": "Nebraska Rutgers"
     },
     {
       "id": "6640742",
