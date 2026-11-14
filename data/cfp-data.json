@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-14T06:20:54Z",
+  "last_updated": "2026-11-14T06:33:04Z",
   "freshness": {
-    "generated_at": "2026-11-14T06:20:54Z",
+    "generated_at": "2026-11-14T06:33:04Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -176,11 +176,11 @@
       "id": "6604071",
       "home": "Colorado",
       "away": "Houston",
-      "home_score": 35,
+      "home_score": 42,
       "away_score": 26,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 09:34",
+      "status": "4TH 03:59",
       "kickoff": "2026-11-14T03:15:00Z",
       "conference": "big-12",
       "note": "Houston Colorado"
@@ -524,19 +524,6 @@
       "note": "Kansas West Virginia"
     },
     {
-      "id": "6640718",
-      "home": "Liberty",
-      "away": "Middle Tenn.",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "3:30 PM ET",
-      "kickoff": "2026-11-14T20:30:00Z",
-      "conference": "cusa",
-      "note": "Middle Tenn. Liberty"
-    },
-    {
       "id": "6603998",
       "home": "Virginia",
       "away": "California",
@@ -548,6 +535,19 @@
       "kickoff": "2026-11-14T20:30:00Z",
       "conference": "acc",
       "note": "California Virginia"
+    },
+    {
+      "id": "6640718",
+      "home": "Liberty",
+      "away": "Middle Tenn.",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "3:30 PM ET",
+      "kickoff": "2026-11-14T20:30:00Z",
+      "conference": "cusa",
+      "note": "Middle Tenn. Liberty"
     },
     {
       "id": "6603953",
@@ -574,19 +574,6 @@
       "kickoff": "2026-11-14T21:00:00Z",
       "conference": "pac-12",
       "note": "Fresno St. Texas St."
-    },
-    {
-      "id": "6640651",
-      "home": "Michigan St.",
-      "away": "Washington",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "4:15 PM ET",
-      "kickoff": "2026-11-14T21:15:00Z",
-      "conference": "big-ten",
-      "note": "Washington Michigan St."
     },
     {
       "id": "6604193",
@@ -626,6 +613,19 @@
       "kickoff": "2026-11-14T22:00:00Z",
       "conference": "sun-belt",
       "note": "Southern Miss. Louisiana Tech"
+    },
+    {
+      "id": "6640651",
+      "home": "Michigan St.",
+      "away": "Washington",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "5:30 PM ET",
+      "kickoff": "2026-11-14T22:30:00Z",
+      "conference": "big-ten",
+      "note": "Washington Michigan St."
     },
     {
       "id": "6603633",
