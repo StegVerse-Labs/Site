@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-14T02:27:06Z",
+  "last_updated": "2026-11-14T02:40:12Z",
   "freshness": {
-    "generated_at": "2026-11-14T02:27:06Z",
+    "generated_at": "2026-11-14T02:40:12Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -154,7 +154,7 @@
       "away_score": 13,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 04:23",
+      "status": "4TH 15:00",
       "kickoff": "2026-11-14T00:00:00Z",
       "conference": "acc",
       "note": "Florida St. Pittsburgh"
@@ -167,7 +167,7 @@
       "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 06:29",
+      "status": "1ST 01:05",
       "kickoff": "2026-11-14T02:00:00Z",
       "conference": "big-ten",
       "note": "Illinois UCLA"
