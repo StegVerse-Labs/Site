@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-14T03:15:05Z",
+  "last_updated": "2026-11-14T03:26:35Z",
   "freshness": {
-    "generated_at": "2026-11-14T03:15:05Z",
+    "generated_at": "2026-11-14T03:26:35Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -154,7 +154,7 @@
       "away_score": 16,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 04:15",
+      "status": "4TH 01:03",
       "kickoff": "2026-11-14T00:00:00Z",
       "conference": "acc",
       "note": "Florida St. Pittsburgh"
@@ -167,7 +167,7 @@
       "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "2ND 04:28",
+      "status": "2ND 01:36",
       "kickoff": "2026-11-14T02:00:00Z",
       "conference": "big-ten",
       "note": "Illinois UCLA"
@@ -459,19 +459,6 @@
       "note": "California Virginia"
     },
     {
-      "id": "6603621",
-      "home": "Tulsa",
-      "away": "Fla. Atlantic",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "3:30 PM ET",
-      "kickoff": "2026-11-14T20:30:00Z",
-      "conference": "american",
-      "note": "Fla. Atlantic Tulsa"
-    },
-    {
       "id": "6640718",
       "home": "Liberty",
       "away": "Middle Tenn.",
@@ -719,19 +706,6 @@
       "note": "San Jose St. Air Force"
     },
     {
-      "id": "6603690",
-      "home": "Penn St.",
-      "away": "Minnesota",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "7:00 PM ET",
-      "kickoff": "2026-11-15T00:00:00Z",
-      "conference": "big-ten",
-      "note": "Minnesota Penn St."
-    },
-    {
       "id": "6640404",
       "home": "North Carolina",
       "away": "Louisville",
@@ -758,6 +732,32 @@
       "note": "Troy South Alabama"
     },
     {
+      "id": "6603690",
+      "home": "Penn St.",
+      "away": "Minnesota",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:00 PM ET",
+      "kickoff": "2026-11-15T00:00:00Z",
+      "conference": "big-ten",
+      "note": "Minnesota Penn St."
+    },
+    {
+      "id": "6603621",
+      "home": "Tulsa",
+      "away": "Fla. Atlantic",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:15 PM ET",
+      "kickoff": "2026-11-15T00:15:00Z",
+      "conference": "american",
+      "note": "Fla. Atlantic Tulsa"
+    },
+    {
       "id": "6603808",
       "home": "Virginia Tech",
       "away": "Stanford",
@@ -769,6 +769,19 @@
       "kickoff": "2026-11-15T00:30:00Z",
       "conference": "acc",
       "note": "Stanford Virginia Tech"
+    },
+    {
+      "id": "6604103",
+      "home": "Arizona",
+      "away": "Utah",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:30 PM ET",
+      "kickoff": "2026-11-15T00:30:00Z",
+      "conference": "big-12",
+      "note": "Utah Arizona"
     },
     {
       "id": "6640498",
@@ -795,19 +808,6 @@
       "kickoff": "2026-11-15T00:30:00Z",
       "conference": "sec",
       "note": "Texas LSU"
-    },
-    {
-      "id": "6604103",
-      "home": "Arizona",
-      "away": "Utah",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "7:30 PM ET",
-      "kickoff": "2026-11-15T00:30:00Z",
-      "conference": "big-12",
-      "note": "Utah Arizona"
     },
     {
       "id": "6603610",
