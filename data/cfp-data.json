@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-14T14:25:30Z",
+  "last_updated": "2026-11-14T14:40:12Z",
   "freshness": {
-    "generated_at": "2026-11-14T14:25:30Z",
+    "generated_at": "2026-11-14T14:40:12Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -563,19 +563,6 @@
       "note": "Fresno St. Texas St."
     },
     {
-      "id": "6604193",
-      "home": "Oklahoma",
-      "away": "Ole Miss",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "4:15 PM ET",
-      "kickoff": "2026-11-14T21:15:00Z",
-      "conference": "sec",
-      "note": "Ole Miss Oklahoma"
-    },
-    {
       "id": "6604342",
       "home": "Mississippi St.",
       "away": "Auburn",
@@ -693,19 +680,6 @@
       "note": "Baylor BYU"
     },
     {
-      "id": "6640404",
-      "home": "North Carolina",
-      "away": "Louisville",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "7:00 PM ET",
-      "kickoff": "2026-11-15T00:00:00Z",
-      "conference": "acc",
-      "note": "Louisville North Carolina"
-    },
-    {
       "id": "6604348",
       "home": "South Alabama",
       "away": "Troy",
@@ -717,6 +691,19 @@
       "kickoff": "2026-11-15T00:00:00Z",
       "conference": "sun-belt",
       "note": "Troy South Alabama"
+    },
+    {
+      "id": "6640404",
+      "home": "North Carolina",
+      "away": "Louisville",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:00 PM ET",
+      "kickoff": "2026-11-15T00:00:00Z",
+      "conference": "acc",
+      "note": "Louisville North Carolina"
     },
     {
       "id": "6603960",
@@ -758,32 +745,6 @@
       "note": "Fla. Atlantic Tulsa"
     },
     {
-      "id": "6603610",
-      "home": "Iowa",
-      "away": "Purdue",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "7:30 PM ET",
-      "kickoff": "2026-11-15T00:30:00Z",
-      "conference": "big-ten",
-      "note": "Purdue Iowa"
-    },
-    {
-      "id": "6603808",
-      "home": "Virginia Tech",
-      "away": "Stanford",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "7:30 PM ET",
-      "kickoff": "2026-11-15T00:30:00Z",
-      "conference": "acc",
-      "note": "Stanford Virginia Tech"
-    },
-    {
       "id": "6640498",
       "home": "New Mexico",
       "away": "UNLV",
@@ -808,6 +769,32 @@
       "kickoff": "2026-11-15T00:30:00Z",
       "conference": "sec",
       "note": "Texas LSU"
+    },
+    {
+      "id": "6603808",
+      "home": "Virginia Tech",
+      "away": "Stanford",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:30 PM ET",
+      "kickoff": "2026-11-15T00:30:00Z",
+      "conference": "acc",
+      "note": "Stanford Virginia Tech"
+    },
+    {
+      "id": "6603610",
+      "home": "Iowa",
+      "away": "Purdue",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "7:30 PM ET",
+      "kickoff": "2026-11-15T00:30:00Z",
+      "conference": "big-ten",
+      "note": "Purdue Iowa"
     },
     {
       "id": "6603775",
@@ -912,6 +899,19 @@
       "kickoff": "2026-11-15T04:00:00Z",
       "conference": "mountain-west",
       "note": "North Dakota St. Hawaii"
+    },
+    {
+      "id": "6604193",
+      "home": "Oklahoma",
+      "away": "Ole Miss",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "1:00 PM ET",
+      "kickoff": "2026-11-15T18:00:00Z",
+      "conference": "sec",
+      "note": "Ole Miss Oklahoma"
     }
   ],
   "availability": {
