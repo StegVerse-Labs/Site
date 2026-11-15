@@ -27,7 +27,7 @@
         "data/cosv/active-claim-projections.json"
       ],
       "handoff": "docs/ECOCHAT_CONVERSION_MIRROR_HANDOFF.md",
-      "handoff_revision": "ca1e8a6140ec8f8ddcba85d7cd374b0c7a12bb3286455b3c4bbfbdb6e313b218",
+      "handoff_revision": "7a554c31ab4feb5aff1a96c55086f5481c7f3473a2fee68c3341afb8b79c3a8f",
       "claim_created_at": "2026-11-15T11:36:00-06:00",
       "claim_expires_when": "Release only after the conversion PRs merge, hosted validation passes (SESSION_WORK_CLAIMS_PASS, Site Handoff Orchestrator PASS), and public observation of stegverse.org shows the cleaned page with the gateway binding state as filed \u2014 no live-activation claim from source, merge, or deployment alone.",
       "expected_evidence": [
