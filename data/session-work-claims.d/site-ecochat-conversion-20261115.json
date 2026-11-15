@@ -22,7 +22,9 @@
         "data/session-work-claims.d/site-ecochat-conversion-20261115.json",
         "docs/ECOCHAT_CONVERSION_MIRROR_HANDOFF.md",
         "index.html",
-        "data/ecochat/gateway-binding.json"
+        "data/ecochat/gateway-binding.json",
+        "data/cosv/task-vector-index.json",
+        "data/cosv/active-claim-projections.json"
       ],
       "handoff": "docs/ECOCHAT_CONVERSION_MIRROR_HANDOFF.md",
       "handoff_revision": "7a554c31ab4feb5aff1a96c55086f5481c7f3473a2fee68c3341afb8b79c3a8f",
@@ -55,7 +57,9 @@
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "cosv_profile": "task.v1",
+      "cosv_task_vector": "20010000100000"
     }
   ]
 }
