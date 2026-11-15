@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-15T16:55:27Z",
+  "last_updated": "2026-11-15T17:11:00Z",
   "freshness": {
-    "generated_at": "2026-11-15T16:55:27Z",
+    "generated_at": "2026-11-15T17:11:00Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -77,7 +77,7 @@
       "sv_rank": 1,
       "conference_record": "7-0",
       "next_opponent": "TCU",
-      "next_date": "2026-11-21T05:00Z",
+      "next_date": "2026-11-22T02:00Z",
       "next_home": false
     },
     {
@@ -237,7 +237,7 @@
       "sv_rank": 9,
       "conference_record": "5-2",
       "next_opponent": "Kansas",
-      "next_date": "2026-11-21T05:00Z",
+      "next_date": "2026-11-21T17:00Z",
       "next_home": false
     },
     {
@@ -277,7 +277,7 @@
       "sv_rank": 13,
       "conference_record": "6-1",
       "next_opponent": "Baylor",
-      "next_date": "2026-11-21T05:00Z",
+      "next_date": "2026-11-21T20:30Z",
       "next_home": false
     },
     {
@@ -317,7 +317,7 @@
       "sv_rank": 21,
       "conference_record": "4-3",
       "next_opponent": "West Virginia",
-      "next_date": "2026-11-21T05:00Z",
+      "next_date": "2026-11-21T18:00Z",
       "next_home": false
     },
     {
@@ -497,7 +497,7 @@
       "sv_rank": 23,
       "conference_record": "4-3",
       "next_opponent": "Kansas State",
-      "next_date": "2026-11-21T05:00Z",
+      "next_date": "2026-11-22T00:00Z",
       "next_home": false
     },
     {
