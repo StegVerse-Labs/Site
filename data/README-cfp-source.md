@@ -20,6 +20,8 @@ cfp/cfp.js
 
 Current supporting AP and FBS scoreboard JSON is fetched from the credential-free `henrygd/ncaa-api` public service. The data contract records the NCAA origin URL separately. This supporting source does not become College Football Playoff authority, and AP data never becomes a CFP committee ranking.
 
+Current-season CFP committee rankings are observed from the ESPN rankings API's structured projection of the committee's published Top 25 (poll type `cfp`), validated before use: exactly 25 ranks, seeds exactly 1–25, and a poll date in the current season. The committee's own rankings page (`https://collegefootballplayoff.com/rankings`) is recorded as the source origin — the authority of record. The CFP site's legacy `rankings.aspx` URL no longer exists (it returns 404) and the rebuilt site serves no parseable rankings table, so the structured projection is the observation path. A failed or misshapen observation is recorded in `freshness.source_errors` with source `1` marked `UNAVAILABLE`, and the rankings remain unobserved rather than stale or inferred. ESPN's AP poll is used only as the AP leg's fallback when the NCAA-derived AP fetch observes no current poll; AP and Coaches polls remain labeled as their own polls and are never promoted into CFP committee rankings.
+
 ## Fail-closed freshness rule
 
 Historical rankings must never be carried forward into the current data file merely because a fetch fails. A new `last_updated` value does not make old data current.
