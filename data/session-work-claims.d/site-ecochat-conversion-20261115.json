@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "ecochat/conversion-20261115",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-ecochat-conversion-20261115",
       "dependency_surface_keys": [
         "site:front-page",
@@ -59,7 +59,10 @@
       "authority_effect": false,
       "activation_effect": false,
       "cosv_profile": "task.v1",
-      "cosv_task_vector": "20010000100000"
+      "cosv_task_vector": "20010000100000",
+      "claim_released_at": "2026-11-15T18:32:11Z",
+      "pull_request": 1694,
+      "release_commit": "6c4a7235d96a25330362bc2afc81be4e8603839b"
     }
   ]
 }
