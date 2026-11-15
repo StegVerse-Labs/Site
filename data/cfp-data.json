@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-15T06:33:18Z",
+  "last_updated": "2026-11-15T06:42:06Z",
   "freshness": {
-    "generated_at": "2026-11-15T06:33:18Z",
+    "generated_at": "2026-11-15T06:42:06Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -1526,10 +1526,10 @@
       "home": "Arizona",
       "away": "Utah",
       "home_score": 28,
-      "away_score": 27,
+      "away_score": 33,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 13:25",
+      "status": "4TH 11:46",
       "kickoff": "2026-11-15T03:30:00Z",
       "conference": "big-12",
       "note": "Utah Arizona"
@@ -1542,7 +1542,7 @@
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 11:51",
+      "status": "4TH 09:58",
       "kickoff": "2026-11-15T03:30:00Z",
       "conference": "pac-12",
       "note": "Colorado St. Washington St."
@@ -1555,7 +1555,7 @@
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 02:01",
+      "status": "4TH 12:19",
       "kickoff": "2026-11-15T04:00:00Z",
       "conference": "mountain-west",
       "note": "North Dakota St. Hawaii"
