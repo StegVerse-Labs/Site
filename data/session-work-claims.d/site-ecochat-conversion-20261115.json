@@ -11,7 +11,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "ecochat/conversion-20261115",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "site-ecochat-conversion-20261115",
       "dependency_surface_keys": [
         "site:front-page",
@@ -27,7 +27,7 @@
         "data/cosv/active-claim-projections.json"
       ],
       "handoff": "docs/ECOCHAT_CONVERSION_MIRROR_HANDOFF.md",
-      "handoff_revision": "7a554c31ab4feb5aff1a96c55086f5481c7f3473a2fee68c3341afb8b79c3a8f",
+      "handoff_revision": "ca1e8a6140ec8f8ddcba85d7cd374b0c7a12bb3286455b3c4bbfbdb6e313b218",
       "claim_created_at": "2026-11-15T11:36:00-06:00",
       "claim_expires_when": "Release only after the conversion PRs merge, hosted validation passes (SESSION_WORK_CLAIMS_PASS, Site Handoff Orchestrator PASS), and public observation of stegverse.org shows the cleaned page with the gateway binding state as filed \u2014 no live-activation claim from source, merge, or deployment alone.",
       "expected_evidence": [
@@ -59,7 +59,10 @@
       "authority_effect": false,
       "activation_effect": false,
       "cosv_profile": "task.v1",
-      "cosv_task_vector": "20010000100000"
+      "cosv_task_vector": "20010000100000",
+      "claim_released_at": "2026-11-15T18:32:11Z",
+      "pull_request": 1694,
+      "release_commit": "6c4a7235d96a25330362bc2afc81be4e8603839b"
     }
   ]
 }
