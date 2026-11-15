@@ -1,0 +1,35 @@
+{
+  "schema": "stegverse.site.ecochat-gateway-binding/v1",
+  "recorded_at": "2026-11-15",
+  "claim": "SITE-ECOCHAT-CONVERSION-20261115",
+  "spec": "ECOSYSTEM__CHAT__SPEC__01",
+  "gateway": {
+    "endpoints": [
+      "/api/sdk/contract",
+      "/api/sdk/manifest/build",
+      "/api/sdk/manifest/validate",
+      "/api/sdk/manifest/submit"
+    ],
+    "client": "assets/ecosystem-chat-sdk-client.js",
+    "actions": ["EXPLAIN", "BUILD", "VALIDATE", "SUBMIT", "REPORT"],
+    "authority_effect": "NONE"
+  },
+  "implementing_surface": {
+    "service": "manifested intake service of ECOSYSTEM__CHAT__SPEC__01 (ecochat), extended with the endpoint idiom above",
+    "postures": ["CONSTRUCTED", "VERIFIED"],
+    "receipts": "hash-chained, issued at ENTERED",
+    "seat": "a binding, not a dependency: endpoint is configuration; an unreachable seat receipts and queues"
+  },
+  "binding_state": "PROVING_INSTANCE",
+  "proving_instance": {
+    "location": "coordinator VM, localhost only",
+    "publicly_reachable": false,
+    "model_binding": "stegverse-seat (Qwen2.5-Omni-3B via llama.cpp) at 127.0.0.1"
+  },
+  "production_binding": {
+    "state": "NOT_YET",
+    "form": "node in the principal's custody",
+    "queue_item": "ECOCHAT-BIND-001"
+  },
+  "activation_claim": "NONE - no live or activation claim is made from source, merge, or deployment alone; public observation governs."
+}
