@@ -173,3 +173,52 @@ This goal is complete only when:
 - merged main-branch ingestion materializes current data;
 - deployed/public behavior is observed;
 - this handoff contains the final merge/public evidence.
+
+## Continuation segment — 2026-11-14 (coordinator, under claim SITE-CFP-LIVE-2026-REVIVAL-20260906)
+
+This segment completes deferred item 7 of the revival record: official
+current-season CFP committee ranking ingestion, unimplemented until an
+authoritative current-season source could be observed.
+
+**Diagnosis (why the rankings leg was dark).** The revival's CFP primary
+(`collegefootballplayoff.com/sports/2024/10/21/rankings.aspx?year=2025`) now
+404s; the CFP site was rebuilt and serves an application shell with no
+scrapable table, so the legacy HTML-table scraper could never observe the
+committee table, and the canonical builder carried an explicitly empty
+rankings list awaiting a current-season parser. Games ingestion was live
+throughout.
+
+**Source selected on evidence.** The ESPN rankings API
+(`site.api.espn.com/apis/site/v2/sports/football/college-football/rankings`)
+carries the committee poll and the AP and Coaches polls in one structured
+payload; the official CFP rankings page is recorded as the origin of record
+in `cfp/cfp-sources.json`. The adapter validates before use — exactly 25
+ranks, seeds 1–25 unique, poll date in the current season — and any failure
+leaves rankings unobserved with the source marked UNAVAILABLE. The
+fail-closed contract of the revival stands unchanged: supporting polls are
+never promoted to committee rankings and historical rankings are never
+carried forward. The API refuses non-browser user agents (403); the adapter
+absorbs that at its own boundary.
+
+**Surface.** The rankings table renders four labeled columns — CFP, AP,
+Coaches Poll, SV — with Record shown as Overall (Conference), conference
+records suppressed for independents, and a Next column carrying each team's
+next scheduled game from the scoreboard receipts (a game in progress counts
+as current, not next).
+
+**SV column.** Populated only from a sealed SV segment file
+(`data/sv-rankings.json`, carrying the segment id and output hash). The SV
+methodology is established in `SV__METHODOLOGY__SPEC__01` (StegVerse
+Ecosystem KV, Drive 1KVaG0xXywaZgcps0iFtuaJF-9J2uhadn): every value
+statistically developed from receipted evidence — Colley ranking over the
+season network, no preseason priors, win values floating with opponents'
+full seasons, weekly segments publicly replayable. Segment 2026-W11:
+744 game receipts, outputs SHA-256
+7f1b0efb557b58b98e6bcc506dbe475bd156f617d50a66be8e77464eaa32d7f9, replay
+verified MATCH. Absent a sealed segment file the column renders empty;
+it is never approximated.
+
+**Verification at this segment's head.** Canonical builder run PASS
+(phase CFP_RANKINGS, rankings 25, zero source errors); freshness checker
+PASS in live and in degraded (source-refused) modes; page render verified
+against the real markup (25 rows, all four columns populated).

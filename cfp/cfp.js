@@ -71,18 +71,36 @@ function renderRankings(rankings, sourceId, data) {
     return;
   }
 
+  const rankCell = (value) => (Number.isInteger(value) ? `#${value}` : "—");
+  const recordCell = (r) => (r.conference_record ? `${r.record} (${r.conference_record})` : `${r.record || ""}`);
+  const nextCell = (r) => {
+    if (!r.next_opponent) return "—";
+    const where = r.next_home ? "vs" : "at";
+    let when = "";
+    if (r.next_date) {
+      const d = new Date(r.next_date);
+      if (!Number.isNaN(d.getTime())) {
+        when = d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" });
+      }
+    }
+    return `${escapeHtml(where)} ${escapeHtml(r.next_opponent)}<div style="font-size:0.7rem;opacity:0.7;">${escapeHtml(when)}</div>`;
+  };
   const rows = rankings.map((r) => `
     <tr>
       <td class="cfp-seed">#${escapeHtml(r.seed)}</td>
+      <td>${escapeHtml(rankCell(r.ap_rank))}</td>
+      <td>${escapeHtml(rankCell(r.coaches_rank))}</td>
+      <td>${escapeHtml(rankCell(r.sv_rank))}</td>
       <td>${escapeHtml(r.team)}</td>
-      <td>${escapeHtml(r.record)}</td>
+      <td>${escapeHtml(recordCell(r))}</td>
       <td>${escapeHtml(r.conference)}</td>
       <td>${statusBadge(r.status)}<div style="font-size:0.7rem;opacity:0.7;">${escapeHtml(r.lock_reason || "")}</div></td>
+      <td>${nextCell(r)}</td>
     </tr>`).join("");
 
   elRankings.innerHTML = `
     <table class="cfp-rankings-table">
-      <thead><tr><th>Rank</th><th>Team</th><th>Record</th><th>Conf</th><th>Status</th></tr></thead>
+      <thead><tr><th>CFP</th><th>AP</th><th>Coaches Poll</th><th>SV</th><th>Team</th><th>Record</th><th>Conf</th><th>Status</th><th>Next</th></tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
   if (elTop12SourceMarker) elTop12SourceMarker.innerHTML = sourceMarker(sourceId);

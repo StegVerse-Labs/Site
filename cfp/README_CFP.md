@@ -24,7 +24,7 @@ python scripts/fetch_cfp_data.py
 python scripts/check_cfp_data_freshness.py
 ```
 
-`scripts/fetch_cfp_data.py` retrieves credential-free current-season FBS scoreboard and AP poll JSON through the public `henrygd/ncaa-api` projection of NCAA data. That supporting source does not become CFP authority. CFP committee rankings remain empty until a current-season CFP-authority observation is implemented and succeeds.
+`scripts/fetch_cfp_data.py` retrieves credential-free current-season FBS scoreboard and AP poll JSON through the public `henrygd/ncaa-api` projection of NCAA data. That supporting source does not become CFP authority. CFP committee rankings are observed from the ESPN rankings API's structured projection of the committee's published Top 25, validated before use (exactly 25 ranks, seeds 1–25, current-season poll date), with the committee's own rankings page recorded as the origin. Until an observation succeeds, `rankings` remains empty and the phase remains `PRE_CFP_RANKINGS`; a failed observation degrades explicitly in `freshness.source_errors`.
 
 The scheduled/manual workflow is `.github/workflows/cfp_ingest.yml`. It invokes the same canonical script and validator rather than maintaining a second scraper. Pull-request and scheduled ingestion additionally run:
 

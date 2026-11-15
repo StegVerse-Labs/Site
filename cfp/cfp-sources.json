@@ -3,15 +3,17 @@
     "schema_version": 1,
     "note": "Central config for CFP/NCAAF data sources. You can swap URLs or priorities here without changing code."
   },
-
   "polls": {
     "cfp": {
       "id": "cfp_official",
       "label": "College Football Playoff Rankings",
       "primary": {
-        "id": "cfp_2025",
-        "url": "https://collegefootballplayoff.com/rankings.aspx?year=2025",
-        "type": "html_table"
+        "id": "cfp_rankings_api",
+        "url": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/rankings",
+        "type": "json_api",
+        "poll_type": "cfp",
+        "origin": "https://collegefootballplayoff.com/rankings",
+        "note": "Structured projection of the committee's published Top 25. The legacy rankings.aspx URL is dead (404) and the rebuilt CFP site serves no parseable table; canonical ingestion is scripts/fetch_cfp_data.py."
       },
       "backups": []
     },
@@ -36,7 +38,6 @@
       "backups": []
     }
   },
-
   "standings": {
     "fbs": {
       "id": "ncaaf_fbs",
@@ -49,7 +50,6 @@
       "backups": []
     }
   },
-
   "source_index": [
     {
       "id": "cfp_official",

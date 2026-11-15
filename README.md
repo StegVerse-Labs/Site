@@ -144,7 +144,7 @@ Relevant surfaces:
 
 ### CFP/NCAAF current-season projection
 
-The CFP tracker uses `data/cfp-data.json` schema `2.0.0` and must distinguish current-season observations from historical material. During `PRE_CFP_RANKINGS`, current games and non-CFP polls may be shown while the CFP `rankings` array remains empty. AP, Coaches, ESPN, or historical CFP rankings are never silently promoted into current CFP committee rankings.
+The CFP tracker uses `data/cfp-data.json` schema `2.0.0` and must distinguish current-season observations from historical material. During `PRE_CFP_RANKINGS`, current games and non-CFP polls may be shown while the CFP `rankings` array remains empty. AP, Coaches, or historical CFP rankings are never silently promoted into current CFP committee rankings; the committee Top 25 itself is observed through the ESPN rankings API's structured projection of the committee's publication, validated before it may populate `rankings`, with the official CFP rankings page recorded as the origin.
 
 The canonical path is `scripts/fetch_cfp_data.py` → `scripts/check_cfp_data_freshness.py` → `data/cfp-data.json` → `cfp/cfp.js`. Historical rankings are never carried forward merely because a source fetch fails or a timestamp changes. The 2025 lane remains historical reference only under `sports/ncaaf/2025/`.
 
