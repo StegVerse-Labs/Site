@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-ECOCHAT-CONVERSION-20261115",
+      "session_worker_id": "claude-coordinator:site-ecochat-conversion-20261115",
+      "task_id": "SITE-ECOCHAT-CONVERSION-20261115",
+      "originating_goal": "Convert Ecosystem Chat per ECOSYSTEM__CHAT__SPEC__01 (principal-landed 2026-11-15; KV Drive 1HNrB1YrB8zCBtmgRFBeVEXHmtVtVnW6p; build record Drive 1XGlsOCF_dNTsSv2XRPSGWvK7a5IwLQ6g; notice StegVerse-Labs/.github#3472/6898175144): front page to the public-page standard, demos as vocabulary, and the sovereign gateway binding for the incumbent SDK client's /api/sdk/* endpoints recorded honestly per binding state.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "ecochat/conversion-20261115",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site-ecochat-conversion-20261115",
+      "dependency_surface_keys": [
+        "site:front-page",
+        "site:ecosystem-chat-gateway-binding",
+        "site:ecosystem-chat-sdk-endpoints"
+      ],
+      "claimed_paths": [
+        "data/session-work-claims.d/site-ecochat-conversion-20261115.json",
+        "docs/ECOCHAT_CONVERSION_MIRROR_HANDOFF.md",
+        "index.html",
+        "data/ecochat/gateway-binding.json"
+      ],
+      "handoff": "docs/ECOCHAT_CONVERSION_MIRROR_HANDOFF.md",
+      "handoff_revision": "7a554c31ab4feb5aff1a96c55086f5481c7f3473a2fee68c3341afb8b79c3a8f",
+      "claim_created_at": "2026-11-15T11:36:00-06:00",
+      "claim_expires_when": "Release only after the conversion PRs merge, hosted validation passes (SESSION_WORK_CLAIMS_PASS, Site Handoff Orchestrator PASS), and public observation of stegverse.org shows the cleaned page with the gateway binding state as filed \u2014 no live-activation claim from source, merge, or deployment alone.",
+      "expected_evidence": [
+        "SESSION_WORK_CLAIMS_PASS on the claim PR and the implementation PR",
+        "Site Handoff Orchestrator PASS",
+        "index.html diff confined to copy/structure: every runtime-bound element id and script preserved",
+        "data/ecochat/gateway-binding.json stating the proving-instance binding state without a public-reachability claim",
+        "public observation of https://stegverse.org/ serving the cleaned page"
+      ],
+      "collision_boundaries": [
+        "Do not modify HIL live-execution, heartbeat orchestration, SV001/SV002 custody, InTr transport, TV/TVC, Master Records, node registration, or the claim registry's machine-owned surfaces.",
+        "Do not introduce third-party runtime endpoints, provider credentials, or GitHub-token runtime authority.",
+        "Do not remove or rename any element id or script the incumbent runtime binds to on the front page.",
+        "Do not edit the canonical claim registry file; this claim enters as an append-only fragment.",
+        "Do not claim gateway activation or live behavior from source, CI, merge, or deployment alone."
+      ],
+      "next_task_after_release": "ECOCHAT-BIND-001 custody-node binding (principal's device act, then lane binding work), then ECOCHAT-LANES-001 router-to-caller integration.",
+      "governing_dependency_keys": [
+        "site:front-page",
+        "site:ecosystem-chat-gateway-binding",
+        "site:ecosystem-chat-sdk-endpoints"
+      ],
+      "incidental_dependency_keys": [
+        "external:github-pages-deployment"
+      ],
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
