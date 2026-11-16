@@ -2,6 +2,11 @@
 /*
  * ecochat-simple-page.js — the StegVerse.org front page chat.
  * Claim: SITE-ECOCHAT-SIMPLE-PAGE-20261115.
+ * Gateway mechanism: SITE-ECOCHAT-GATEWAY-POSTURE-20261115 — the page
+ * reads data/ecochat/gateway-binding.json at load and uses the gateway
+ * route only when that binding enables it and names an endpoint; the
+ * binding ships disabled, and any gateway failure falls back to the
+ * filed device-local behavior below.
  *
  * One self-contained script. Record-bound questions are answered
  * deterministically from the filed texts below (the same texts the shared
@@ -172,6 +177,65 @@
     }
   }
 
+  // Binding-driven gateway state (SITE-ECOCHAT-GATEWAY-POSTURE-20261115).
+  // Disabled unless the binding file enables it and names an endpoint.
+  var GATEWAY = { enabled: false, endpoint: null, segment: null };
+
+  function loadBinding() {
+    try {
+      if (typeof fetch !== "function") return;
+      fetch("data/ecochat/gateway-binding.json").then(function (res) {
+        return res.ok ? res.json() : null;
+      }).then(function (binding) {
+        try {
+          var client = binding && binding.client;
+          if (client && client.client_gateway_enabled === true &&
+              typeof client.endpoint === "string" && client.endpoint) {
+            GATEWAY.enabled = true;
+            GATEWAY.endpoint = client.endpoint.replace(/\/+$/, "");
+          }
+        } catch (e) { /* binding stays disabled */ }
+      }).catch(function () { /* binding stays disabled */ });
+    } catch (e) { /* binding stays disabled */ }
+  }
+
+  function newSegmentId() {
+    try {
+      var buf = new Uint8Array(6);
+      crypto.getRandomValues(buf);
+      return "site-" + Array.from(buf, function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+    } catch (e) {
+      return "site-" + Date.now().toString(36);
+    }
+  }
+
+  async function gatewayTurn(message) {
+    // Returns the gateway's answer text, or null on any failure — the
+    // caller then falls back to the filed device-local state answer.
+    try {
+      if (!GATEWAY.segment) {
+        GATEWAY.segment = newSegmentId();
+        var opened = await fetch(GATEWAY.endpoint + "/api/eos/open", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ segment: GATEWAY.segment })
+        });
+        if (!opened.ok) return null;
+      }
+      var res = await fetch(GATEWAY.endpoint + "/api/eos/turn", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ segment: GATEWAY.segment, message: message })
+      });
+      if (!res.ok) return null;
+      var data = await res.json();
+      var text = data && data.answer && typeof data.answer.text === "string" ? data.answer.text : null;
+      if (!text) return null;
+      var cls = data.disposition && data.disposition.class ? data.disposition.class : "RESPONSE";
+      return text + "\n\nGoverned route · " + cls + " · segment " + GATEWAY.segment + " · seq " + data.seq;
+    } catch (e) {
+      return null;
+    }
+  }
+
   function init() {
     var form = document.getElementById("chatForm");
     var input = document.getElementById("messageInput");
@@ -195,9 +259,15 @@
       if (!message) return;
       addBubble(message, "user");
       var text = answer(message);
+      if (text === GATEWAY_STATE_TEXT && GATEWAY.enabled) {
+        var routed = await gatewayTurn(message);
+        if (routed) text = routed;
+      }
       var receipt = await receiptLine(text);
       addBubble(text + receipt, "system");
     }
+
+    loadBinding();
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();

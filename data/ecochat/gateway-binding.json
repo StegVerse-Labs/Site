@@ -1,35 +1,81 @@
 {
-  "schema": "stegverse.site.ecochat-gateway-binding/v1",
-  "recorded_at": "2026-11-15",
-  "claim": "SITE-ECOCHAT-CONVERSION-20261115",
-  "spec": "ECOSYSTEM__CHAT__SPEC__01",
-  "gateway": {
-    "endpoints": [
-      "/api/sdk/contract",
-      "/api/sdk/manifest/build",
-      "/api/sdk/manifest/validate",
-      "/api/sdk/manifest/submit"
-    ],
-    "client": "assets/ecosystem-chat-sdk-client.js",
-    "actions": ["EXPLAIN", "BUILD", "VALIDATE", "SUBMIT", "REPORT"],
-    "authority_effect": "NONE"
-  },
-  "implementing_surface": {
-    "service": "manifested intake service of ECOSYSTEM__CHAT__SPEC__01 (ecochat), extended with the endpoint idiom above",
-    "postures": ["CONSTRUCTED", "VERIFIED"],
-    "receipts": "hash-chained, issued at ENTERED",
-    "seat": "a binding, not a dependency: endpoint is configuration; an unreachable seat receipts and queues"
-  },
-  "binding_state": "PROVING_INSTANCE",
-  "proving_instance": {
-    "location": "coordinator VM, localhost only",
-    "publicly_reachable": false,
-    "model_binding": "stegverse-seat (Qwen2.5-Omni-3B via llama.cpp) at 127.0.0.1"
-  },
-  "production_binding": {
-    "state": "NOT_YET",
-    "form": "node in the principal's custody",
-    "queue_item": "ECOCHAT-BIND-001"
-  },
-  "activation_claim": "NONE - no live or activation claim is made from source, merge, or deployment alone; public observation governs."
+ "schema": "stegverse.site.ecochat-gateway-binding/v1",
+ "recorded_at": "2026-11-15",
+ "claim": "SITE-ECOCHAT-GATEWAY-POSTURE-20261115",
+ "spec": "ECOSYSTEM__CHAT__SPEC__01",
+ "gateway": {
+  "endpoints": [
+   "/api/sdk/contract",
+   "/api/sdk/manifest/build",
+   "/api/sdk/manifest/validate",
+   "/api/sdk/manifest/submit",
+   "/api/eos/open",
+   "/api/eos/turn",
+   "/api/eos/close",
+   "/api/eos/replay"
+  ],
+  "client": "assets/ecosystem-chat-sdk-client.js",
+  "actions": [
+   "EXPLAIN",
+   "BUILD",
+   "VALIDATE",
+   "SUBMIT",
+   "REPORT"
+  ],
+  "authority_effect": "NONE"
+ },
+ "eos": {
+  "service": "EOS conversational service (eos_service.py), fronted by the intake gateway at /api/eos/*; the gateway receipts every crossing, including refusals",
+  "classes": [
+   "RECORD_FACT",
+   "CONVERSATION",
+   "ANALYSIS"
+  ],
+  "corpus_generation": 2,
+  "grammar": "eos-turn-grammar/v3",
+  "segment_lifecycle": [
+   "open",
+   "turns",
+   "close (sealed)",
+   "replay"
+  ],
+  "build_records": [
+   "EOS__FINISH__RECORD__01",
+   "EOS__BUILD__RECORD__02",
+   "EOS__BUILD__RECORD__03",
+   "EOS__BUILD__RECORD__04"
+  ]
+ },
+ "implementing_surface": {
+  "service": "manifested intake service of ECOSYSTEM__CHAT__SPEC__01 (ecochat), extended with the endpoint idiom above and fronting the EOS conversational service",
+  "postures": [
+   "CONSTRUCTED",
+   "VERIFIED"
+  ],
+  "receipts": "hash-chained, issued at ENTERED",
+  "seat": "a binding, not a dependency: endpoint is configuration; an unreachable seat receipts and queues"
+ },
+ "binding_state": "PROVING_INSTANCE",
+ "proving_instance": {
+  "location": "coordinator VM, localhost only",
+  "publicly_reachable": false,
+  "model_binding": "stegverse-seat (Qwen2.5-Omni-3B via llama.cpp) at 127.0.0.1",
+  "services": [
+   "stegverse-seat at 127.0.0.1:8791",
+   "ecochat intake gateway at 127.0.0.1:8792",
+   "eos at 127.0.0.1:8793"
+  ]
+ },
+ "production_binding": {
+  "state": "NOT_YET",
+  "form": "node in the principal's custody",
+  "queue_item": "ECOCHAT-BIND-001"
+ },
+ "client": {
+  "page": "assets/ecochat-simple-page.js",
+  "mechanism": "binding-driven: the page reads this file at load; the gateway route is used only when client_gateway_enabled is true and endpoint is named; any failure falls back to the filed device-local behavior",
+  "client_gateway_enabled": false,
+  "endpoint": null
+ },
+ "activation_claim": "NONE - no live or activation claim is made from source, merge, or deployment alone; public observation governs."
 }
