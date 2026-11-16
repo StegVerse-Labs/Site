@@ -93,8 +93,26 @@
   }
 
   function evaluateArithmetic(expr) {
-    var tokens = expr.match(/\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|[+\-*/%()]/g);
-    if (!tokens) return null;
+    // Strict lexical consumption: the tokens must reproduce the whole
+    // expression (whitespace aside). A partial tokenization — ".5" read as
+    // "5", or the dangling "e" in "1e" silently dropped — is a rejection,
+    // never a number.
+    // Scan left to right: whitespace separates tokens; a number's exponent
+    // is consumed only when its digits follow immediately, so the dangling
+    // "e" in "1e + 1" is an unconsumable character and rejects the input.
+    var tokens = [];
+    var numberPattern = /^(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?/;
+    var i = 0;
+    while (i < expr.length) {
+      var ch = expr[i];
+      if (ch === " " || ch === "\t") { i++; continue; }
+      if ("+-*/%()".indexOf(ch) !== -1) { tokens.push(ch); i++; continue; }
+      var match = numberPattern.exec(expr.slice(i));
+      if (!match) return null;
+      tokens.push(match[0]);
+      i += match[0].length;
+    }
+    if (!tokens.length) return null;
     var pos = 0;
     function peek() { return tokens[pos]; }
     function parseExpr() {
@@ -199,14 +217,10 @@
       button.addEventListener("click", function () { ask(button.getAttribute("data-chat-prompt")); });
     });
 
-    var launcher = document.getElementById("kv-entry-launcher");
-    var status = document.getElementById("kv-entry-launch-status");
-    if (launcher) {
-      launcher.addEventListener("click", function () {
-        if (status) status.textContent = "Opening My KV — the governed entry surface…";
-        window.location.assign("my-kv.html");
-      });
-    }
+    // The My KV launcher is bound by the governed entry chain
+    // (assets/kv-entrypoint-intr-launcher.js), which validates the
+    // installation-status bridge and projection before navigating and
+    // fails closed otherwise. This script deliberately does not bind it.
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

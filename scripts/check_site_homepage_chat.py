@@ -20,6 +20,7 @@ REQUIRED_INDEX = [
     'id="messageInput"',
     'id="chatLog"',
     'assets/ecochat-simple-page.js',
+    'assets/kv-entrypoint-intr-launcher.js',
 ]
 FORBIDDEN_INDEX = [
     "transition-grid",

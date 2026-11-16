@@ -60,8 +60,10 @@ def main():
         "browser-local",
     ]:
         if marker not in VA: failures.append("VA guide missing: "+marker)
-    # Home surface reduced under SITE-ECOCHAT-SIMPLE-PAGE-20261115: index.html
-    # no longer loads the Node client; the requirement stands for ecosystem-chat.html.
+    # Home surface under SITE-ECOCHAT-SIMPLE-PAGE-20261115: index.html loads
+    # the Node client for the governed KV entry chain, but carries no
+    # node-llm-status element (that status surface belongs to the chat page);
+    # both requirements stand for ecosystem-chat.html.
     for surface,name in [(CHAT,"ecosystem-chat.html")]:
         if 'assets/stegverse-node-continuity.js' not in surface: failures.append(name+" missing Node client")
         if 'id="node-llm-status"' not in surface: failures.append(name+" missing Node/LLM status")

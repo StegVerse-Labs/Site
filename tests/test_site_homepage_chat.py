@@ -12,7 +12,6 @@ SDK_CLIENT_JS = (ROOT / "assets/ecosystem-chat-sdk-client.js").read_text(encodin
 ADMITTED_INFERENCE_JS = (ROOT / "stegos-bootstrap/admitted-inference.js").read_text(encoding="utf-8")
 ORG = (ROOT / "organizational-kv.html").read_text(encoding="utf-8")
 SHARED_CSS = (ROOT / "sv-shared.css").read_text(encoding="utf-8")
-SIMPLE_PAGE_JS = (ROOT / "assets/ecochat-simple-page.js").read_text(encoding="utf-8")
 
 
 class HomepageChatTests(unittest.TestCase):
@@ -80,9 +79,7 @@ class HomepageChatTests(unittest.TestCase):
     def test_homepage_navigation_is_kv_focused_and_personal_kv_is_governed(self):
         self.assertIn('id="kv-entry-launcher"', INDEX)
         self.assertNotIn('href="my-kv.html">My KV</a>', INDEX)
-        self.assertIn('assets/ecochat-simple-page.js', INDEX)
-        self.assertIn('kv-entry-launcher', SIMPLE_PAGE_JS)
-        self.assertIn('my-kv.html', SIMPLE_PAGE_JS)
+        self.assertIn('assets/kv-entrypoint-intr-launcher.js', INDEX)
         self.assertIn('href="organizational-kv.html">Organizational KV</a>', INDEX)
         self.assertNotIn("Version &amp; Status", INDEX)
         self.assertNotIn("StegWallet", INDEX)
