@@ -1,0 +1,57 @@
+{
+ "schema_version": "1.0.0",
+ "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+ "repository": "StegVerse-Labs/Site",
+ "claims": [
+  {
+   "claim_id": "SITE-ECOCHAT-EOS-NAME-20261115",
+   "session_worker_id": "claude-coordinator:site-ecochat-eos-name-20261115",
+   "task_id": "SITE-ECOCHAT-EOS-NAME-20261115",
+   "originating_goal": "Carry the EcOSystem Chat's name \u2014 EOS, named by the principal 2026-11-15 19:22 CST and approved for page carriage 19:48 CST \u2014 onto the chat's two public pages (index.html and ecosystem-chat.html) as their brand surfaces, with the homepage checker pinning the brand line. No behavior, runtime asset, or filed answer text changes.",
+   "repository": "StegVerse-Labs/Site",
+   "branch": "ecochat/eos-name-20261115",
+   "role": "IMPLEMENTATION",
+   "state": "CLAIMED_FOR_IMPLEMENTATION",
+   "normalized_work_key": "site-ecochat-eos-name-20261115",
+   "dependency_surface_keys": [
+    "site:front-page",
+    "site:ecosystem-chat-page",
+    "site:homepage-contract-checkers"
+   ],
+   "claimed_paths": [
+    "data/session-work-claims.d/site-ecochat-eos-name-20261115.json",
+    "docs/ECOCHAT_EOS_NAME_MIRROR_HANDOFF.md",
+    "index.html",
+    "ecosystem-chat.html",
+    "scripts/check_site_homepage_chat.py",
+    "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+    "data/cosv/task-vector-index.json",
+    "data/cosv/active-claim-projections.json"
+   ],
+   "handoff": "docs/ECOCHAT_EOS_NAME_MIRROR_HANDOFF.md",
+   "handoff_revision": "ecf1cfa87292316bf6e2867e2317afcce47538606ea477e2bead3614cccf09df",
+   "claim_created_at": "2026-11-15T19:52:00-06:00",
+   "claim_expires_when": "Release only after the implementation PR merges, hosted validation passes with no new failures against the pristine-main failure baseline (the pre-existing python3.9 cluster), and public observation of https://stegverse.org/ shows the EOS brand line on the page with the three starter questions still answering with the filed deterministic texts.",
+   "expected_evidence": [
+    "SESSION_WORK_CLAIMS_PASS and SITE_COSV_TASK_PROJECTION_PASS on the claim PR and the implementation PR",
+    "Site Handoff Orchestrator PASS",
+    "check_site_homepage_chat.py PASS with the EOS brand line pinned in REQUIRED_INDEX",
+    "public observation of https://stegverse.org/ showing the EOS brand line and the starter questions answering as filed"
+   ],
+   "collision_boundaries": [
+    "Do not modify my-kv.html, the VA pages, HIL live-execution, heartbeat orchestration, SV001/SV002 custody, InTr transport, TV/TVC, Master Records, node registration, or the claim registry's machine-owned surfaces.",
+    "Do not edit docs/ECOCHAT_SIMPLE_PAGE_MIRROR_HANDOFF.md; the released simple-page claim's handoff revision is protected.",
+    "Do not change any filed starter answer or product definition text in any asset.",
+    "Do not edit the canonical claim registry file; this claim enters as an append-only fragment.",
+    "Do not rename the chat in filed historical records; namings are new records."
+   ],
+   "next_task_after_release": "ECOCHAT-BIND-001 custody-node binding (principal's device act first), then the node-transport retirement of the interim gateway carriage (Determination 01).",
+   "cosv_profile": "task.v1",
+   "cosv_task_vector": "20010000100000",
+   "claim_amendments": [],
+   "pull_request": null,
+   "release_commit": null,
+   "claim_released_at": null
+  }
+ ]
+}
