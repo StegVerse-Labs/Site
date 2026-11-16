@@ -10,6 +10,7 @@ HANDOFF = ROOT / "docs" / "SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md"
 # the chat, the three starter prompts, the governed KV entry points, and one
 # self-contained script. The incumbent runtime stack serves ecosystem-chat.html.
 REQUIRED_INDEX = [
+    "EOS — the EcOSystem Chat",
     "How can I help?",
     "How do I use this chat?",
     "What is StegVerse?",
