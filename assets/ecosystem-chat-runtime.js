@@ -669,6 +669,9 @@
     if(!client||typeof client.perform!=='function')throw new Error('ecosystem_chat_sdk_client_unavailable');
     return client.perform(request);
   }
+  function isMath(message){
+    return governedArithmeticCandidate(message)!==null;
+  }
   const api={init,askGeneral,askMath,reviewMathImage,sdkLifecycle,isCanonicalProductDefinitionRequest,isMath,isLiveWeatherRequest,isDeviceRegistrationRequest,executeDeviceRaw,status:()=>({deviceReady:bridgeReady,deterministicReceipt:readDeterministicReceipt(),weatherReceipt:(()=>{try{return JSON.parse(sessionStorage.getItem('ecosystemLatestWeatherReceipt')||'null')}catch{return null}})()})};
   window.EcosystemRuntime=api;
   init();

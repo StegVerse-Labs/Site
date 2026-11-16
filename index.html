@@ -10,7 +10,7 @@
       location.replace("https://" + location.host + location.pathname + location.search + location.hash);
     }());
   </script>
-  <meta name="description" content="StegVerse Ecosystem Chat — a governed conversational interface for discovering, invoking, and expanding capabilities across named providers and the StegVerse ecosystem.">
+  <meta name="description" content="StegVerse Ecosystem Chat — ask about the StegVerse ecosystem, or submit work for governed analysis.">
   <title>StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
@@ -20,17 +20,15 @@
     .kv-links{display:flex;gap:14px;align-items:center}
     .kv-links a,.kv-links button{color:var(--muted);text-decoration:none;font:inherit;font-size:.94rem;background:none;border:0;padding:0;cursor:pointer}
     .kv-links a:hover,.kv-links a:focus,.kv-links button:hover,.kv-links button:focus{color:var(--text)}
-    .kv-links button:disabled{opacity:.55;cursor:wait}
     .kv-entry-launch-status{min-height:1.25em;margin:-14px 0 12px;text-align:right;color:var(--muted);font:11px/1.4 var(--mono)}
-    .kv-entry-launch-status[data-state="blocked"]{color:#ffb4ab}
     .intro{padding:28px 0 10px}
     .intro h1{font-size:clamp(2.2rem,7vw,3.6rem);line-height:1.04;margin:0 0 10px}
     .intro p{margin:0;color:var(--muted);font-size:1rem;max-width:760px}
     .scope-panel{margin:20px 0 24px;padding:18px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(180deg,#0f1827,#0a111d)}
-    .scope-panel h2{margin:0 0 7px;font-size:1.1rem}
-    .scope-lead{margin:0;color:var(--muted);line-height:1.55}
+    .scope-panel summary{cursor:pointer;font-size:1.1rem;font-weight:700}
+    .scope-lead{margin:10px 0 0;color:var(--muted);line-height:1.55}
     .scope-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
-    .scope-card{border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:14px;min-height:165px}
+    .scope-card{border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:14px}
     .scope-kicker{display:block;margin-bottom:7px;color:var(--muted);font-size:.76rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
     .scope-card h3{font-size:1rem;margin:0 0 7px}
     .scope-card p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.5}
@@ -47,25 +45,11 @@
     .composer{display:flex;gap:9px;padding:12px;border-top:1px solid var(--border);background:#0c1320}
     .composer textarea{flex:1;min-height:52px;max-height:150px;resize:vertical;border:1px solid var(--border2);border-radius:13px;background:#080d16;color:var(--text);font:inherit;padding:12px}
     .composer button{align-self:flex-end}
-    .composer-tools{display:flex;align-items:center;gap:8px}
-    .attachment-label{display:inline-flex;align-items:center;border:1px solid var(--border2);border-radius:10px;padding:8px 10px;color:var(--muted);cursor:pointer;font-size:.84rem}
-    .attachment-label input{position:absolute;inline-size:1px;block-size:1px;opacity:0;pointer-events:none}
-    .attachment-name{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:.78rem}
-    .privacy-note{font-size:.8rem;color:var(--muted);margin:10px 3px 0}
-    .node-status-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:10px 3px 12px}
-    .node-status-row .privacy-note{margin:0;flex:1 1 360px}
-    .node-status-row .sv-btn{flex:0 0 auto}
-    @media(max-width:780px){.scope-grid{grid-template-columns:1fr}}
-    @media(max-width:700px){
-      .starter-grid{grid-template-columns:1fr}
-      .home{padding-top:10px}
-      .composer{flex-direction:column}
-      .composer button{width:100%}
-      .chat-message{max-width:94%}
-      .home-nav{align-items:flex-start}
-      .kv-links{gap:10px;flex-wrap:wrap;justify-content:flex-end}
-      .kv-entry-launch-status{text-align:left;margin-top:-10px}
-    }
+    .privacy-note{color:var(--muted);font-size:.85rem}
+    .more-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+    .more-links a{color:var(--muted);text-decoration:none;font-size:.94rem}
+    .more-links a:hover,.more-links a:focus{color:var(--text)}
+    @media (max-width:720px){.scope-grid,.starter-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -75,22 +59,15 @@
       <div class="kv-links">
         <button id="kv-entry-launcher" type="button">My KV</button>
         <a href="organizational-kv.html">Organizational KV</a>
-        <a href="workspace.html">Workspace</a>
-        <a href="services.html">Services</a>
-        <a href="news-releases.html">Current News Releases</a>
-        <a href="social.html">Social</a>
-        <a href="wikis.html">Wikis</a>
       </div>
     </nav>
     <p id="kv-entry-launch-status" class="kv-entry-launch-status" role="status" aria-live="polite"></p>
-
     <section class="intro">
       <h1>How can I help?</h1>
       <p>Ask about the StegVerse ecosystem, or submit work for governed analysis. Every submission enters through a manifest and is receipted — this is not a wrapper around one model.</p>
     </section>
-
-    <section class="scope-panel" aria-labelledby="scope-title">
-      <h2 id="scope-title">What Ecosystem Chat does</h2>
+    <details class="scope-panel">
+      <summary id="scope-title">What Ecosystem Chat does</summary>
       <p class="scope-lead">Three routes, in order. Questions of fact about the ecosystem are answered from the filed record. Anything more enters the governed SDK path. Anything outside the ecosystem is routed onward. A submission is never answered below its class.</p>
       <div class="scope-grid">
         <article class="scope-card">
@@ -110,18 +87,12 @@
         </article>
       </div>
       <p class="scope-status">Gateway state: the SDK gateway this page's client expects is bound today to a proving instance that is not publicly reachable; the production binding is a node in the principal's custody. The binding state of record is data/ecochat/gateway-binding.json — no live-activation claim is made from this page.</p>
-    </section>
-
+    </details>
     <section class="starter-grid" aria-label="Example questions">
       <button class="starter" type="button" data-chat-prompt="How do I use this chat?">How do I use this chat?</button>
       <button class="starter" type="button" data-chat-prompt="What is StegVerse?">What is StegVerse?</button>
       <button class="starter" type="button" data-chat-prompt="What is My KV?">What is My KV?</button>
     </section>
-
-    <div class="node-status-row">
-      <p id="node-llm-status" class="privacy-note" role="status" aria-live="polite">Checking StegVerse Node status…</p>
-      <button id="node-register-device" class="sv-btn sv-btn-secondary" type="button" hidden>Register this device</button>
-    </div>
     <section class="chat-panel" aria-label="Ecosystem Chat">
       <div class="chat-log" id="chatLog" aria-live="polite">
         <div class="chat-message system"><div class="body">Tell me what you need help with.</div></div>
@@ -129,31 +100,18 @@
       <form class="composer" id="chatForm">
         <label class="sr-only" for="messageInput">Your question</label>
         <textarea id="messageInput" name="message" placeholder="Type your question…"></textarea>
-        <div class="composer-tools">
-          <label class="attachment-label" for="mathImageInput">Add image
-            <input id="mathImageInput" name="math_image" type="file" accept="image/png,image/jpeg,image/webp,image/heif,image/heic">
-          </label>
-          <span class="attachment-name" id="mathImageName" aria-live="polite"></span>
-          <button class="sv-btn sv-btn-primary" type="submit">Send</button>
-        </div>
+        <button class="sv-btn sv-btn-primary" type="submit">Send</button>
       </form>
     </section>
-
     <p class="privacy-note">Don’t enter passwords, security codes, private keys, or other account credentials here.</p>
+    <nav class="more-links" aria-label="More of StegVerse">
+      <a href="workspace.html">Workspace</a>
+      <a href="services.html">Services</a>
+      <a href="news-releases.html">Current News Releases</a>
+      <a href="social.html">Social</a>
+      <a href="wikis.html">Wikis</a>
+    </nav>
   </main>
-
-  <script src="assets/stegos-node-idb-schema-compat.js?v=20260911-v3"></script>
-  <script src="assets/stegverse-node-continuity.js"></script>
-  <script src="assets/generated/site-browser-intr-connectors.js"></script>
-  <script src="assets/hb-intr-carrier.js"></script>
-  <script src="stegos-node/device-kv-intr-sync.js?v=20260914-entrypoint-r1"></script>
-  <script src="assets/my-kv-device-kv-query-bridge.js?v=20260914-entrypoint-r1"></script>
-  <script src="assets/kv-entrypoint-intr-launcher.js?v=20260914-entrypoint-r1"></script>
-  <script src="assets/semantic-command-router.js"></script>
-  <script src="assets/ecosystem-chat-semantic-commands.js"></script>
-  <script src="assets/ecosystem-chat-sdk-client.js"></script>
-  <script src="assets/ecosystem-chat-runtime.js?v=20261005-runtime-split-r1"></script>
-  <script src="assets/ecosystem-chat-va-runtime.js?v=20261005-runtime-split-r1"></script>
-  <script src="assets/ecosystem-chat-simple.js?v=20261005-runtime-split-r1"></script>
+  <script src="assets/ecochat-simple-page.js"></script>
 </body>
 </html>
