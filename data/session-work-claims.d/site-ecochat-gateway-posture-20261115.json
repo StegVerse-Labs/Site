@@ -1,0 +1,55 @@
+{
+ "schema_version": "1.0.0",
+ "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+ "repository": "StegVerse-Labs/Site",
+ "claims": [
+  {
+   "claim_id": "SITE-ECOCHAT-GATEWAY-POSTURE-20261115",
+   "session_worker_id": "claude-coordinator:site-ecochat-gateway-posture-20261115",
+   "task_id": "SITE-ECOCHAT-GATEWAY-POSTURE-20261115",
+   "originating_goal": "Carry the EcOSystem Chat gateway binding record to its current truth \u2014 the intake gateway now fronts the EOS conversational service (builds 02-04: corpus GEN 02, governed analysis, segment lifecycle, classifier v2) \u2014 and give the public page client the binding-driven gateway mechanism, shipped disabled so no live behavior changes. The posture stays PROVING_INSTANCE with publicly_reachable false; production binding remains ECOCHAT-BIND-001, a custody item. No filed answer text changes.",
+   "repository": "StegVerse-Labs/Site",
+   "branch": "ecochat/gateway-posture-20261115",
+   "role": "IMPLEMENTATION",
+   "state": "CLAIMED_FOR_IMPLEMENTATION",
+   "normalized_work_key": "site-ecochat-gateway-posture-20261115",
+   "dependency_surface_keys": [
+    "site:front-page",
+    "site:ecochat-gateway-binding",
+    "site:homepage-contract-checkers"
+   ],
+   "claimed_paths": [
+    "data/session-work-claims.d/site-ecochat-gateway-posture-20261115.json",
+    "docs/ECOCHAT_GATEWAY_POSTURE_MIRROR_HANDOFF.md",
+    "data/ecochat/gateway-binding.json",
+    "assets/ecochat-simple-page.js",
+    "data/cosv/task-vector-index.json",
+    "data/cosv/active-claim-projections.json"
+   ],
+   "handoff": "docs/ECOCHAT_GATEWAY_POSTURE_MIRROR_HANDOFF.md",
+   "handoff_revision": "6afb968c16d8db8ef7a72027e3dc4f56a136a93d6dee789ead35b88699853b07",
+   "claim_created_at": "2026-11-15T23:03:00-06:00",
+   "claim_expires_when": "Release only after the implementation PR merges, hosted validation passes with no new failures against the pristine-main failure baseline (the pre-existing python3.9 cluster), and public observation of https://stegverse.org/data/ecochat/gateway-binding.json shows the EOS routes recorded while the page still answers the starter questions with the filed deterministic texts.",
+   "expected_evidence": [
+    "SESSION_WORK_CLAIMS_PASS and SITE_COSV_TASK_PROJECTION_PASS on the claim PR and the implementation PR",
+    "Site Handoff Orchestrator PASS",
+    "public observation of the binding JSON showing the /api/eos/* routes and the disabled client flag",
+    "public observation of https://stegverse.org/ with the EOS brand line and starter answers unchanged"
+   ],
+   "collision_boundaries": [
+    "Do not modify my-kv.html, the VA pages, HIL live-execution, heartbeat orchestration, SV001/SV002 custody, InTr transport, TV/TVC, Master Records, node registration, or the claim registry's machine-owned surfaces.",
+    "Do not edit docs/ECOCHAT_SIMPLE_PAGE_MIRROR_HANDOFF.md or docs/ECOCHAT_EOS_NAME_MIRROR_HANDOFF.md; released claims' handoff revisions are protected.",
+    "Do not change any filed starter answer or product definition text in any asset.",
+    "Do not edit the canonical claim registry file; this claim enters as an append-only fragment.",
+    "Do not set client_gateway_enabled true, name a client endpoint, or set publicly_reachable true; those flips belong to ECOCHAT-BIND-001 at the principal's custody node."
+   ],
+   "next_task_after_release": "ECOCHAT-BIND-001 production binding at the principal's custody node (Q3 transport), at which point the client flag and endpoint become a posture change.",
+   "cosv_profile": "task.v1",
+   "cosv_task_vector": "20010000100000",
+   "claim_amendments": [],
+   "pull_request": null,
+   "release_commit": null,
+   "claim_released_at": null
+  }
+ ]
+}

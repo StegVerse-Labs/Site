@@ -5,7 +5,7 @@
  "notation": "L R U I V G O C M T B E A P",
  "width": 14,
  "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
- "observed_at": "2026-11-16T02:13:01Z",
+ "observed_at": "2026-11-16T05:01:51Z",
  "authority_effect": "NONE",
  "tasks": [
   {
@@ -1042,11 +1042,20 @@
    "vector": "91000000100000",
    "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
    "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "SITE-ECOCHAT-GATEWAY-POSTURE-20261115",
+   "claim_id": "SITE-ECOCHAT-GATEWAY-POSTURE-20261115",
+   "claim_ref": "data/session-work-claims.d/site-ecochat-gateway-posture-20261115.json",
+   "handoff_ref": "docs/ECOCHAT_GATEWAY_POSTURE_MIRROR_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "20010000100000",
+   "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
   }
  ],
  "coverage": {
   "explicit_cosv_task_surfaces_discovered": 5,
-  "task_vectors_emitted": 113,
+  "task_vectors_emitted": 114,
   "source_bound_task_vectors": 2,
   "external_machine_owned_source_bindings": 1,
   "active_owner_deferred_source_bindings": 4,
@@ -1059,12 +1068,12 @@
   "repository_unindexed_active_claim_tasks_present": false,
   "repository_vector_present_blocker": null,
   "repository_claim_task_vectors": 0,
-  "repository_effective_active_claims_observed": 67,
-  "repository_effective_active_task_ids_observed": 67,
+  "repository_effective_active_claims_observed": 68,
+  "repository_effective_active_task_ids_observed": 68,
   "repository_unindexed_active_task_ids_observed": 0,
   "repository_active_owner_projection_vectors": 4,
   "repository_terminalized_stale_claims_observed": 9,
-  "repository_active_claim_source_vectors": 60,
+  "repository_active_claim_source_vectors": 61,
   "repository_retired_canonical_task_vectors": 1,
   "repository_no_cosv_exemptions": 3
  }
