@@ -1,7 +1,7 @@
 {
  "schema": "stegverse.site.cosv-active-claim-projections/v1",
  "repository": "StegVerse-Labs/Site",
- "observed_at": "2026-11-16T00:20:06Z",
+ "observed_at": "2026-11-16T01:20:29Z",
  "source_registry": "scripts/check_session_work_claims.py::active_claims(load_registry())",
  "authority_effect": "NONE",
  "projections": [
@@ -2696,17 +2696,17 @@
   {
    "task_id": "SITE-ECOCHAT-SIMPLE-PAGE-20261115",
    "claim_id": "SITE-ECOCHAT-SIMPLE-PAGE-20261115",
-   "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
+   "claim_state": "RELEASED_COMPLETE",
    "claim_ref": "data/session-work-claims.d/site-ecochat-simple-page-20261115.json",
    "handoff_ref": "docs/ECOCHAT_SIMPLE_PAGE_MIRROR_HANDOFF.md",
-   "vector": "20010000100000",
+   "vector": "91000000100000",
    "authority_effect": "NONE",
    "exact_metrics": {
     "symbol_order": "LRUIVGOCMTBEAP",
-    "lifecycle": "CLAIMED_IMPLEMENTATION",
-    "archive_ready": false,
+    "lifecycle": "MERGED_INTO_CANONICAL_WORKSTREAM",
+    "archive_ready": true,
     "unassigned_work": 0,
-    "chat_owned_implementation": 1,
+    "chat_owned_implementation": 0,
     "chat_owned_validation": 0,
     "chat_owned_integration": 0,
     "chat_owned_observation": 0,

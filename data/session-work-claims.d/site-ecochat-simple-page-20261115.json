@@ -11,7 +11,7 @@
    "repository": "StegVerse-Labs/Site",
    "branch": "ecochat/simple-page-20261115",
    "role": "IMPLEMENTATION",
-   "state": "CLAIMED_FOR_IMPLEMENTATION",
+   "state": "RELEASED_COMPLETE",
    "normalized_work_key": "site-ecochat-simple-page-20261115",
    "dependency_surface_keys": [
     "site:front-page",
@@ -63,7 +63,10 @@
      "reason": "Hosted catalog groups site-homepage-chat.validate and site-homepage-chat-public-asset-observation.validate failed on PR #1697; reproduced locally. The homepage contract also lives in the regression tests and in the public-asset observer's homepage target \u2014 the same contract the claim amends, in test and observation form. No other scope change.",
      "failed_predicate": "tests pin the incumbent runtime stack, node registration, and the InTr launcher script on index.html; the observer's homepage target requires the incumbent split-runtime script markers in the live homepage bytes."
     }
-   ]
+   ],
+   "pull_request": 1697,
+   "release_commit": "95b45498c8d78bbe2393b0db68cdaa31117b0d2b",
+   "claim_released_at": "2026-11-16T01:20:29Z"
   }
  ]
 }
