@@ -11,7 +11,7 @@
    "repository": "StegVerse-Labs/Site",
    "branch": "ecochat/eos-name-20261115",
    "role": "IMPLEMENTATION",
-   "state": "CLAIMED_FOR_IMPLEMENTATION",
+   "state": "RELEASED_COMPLETE",
    "normalized_work_key": "site-ecochat-eos-name-20261115",
    "dependency_surface_keys": [
     "site:front-page",
@@ -49,9 +49,9 @@
    "cosv_profile": "task.v1",
    "cosv_task_vector": "20010000100000",
    "claim_amendments": [],
-   "pull_request": null,
-   "release_commit": null,
-   "claim_released_at": null
+   "pull_request": 1700,
+   "release_commit": "73fc280d0c4cf5ef867de6dbd24896786a876737",
+   "claim_released_at": "2026-11-16T02:13:01Z"
   }
  ]
 }
