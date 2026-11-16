@@ -11,13 +11,25 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGETS = {
+    # Homepage target amended under SITE-ECOCHAT-SIMPLE-PAGE-20261115: the
+    # front page is the simple page; the split-runtime stack is observed at
+    # its own asset targets below and on ecosystem-chat.html.
     "homepage": {
         "path": "index.html",
         "url": "https://stegverse.org/",
         "markers": (
-            "assets/ecosystem-chat-runtime.js?v=20261005-runtime-split-r1",
-            "assets/ecosystem-chat-va-runtime.js?v=20261005-runtime-split-r1",
-            "assets/ecosystem-chat-simple.js?v=20261005-runtime-split-r1",
+            "assets/ecochat-simple-page.js",
+            'id="chatForm"',
+            "How can I help?",
+        ),
+    },
+    "ecochat_simple_page": {
+        "path": "assets/ecochat-simple-page.js",
+        "url": "https://stegverse.org/assets/ecochat-simple-page.js",
+        "markers": (
+            "STARTERS",
+            "GATEWAY_STATE_TEXT",
+            "data-chat-prompt",
         ),
     },
     "ecosystem_chat_runtime": {

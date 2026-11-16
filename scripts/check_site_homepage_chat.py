@@ -6,6 +6,9 @@ INDEX = ROOT / "index.html"
 ORG = ROOT / "organizational-kv.html"
 HANDOFF = ROOT / "docs" / "SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md"
 
+# Simple-page contract (SITE-ECOCHAT-SIMPLE-PAGE-20261115): the front page is
+# the chat, the three starter prompts, the governed KV entry points, and one
+# self-contained script. The incumbent runtime stack serves ecosystem-chat.html.
 REQUIRED_INDEX = [
     "How can I help?",
     "How do I use this chat?",
@@ -16,13 +19,8 @@ REQUIRED_INDEX = [
     'id="chatForm"',
     'id="messageInput"',
     'id="chatLog"',
-    'id="node-register-device"',
-    'assets/semantic-command-router.js',
-    'assets/ecosystem-chat-semantic-commands.js',
-    'assets/ecosystem-chat-sdk-client.js',
-    'assets/ecosystem-chat-runtime.js',
-    'assets/ecosystem-chat-va-runtime.js',
-    'assets/ecosystem-chat-simple.js',
+    'assets/ecochat-simple-page.js',
+    'assets/kv-entrypoint-intr-launcher.js',
 ]
 FORBIDDEN_INDEX = [
     "transition-grid",
@@ -66,10 +64,10 @@ def main() -> int:
         failures.append("homepage My KV entry must not bypass the governed launcher")
     if index.count('href="organizational-kv.html"') != 1:
         failures.append("homepage must expose exactly one Organizational KV navigation link")
+    if "homepage chat owner: `assets/ecochat-simple-page.js`" not in handoff:
+        failures.append("handoff missing homepage chat ownership boundary")
     if "shared runtime owner: `assets/ecosystem-chat-runtime.js`" not in handoff:
         failures.append("handoff missing shared Ecosystem Chat runtime ownership boundary")
-    if "VA/VACC specialization owner: `assets/ecosystem-chat-va-runtime.js`" not in handoff:
-        failures.append("handoff missing VA/VACC specialization ownership boundary")
     if 'type="password"' in index or "STEGVERSE_REPO_SYNC_TOKEN" in index:
         failures.append("homepage contains prohibited credential surface")
     if '</p>\\n\\n' in index or '</script>\\n' in index:

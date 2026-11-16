@@ -467,6 +467,7 @@ The historical `assets/ecosystem-chat-va-runtime.js` file was originally the VA/
 
 Current ownership is explicit:
 
+- homepage chat owner: `assets/ecochat-simple-page.js`
 - shared runtime owner: `assets/ecosystem-chat-runtime.js`
 - VA/VACC specialization owner: `assets/ecosystem-chat-va-runtime.js`
 - browser composition/router: `assets/ecosystem-chat-simple.js`
