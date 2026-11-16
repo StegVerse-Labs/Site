@@ -10,7 +10,7 @@
       location.replace("https://" + location.host + location.pathname + location.search + location.hash);
     }());
   </script>
-  <meta name="description" content="StegVerse Ecosystem Chat — ask about the StegVerse ecosystem, or submit work for governed analysis.">
+  <meta name="description" content="EOS — the StegVerse EcOSystem Chat. Ask about the StegVerse ecosystem, or submit work for governed analysis.">
   <title>StegVerse</title>
   <link rel="stylesheet" href="sv-shared.css">
   <style>
@@ -24,6 +24,7 @@
     .kv-entry-launch-status[data-state="blocked"]{color:#ffb4ab}
     .intro{padding:28px 0 10px}
     .intro h1{font-size:clamp(2.2rem,7vw,3.6rem);line-height:1.04;margin:0 0 10px}
+    .intro .brand-line{margin:0 0 8px;color:var(--text);font-weight:700;letter-spacing:.12em;font-size:.82rem}
     .intro p{margin:0;color:var(--muted);font-size:1rem;max-width:760px}
     .scope-panel{margin:20px 0 24px;padding:18px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(180deg,#0f1827,#0a111d)}
     .scope-panel summary{cursor:pointer;font-size:1.1rem;font-weight:700}
@@ -64,11 +65,12 @@
     </nav>
     <p id="kv-entry-launch-status" class="kv-entry-launch-status" role="status" aria-live="polite"></p>
     <section class="intro">
+      <p class="brand-line">EOS — the EcOSystem Chat</p>
       <h1>How can I help?</h1>
       <p>Ask about the StegVerse ecosystem, or submit work for governed analysis. Every submission enters through a manifest and is receipted — this is not a wrapper around one model.</p>
     </section>
     <details class="scope-panel">
-      <summary id="scope-title">What Ecosystem Chat does</summary>
+      <summary id="scope-title">What EOS does</summary>
       <p class="scope-lead">Three routes, in order. Questions of fact about the ecosystem are answered from the filed record. Anything more enters the governed SDK path. Anything outside the ecosystem is routed onward. A submission is never answered below its class.</p>
       <div class="scope-grid">
         <article class="scope-card">
@@ -94,7 +96,7 @@
       <button class="starter" type="button" data-chat-prompt="What is StegVerse?">What is StegVerse?</button>
       <button class="starter" type="button" data-chat-prompt="What is My KV?">What is My KV?</button>
     </section>
-    <section class="chat-panel" aria-label="Ecosystem Chat">
+    <section class="chat-panel" aria-label="EOS — the EcOSystem Chat">
       <div class="chat-log" id="chatLog" aria-live="polite">
         <div class="chat-message system"><div class="body">Tell me what you need help with.</div></div>
       </div>

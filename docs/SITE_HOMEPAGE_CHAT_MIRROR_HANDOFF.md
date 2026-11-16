@@ -468,6 +468,7 @@ The historical `assets/ecosystem-chat-va-runtime.js` file was originally the VA/
 Current ownership is explicit:
 
 - homepage chat owner: `assets/ecochat-simple-page.js`
+- the EcOSystem Chat's name is EOS (principal, 2026-11-15); the homepage brand line reads "EOS — the EcOSystem Chat" (claim SITE-ECOCHAT-EOS-NAME-20261115)
 - shared runtime owner: `assets/ecosystem-chat-runtime.js`
 - VA/VACC specialization owner: `assets/ecosystem-chat-va-runtime.js`
 - browser composition/router: `assets/ecosystem-chat-simple.js`
