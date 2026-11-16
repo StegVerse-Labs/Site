@@ -12,6 +12,7 @@ SDK_CLIENT_JS = (ROOT / "assets/ecosystem-chat-sdk-client.js").read_text(encodin
 ADMITTED_INFERENCE_JS = (ROOT / "stegos-bootstrap/admitted-inference.js").read_text(encoding="utf-8")
 ORG = (ROOT / "organizational-kv.html").read_text(encoding="utf-8")
 SHARED_CSS = (ROOT / "sv-shared.css").read_text(encoding="utf-8")
+SIMPLE_PAGE_JS = (ROOT / "assets/ecochat-simple-page.js").read_text(encoding="utf-8")
 
 
 class HomepageChatTests(unittest.TestCase):
@@ -24,7 +25,10 @@ class HomepageChatTests(unittest.TestCase):
             self.assertIn(f'data-chat-prompt="{prompt}"', INDEX)
         self.assertEqual(INDEX.count("data-chat-prompt="), 3)
 
-    def test_homepage_reuses_canonical_chat_runtime(self):
+    def test_homepage_uses_simple_page_script_and_chat_page_keeps_canonical_runtime(self):
+        # Amended under SITE-ECOCHAT-SIMPLE-PAGE-20261115: the front page is
+        # the simple page with one self-contained script; the canonical
+        # runtime stack serves ecosystem-chat.html.
         for script in (
             "assets/semantic-command-router.js",
             "assets/ecosystem-chat-semantic-commands.js",
@@ -32,7 +36,9 @@ class HomepageChatTests(unittest.TestCase):
             "assets/ecosystem-chat-va-runtime.js",
             "assets/ecosystem-chat-simple.js",
         ):
-            self.assertIn(script, INDEX)
+            self.assertIn(script, ECOSYSTEM_CHAT)
+            self.assertNotIn(script, INDEX)
+        self.assertIn("assets/ecochat-simple-page.js", INDEX)
         for element_id in ("chatForm", "messageInput", "chatLog"):
             self.assertIn(f'id="{element_id}"', INDEX)
 
@@ -47,7 +53,9 @@ class HomepageChatTests(unittest.TestCase):
         self.assertIn("shared.executeDeviceRaw", VA_RUNTIME_JS)
 
     def test_runtime_load_order_is_shared_then_va_then_router(self):
-        for source in (INDEX, ECOSYSTEM_CHAT):
+        # Load order binds the canonical stack on ecosystem-chat.html; the
+        # homepage carries only the simple page script (asserted above).
+        for source in (ECOSYSTEM_CHAT,):
             shared = source.index("assets/ecosystem-chat-runtime.js")
             va = source.index("assets/ecosystem-chat-va-runtime.js")
             router = source.index("assets/ecosystem-chat-simple.js")
@@ -72,7 +80,9 @@ class HomepageChatTests(unittest.TestCase):
     def test_homepage_navigation_is_kv_focused_and_personal_kv_is_governed(self):
         self.assertIn('id="kv-entry-launcher"', INDEX)
         self.assertNotIn('href="my-kv.html">My KV</a>', INDEX)
-        self.assertIn('assets/kv-entrypoint-intr-launcher.js', INDEX)
+        self.assertIn('assets/ecochat-simple-page.js', INDEX)
+        self.assertIn('kv-entry-launcher', SIMPLE_PAGE_JS)
+        self.assertIn('my-kv.html', SIMPLE_PAGE_JS)
         self.assertIn('href="organizational-kv.html">Organizational KV</a>', INDEX)
         self.assertNotIn("Version &amp; Status", INDEX)
         self.assertNotIn("StegWallet", INDEX)
@@ -84,7 +94,9 @@ class HomepageChatTests(unittest.TestCase):
             self.assertNotIn('</script>\\n', source)
 
     def test_chat_surfaces_offer_bounded_node_registration(self):
-        for source in (INDEX, ECOSYSTEM_CHAT):
+        # Node registration is offered on ecosystem-chat.html; the reduced
+        # homepage does not carry it (SITE-ECOCHAT-SIMPLE-PAGE-20261115).
+        for source in (ECOSYSTEM_CHAT,):
             self.assertIn('id="node-register-device"', source)
             self.assertIn('>Register this device</button>', source)
         self.assertIn("nodeRegister?.addEventListener('click'", CHAT_JS)
@@ -196,7 +208,7 @@ class HomepageChatTests(unittest.TestCase):
 
 
     def test_ecosystem_chat_is_first_class_intent_separated_sdk_client(self):
-        for source in (INDEX, ECOSYSTEM_CHAT):
+        for source in (ECOSYSTEM_CHAT,):
             self.assertIn("assets/ecosystem-chat-sdk-client.js", source)
         for marker in ("EXPLAIN:'EXPLAIN'", "BUILD:'BUILD'", "VALIDATE:'VALIDATE'", "SUBMIT:'SUBMIT'", "REPORT:'REPORT'", "/api/sdk/contract", "/api/sdk/manifest/build", "/api/sdk/manifest/validate", "/api/sdk/manifest/submit", "SDK_STANDING_REQUIRED", "informational_questions_execute:false", "standing_is_never_synthesized:true"):
             self.assertIn(marker, SDK_CLIENT_JS)

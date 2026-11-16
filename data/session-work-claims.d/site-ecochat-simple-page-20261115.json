@@ -28,7 +28,9 @@
     "scripts/check_site_node_continuity.py",
     "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
     "data/cosv/task-vector-index.json",
-    "data/cosv/active-claim-projections.json"
+    "data/cosv/active-claim-projections.json",
+    "tests/test_site_homepage_chat.py",
+    "scripts/observe_site_homepage_chat_assets.py"
    ],
    "handoff": "docs/ECOCHAT_SIMPLE_PAGE_MIRROR_HANDOFF.md",
    "handoff_revision": "fc4a80e1340d2dd91be695d3aa82dc4f2a4b8c4bb2b23138c7cf49f508d59bf3",
@@ -50,7 +52,18 @@
    ],
    "next_task_after_release": "ECOCHAT-BIND-001 custody-node binding (principal's device act first), then the node-transport retirement of the interim gateway carriage (Determination 01).",
    "cosv_profile": "task.v1",
-   "cosv_task_vector": "20010000100000"
+   "cosv_task_vector": "20010000100000",
+   "claim_amendments": [
+    {
+     "amended_at": "2026-11-15T19:05:00-06:00",
+     "scope_extension": [
+      "tests/test_site_homepage_chat.py",
+      "scripts/observe_site_homepage_chat_assets.py"
+     ],
+     "reason": "Hosted catalog groups site-homepage-chat.validate and site-homepage-chat-public-asset-observation.validate failed on PR #1697; reproduced locally. The homepage contract also lives in the regression tests and in the public-asset observer's homepage target \u2014 the same contract the claim amends, in test and observation form. No other scope change.",
+     "failed_predicate": "tests pin the incumbent runtime stack, node registration, and the InTr launcher script on index.html; the observer's homepage target requires the incumbent split-runtime script markers in the live homepage bytes."
+    }
+   ]
   }
  ]
 }
