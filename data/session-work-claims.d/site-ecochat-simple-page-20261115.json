@@ -1,0 +1,56 @@
+{
+ "schema_version": "1.0.0",
+ "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+ "repository": "StegVerse-Labs/Site",
+ "claims": [
+  {
+   "claim_id": "SITE-ECOCHAT-SIMPLE-PAGE-20261115",
+   "session_worker_id": "claude-coordinator:site-ecochat-simple-page-20261115",
+   "task_id": "SITE-ECOCHAT-SIMPLE-PAGE-20261115",
+   "originating_goal": "Reduce the StegVerse.org front page to the very simple page of the Ecosystem Chat design (principal direction 2026-11-15 18:13 CST; Install Amendment 01 standard), and repair the shared chat runtime's initialization defect (export table references undefined isMath; window.EcosystemRuntime never assigned; every submission on index.html and ecosystem-chat.html ends in the catch-all failure text \u2014 reproduced 2026-11-15 by the principal's screenshots, a signed-out desktop browser run, and a Node harness).",
+   "repository": "StegVerse-Labs/Site",
+   "branch": "ecochat/simple-page-20261115",
+   "role": "IMPLEMENTATION",
+   "state": "CLAIMED_FOR_IMPLEMENTATION",
+   "normalized_work_key": "site-ecochat-simple-page-20261115",
+   "dependency_surface_keys": [
+    "site:front-page",
+    "site:ecosystem-chat-runtime",
+    "site:homepage-contract-checkers"
+   ],
+   "claimed_paths": [
+    "data/session-work-claims.d/site-ecochat-simple-page-20261115.json",
+    "docs/ECOCHAT_SIMPLE_PAGE_MIRROR_HANDOFF.md",
+    "index.html",
+    "assets/ecochat-simple-page.js",
+    "assets/ecosystem-chat-runtime.js",
+    "scripts/check_site_homepage_chat.py",
+    "scripts/check_site_node_continuity.py",
+    "docs/SITE_HOMEPAGE_CHAT_MIRROR_HANDOFF.md",
+    "data/cosv/task-vector-index.json",
+    "data/cosv/active-claim-projections.json"
+   ],
+   "handoff": "docs/ECOCHAT_SIMPLE_PAGE_MIRROR_HANDOFF.md",
+   "handoff_revision": "fc4a80e1340d2dd91be695d3aa82dc4f2a4b8c4bb2b23138c7cf49f508d59bf3",
+   "claim_created_at": "2026-11-15T18:24:00-06:00",
+   "claim_expires_when": "Release only after the implementation PR merges, hosted validation passes with no new failures against the pristine-main failure baseline beyond the two amended contract checkers (which must PASS in amended form), and public observation of https://stegverse.org/ shows the simple page answering the three starter questions with the filed deterministic texts.",
+   "expected_evidence": [
+    "SESSION_WORK_CLAIMS_PASS and SITE_COSV_TASK_PROJECTION_PASS on the claim PR and the implementation PR",
+    "Site Handoff Orchestrator PASS",
+    "check_site_homepage_chat.py and check_site_node_continuity.py PASS in amended form",
+    "Node harness: ecosystem-chat-runtime.js loads and askGeneral answers the starter questions after the isMath repair",
+    "public observation of https://stegverse.org/ answering the three starter questions on the simple page"
+   ],
+   "collision_boundaries": [
+    "Do not modify ecosystem-chat.html, my-kv.html, the VA pages, HIL live-execution, heartbeat orchestration, SV001/SV002 custody, InTr transport, TV/TVC, Master Records, node registration, or the claim registry's machine-owned surfaces.",
+    "Checker amendments are confined to the index/homepage-surface pins named in the handoff; every other surface's pins stand.",
+    "Do not introduce third-party runtime endpoints, provider credentials, or GitHub-token runtime authority.",
+    "Do not edit the canonical claim registry file; this claim enters as an append-only fragment.",
+    "Do not claim gateway activation or live behavior from source, CI, merge, or deployment alone."
+   ],
+   "next_task_after_release": "ECOCHAT-BIND-001 custody-node binding (principal's device act first), then the node-transport retirement of the interim gateway carriage (Determination 01).",
+   "cosv_profile": "task.v1",
+   "cosv_task_vector": "20010000100000"
+  }
+ ]
+}
