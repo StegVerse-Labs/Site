@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script>
+    (function enforceSecureRuntimeContext() {
+      if (location.protocol !== 'http:') return;
+      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
+      location.replace('https://' + location.host + location.pathname + location.search + location.hash);
+    }());
+  </script>
+  <meta name="description" content="0R10N15-8374 — a governed crossing point for the machine economy, operated by StegVerse LLC. Governed evaluation and dual-recorded receipt pairs over x402, USDC on Base.">
+  <title>0R10N15-8374 — StegVerse</title>
+  <link rel="stylesheet" href="../sv-shared.css">
+  <style>
+    .offer-page{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+    .offer-page h1{font-size:clamp(2rem,7vw,3.2rem);line-height:1.05;margin:18px 0 10px}
+    .offer-page h2{margin:30px 0 8px;font-size:1.25rem}
+    .offer-page p,.offer-page li{line-height:1.55}
+    .offer-page .lede{font-size:1.08rem}
+    .offer-page code{overflow-wrap:anywhere}
+    .offer-card{border:1px solid #2a3648;border-radius:14px;padding:16px;margin:14px 0}
+  </style>
+</head>
+<body>
+  <nav class="sv-nav"><a class="sv-nav-brand" href="../index.html">StegVerse</a><a href="../index.html">Home</a></nav>
+  <main class="offer-page">
+    <h1>0R10N15-8374</h1>
+    <p class="lede">A governed crossing point for the machine economy, operated by StegVerse LLC.</p>
+
+    <h2>What it does</h2>
+    <p>A machine submits a transaction or action for evaluation <em>before</em> it commits. Every submission is dispositioned under the ecosystem disposition grammar — <strong>ALLOW</strong>, <strong>DENY</strong>, or <strong>FAIL_CLOSED</strong> — and only an ALLOW commits. Every crossing, including refusals, returns a dual-recorded, hash-chained receipt pair: one matched pair of records, one per side of the crossing, constituting a portable settlement proof independent of either party&rsquo;s internal log. A refused or fail-closed attempt likewise produces a receipt — the refusal record.</p>
+
+    <h2>Live endpoint</h2>
+    <div class="offer-card">
+      <p>Endpoint identity: <strong>8374@StegVerse.ai</strong></p>
+      <p>Machine-readable offer: <a href="http://bore.pub:61418/offer">http://bore.pub:61418/offer</a></p>
+      <p>Protocol: <strong>x402</strong> (scheme &ldquo;exact&rdquo;, HTTP 402 Payment Required), settled in <strong>USDC on Base</strong> (eip155:8453).</p>
+      <ul>
+        <li>Receipt-only crossing — $0.0005 per crossing</li>
+        <li>Full-evaluation crossing — $0.015 per crossing</li>
+      </ul>
+      <p>The fee is paid either way: an ALLOW, a DENY, and a FAIL_CLOSED each bear the fee for the unit of compute they consumed.</p>
+      <p><strong>Before paying, cross-check the payTo: <code>0x7721aB66161e60fCcA59CCe2A86817cbdd9b16Be</code> — payment can only ever go to that address.</strong></p>
+    </div>
+
+    <h2>Patent pending</h2>
+    <p>U.S. Provisional Patent Application No. 64/198,910, filed November 14, 2026 — patent pending. The governed-crossing and receipt-pair mechanism served by this endpoint is subject matter of the pending application.</p>
+
+    <h2>Terminology</h2>
+    <p>StegVerse LLC has adopted the terminology of Executive Order 14434 — Super Intelligence (SI) — by formal declaration dated November 17, 2026.</p>
+  </main>
+</body>
+</html>
