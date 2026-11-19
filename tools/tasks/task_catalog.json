@@ -9,7 +9,8 @@
  "rule": "Every check a folded workflow job ran is one group here; its step bodies are the original run blocks byte for byte, pinned by sha256, except the repairs listed. A new check is a new group (or a step in one), never a new workflow file.",
  "path_filters": "Dropped: every group runs on every pull_request and push to main (a superset of the original path-filtered runs). workflow_dispatch/schedule triggers are not carried (no manual dispatch, no cron).",
  "repairs": [
-  "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared."
+  "Path filters and workflow_dispatch are not carried. Each folded group runs on its declared pull_request and push events, using the installs its original declared.",
+  "BUILD-Q-51: removed the five Python 3.9 matrix cells after actions/setup-python refused 3.9 on ubuntu-latest (Ubuntu 26.04); Site CI now declares Python 3.11 as its supported floor while retaining 3.11/3.12 coverage."
  ],
  "folded_from_commit": "f67169de3f2e7e2deb6bc1ba10914c8201a0831a",
  "groups": [
@@ -67,93 +68,6 @@
       "data/session-work-claims.d/SITE-APP-STORE-CONNECT-SKAP-INGRESS-20260909.json",
       "tools/tasks/folded/app-store-connect-skap-phone-ingress-validation.yml",
       "tools/tasks/steps/app-store-connect-skap-phone-ingress-validation.validate/**"
-     ]
-    }
-   }
-  },
-  {
-   "id": "check-ecosystem-node-gateway-binding.verify-python3.9",
-   "source": {
-    "workflow": ".github/workflows/check-ecosystem-node-gateway-binding.yml",
-    "workflow_name": "Check Ecosystem Node Gateway Binding",
-    "job": "verify",
-    "job_name": null,
-    "commit": "d890cd4",
-    "triggers_before": [
-     "push",
-     "pull_request",
-     "workflow_dispatch"
-    ],
-    "permissions_before": {
-     "contents": "read"
-    },
-    "matrix_cell": {
-     "python-version": "3.9"
-    }
-   },
-   "events": [
-    "pull_request",
-    "push"
-   ],
-   "env": {},
-   "steps": [
-    {
-     "name": "Install canonical event test dependency",
-     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/01-install-canonical-event-test-dependency.sh",
-     "run_sha256": "d5cf1ea8dcdee09f04f8232a17689623c901ff0221f86fc8dbad251f8475d96a"
-    },
-    {
-     "name": "Validate browser gateway binding contract",
-     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/02-validate-browser-gateway-binding-contract.sh",
-     "run_sha256": "e3051babebb800088ecb49845077665ab9d8c1fdf0626390d1c099eceb0cf177"
-    },
-    {
-     "name": "Revalidate canonical event integrity fixture",
-     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/03-revalidate-canonical-event-integrity-fixture.sh",
-     "run_sha256": "8494aa43a2d647ddba3473febf5ff90347963057d7328694c9646175c1a26271"
-    },
-    {
-     "name": "Run canonical event adversarial tests",
-     "run_file": "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/04-run-canonical-event-adversarial-tests.sh",
-     "run_sha256": "9b453a5d47b6655f8ed00ba2f505f2b0b1f85d158c39cccfd84b8688b6d15631"
-    }
-   ],
-   "artifacts": [],
-   "runner": {
-    "fetch_depth": "1",
-    "persist_credentials": "true",
-    "timeout_minutes": 30,
-    "python_version": "3.9"
-   },
-   "path_filters": {
-    "pull_request": {
-     "paths": [
-      "assets/ecosystem-node-gateway-binding.js",
-      "assets/ecosystem-node-views.js",
-      "scripts/check_ecosystem_node_gateway_binding.py",
-      "scripts/validate_ecosystem_node_canonical_events.py",
-      "schemas/ecosystem-node-canonical-event.schema.json",
-      "fixtures/ecosystem-node-canonical-events.json",
-      "tests/test_ecosystem_node_canonical_events.py",
-      "tools/tasks/folded/check-ecosystem-node-gateway-binding.yml",
-      "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/**",
-      "docs/ECOSYSTEM_NODE_GATEWAY_BINDING.md",
-      "docs/ECOSYSTEM_NODE_CANONICAL_EVENT_INTEGRITY.md"
-     ]
-    },
-    "push": {
-     "paths": [
-      "assets/ecosystem-node-gateway-binding.js",
-      "assets/ecosystem-node-views.js",
-      "scripts/check_ecosystem_node_gateway_binding.py",
-      "scripts/validate_ecosystem_node_canonical_events.py",
-      "schemas/ecosystem-node-canonical-event.schema.json",
-      "fixtures/ecosystem-node-canonical-events.json",
-      "tests/test_ecosystem_node_canonical_events.py",
-      "tools/tasks/folded/check-ecosystem-node-gateway-binding.yml",
-      "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.9/**",
-      "docs/ECOSYSTEM_NODE_GATEWAY_BINDING.md",
-      "docs/ECOSYSTEM_NODE_CANONICAL_EVENT_INTEGRITY.md"
      ]
     }
    }
@@ -328,87 +242,6 @@
       "tools/tasks/steps/check-ecosystem-node-gateway-binding.verify-python3.12/**",
       "docs/ECOSYSTEM_NODE_GATEWAY_BINDING.md",
       "docs/ECOSYSTEM_NODE_CANONICAL_EVENT_INTEGRITY.md"
-     ]
-    }
-   }
-  },
-  {
-   "id": "check-tidc-session-consolidation.validate-python3.9",
-   "source": {
-    "workflow": ".github/workflows/check-tidc-session-consolidation.yml",
-    "workflow_name": "Check TIDC Session Consolidation",
-    "job": "validate",
-    "job_name": null,
-    "commit": "d890cd4",
-    "triggers_before": [
-     "pull_request",
-     "workflow_dispatch"
-    ],
-    "permissions_before": {
-     "contents": "read"
-    },
-    "matrix_cell": {
-     "python-version": "3.9"
-    }
-   },
-   "events": [
-    "pull_request",
-    "push"
-   ],
-   "env": {},
-   "steps": [
-    {
-     "name": "Compile consolidation validator",
-     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.9/01-compile-consolidation-validator.sh",
-     "run_sha256": "adbffaf63f862f126c6778e9078bc79de84bae0ed7e9f8a745ebb80589920ba6"
-    },
-    {
-     "name": "Validate canonical session transfer",
-     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.9/02-validate-canonical-session-transfer.sh",
-     "run_sha256": "44e893cf17357e1fbbe024530bb791760d75744167d2e7a574a68b632cfab223"
-    },
-    {
-     "name": "Validate scientific publication boundary",
-     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.9/03-validate-scientific-publication-boundary.sh",
-     "run_sha256": "866aab386e83a153474b46627d053a3ed7892b1212226ac97731b7dde7e3c640"
-    },
-    {
-     "name": "Emit validation receipt",
-     "run_file": "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.9/04-emit-validation-receipt.sh",
-     "run_sha256": "12b09f5880aedd8df019fcc30bbc36362b128352143a9b6f1b0fde5c9cc726e4",
-     "if": "${{ matrix.python-version == '3.12' }}"
-    }
-   ],
-   "artifacts": [
-    {
-     "name": "tidc-session-consolidation-validation",
-     "path": "reports/tidc-session-consolidation-validation.json",
-     "if_no_files_found": "warn",
-     "if": "${{ matrix.python-version == '3.12' }}"
-    }
-   ],
-   "runner": {
-    "fetch_depth": "1",
-    "persist_credentials": "true",
-    "timeout_minutes": 30,
-    "python_version": "3.9",
-    "artifact_name": "tidc-session-consolidation-validation",
-    "artifact_if_no_files_found": "warn"
-   },
-   "path_filters": {
-    "pull_request": {
-     "paths": [
-      "docs/TIDC_MIRROR_HANDOFF.md",
-      "docs/TIDC_OPEN_RESEARCH_HANDOFF.md",
-      "data/tidc/session-consolidation-inventory.json",
-      "data/tidc/work-queue.json",
-      "data/tidc/source-expansion/**",
-      "data/tidc/tranche-02/**",
-      "data/tidc/negative-controls/**",
-      "data/tasks/TIDC-SESSION-CONSOLIDATION-VALIDATION.json",
-      "scripts/check_tidc_session_consolidation.py",
-      "tools/tasks/folded/check-tidc-session-consolidation.yml",
-      "tools/tasks/steps/check-tidc-session-consolidation.validate-python3.9/**"
      ]
     }
    }
@@ -3858,66 +3691,6 @@
    }
   },
   {
-   "id": "check-steglearn-landing.verify-python3.9",
-   "source": {
-    "workflow": ".github/workflows/check-steglearn-landing.yml",
-    "workflow_name": "Check StegLearn Landing",
-    "job": "verify",
-    "job_name": null,
-    "commit": "eac84fb7ee2afe2e6389234dfdc4a8493138c694",
-    "triggers_before": [
-     "push",
-     "pull_request",
-     "workflow_dispatch"
-    ],
-    "permissions_before": {
-     "contents": "read"
-    },
-    "matrix_cell": {
-     "python-version": "3.9"
-    }
-   },
-   "events": [
-    "pull_request",
-    "push"
-   ],
-   "env": {},
-   "steps": [
-    {
-     "name": "Validate StegLearn public landing contract",
-     "run_file": "tools/tasks/steps/check-steglearn-landing.verify-python3.9/01-validate-steglearn-public-landing-contract.sh",
-     "run_sha256": "d0f31b10abd39bdd68ef14ebff70ba90976665334f77f6488e8b942691599655"
-    }
-   ],
-   "artifacts": [],
-   "runner": {
-    "fetch_depth": "1",
-    "persist_credentials": "true",
-    "timeout_minutes": 30,
-    "python_version": "3.9"
-   },
-   "path_filters": {
-    "pull_request": {
-     "paths": [
-      "steglearn/index.html",
-      "scripts/check_steglearn_landing.py",
-      "docs/STEGLEARN_SITE_MIRROR_HANDOFF.md",
-      "tools/tasks/folded/check-steglearn-landing.yml",
-      "tools/tasks/steps/check-steglearn-landing.verify-python3.9/**"
-     ]
-    },
-    "push": {
-     "paths": [
-      "steglearn/index.html",
-      "scripts/check_steglearn_landing.py",
-      "docs/STEGLEARN_SITE_MIRROR_HANDOFF.md",
-      "tools/tasks/folded/check-steglearn-landing.yml",
-      "tools/tasks/steps/check-steglearn-landing.verify-python3.9/**"
-     ]
-    }
-   }
-  },
-  {
    "id": "check-steglearn-landing.verify-python3.11",
    "source": {
     "workflow": ".github/workflows/check-steglearn-landing.yml",
@@ -6184,76 +5957,6 @@
    }
   },
   {
-   "id": "validate-review-authority-projection.validate-python3.9",
-   "source": {
-    "workflow": ".github/workflows/validate-review-authority-projection.yml",
-    "workflow_name": "Validate Review Authority Projection",
-    "job": "validate",
-    "job_name": null,
-    "commit": "7b0eb18e9",
-    "triggers_before": [
-     "pull_request",
-     "push",
-     "workflow_dispatch"
-    ],
-    "permissions_before": {},
-    "matrix_cell": {
-     "python-version": "3.9"
-    }
-   },
-   "events": [
-    "pull_request",
-    "push"
-   ],
-   "env": {},
-   "steps": [
-    {
-     "name": "Compile validator",
-     "run_file": "tools/tasks/steps/validate-review-authority-projection.validate-python3.9/01-compile-validator.sh",
-     "run_sha256": "523658f1fb5d4a8c822ff31fd2894e1cc7c9878ec19ae7e80d308567ab57295f"
-    },
-    {
-     "name": "Validate Site projection",
-     "run_file": "tools/tasks/steps/validate-review-authority-projection.validate-python3.9/02-validate-site-projection.sh",
-     "run_sha256": "1a66704bdda00dd0629a9fdce1d18a9893d8e82878852dd1095b7de5e38e6ba5"
-    }
-   ],
-   "artifacts": [],
-   "runner": {
-    "fetch_depth": "1",
-    "persist_credentials": "false",
-    "timeout_minutes": 10,
-    "python_version": "3.9"
-   },
-   "fold_notes": [
-    "Site round 76 / #166: fold KEEP_PENDING credential-free validator. Refuse-credential + anonymous checkout repaired to the dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
-    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron).",
-    "Original matrix python-version 3.9/3.11/3.12 expanded to three catalog groups (steglearn pattern)."
-   ],
-   "path_filters": {
-    "pull_request": {
-     "paths": [
-      "review-authority.html",
-      "assets/review-authority-projection.js",
-      "data/review-authority-projection.fixture.json",
-      "scripts/check_review_authority_projection.py",
-      "tools/tasks/folded/validate-review-authority-projection.yml",
-      "tools/tasks/steps/validate-review-authority-projection.validate-python3.9/**"
-     ]
-    },
-    "push": {
-     "paths": [
-      "review-authority.html",
-      "assets/review-authority-projection.js",
-      "data/review-authority-projection.fixture.json",
-      "scripts/check_review_authority_projection.py",
-      "tools/tasks/folded/validate-review-authority-projection.yml",
-      "tools/tasks/steps/validate-review-authority-projection.validate-python3.9/**"
-     ]
-    }
-   }
-  },
-  {
    "id": "validate-review-authority-projection.validate-python3.11",
    "source": {
     "workflow": ".github/workflows/validate-review-authority-projection.yml",
@@ -6953,90 +6656,6 @@
       "data/session-work-claims.d/site-stegos-persistent-card-ux-1000-auto-recovery-20260906.json",
       "tools/tasks/folded/validate-stegos-persistent-card-ux.yml",
       "tools/tasks/steps/validate-stegos-persistent-card-ux.validate/**"
-     ]
-    }
-   }
-  },
-  {
-   "id": "check-tidc-research.verify-publication-python3.9",
-   "source": {
-    "workflow": ".github/workflows/check-tidc-research.yml",
-    "workflow_name": "Check TIDC Research Surface",
-    "job": "verify-publication",
-    "job_name": null,
-    "commit": "ab2dd7667",
-    "triggers_before": [
-     "push",
-     "pull_request",
-     "workflow_dispatch"
-    ],
-    "permissions_before": {},
-    "matrix_cell": {
-     "python-version": "3.9"
-    }
-   },
-   "events": [
-    "pull_request",
-    "push"
-   ],
-   "env": {},
-   "steps": [
-    {
-     "name": "Compile TIDC validators",
-     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.9/01-compile-tidc-validators.sh",
-     "run_sha256": "e434e7d1c6cb50d4bcdff9431de60d504d452e1cedcd17b7d3ffd1184efac9fc"
-    },
-    {
-     "name": "Validate public research publication",
-     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.9/02-validate-public-research-publication.sh",
-     "run_sha256": "bf1b6363cfb1ba833108fe68264ff3b248064abaae5c524cadaea2848351cac4"
-    },
-    {
-     "name": "Validate issued blinded packet markers",
-     "run_file": "tools/tasks/steps/check-tidc-research.verify-publication-python3.9/03-validate-issued-blinded-packet-markers.sh",
-     "run_sha256": "5ac909845c2216f88dbeec490a5a0ad56a5f90330110fa6477166ee404ca72b4"
-    }
-   ],
-   "artifacts": [],
-   "runner": {
-    "fetch_depth": "1",
-    "persist_credentials": "false",
-    "timeout_minutes": 10,
-    "python_version": "3.9"
-   },
-   "fold_notes": [
-    "Site round 78 / #166: fold KEEP_PENDING multi-job TIDC research validator. Refuse/anonymous checkout repaired to dispatcher credential-free checkout (stegfin/#1677/#1678 pattern).",
-    "verify-publication matrix expanded to three catalog groups; process-blinded-returns artifact retained with if_no_files_found=ignore (no GITHUB_OUTPUT gate).",
-    "workflow_dispatch not carried by dispatcher (no manual dispatch, no cron)."
-   ],
-   "path_filters": {
-    "pull_request": {
-     "paths": [
-      "technology-induced-discovery-clustering.html",
-      "public-registry.json",
-      "docs/TIDC_*.md",
-      "data/tidc/blinded-coding/**",
-      "data/tidc/pilot-events-v0.1.json",
-      "scripts/check_tidc_publication.py",
-      "scripts/validate_tidc_blinded_return.py",
-      "scripts/create_tidc_blinded_return_receipt.py",
-      "scripts/compare_tidc_blinded_coding.py",
-      "tools/tasks/folded/check-tidc-research.yml",
-      "tools/tasks/steps/check-tidc-research.verify-publication-python3.9/**"
-     ]
-    },
-    "push": {
-     "paths": [
-      "technology-induced-discovery-clustering.html",
-      "public-registry.json",
-      "docs/TIDC_*.md",
-      "data/tidc/**",
-      "scripts/check_tidc_publication.py",
-      "scripts/validate_tidc_blinded_return.py",
-      "scripts/create_tidc_blinded_return_receipt.py",
-      "scripts/compare_tidc_blinded_coding.py",
-      "tools/tasks/folded/check-tidc-research.yml",
-      "tools/tasks/steps/check-tidc-research.verify-publication-python3.9/**"
      ]
     }
    }
