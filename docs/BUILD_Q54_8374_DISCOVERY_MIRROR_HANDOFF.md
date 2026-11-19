@@ -18,3 +18,9 @@ Registration commit08b9e835f6f1c4e37a787ff89119e89140c567cb introduced the exclu
 ## Remaining acceptance
 
 Inspect all exact-head PR checks; current-main changes require a fresh expected-head reconciliation. After owner integration, independently fetch all three Site snapshot bodies plus the manifest/page and compare the exact source hashes. That is a distinct propagation verification, not already proven by local HTTP. Existing BUILD-Q-54 lane-host/custody/funding, central GEN12 suite/native authority and actual external routed crossing remain with their original owners. No release tag or runtime version increase is justified by this static mirror alone.
+
+## WITHDRAWN duplicate — final disposition
+
+Native earlier Cycle13 claim .github#3472/7022189703 precedes R3 claim7022219415 for the exact same Site discovery-mirror leg. R3 missed the new pairing page at pickup. PR1715 is CLOSED/WITHDRAWN; its local checks and CI remain historical evidence and count as ZERO additional unique work. Original overlap7022623075 and final7022782000 were read and preserved. Continue ONLY earlier PR1716/head571faa800ee25683a4c35115bb7fee1faef4a9ea and its existing non-CODEX review3451/7022653307 / owner condition3443/7022653674. Do not merge both.
+
+R3 correction3472/7022824252,owner3443/7022824628,coordinator3444/7022824998,reviewwithdrawal3451/7022825363. This withdrawn branch's source claim is released separately without editing the earlier branch or main. Native Goal/COSV remain UNBOUND. Disjoint router scope fix SV-LLM/sandboxPR50 remains a separate source candidate and is not withdrawn.
