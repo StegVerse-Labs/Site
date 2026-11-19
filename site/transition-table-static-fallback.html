@@ -54,4 +54,5 @@ function renderLedger(){ledgerStream.innerHTML="";const element=elements.find(it
 function line(text,className=""){const p=document.createElement("p");p.className=`ledger-line ${className}`.trim();p.textContent=text;ledgerStream.appendChild(p);ledgerStream.scrollTop=ledgerStream.scrollHeight;}
 document.querySelectorAll("[data-view]").forEach(button=>{button.addEventListener("click",()=>{activeView=button.dataset.view;document.querySelectorAll("[data-view]").forEach(item=>item.classList.toggle("active",item===button));renderGrid();});});
 init();
-</script></body></html>
+</script><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

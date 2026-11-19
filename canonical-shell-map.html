@@ -39,4 +39,5 @@ function list(a){return Array.isArray(a)&&a.length?"<ul>"+a.map(x=>`<li>${esc(x)
 (async()=>{const sh=await fetchJSON("data/canonical/shells-v1.json",{shells:[]});const sf=await fetchJSON("data/canonical/execution-surfaces-v1.json",{surfaces:[]});
 document.getElementById("shells").innerHTML=(sh.shells||[]).map(x=>`<article class="card"><strong>${esc(x.shell_id)} — ${esc(x.shell_name)}</strong><p>${esc(x.surface_type||"")}</p>${b(x.completion_state)}</article>`).join("")||"No shell data.";
 document.getElementById("surfaces").innerHTML=`<table><thead><tr><th>Surface</th><th>Path</th><th>Shell</th><th>Block</th><th>State</th></tr></thead><tbody>${(sf.surfaces||[]).map(s=>`<tr><td><code>${esc(s.surface_id)}</code></td><td><code>${esc(s.repo_path)}</code></td><td>${esc(s.shell)}</td><td><code>${esc(s.transition_block)}</code></td><td>${b(s.current_activation_state)}</td></tr>`).join("")}</tbody></table>`;})();
-</script></body></html>
+</script><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

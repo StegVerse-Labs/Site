@@ -5,4 +5,5 @@
 async function loadDiscovery(){const response=await fetch("../data/formalism-tests/transition-discovery-map.json",{cache:"no-store"});if(!response.ok)throw new Error("Could not load transition-discovery-map.json");return response.json();}
 function pill(level,name){return `<span class="level-pill level-${level}">L${level} · ${name}</span>`;}
 loadDiscovery().then((data)=>{document.getElementById("authority").textContent=data.authority_boundary||"";const names=Object.fromEntries(data.scale.levels.map((x)=>[x.level,x.name]));const target=document.getElementById("elements");data.elements.slice().sort((a,b)=>a.completion_level-b.completion_level||a.element_id.localeCompare(b.element_id)).forEach((item)=>{const div=document.createElement("div");div.className=`card element-card level-border-${item.completion_level}`;div.innerHTML=`<h3>${item.name}</h3><p>${pill(item.completion_level,names[item.completion_level])}</p><p>${item.summary}</p><p><a href="../${item.detail_page}">Open detail page</a></p>`;target.appendChild(div);});});
-</script></body></html>
+</script><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

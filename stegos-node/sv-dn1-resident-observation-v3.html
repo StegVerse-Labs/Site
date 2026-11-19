@@ -40,4 +40,5 @@ function sendGoverned(){if(!bundleOut)return;send.disabled=true;sendStatus.textC
 function exportBundle(){if(!bundleOut)return;var b=new Blob([JSON.stringify(bundleOut,null,2)+"\n"],{type:"application/json"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="sv-dn1-established-node-observation-"+continuity.node.node_id+".json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)}
 file.addEventListener("change",function(){var f=file.files&&file.files[0];if(!f)return;f.text().then(function(t){return verifyImport(JSON.parse(t))}).catch(function(e){state.textContent="FAIL_CLOSED: "+e.message;state.className="bad"})});run.addEventListener("click",execute);send.addEventListener("click",sendGoverned);exp.addEventListener("click",exportBundle);tryLive();
 }());
-</script></body></html>
+</script><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

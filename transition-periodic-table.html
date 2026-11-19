@@ -39,4 +39,5 @@ function list(a){return Array.isArray(a)&&a.length?"<ul>"+a.map(x=>`<li>${esc(x)
 const blocked=(cl.transitions||[]).filter(t=>String(t.execution_state).includes("blocked"));
 document.getElementById("summary").innerHTML=`<article class="card"><strong>${(sh.shells||[]).length}</strong><p>canonical shells</p></article><article class="card"><strong>${(cl.transitions||[]).length}</strong><p>closure records</p></article><article class="card"><strong>${blocked.length}</strong><p>blocked transitions</p></article>`;
 document.getElementById("page-status").innerHTML=`<p>${esc(ps.summary||"Canonical page status unavailable.")}</p><p><b>Blocked claims:</b></p>${list(ps.blocked_claims)}`;})();
-</script></body></html>
+</script><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

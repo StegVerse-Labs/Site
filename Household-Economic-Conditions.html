@@ -129,5 +129,6 @@ async function boot(){
 }
 document.querySelectorAll('[data-range]').forEach(b=>b.addEventListener('click',()=>{selectedRange=b.dataset.range;document.querySelectorAll('[data-range]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderChart()}));document.getElementById('mode').addEventListener('change',renderChart);boot();
 </script>
+<script src="/assets/stegverse-node-continuity.js"></script>
 </body>
 </html>

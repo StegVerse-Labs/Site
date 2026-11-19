@@ -30,4 +30,5 @@ function renderSummary(summary){if(!summary)return'';const entries=[['Goal',summ
 function display(d){document.getElementById('mode').textContent=d.mode+': '+d.truthful_notice;document.getElementById('summary').innerHTML=renderSummary(d.summary);document.getElementById('graph').innerHTML=renderGraph(d.task_graph?.nodes||[]);document.getElementById('actions').innerHTML=renderItems(d.corrective_actions,'No corrective actions are currently recorded.');document.getElementById('history').innerHTML=renderHistory(d.completed_history||[]);}
 fetch('data/autonomy/live-status.json?ts='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('task state returned '+r.status);return r.json()}).then(display).catch(e=>{document.getElementById('mode').textContent='TASK_STATE_UNAVAILABLE: '+e.message;document.getElementById('graph').textContent='No verified data.';document.getElementById('actions').textContent='No verified data.';document.getElementById('history').textContent='No verified data.';});
 </script>
+<script src="/assets/stegverse-node-continuity.js"></script>
 </body></html>

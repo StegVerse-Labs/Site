@@ -32,4 +32,5 @@ function exportEvidence(){if(!evidence)return;var b=new Blob([JSON.stringify(evi
 cf.addEventListener("change",function(){var f=cf.files&&cf.files[0];if(f)f.text().then(function(t){return importContinuity(JSON.parse(t))}).catch(function(e){nodeState.textContent="FAIL_CLOSED: "+e.message;nodeState.className="bad"})});
 pf.addEventListener("change",function(){var f=pf.files&&pf.files[0];if(!f)return;f.text().then(function(t){pkg=JSON.parse(t);return verifyPackage(pkg)}).then(function(){ps.textContent="Package integrity + TVC resident receipt verified.";ps.className="ok";mat.disabled=false}).catch(function(e){pkg=null;ps.textContent="FAIL_CLOSED: "+e.message;ps.className="bad";mat.disabled=true})});
 mat.addEventListener("click",execute);exp.addEventListener("click",exportEvidence);tryLive();
-}());</script></main></body></html>
+}());</script></main><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

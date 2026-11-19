@@ -47,5 +47,6 @@ function runReplay(){const out=replay(v("prior"),v("decision"),v("next"),v("auth
 function loadExample(){document.getElementById("prior").value="confirmed";document.getElementById("decision").value="declared";document.getElementById("next").value="declared";document.getElementById("authority").value="confirmed";document.getElementById("notes").value="Prior receipt and authority exist, but the remaining continuity points are not confirmed.";runReplay();}
 function clearPage(){document.getElementById("notes").value="";document.getElementById("result").innerHTML="";}
 </script>
+<script src="/assets/stegverse-node-continuity.js"></script>
 </body>
 </html>

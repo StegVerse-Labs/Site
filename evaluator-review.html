@@ -222,5 +222,6 @@ id("exportManifest").addEventListener("click",function(){var blob=new Blob([JSON
 (async function(){try{var params=new URLSearchParams(location.search);review=await api.loadReview({testId:params.get("test")||"cross-framework-current-basis-001",source:params.get("source")||undefined});await render();}catch(err){txt("title","Review unavailable");txt("statePill","FAIL_CLOSED");setActionStatus(err.message,true);}})();
 }());
 </script>
+<script src="/assets/stegverse-node-continuity.js"></script>
 </body>
 </html>

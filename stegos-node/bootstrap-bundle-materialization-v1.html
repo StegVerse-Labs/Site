@@ -36,4 +36,5 @@ function exportEvidence(){if(!evidence)return;var b=new Blob([JSON.stringify(evi
 cf.addEventListener("change",function(){var f=cf.files&&cf.files[0];if(f)f.text().then(function(t){return importContinuity(JSON.parse(t))}).catch(function(e){ns.textContent="FAIL_CLOSED: "+e.message;ns.className="bad"})});
 bf.addEventListener("change",function(){var f=bf.files&&bf.files[0];if(!f)return;f.text().then(function(t){bundle=JSON.parse(t);return verifyBundle(bundle)}).then(function(){bs.textContent="Bundle verified: rc.1 + frozen catalog + four exact source packages. Materialization remains UNADMITTED.";bs.className="ok";mat.disabled=false}).catch(function(e){bundle=null;bs.textContent="FAIL_CLOSED: "+e.message;bs.className="bad";mat.disabled=true})});
 mat.addEventListener("click",execute);exp.addEventListener("click",exportEvidence);tryLive();
-}());</script></main></body></html>
+}());</script></main><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

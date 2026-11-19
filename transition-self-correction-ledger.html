@@ -38,4 +38,5 @@ function list(a){return Array.isArray(a)&&a.length?"<ul>"+a.map(x=>`<li>${esc(x)
 (async()=>{const led=await fetchJSON("data/canonical/transition-correction-ledger-v1.json",{ledger_entries:[]});const st=await fetchJSON("data/canonical/transition-status-index-v1.json",{transitions:[]});
 document.getElementById("corrections").innerHTML=(led.ledger_entries||[]).map(e=>`<article class="card"><strong>${esc(e.subject)}</strong><p><b>Original:</b> ${esc(e.original_assumption)}</p><p><b>Corrected:</b> ${b(e.corrected_state?.discovery_state)} ${b(e.corrected_state?.execution_state)} ${b(e.corrected_state?.correction_state)}</p><p>${esc(e.corrected_state?.canonical_reason)}</p><h3>Forbidden</h3>${list(e.forbidden_next_actions)}</article>`).join("")||"No corrections.";
 document.getElementById("status").innerHTML=`<table><thead><tr><th>Transition</th><th>Discovery</th><th>Execution</th><th>Evidence</th><th>Correction</th></tr></thead><tbody>${(st.transitions||[]).map(t=>`<tr><td><code>${esc(t.transition_id)}</code><br>${esc(t.name)}</td><td>${b(t.discovery_state)}</td><td>${b(t.execution_state)}</td><td>${b(t.evidence_state)}</td><td>${b(t.correction_state)}</td></tr>`).join("")}</tbody></table>`;})();
-</script></body></html>
+</script><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

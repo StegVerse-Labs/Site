@@ -42,5 +42,6 @@ function decide(a,e,r,c){const missing=[a,e,r].filter(x=>x==="missing").length;i
 function runTest(){const out=decide(v("authority"),v("evidence"),v("replay"),v("consequence"));document.getElementById("result").innerHTML=`<h2 class="sv-h2">Fail-closed result</h2><div class="sv-evidence"><div class="sv-evidence-label">Boundary posture</div><div class="sv-evidence-row"><span class="k">Decision</span><span class="v">${out.d}</span></div><div class="sv-evidence-row"><span class="k">Posture</span><span class="v">${out.p}</span></div><div class="sv-evidence-row"><span class="k">Reason</span><span class="v">${out.reason}</span></div></div>`;}
 function loadExample(){document.getElementById("authority").value="missing";document.getElementById("evidence").value="declared";document.getElementById("replay").value="missing";document.getElementById("consequence").value="high";runTest();}
 </script>
+<script src="/assets/stegverse-node-continuity.js"></script>
 </body>
 </html>

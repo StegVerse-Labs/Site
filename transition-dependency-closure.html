@@ -37,4 +37,5 @@ function list(a){return Array.isArray(a)&&a.length?"<ul>"+a.map(x=>`<li>${esc(x)
 
 (async()=>{const st=await fetchJSON("data/canonical/transition-dependency-closure-status-v1.json",{transitions:[]});
 document.getElementById("closure").innerHTML=`<table><thead><tr><th>Transition</th><th>Discovery</th><th>Execution</th><th>Closure</th><th>Unresolved</th></tr></thead><tbody>${(st.transitions||[]).map(t=>{const c=t.closure||{};return `<tr><td><code>${esc(t.transition_id)}</code><br>${esc(t.name)}</td><td>${b(t.discovery_state)}</td><td>${b(t.execution_state)}</td><td>shell ${b(c.shell_closure)}<br>surface ${b(c.surface_closure)}<br>receipt ${b(c.receipt_closure)}<br>evidence ${b(c.evidence_closure)}<br>authority ${b(c.authority_closure)}</td><td>${list(t.unresolved_dependencies)}</td></tr>`}).join("")}</tbody></table>`;})();
-</script></body></html>
+</script><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

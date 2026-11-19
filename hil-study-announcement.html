@@ -22,5 +22,6 @@
 <script>
 (async()=>{const statusEl=document.getElementById('announcement-state');try{const r=await fetch('data/hil-announcement-status.json',{cache:'no-store'});if(!r.ok)throw new Error('status unavailable');const s=await r.json();statusEl.textContent=s.announcement_state;document.getElementById('intake-state').textContent='Participant intake: '+s.participant_intake_state;document.getElementById('return-instructions').textContent=s.temporary_return_mode.instructions;const box=document.getElementById('available');s.available_now.forEach(x=>{const d=document.createElement('div');d.className='card';d.textContent=x;box.appendChild(d);});}catch(e){statusEl.textContent='STATUS_UNAVAILABLE';document.getElementById('intake-state').textContent='Use the participant page only if its local preparation controls load successfully.';}document.getElementById('copy').onclick=async()=>{await navigator.clipboard.writeText(document.getElementById('copy-text').textContent.trim());document.getElementById('copy').textContent='Copied';setTimeout(()=>document.getElementById('copy').textContent='Copy announcement',1500);};})();
 </script>
+<script src="/assets/stegverse-node-continuity.js"></script>
 </body>
 </html>
