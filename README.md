@@ -829,3 +829,8 @@ implementation claim is released through the separate registry-only follow-up;
 its Site-local projection is historical and does not establish native Goal/COSV
 admission. Final central settlement and native-binding disposition are recorded
 on `StegVerse-Labs/.github#3471` (paired #3472).
+
+
+### 8374 discovery fallback mirrors
+
+BUILD-Q-54 adds historical JSON snapshots at `0r10n15-8374/discovery/`: the published offer, OpenAPI and x402 manifest, captured verbatim with provenance, byte lengths and SHA-256 pins. The local snapshot page remains readable without the endpoint. These copies grant no payment, runtime or automatic signed-operation failover authority. Payments require a fresh live 402 challenge. Check with `python3 scripts/check_8374_discovery_mirrors.py --offline-http --self-test`. Continuation: `docs/BUILD_Q54_8374_DISCOVERY_MIRROR_HANDOFF.md`. Source/local checks do not prove public deployment.

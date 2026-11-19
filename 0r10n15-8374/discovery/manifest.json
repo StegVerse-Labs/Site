@@ -1,0 +1,54 @@
+{
+  "schema": "stegverse.8374.discovery-snapshot/v1",
+  "status": "CAPTURED_HISTORICAL_SNAPSHOT",
+  "captured_at": "2026-11-19T21:10:52.705Z",
+  "source_service": "https://8374.stegverse.org",
+  "queue_task": "BUILD-Q-54",
+  "capture_source_revision": "Published service documents, not an inferred source-commit binding",
+  "authority_effect": "NONE",
+  "payment_authority": false,
+  "runtime_authority": false,
+  "fresh_live_402_required": true,
+  "automated_failover_for_signed_operations": false,
+  "files": [
+    {
+      "id": "offer",
+      "path": "offer.json",
+      "source_url": "https://8374.stegverse.org/offer",
+      "observed_http_status": 200,
+      "observed_content_type": "application/json",
+      "body_source": "Primary service response body returned by fresh maxAge=0 public fetch; origin wire headers/signatures not independently verified.",
+      "wire_headers_verified": false,
+      "bytes": 5825,
+      "sha256": "536583d4dd23d2dca870e0eac72c060c0ea4226398481b4a969ccab6ddb5efca"
+    },
+    {
+      "id": "openapi",
+      "path": "openapi.json",
+      "source_url": "https://8374.stegverse.org/openapi.json",
+      "observed_http_status": 200,
+      "observed_content_type": "application/json",
+      "body_source": "Primary service response body returned by fresh maxAge=0 public fetch; origin wire headers/signatures not independently verified.",
+      "wire_headers_verified": false,
+      "bytes": 3189,
+      "sha256": "73a4c5068d6bef2727d5be0f65f39457de658fee05eabffdf058c3c8180ee382"
+    },
+    {
+      "id": "x402",
+      "path": "x402.json",
+      "source_url": "https://8374.stegverse.org/.well-known/x402",
+      "observed_http_status": 200,
+      "observed_content_type": "application/json",
+      "body_source": "Primary service response body returned by fresh maxAge=0 public fetch; origin wire headers/signatures not independently verified.",
+      "wire_headers_verified": false,
+      "bytes": 529,
+      "sha256": "17216cccb308d7e03df6aed458d6eaa49a9c7a34c41f8fd702a8870d2ea3337f"
+    }
+  ],
+  "known_source_limitations": [
+    "Captured offer states x402Version 1; preserved verbatim.",
+    "Captured OpenAPI x-payment-info states one flat amount while default tier is receipt-only and settlement is quoted live.",
+    "No snapshot freshness, source origin availability or current payment quote is guaranteed.",
+    "Legacy x402 manifest shape preserved; absent per-resource fields are not fabricated."
+  ]
+}
