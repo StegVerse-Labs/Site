@@ -40,7 +40,7 @@
         "No merge, deployment, release, native admission, or Task Registry identity grant from this claim"
       ],
       "next_task_after_release": "Post-merge full-board verification and native Goal Task ID/COSV reconciliation by the existing Registry owner.",
-      "pull_request_under_work": null,
+      "pull_request_under_work": 1709,
       "credential_authority": "TV/TVC",
       "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
       "non_tv_tvc_secret_or_token_used": false,
