@@ -57,6 +57,11 @@
       "kind": "EXTERNAL_PUBLIC_SOURCE_TARGET",
       "url": "https://huggingface.co/api/models/Qwen/Qwen3-8B",
       "claim_scope": "Selected external artifact target for SV-DN-1; no current revision is asserted in this analytical record without retained same-checkpoint payload evidence."
+    },
+    "GORE_REPORT_NVIDIA_Q3_2026": {
+      "kind": "PUBLIC_MARKET_COMMENTARY",
+      "url": "https://www.linkedin.com/posts/christopher-gore-5b56a56_nvidia-nvda-nvidiaearnings-activity-7528828330255568896-yE1P",
+      "claim_scope": "Christopher Gore (Gore Report), LinkedIn, published 2026-11-18: NVIDIA Q3 results as reported by the source (revenue $115.8B vs $109B expected; Data Center $107.6B; adjusted EPS $2.68; next-quarter outlook midpoint $130B vs ~$125B expected); CEO succession as reported by the source (Colette Kress interim CEO; Arm CEO Rene Haas reportedly approached); circular-financing sustainability question posed by the source (whether NVIDIA-backed customers can fund continued chip purchases through 2029). Bears on absorption-axis components nvidia_control_strategic_direction and nvidia_dependency_concentration. Single secondary source; claims attributed to the source, not independently verified. Retained as evidence toward a future complete observation; not a checkpoint."
     }
   },
   "reference_baseline": {
