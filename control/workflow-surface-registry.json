@@ -1032,7 +1032,6 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "check-ecosystem-node-gateway-binding.verify-python3.9",
         "check-ecosystem-node-gateway-binding.verify-python3.11",
         "check-ecosystem-node-gateway-binding.verify-python3.12"
       ],
@@ -1049,7 +1048,6 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "check-tidc-session-consolidation.validate-python3.9",
         "check-tidc-session-consolidation.validate-python3.11",
         "check-tidc-session-consolidation.validate-python3.12"
       ],
@@ -1748,7 +1746,6 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "check-steglearn-landing.verify-python3.9",
         "check-steglearn-landing.verify-python3.11",
         "check-steglearn-landing.verify-python3.12"
       ],
@@ -2111,7 +2108,6 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "validate-review-authority-projection.validate-python3.9",
         "validate-review-authority-projection.validate-python3.11",
         "validate-review-authority-projection.validate-python3.12"
       ],
@@ -2238,7 +2234,6 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "check-tidc-research.verify-publication-python3.9",
         "check-tidc-research.verify-publication-python3.11",
         "check-tidc-research.verify-publication-python3.12",
         "check-tidc-research.process-blinded-returns",
