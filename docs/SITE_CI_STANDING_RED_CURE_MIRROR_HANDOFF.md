@@ -7,6 +7,8 @@ Native Goal Task ID: `UNVERIFIED_NOT_REGISTERED_IN_GENERATION_326`
 Canonical parent context only: `STEGVERSE-CANONICAL-WORK-COORDINATION-001`
 Parent COSV: `10100000100000`
 Status: `ACTIVE_SOURCE_CURE / PROTECTED_INTEGRATION_PENDING`
+Pull request: `#1709`
+Candidate head before this handoff refresh: `948d9163ca5caf96226be23835c20499c0464458`
 
 ## Authority and scope
 
