@@ -25,7 +25,8 @@
         "control/workflow-surface-registry.json",
         "data/cosv/task-vector-index.json",
         "data/cosv/active-claim-projections.json",
-        "scripts/check_tidc_session_consolidation.py"
+        "scripts/check_tidc_session_consolidation.py",
+        ".github/workflows/entity-economy-volume-ii-public-observation.yml"
       ],
       "handoff": "docs/BUILD_Q51_SITE_CI_STANDING_RED_MIRROR_HANDOFF.md",
       "handoff_revision": "9445ce9d511b6abfa2c87a67163025c98cfec190; handoff added atomically with claim",

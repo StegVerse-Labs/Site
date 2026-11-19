@@ -42,7 +42,7 @@ Keep all three claim/orchestration gates intact. Register this repair's exact
 branch before opening the PR, retain its claim through merge-event validation,
 then release it through the existing registry-only terminalization path.
 
-Acceptance remains pending: merge the repair PR through ordinary protections,
+Acceptance tracking (latest settlement on .github#3471/#3472): merge each repair PR through ordinary protections,
 read every check page at the exact head and merge, and file counts, conclusions,
 run URLs and any remainder on #3471/#3472. No green/merge/runtime assertion is
 made by this initial handoff. If integration cannot proceed, file the exact
@@ -67,3 +67,32 @@ workflow. The workflow registry records the five retired cells separately.
 The repair claim is projected through the existing Site-local active-claim
 projection mode (authority_effect NONE). Its mechanically derived source-claim
 vector is not a native Goal/COSV admission. Native Goal/COSV remain UNBOUND.
+
+## Merged source evidence and observer follow-up
+
+PR #1710 merged through ordinary expected-head integration at
+`600cb8894dd8bc296a39e939a4fcef9e8a58a3df`. Its exact source head
+`2ef8ca8990e7135f971917dd2109916e3b63002f` had 120 paginated checks:
+119 success, zero failures, zero pending, plus the intentionally inapplicable CFP
+write job skipped by its existing PR guard. All ten retained Python validators
+actually executed (no NOT_SELECTED in their logs). All three strict claim gates
+were success. Local 39 claim/projection/registry tests and the two targeted
+catalog floor/filter regressions pass. Catalog, heartbeat and consolidation PASS.
+
+Post-merge readback reached 125 checks: 124 success, one newly exposed observer
+failure. Run `44467328776`, job `135368144849`, failed with
+`Playwright does not support chromium on ubuntu26.04-x64`. The existing Entity
+Economy Volume II public observer is pinned to Ubuntu 24.04; Playwright v1.52.0
+upstream `packages/playwright-core/src/server/registry/nativeDeps.ts` explicitly
+contains ubuntu24.04-x64 dependencies. No dependency version, permission, trigger
+or observation assertion changes. Its registered workflow SHA is recomputed.
+
+Completion is established by the final CHECKED OUT / DISCHARGED / EVIDENCE /
+REMAINDER settlement on .github#3471 and paired #3472, including this follow-up
+merge and full post-merge check readback. Keep the exact branch claim active
+through that observation. Then open a separate registry-only terminalization PR
+using the existing exception: state RELEASED_COMPLETE, original source merge
+receipt/time, historical claim-source projection and recomputed denominator.
+The task handoff remains this file; final central receipt is the continuation
+anchor for merge IDs and terminalization. Native Goal/COSV admission remains
+unbound and is routed to the coordinator, independently of source CI repair.
