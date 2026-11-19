@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-19T01:14:43Z",
+  "last_updated": "2026-11-19T01:25:21Z",
   "freshness": {
-    "generated_at": "2026-11-19T01:14:43Z",
+    "generated_at": "2026-11-19T01:25:21Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -746,10 +746,10 @@
       "home": "Massachusetts",
       "away": "Akron",
       "home_score": 26,
-      "away_score": 14,
+      "away_score": 17,
       "home_record": "",
       "away_record": "",
-      "status": "2ND 05:17",
+      "status": "2ND 02:00",
       "kickoff": "2026-11-19T00:00:00Z",
       "conference": "mac",
       "note": "Akron Massachusetts"
@@ -762,7 +762,7 @@
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "2ND 12:07",
+      "status": "2ND 08:02",
       "kickoff": "2026-11-19T00:30:00Z",
       "conference": "mac",
       "note": "Central Mich. Buffalo"
