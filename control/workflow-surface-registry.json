@@ -1032,12 +1032,15 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "check-ecosystem-node-gateway-binding.verify-python3.9",
         "check-ecosystem-node-gateway-binding.verify-python3.11",
         "check-ecosystem-node-gateway-binding.verify-python3.12"
       ],
       "verbatim_record": "tools/tasks/folded/check-ecosystem-node-gateway-binding.yml",
-      "verbatim_sha256": "1c1b9e2e45eb889626274e936bed3693b04b14818f31b0f87690f7089aafda55"
+      "verbatim_sha256": "1c1b9e2e45eb889626274e936bed3693b04b14818f31b0f87690f7089aafda55",
+      "retired_catalog_groups": [
+        "check-ecosystem-node-gateway-binding.verify-python3.9"
+      ],
+      "retirement_reason": "BUILD-Q-51: Python minimum 3.11. Original folded bytes retained as provenance; existing 3.11 and 3.12 cells remain active."
     },
     {
       "workflow": ".github/workflows/check-tidc-session-consolidation.yml",
@@ -1049,12 +1052,15 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "check-tidc-session-consolidation.validate-python3.9",
         "check-tidc-session-consolidation.validate-python3.11",
         "check-tidc-session-consolidation.validate-python3.12"
       ],
       "verbatim_record": "tools/tasks/folded/check-tidc-session-consolidation.yml",
-      "verbatim_sha256": "62c148828d8e80b0c20b469254e67ed4d462771bc1396d9c524698ffe6d91011"
+      "verbatim_sha256": "62c148828d8e80b0c20b469254e67ed4d462771bc1396d9c524698ffe6d91011",
+      "retired_catalog_groups": [
+        "check-tidc-session-consolidation.validate-python3.9"
+      ],
+      "retirement_reason": "BUILD-Q-51: Python minimum 3.11. Original folded bytes retained as provenance; existing 3.11 and 3.12 cells remain active."
     },
     {
       "workflow": ".github/workflows/cloud-kv-peer-manager.yml",
@@ -1748,12 +1754,15 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "check-steglearn-landing.verify-python3.9",
         "check-steglearn-landing.verify-python3.11",
         "check-steglearn-landing.verify-python3.12"
       ],
       "verbatim_record": "tools/tasks/folded/check-steglearn-landing.yml",
-      "verbatim_sha256": "7d40bcdb4142b477c07df196ead9d2a4a8ecb353fd02b0a5db5d688d3a24043f"
+      "verbatim_sha256": "7d40bcdb4142b477c07df196ead9d2a4a8ecb353fd02b0a5db5d688d3a24043f",
+      "retired_catalog_groups": [
+        "check-steglearn-landing.verify-python3.9"
+      ],
+      "retirement_reason": "BUILD-Q-51: Python minimum 3.11. Original folded bytes retained as provenance; existing 3.11 and 3.12 cells remain active."
     },
     {
       "workflow": ".github/workflows/hil-evidence-url-binding.yml",
@@ -2111,12 +2120,15 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "validate-review-authority-projection.validate-python3.9",
         "validate-review-authority-projection.validate-python3.11",
         "validate-review-authority-projection.validate-python3.12"
       ],
       "verbatim_record": "tools/tasks/folded/validate-review-authority-projection.yml",
-      "verbatim_sha256": "78c91d991dfc8ecbbd149b3b1429295922388fd47c0e3cb6c7fb8690b750b859"
+      "verbatim_sha256": "78c91d991dfc8ecbbd149b3b1429295922388fd47c0e3cb6c7fb8690b750b859",
+      "retired_catalog_groups": [
+        "validate-review-authority-projection.validate-python3.9"
+      ],
+      "retirement_reason": "BUILD-Q-51: Python minimum 3.11. Original folded bytes retained as provenance; existing 3.11 and 3.12 cells remain active."
     },
     {
       "workflow": ".github/workflows/check-stegverse-endpoint-activation-readiness.yml",
@@ -2238,14 +2250,17 @@
       "classification": "CONSOLIDATE_INTO_STABLE_DISPATCHER",
       "status": "DONE",
       "catalog_groups": [
-        "check-tidc-research.verify-publication-python3.9",
         "check-tidc-research.verify-publication-python3.11",
         "check-tidc-research.verify-publication-python3.12",
         "check-tidc-research.process-blinded-returns",
         "check-tidc-research.authority-boundary"
       ],
       "verbatim_record": "tools/tasks/folded/check-tidc-research.yml",
-      "verbatim_sha256": "605428771dfbafd313f100713fdb9e38e7029a3079efbd44972fb5414849bbdd"
+      "verbatim_sha256": "605428771dfbafd313f100713fdb9e38e7029a3079efbd44972fb5414849bbdd",
+      "retired_catalog_groups": [
+        "check-tidc-research.verify-publication-python3.9"
+      ],
+      "retirement_reason": "BUILD-Q-51: Python minimum 3.11. Original folded bytes retained as provenance; existing 3.11 and 3.12 cells remain active."
     },
     {
       "workflow": ".github/workflows/validate-physical-economics-report-ui.yml",

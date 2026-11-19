@@ -92,6 +92,10 @@ class GroupSelectionTests(unittest.TestCase):
             doc = yaml.safe_load(original.read_text(encoding="utf-8"))
             on = doc.get(True, doc.get("on")) or {}
             for event in group["events"]:
+                # Added dispatcher events have no original filter to compare.
+                # Their selection is covered by the literal-path tests above.
+                if isinstance(on, dict) and event not in on:
+                    continue
                 cfg = on.get(event) if isinstance(on, dict) else None
                 has = bool(isinstance(cfg, dict) and (cfg.get("paths") or cfg.get("paths-ignore")))
                 self.assertEqual(has, event in (group.get("path_filters") or {}), (gid, event))

@@ -2,6 +2,7 @@
 """Validate canonical TIDC session consolidation and continuation state."""
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -19,7 +20,10 @@ REQUIRED_PATHS = [
     "scripts/reconcile_tidc_source_expansion.py",
     ".github/workflows/advance-tidc-internal-work.yml",
     ".github/workflows/reconcile-tidc-source-expansion.yml",
-    ".github/workflows/check-tidc-research.yml",
+    ".github/workflows/validation-dispatcher.yml",
+    "tools/tasks/task_catalog.json",
+    "control/workflow-surface-registry.json",
+    "tools/tasks/folded/check-tidc-research.yml",
 ]
 ALLOWED_STATES = {
     "UNCLAIMED",
@@ -51,6 +55,28 @@ def main() -> None:
     for relative in REQUIRED_PATHS:
         if not (ROOT / relative).is_file():
             fail(f"required path missing: {relative}")
+
+    # G17 folded the old standalone workflow into the stable dispatcher.
+    # Require the pinned provenance AND executable supported cells; an archived
+    # YAML file alone is not evidence that the research validator still runs.
+    source = ".github/workflows/check-tidc-research.yml"
+    registry = load(ROOT / "control/workflow-surface-registry.json")
+    records = [row for row in registry["folded"] if row["workflow"] == source]
+    if len(records) != 1:
+        fail("research workflow must have exactly one folded registry record")
+    record = records[0]
+    archive = ROOT / record["verbatim_record"]
+    if not archive.is_file() or hashlib.sha256(archive.read_bytes()).hexdigest() != record["verbatim_sha256"]:
+        fail("research workflow folded provenance missing or hash mismatch")
+    catalog = load(ROOT / "tools/tasks/task_catalog.json")
+    for version in ("3.11", "3.12"):
+        gid = f"check-tidc-research.verify-publication-python{version}"
+        groups = [g for g in catalog["groups"] if g["id"] == gid]
+        if (len(groups) != 1 or gid not in record["catalog_groups"]
+                or groups[0]["source"]["workflow"] != source
+                or groups[0]["runner"]["python_version"] != version
+                or set(groups[0]["events"]) != {"pull_request", "push"}):
+            fail(f"supported research dispatcher cell missing or inconsistent: {gid}")
 
     inventory = load(INVENTORY)
     queue = load(QUEUE)

@@ -53,3 +53,17 @@ six-field failed predicate and actionable receiving owner.
 Branch: `fix/build-q51-site-ci-standing-red`. Claim:
 `CODEX-BUILD-Q51-SITE-CI-20261119`. README and this handoff are maintained with
 the source change. Close using CHECKED OUT / DISCHARGED / EVIDENCE / REMAINDER.
+
+## First hosted execution follow-up
+
+PR #1710 at `2330eb5dd5717772122afba61af1dba28e788ff5` exposed a
+previously unselected consolidation-validator condition on both supported legs:
+job `135365914556` reports `required path missing: .github/workflows/check-tidc-research.yml`.
+That standalone workflow was already folded under G17. The validator now requires
+the stable dispatcher, exact SHA-256-pinned folded provenance, registry binding,
+and both executable supported research cells. It does not restore a redundant
+workflow. The workflow registry records the five retired cells separately.
+
+The repair claim is projected through the existing Site-local active-claim
+projection mode (authority_effect NONE). Its mechanically derived source-claim
+vector is not a native Goal/COSV admission. Native Goal/COSV remain UNBOUND.
