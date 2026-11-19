@@ -349,6 +349,14 @@ class PublishedSubgoalViewTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which("node"), "node is required to syntax-check the page script")
     def test_page_script_parses(self):
         page = (ROOT / "economic-roadmap.html").read_text()
+        # Named admission (PR #1713): the domain node-connection entry is an
+        # external script appended after the page's own inline script.
+        # Remove exactly that one tag so the extraction below still selects
+        # the page's own last inline script; a second occurrence, or any
+        # other trailing script, still fails the syntax check.
+        domain_entry = '<script src="/assets/stegverse-node-continuity.js"></script>'
+        self.assertLessEqual(page.count(domain_entry), 1)
+        page = page.replace(domain_entry, "", 1)
         script = page[page.rindex("<script>") + len("<script>"):page.rindex("</script>")]
         with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as handle:
             handle.write(script)
