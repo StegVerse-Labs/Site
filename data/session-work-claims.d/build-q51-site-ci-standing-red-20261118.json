@@ -23,7 +23,9 @@
         "tools/tasks/task_catalog.json",
         "README.md",
         "docs/SITE_CI_STANDING_RED_CURE_MIRROR_HANDOFF.md",
-        "data/session-work-claims.d/build-q51-site-ci-standing-red-20261118.json"
+        "data/session-work-claims.d/build-q51-site-ci-standing-red-20261118.json",
+        "data/cosv/active-claim-projections.json",
+        "data/cosv/task-vector-index.json"
       ],
       "handoff": "docs/SITE_CI_STANDING_RED_CURE_MIRROR_HANDOFF.md",
       "handoff_revision": "ACTIVE_SOURCE_CURE_PROTECTED_INTEGRATION_PENDING",
