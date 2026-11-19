@@ -45,13 +45,17 @@ PASS; exact-branch handoff orchestration PASS; source-claim/COSV validator PASS;
 new `8374-discovery-mirrors.verify` catalog group ALLOW. The catalog uses existing
 3.11 dispatcher provisioning, no new workflow, package, service, schedule or credential.
 
-A prior source claim `SITE-DOMAIN-NODE-CONNECTION-001` is active and unindexed
-in the inherited task-vector index. This branch indexes only its own no-COSV
-publication exemption and recomputes actual counts (69 active, one unindexed),
-sets `repository_vector_present=false` and retains the explicit blocker. It does
-not manufacture a foreign vector or release the other author's claim. Owner return:
-.github#3443 comment7022244817. Registry/COSV validators accept this truthful
-incomplete-audit state; it is not native Goal admission or whole-repository completion.
+The first hosted CI pass found an inherited active source claim
+`SITE-DOMAIN-NODE-CONNECTION-001` absent from the task-vector index. Both
+`validate` jobs failed the existing zero-unindexed denominator regressions.
+The repair adds an exact reference to that existing publication claim and its
+handoff using the existing `EXTERNAL_PROJECTION_NO_COSV_EXEMPTION` mode,
+`cosv_status=NOT_ESTABLISHED`, and no vector. The foreign claim/state/ownership
+is unchanged; no native Goal, COSV or WorkerCoordinator admission is created.
+Both source publication references are now indexed: 69 active / zero unindexed.
+All existing zero-gap tests remain intact. Original owner condition .github#3443
+comment7022244817 and repair filing remain the custody anchors; the original
+owner still owns claim terminalization and served domain-connection evidence.
 
 Source errors resolved during work: a helper import used a wrong function name
 (correct name `evaluate_candidate`); two guessed filenames were replaced by actual
