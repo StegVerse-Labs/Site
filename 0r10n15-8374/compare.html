@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script>
+    (function enforceSecureRuntimeContext() {
+      if (location.protocol !== 'http:') return;
+      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
+      location.replace('https://' + location.host + location.pathname + location.search + location.hash);
+    }());
+  </script>
+  <meta name="description" content="Test comparisons for the frozen pair-first outage test — the 0R10N15-8374 reference result and the open reporting table. Published snapshot, 2026-11-18.">
+  <title>Test comparisons — 0R10N15-8374 — StegVerse</title>
+  <link rel="stylesheet" href="../sv-shared.css">
+  <style>
+    .offer-page{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+    .offer-page h1{font-size:clamp(2rem,7vw,3.2rem);line-height:1.05;margin:18px 0 10px}
+    .offer-page h2{margin:30px 0 8px;font-size:1.25rem}
+    .offer-page p,.offer-page li{line-height:1.55}
+    .offer-page .lede{font-size:1.08rem}
+    .offer-page code{overflow-wrap:anywhere}
+    .offer-card{border:1px solid #2a3648;border-radius:14px;padding:16px;margin:14px 0}
+    .snapshot-note{border:1px dashed #2a3648;border-radius:14px;padding:12px 16px;margin:14px 0}
+    .offer-page table{border-collapse:collapse}
+    .offer-page th,.offer-page td{border:1px solid #2a3648;padding:6px 10px;text-align:left}
+  </style>
+</head>
+<body>
+  <nav class="sv-nav"><a class="sv-nav-brand" href="../index.html">StegVerse</a><a href="../index.html">Home</a><a href="index.html">0R10N15-8374</a></nav>
+  <main class="offer-page">
+    <div class="snapshot-note"><strong>Published snapshot — 2026-11-18.</strong> A static copy of the production endpoint page, published to stegverse.org so it stands independent of any single host. Values shown are record content as of 2026-11-18, not live state. For the live determination, see <a href="https://8374.stegverse.org/inspect">https://8374.stegverse.org/inspect</a>.</div>
+<h1>0R10N15-8374 — test comparisons</h1><p>The frozen test <a href='frozen-test.html'>FROZEN__TEST__PAIR__FIRST__OUTAGE__01</a> scores a framework on three outcomes: Step 3 completes offline AND Step 4 is refused from local state AND Step 5 settles exactly once. Every other combination is a FAIL, named by its mode: availability failure (Step 3), replay failure (Step 4 accepted), settlement integrity failure (Step 5 settles zero times or more than once). A Step 4 refusal produced only by consulting a facilitator's or the chain's state after reconnection scores as a Step 4 FAIL.</p><h2>Reference result — 0R10N15-8374 (production)</h2><p>Record 2026-11-18: outage battery 8/8, run twice, plus the production pair-first crossings. The Step 5 settlement evidence below is record content as of 2026-11-18.</p><table border='1'><tr><th>step</th><th>result</th><th>evidence</th></tr><tr><td>1. Authorization obtained</td><td>PASS</td><td>Authorizations obtained for the battery runs and the production specimens (record)</td></tr><tr><td>2. Network cut</td><td>PASS</td><td>Egress blackholed in the battery (RPC at an unreachable address); production transport windows receipted as SETTLEMENT_RPC_UNREACHABLE (record)</td></tr><tr><td>3. Crossing presented offline</td><td>PASS</td><td>Crossing completed offline; pair written PENDING — battery crossings ALLOW, and production PAIR-000049 and PAIR-000054 born PENDING on the pair-first path (record)</td></tr><tr><td>4. Same authorization re-presented offline</td><td>PASS</td><td>Refused locally from the chain-derived nonce registry: 422 PAYMENT_NONCE_REUSED, no network read (record)</td></tr><tr><td>5. Network restored — settlement</td><td>PASS</td><td>Settled exactly once: PAIR-000049, tx <code>0x6fac4964f1a4d0e44e5189d6f8a6ac50eabd46b516d463da0d5eb07d00bd9b77</code>, block 59302294, 16,702 µUSDC; PAIR-000054 → PAIR-000055 SETTLED, tx <code>0x9fda13264a261f00d5fe2aed00af86e15def11c4f3a13b06831575d91c445f40</code>, block 59304079, 16,697 µUSDC (record, per the frozen test document)</td></tr><tr><td>5b. Full record replay/recompute</td><td>PASS</td><td>Replay MATCH including the outage pairs — verify live at <a href='https://8374.stegverse.org/inspect'>/inspect</a></td></tr></table><h2>Report yours</h2><p>Run the frozen test against your own framework, your own funds, testnet or mainnet — state which, and state every substitution. Fill in this table and publish it where you publish your work:</p><table border='1'><tr><th>step</th><th>result (PASS/FAIL)</th><th>evidence (record id / tx hash / error returned)</th><th>notes</th></tr><tr><td>1. Authorization obtained</td><td></td><td></td><td></td></tr><tr><td>2. Network cut (egress to chain/facilitator confirmed down)</td><td></td><td></td><td></td></tr><tr><td>3. Crossing presented offline</td><td></td><td></td><td></td></tr><tr><td>4. Same authorization re-presented offline</td><td></td><td></td><td></td></tr><tr><td>5. Network restored — settlement</td><td></td><td></td><td></td></tr><tr><td>5b. Full record replay/recompute</td><td></td><td></td><td></td></tr></table><p>External framework results on record: <strong>none yet</strong> (as of 2026-11-18). The table is open for theirs. A result reported without the Step 4 evidence is a claim, not a run.</p><h2>Submit your result</h2><p>If you run it: link the test page — <a href='https://8374.stegverse.org/frozen-test'>https://8374.stegverse.org/frozen-test</a> — in your published results. Posting on LinkedIn? Link StegVerse — <a href='https://www.linkedin.com/company/stegverse/'>https://www.linkedin.com/company/stegverse/</a>. And send a link to your published work to <!--email_off--><a href='mailto:stegverse@stegverse.org'>stegverse@stegverse.org</a><!--/email_off--> — results sent in get added to this comparison table.</p><hr><p>Patent pending (U.S. Prov. App. No. 64/198,910) · StegVerse LLC · <!--email_off-->8374@StegVerse.ai<!--/email_off--></p>
+  </main>
+</body>
+</html>

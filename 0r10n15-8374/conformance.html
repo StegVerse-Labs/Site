@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script>
+    (function enforceSecureRuntimeContext() {
+      if (location.protocol !== 'http:') return;
+      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
+      location.replace('https://' + location.host + location.pathname + location.search + location.hash);
+    }());
+  </script>
+  <meta name="description" content="Conformance record for 0R10N15-8374 — suite MACHINE__ECONOMY__ENTRY__SUITE GEN 09, test batteries, and discovery standing. Published snapshot, 2026-11-18.">
+  <title>Conformance — 0R10N15-8374 — StegVerse</title>
+  <link rel="stylesheet" href="../sv-shared.css">
+  <style>
+    .offer-page{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+    .offer-page h1{font-size:clamp(2rem,7vw,3.2rem);line-height:1.05;margin:18px 0 10px}
+    .offer-page h2{margin:30px 0 8px;font-size:1.25rem}
+    .offer-page p,.offer-page li{line-height:1.55}
+    .offer-page .lede{font-size:1.08rem}
+    .offer-page code{overflow-wrap:anywhere}
+    .offer-card{border:1px solid #2a3648;border-radius:14px;padding:16px;margin:14px 0}
+    .snapshot-note{border:1px dashed #2a3648;border-radius:14px;padding:12px 16px;margin:14px 0}
+    .offer-page table{border-collapse:collapse}
+    .offer-page th,.offer-page td{border:1px solid #2a3648;padding:6px 10px;text-align:left}
+  </style>
+</head>
+<body>
+  <nav class="sv-nav"><a class="sv-nav-brand" href="../index.html">StegVerse</a><a href="../index.html">Home</a><a href="index.html">0R10N15-8374</a></nav>
+  <main class="offer-page">
+    <div class="snapshot-note"><strong>Published snapshot — 2026-11-18.</strong> A static copy of the production endpoint page, published to stegverse.org so it stands independent of any single host. Values shown are record content as of 2026-11-18, not live state. For the live determination, see <a href="https://8374.stegverse.org/inspect">https://8374.stegverse.org/inspect</a>.</div>
+<h1>0R10N15-8374 — conformance</h1><p>Chain state as of this snapshot (2026-11-18): 55 pairs · replay MATCH · anchor <code>3a8046e39b000d708b83a0b41a5ba6ee3d333761a8c1c5f9c5a40914e133b46d</code>. Record content below is labeled with its date; the JSON twin is at <a href='https://8374.stegverse.org/conformance?format=json'>/conformance?format=json</a>.</p><h2>Suite</h2><p>MACHINE__ECONOMY__ENTRY__SUITE GEN 09 — CONFORMANT — CONFORMANCE__PROOF__01.json is a hashed member of the suite&#x27;s own manifest; elements E1–E5 PASS<br>manifest SHA-256 <code>1233db58d993d62a89404ceaf714098771232c1a91def54057c197673ea3f8a6</code> · self-check 55 PASS / 0 FAIL · 23 members · KV zip Drive 1L7N0ZR9x1udX_9K4B_41XJM0y9R4P6gC · record 2026-11-18</p><h2>Batteries</h2><p>Record 2026-11-18, run against throwaway instances of the production code (never the live chain):</p><table border='1'><tr><th>battery</th><th>result</th></tr><tr><td>x402</td><td>10/10</td></tr><tr><td>x402_v2</td><td>8/8</td></tr><tr><td>settlement</td><td>5/5</td></tr><tr><td>agreement</td><td>5/5</td></tr><tr><td>outage</td><td>8/8, run twice (RPC toggled live / blackholed)</td></tr></table><h2>Discovery standing</h2><p>Record 2026-11-18:</p><table border='1'><tr><td>402_index</td><td>ACTIVE — domain verified</td></tr><tr><td>x402scan</td><td>registered (origin f73c0f76-be8b-47d8-af4f-8095f2eaf085)</td></tr><tr><td>cdp_bazaar</td><td>not listed — cataloging follows a CDP-facilitated settlement; the facilitator determination is the principal&#x27;s and has not been made</td></tr></table><h2>Retention verifier</h2><pre>{
+ &quot;form&quot;: &quot;RETENTION_BUNDLE/1 verifier (verify_bundle.py), rules receipt-chain-rules/1&quot;,
+ &quot;kv_drive_id&quot;: &quot;1C06p8DWlSL1DrUakGgw8tUv2qEv01Uyt&quot;
+}</pre><h2>Lane home</h2><pre>{
+ &quot;repo&quot;: &quot;SV-LLM/sandbox&quot;,
+ &quot;branch&quot;: &quot;machine-economy-8374&quot;,
+ &quot;folder&quot;: &quot;machine-economy-8374/&quot;,
+ &quot;pair_first_commit&quot;: &quot;46e8cd5c24347c104a3373c7918d2ecdb1d5955c&quot;
+}</pre><h2>Frozen test</h2><p>FROZEN__TEST__PAIR__FIRST__OUTAGE__01 · SHA-256 <code>bfde4c87960b9c24570644626eacd029a489a158eae8c41ee38982086a699e1f</code> · served at <a href='frozen-test.html'>/frozen-test</a></p><h2>Determination</h2><ul><li>SUPPORTED — functional: governed crossings evaluate and receipt matched pairs</li><li>SUPPORTED — settled on-chain: crossing fees have moved on Base</li><li>SUPPORTED — chain integrity: the receipt chain recomputes end to end</li><li>NOT SUPPORTED — external demand</li><li>NOT SUPPORTED — profitability</li></ul><hr><p>Patent pending (U.S. Prov. App. No. 64/198,910) · StegVerse LLC · <!--email_off-->8374@StegVerse.ai<!--/email_off--></p>
+  </main>
+</body>
+</html>

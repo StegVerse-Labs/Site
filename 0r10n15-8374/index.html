@@ -35,7 +35,7 @@
     <h2>Live endpoint</h2>
     <div class="offer-card">
       <p>Endpoint identity: <strong>8374@StegVerse.ai</strong></p>
-      <p>Machine-readable offer: <a href="http://bore.pub:61418/offer">http://bore.pub:61418/offer</a></p>
+      <p>Machine-readable offer: <a href="https://8374.stegverse.org/offer">https://8374.stegverse.org/offer</a></p>
       <p>Protocol: <strong>x402</strong> (scheme &ldquo;exact&rdquo;, HTTP 402 Payment Required), settled in <strong>USDC on Base</strong> (eip155:8453).</p>
       <ul>
         <li>Receipt-only crossing — $0.0005 per crossing</li>
@@ -50,6 +50,19 @@
 
     <h2>Terminology</h2>
     <p>StegVerse LLC has adopted the terminology of Executive Order 14434 — Super Intelligence (SI) — by formal declaration dated November 17, 2026.</p>
+
+    <h2>Pair-first, and the frozen test</h2>
+    <p>The endpoint is pair-first: the receipt pair is the proof, issued at the crossing on locally-decidable evidence — signature recovery, receptor and amount match against its own offer, validity window, and the authorization&rsquo;s nonce checked against the registry the receipt chain itself is — before any network call. Settlement is an eventual leg, receipted when it lands. When the network drops at the moment of a crossing, the crossing still completes and settlement lands exactly once on reconnect. Proof, from the record of 2026-11-18: the outage battery ran 8/8, twice — network blackholed, the crossing returned ALLOW with its pair written, the same authorization re-presented was refused locally, settlement on restore was exact, and replay verified end to end.</p>
+    <p>That scenario is published as a frozen test any framework can run against itself: <a href="frozen-test.html">FROZEN__TEST__PAIR__FIRST__OUTAGE__01</a> (byte-exact text: <a href="frozen-test.md">frozen-test.md</a>, SHA-256 <code>bfde4c87960b9c24570644626eacd029a489a158eae8c41ee38982086a699e1f</code>). Run it, post the table, and send the link to <a href="mailto:stegverse@stegverse.org">stegverse@stegverse.org</a> for the <a href="compare.html">comparison table</a>.</p>
+
+    <h2>Published pages</h2>
+    <p>Static snapshots of the endpoint&rsquo;s public pages, published here on 2026-11-18 so they stand independent of any single host. Values in them are record content as of that date, not live state.</p>
+    <ul>
+      <li><a href="frozen-test.html">Frozen test</a> — the pair-first outage test, with the reference run</li>
+      <li><a href="conformance.html">Conformance</a> — the GEN 09 suite proof, battery results, and discovery standing</li>
+      <li><a href="compare.html">Test comparisons</a> — the reference result and the open reporting table</li>
+      <li>Live determination, one link: <a href="https://8374.stegverse.org/inspect">https://8374.stegverse.org/inspect</a></li>
+    </ul>
   </main>
 </body>
 </html>

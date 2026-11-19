@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script>
+    (function enforceSecureRuntimeContext() {
+      if (location.protocol !== 'http:') return;
+      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
+      location.replace('https://' + location.host + location.pathname + location.search + location.hash);
+    }());
+  </script>
+  <meta name="description" content="FROZEN__TEST__PAIR__FIRST__OUTAGE__01 — the frozen pair-first outage test for 0R10N15-8374, published by StegVerse LLC. Run it in your own framework and post the table.">
+  <title>Frozen test — 0R10N15-8374 — StegVerse</title>
+  <link rel="stylesheet" href="../sv-shared.css">
+  <style>
+    .offer-page{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+    .offer-page h1{font-size:clamp(2rem,7vw,3.2rem);line-height:1.05;margin:18px 0 10px}
+    .offer-page h2{margin:30px 0 8px;font-size:1.25rem}
+    .offer-page p,.offer-page li{line-height:1.55}
+    .offer-page .lede{font-size:1.08rem}
+    .offer-page code{overflow-wrap:anywhere}
+    .offer-card{border:1px solid #2a3648;border-radius:14px;padding:16px;margin:14px 0}
+    .snapshot-note{border:1px dashed #2a3648;border-radius:14px;padding:12px 16px;margin:14px 0}
+    .offer-page table{border-collapse:collapse}
+    .offer-page th,.offer-page td{border:1px solid #2a3648;padding:6px 10px;text-align:left}
+  </style>
+</head>
+<body>
+  <nav class="sv-nav"><a class="sv-nav-brand" href="../index.html">StegVerse</a><a href="../index.html">Home</a><a href="index.html">0R10N15-8374</a></nav>
+  <main class="offer-page">
+    <div class="snapshot-note"><strong>Published snapshot — 2026-11-18.</strong> A static copy of the production endpoint page, published to stegverse.org so it stands independent of any single host. Values shown are record content as of 2026-11-18, not live state. For the live determination, see <a href="https://8374.stegverse.org/inspect">https://8374.stegverse.org/inspect</a>.</div>
+<p>This page is a rendering of the frozen document. The canonical bytes are published with this page as <a href='frozen-test.md'>frozen-test.md</a> (text/markdown); their SHA-256 is <code>bfde4c87960b9c24570644626eacd029a489a158eae8c41ee38982086a699e1f</code> — the filed hash is <code>bfde4c87960b9c24570644626eacd029a489a158eae8c41ee38982086a699e1f</code>. Hash what you download and compare. The live canonical copy is served at <a href='https://8374.stegverse.org/frozen-test?format=text'>https://8374.stegverse.org/frozen-test?format=text</a>.</p><div style='border:2px solid #444;padding:0 1em 1em 1em'><p><strong>FROZEN DOCUMENT — FROZEN__TEST__PAIR__FIRST__OUTAGE__01</strong> · SHA-256 <code>bfde4c87960b9c24570644626eacd029a489a158eae8c41ee38982086a699e1f</code></p><h1>FROZEN TEST — PAIR-FIRST OUTAGE — 01</h1>
+<p><strong>Version:</strong> 01 · <strong>Frozen:</strong> 2026-11-18 (America/Chicago) · <strong>Status:</strong> FROZEN <strong>Freeze rule:</strong> this version never changes. Any revision is a new version number, published as a new document. A copy whose SHA-256 differs from the filed hash is not this version; the filed hash is carried in the Ecosystem KV filing record and in GitHub notices StegVerse-Labs/.github #3443 / #3472 of 2026-11-18. <strong>Authority:</strong> NONE — coordination/test record only. Running this test admits nothing, settles nothing by itself, and certifies nothing; it produces evidence a reader can check.</p>
+<h2>The question</h2>
+<p>When the network drops at the moment of a paid crossing, what does your framework do?</p>
+<p>A verify-first system reads chain or facilitator state before it can complete a crossing, so an outage defers the crossing itself. A pair-first system decides on locally-decidable evidence, issues its proof at the crossing, and settles when the network answers. This test discriminates between the two — and it discriminates hardest at Step 4, where the only thing standing between a framework and a double settlement is a nonce, or an equivalent replay registry the framework keeps itself.</p>
+<h2>Parameters (modeled on the reference run)</h2>
+<table border='1'><tr><th>Parameter</th><th>Value</th></tr>
+<tr><td>Network</td><td>Base (eip155:8453)</td></tr>
+<tr><td>Asset</td><td>USDC <code>0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913</code></td></tr>
+<tr><td>Payment scheme</td><td>x402 &quot;exact&quot;, EIP-3009 <code>transferWithAuthorization</code>, single-use authorization nonce (bytes32)</td></tr>
+<tr><td>Crossing</td><td>Full evaluation — governance fee 15,000 µUSDC (US$0.015) plus a settlement charge quoted at challenge time</td></tr>
+<tr><td>Reference crossing totals</td><td>16,702 µUSDC and 16,697 µUSDC (fee + live-quoted settlement charge)</td></tr>
+<tr><td>Payee</td><td>Fixed, server-side, stated in the challenge; the payer cannot redirect it</td></tr>
+</table>
+<p>A runner may substitute its own network, asset, and amounts. State every substitution in the report. The structure — a signed, single-use authorization presented to a system that then loses its network — is the test; the chain is not.</p>
+<h2>Setup</h2>
+<ol><li>Stand up the system under test in its normal production configuration.</li><li>Fund a payer under your own custody. Verify custody before funding (key file permissions, address re-derivation, test signature).</li><li>Let the system obtain whatever live quotes or prices its crossing requires, so it holds a current quote when the outage begins. (A system that has never obtained a quote may fail closed on pricing alone. That is a different result — report it as such, do not score it as Step 3.)</li><li>Obtain one valid, unused payment authorization for the crossing amount.</li></ol>
+<h2>The five steps</h2>
+<p><strong>Step 1 — Obtain the authorization.</strong> As in Setup 4: a valid signed authorization, nonce unused, amount equal to the quoted crossing total.</p>
+<p><strong>Step 2 — Cut the network.</strong> The system under test loses all egress to chain RPC endpoints, explorers, and any facilitator it consults. Local storage, local signing, and local records remain available. Nothing else changes.</p>
+<p><strong>Step 3 — Present the authorization (the crossing).</strong> Expected, pair-first: the crossing completes offline. The system decides on locally-decidable predicates — signature recovery, receptor and amount match against its own offer, validity window, and the authorization&#x27;s nonce checked against the system&#x27;s own records — issues its proof (the receipt record) with settlement marked pending, and returns its disposition to the payer. Expected, verify-first: the crossing cannot complete, because the verification read has nowhere to go.</p>
+<p><strong>Step 4 — Re-present the SAME authorization, still offline.</strong> Expected: refused, locally, from the system&#x27;s own records, with no network read. The refusal is itself recorded. This is the step the nonce decides: the system must distinguish &quot;the same payment again&quot; from &quot;a new payment&quot; using only what it holds.</p>
+<p><strong>Step 5 — Restore the network.</strong> Expected: settlement completes exactly once. The on-chain amount equals the crossing total exactly. The Step 3 disposition does not change; the settlement outcome is appended to the record, never rewritten into it. A full replay/recompute of the system&#x27;s record verifies end-to-end, including the outage-period entries.</p>
+<h2>Result-reporting table (fill in and publish)</h2>
+<table border='1'><tr><th>Step</th><th>Result (PASS/FAIL)</th><th>Evidence (record id / tx hash / error returned)</th><th>Notes</th></tr>
+<tr><td>1. Authorization obtained</td><td></td><td></td><td></td></tr>
+<tr><td>2. Network cut (egress to chain/facilitator confirmed down)</td><td></td><td></td><td></td></tr>
+<tr><td>3. Crossing presented offline</td><td></td><td></td><td></td></tr>
+<tr><td>4. Same authorization re-presented offline</td><td></td><td></td><td></td></tr>
+<tr><td>5. Network restored — settlement</td><td></td><td></td><td></td></tr>
+<tr><td>5b. Full record replay/recompute</td><td></td><td></td><td></td></tr>
+</table>
+<h2>Scoring</h2>
+<p><strong>PASS requires all three:</strong> Step 3 completes offline <strong>AND</strong> Step 4 is refused from local state <strong>AND</strong> Step 5 settles exactly once.</p>
+<p>Every other combination is a FAIL, named by its mode:</p>
+<ul><li>Step 3 fails → <strong>availability failure</strong>: downtime is a lost crossing.</li><li>Step 4 accepted → <strong>replay failure</strong>: the same authorization can settle twice.</li><li>Step 5 settles zero times or more than once → <strong>settlement integrity failure</strong>.</li><li>Step 4 refused only by consulting a facilitator&#x27;s or the chain&#x27;s state after reconnection → scored as a Step 4 FAIL: the registry was someone else&#x27;s, and during the outage the framework held nothing that could refuse.</li></ul>
+<h2>Without a nonce</h2>
+<p>If the payment instrument carries no nonce — no unique, single-use, locally checkable replay token — Step 4 is undecidable from local state. The framework cannot tell a re-presentation from a new payment without reading state the outage has taken away. Its options are the three failure modes above: refuse Step 3 (availability failure), accept Step 4 (replay failure), or stall both until reconnection (the crossing is deferred — which is the verify-first result this test exists to expose). A hosted facilitator&#x27;s nonce registry does not cure this: it is a read, and Step 2 removes reads. The registry has to be the framework&#x27;s own, derived from its own record of what it has already accepted.</p>
+<h2>Reference result — 0R10N15-8374 (StegVerse 8374, production)</h2>
+<p>Run against the production grammar, 2026-11-18:</p>
+<ul><li><strong>Outage battery</strong> (<code>outage_battery.py</code>, SHA-256 prefix <code>d55e208d</code> as recorded in the build record): <strong>8/8, run twice</strong> — no-quote fail-closed; quote persisted; blackholed crossing ALLOW with pair written PENDING under a stale-quote flag; nonce re-presentation refused locally (422 PAYMENT_NONCE_REUSED); on restore, the sweep settled on-chain exactly (run 2: tx <code>0x5a0b586e8624290e0599a1c74dc2f6455852bb188cf6aaa24516c9002d7e3112</code>, block 59301533); replay MATCH including the outage pairs; terminal-failure case receipted as its own appended record.</li><li><strong>Production crossings on the pair-first path:</strong> PAIR-000049, born PENDING, settled tx <code>0x6fac4964f1a4d0e44e5189d6f8a6ac50eabd46b516d463da0d5eb07d00bd9b77</code>, block 59302294, 16,702 µUSDC exact. PAIR-000054, born PENDING → PAIR-000055 SETTLED, tx <code>0x9fda13264a261f00d5fe2aed00af86e15def11c4f3a13b06831575d91c445f40</code>, block 59304079, 16,697 µUSDC.</li><li><strong>Chain state at the reference run:</strong> 55 pairs, replay MATCH, terminal anchor <code>3a8046e39b000d708b83a0b41a5ba6ee3d333761a8c1c5f9c5a40914e133b46d</code>.</li><li><strong>Build record:</strong> PAIR__FIRST__BUILD__RECORD__01.md, Ecosystem KV Drive <code>1Q7ffEc03NdGA57zw-U787C2hM251566s</code>.</li></ul>
+<p><strong>Inspect the live system — one link:</strong> <a href='https://8374.stegverse.org/inspect'>https://8374.stegverse.org/inspect</a> Live chain verdict and anchor, settled pairs with their on-chain transactions, current balance, and the determination block: which claims the evidence supports and which it does not.</p>
+<h2>Running it</h2>
+<p>Run it against your own framework, your own funds, testnet or mainnet — state which. Publish the filled table wherever you publish your work. A result reported without the Step 4 evidence is a claim, not a run.</p><p><strong>— END OF FROZEN DOCUMENT —</strong></p></div><h2>Submit your result</h2><p>If you run it: link the test page in your published results. Posting on LinkedIn? Link StegVerse — <a href='https://www.linkedin.com/company/stegverse/'>https://www.linkedin.com/company/stegverse/</a>. And send a link to your published work to <!--email_off--><a href='mailto:stegverse@stegverse.org'>stegverse@stegverse.org</a><!--/email_off--> — results sent in get added to the comparison table at <a href='compare.html'>the comparison table on this site</a>.</p><hr><p>Patent pending (U.S. Prov. App. No. 64/198,910) · StegVerse LLC · <!--email_off-->8374@StegVerse.ai<!--/email_off--></p>
+  </main>
+</body>
+</html>
