@@ -1,30 +1,30 @@
 {
   "attempts": 1,
   "authority_effect": false,
-  "deployed_commit": "2c878db4fb9ecc27173bb576f0753901d7cf0dc6",
-  "observed_at": "2026-10-14T11:46:57.190265Z",
+  "deployed_commit": "77a0de46e10b3d2bda43244b3cc5f11a746a5852",
+  "observed_at": "2026-11-19T13:48:19.395399Z",
   "result": "PASS",
   "runtime_evidence_claimed": false,
   "schema_version": "HIL-PUBLIC-PAGE-PROOF-v2",
   "source_sha256": {
-    "humans-as-interoperability-layer.html": "8df1b6a4104b03e3de56382c9e5c3aa5c0f914ce68a4dce49145071141a4e514",
-    "stegos-bootstrap/hil-resume.html": "23d30bde9140c0578f2896a7306b537bf3f6b3cc5023bf42bf7c41f96f9fd590"
+    "humans-as-interoperability-layer.html": "7a9b3498cbd7edbb24675f0484a4a0b78fdd32f8ff5a72bb1e26364069a4e688",
+    "stegos-bootstrap/hil-resume.html": "1da604b4483e2bfce3489df73633a1400c53dac84a8b08e4949eaa74e23c363d"
   },
   "surfaces": [
     {
       "http_status": 200,
       "path": "humans-as-interoperability-layer.html",
       "served_bytes_match_source": true,
-      "served_sha256": "8df1b6a4104b03e3de56382c9e5c3aa5c0f914ce68a4dce49145071141a4e514",
-      "source_sha256": "8df1b6a4104b03e3de56382c9e5c3aa5c0f914ce68a4dce49145071141a4e514",
+      "served_sha256": "7a9b3498cbd7edbb24675f0484a4a0b78fdd32f8ff5a72bb1e26364069a4e688",
+      "source_sha256": "7a9b3498cbd7edbb24675f0484a4a0b78fdd32f8ff5a72bb1e26364069a4e688",
       "url": "https://stegverse.org/humans-as-interoperability-layer.html"
     },
     {
       "http_status": 200,
       "path": "stegos-bootstrap/hil-resume.html",
       "served_bytes_match_source": true,
-      "served_sha256": "23d30bde9140c0578f2896a7306b537bf3f6b3cc5023bf42bf7c41f96f9fd590",
-      "source_sha256": "23d30bde9140c0578f2896a7306b537bf3f6b3cc5023bf42bf7c41f96f9fd590",
+      "served_sha256": "1da604b4483e2bfce3489df73633a1400c53dac84a8b08e4949eaa74e23c363d",
+      "source_sha256": "1da604b4483e2bfce3489df73633a1400c53dac84a8b08e4949eaa74e23c363d",
       "url": "https://stegverse.org/stegos-bootstrap/hil-resume.html"
     }
   ]
