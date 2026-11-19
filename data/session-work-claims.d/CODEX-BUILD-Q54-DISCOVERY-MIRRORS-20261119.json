@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "codex/build-q54-8374-discovery-mirrors-20261119",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED",
       "normalized_work_key": "build-q54-8374-static-discovery-mirrors",
       "dependency_surface_keys": [
         "site:8374-static-discovery-mirrors"
@@ -49,7 +49,12 @@
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "release_commit": "9dece084fe5593d378a5252802ca03a30ee03b7e",
+      "pull_request": 1715,
+      "claim_released_at": "2026-11-19T21:34:29.298929+00:00",
+      "terminal_disposition": "WITHDRAWN_DUPLICATE_EARLIER_CLAIM_7022189703",
+      "archive_eligible": true
     }
   ]
 }

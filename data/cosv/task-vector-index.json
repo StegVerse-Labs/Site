@@ -1064,16 +1064,6 @@
    "historical_claim_vector": "20010000100000"
   },
   {
-   "task_id": "BUILD-Q-54-ECO-DISCOVERY",
-   "claim_id": "CODEX-BUILD-Q54-DISCOVERY-MIRRORS-20261119",
-   "claim_ref": "data/session-work-claims.d/CODEX-BUILD-Q54-DISCOVERY-MIRRORS-20261119.json",
-   "handoff_ref": "docs/BUILD_Q54_8374_DISCOVERY_MIRROR_HANDOFF.md",
-   "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION",
-   "cosv_status": "NOT_ESTABLISHED",
-   "authority_effect": "NONE",
-   "reason": "PUBLICATION_COORDINATION_TASK_WITHOUT_COSV"
-  },
-  {
    "task_id": "SITE-DOMAIN-NODE-CONNECTION-001",
    "claim_id": "SITE-DOMAIN-NODE-CONNECTION-20261119",
    "claim_ref": "data/session-work-claims.d/SITE-DOMAIN-NODE-CONNECTION-20261119.json",
@@ -1085,7 +1075,7 @@
  ],
  "coverage": {
   "explicit_cosv_task_surfaces_discovered": 5,
-  "task_vectors_emitted": 117,
+  "task_vectors_emitted": 116,
   "source_bound_task_vectors": 2,
   "external_machine_owned_source_bindings": 1,
   "active_owner_deferred_source_bindings": 4,
@@ -1098,13 +1088,13 @@
   "repository_unindexed_active_claim_tasks_present": false,
   "repository_vector_present_blocker": null,
   "repository_claim_task_vectors": 0,
-  "repository_effective_active_claims_observed": 69,
-  "repository_effective_active_task_ids_observed": 69,
+  "repository_effective_active_claims_observed": 68,
+  "repository_effective_active_task_ids_observed": 68,
   "repository_unindexed_active_task_ids_observed": 0,
   "repository_active_owner_projection_vectors": 4,
   "repository_terminalized_stale_claims_observed": 9,
   "repository_active_claim_source_vectors": 61,
   "repository_retired_canonical_task_vectors": 1,
-  "repository_no_cosv_exemptions": 4
+  "repository_no_cosv_exemptions": 3
  }
 }
