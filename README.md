@@ -818,3 +818,14 @@ BUILD-Q-51 also pins the existing Entity Economy browser observer to Ubuntu
 24.04, supported by its established Playwright 1.52.0 Chromium dependency. The
 Ubuntu 26.04 image failed before the browser observation could execute. Existing
 observer assertions, credential refusal and public-observation boundaries remain.
+
+BUILD-Q-51 source settlement: PR #1710 merged at
+`600cb8894dd8bc296a39e939a4fcef9e8a58a3df`; observer follow-up PR #1711
+merged at `ed426cbe213e76ab6b36221b991afe1548b44815`. The latter merge
+read back **125/125 successful checks, zero failures, pending or skipped**.
+The browser observer actually executed successfully (run `44467855250`, job
+`135369869909`), reporting `VERIFIED_PUBLIC_PAPER_ROUTE_SET`. The temporary
+implementation claim is released through the separate registry-only follow-up;
+its Site-local projection is historical and does not establish native Goal/COSV
+admission. Final central settlement and native-binding disposition are recorded
+on `StegVerse-Labs/.github#3471` (paired #3472).

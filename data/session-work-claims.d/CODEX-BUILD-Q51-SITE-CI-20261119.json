@@ -10,7 +10,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "fix/build-q51-site-ci-standing-red",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED_COMPLETE",
       "normalized_work_key": "build-q51-site-ci-standing-red",
       "dependency_surface_keys": [
         "site:build-q51-standing-red-ci-cure"
@@ -48,7 +48,11 @@
       "github_token_runtime_authority": "NONE",
       "non_tv_tvc_secret_or_token_used": false,
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1711,
+      "release_commit": "ed426cbe213e76ab6b36221b991afe1548b44815",
+      "claim_released_at": "2026-11-19T05:52:43.148288+00:00",
+      "archive_eligible": true
     }
   ]
 }

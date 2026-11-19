@@ -1,7 +1,7 @@
 {
  "schema": "stegverse.site.cosv-active-claim-projections/v1",
  "repository": "StegVerse-Labs/Site",
- "observed_at": "2026-11-19T05:45:00Z",
+ "observed_at": "2026-11-19T05:52:01.047513+00:00",
  "source_registry": "scripts/check_session_work_claims.py::active_claims(load_registry())",
  "authority_effect": "NONE",
  "projections": [
@@ -2780,17 +2780,17 @@
   {
    "task_id": "BUILD-Q-51",
    "claim_id": "CODEX-BUILD-Q51-SITE-CI-20261119",
-   "claim_state": "CLAIMED_FOR_IMPLEMENTATION",
+   "claim_state": "RELEASED_COMPLETE",
    "claim_ref": "data/session-work-claims.d/CODEX-BUILD-Q51-SITE-CI-20261119.json",
    "handoff_ref": "docs/BUILD_Q51_SITE_CI_STANDING_RED_MIRROR_HANDOFF.md",
-   "vector": "20010000100000",
+   "vector": "91000000100000",
    "authority_effect": "NONE",
    "exact_metrics": {
     "symbol_order": "LRUIVGOCMTBEAP",
-    "lifecycle": "CLAIMED_IMPLEMENTATION",
-    "archive_ready": false,
+    "lifecycle": "MERGED_INTO_CANONICAL_WORKSTREAM",
+    "archive_ready": true,
     "unassigned_work": 0,
-    "chat_owned_implementation": 1,
+    "chat_owned_implementation": 0,
     "chat_owned_validation": 0,
     "chat_owned_integration": 0,
     "chat_owned_observation": 0,
