@@ -42,6 +42,21 @@ class GlobTests(unittest.TestCase):
 
 
 class GroupSelectionTests(unittest.TestCase):
+    def test_supported_python_floor_and_retired_coverage(self):
+        from copy import deepcopy
+        self.assertEqual(CATALOG["python_support"]["minimum_version"], "3.11")
+        for retired in CATALOG["python_support"]["retired_groups"]:
+            self.assertNotIn(retired, GROUPS)
+            prefix = retired.rsplit("-python", 1)[0]
+            for version in ("3.11", "3.12"):
+                gid = prefix + "-python" + version
+                self.assertEqual(GROUPS[gid]["runner"]["python_version"], version)
+                for event in ("push", "pull_request"):
+                    self.assertEqual(cell(event, ["tools/tasks/task_catalog.json"], gid), "true")
+        invalid = deepcopy(CATALOG)
+        invalid["groups"][0]["runner"]["python_version"] = "3.9"
+        self.assertIn("CATALOG_PYTHON_BELOW_FLOOR", {x["failure_code"] for x in rc.verify(invalid)})
+
     def test_evaluator_group_runs_only_when_its_original_paths_change(self):
         gid = "evaluator-review-public-verification.verify"
         for event in ("push", "pull_request"):
@@ -77,6 +92,10 @@ class GroupSelectionTests(unittest.TestCase):
             doc = yaml.safe_load(original.read_text(encoding="utf-8"))
             on = doc.get(True, doc.get("on")) or {}
             for event in group["events"]:
+                # Added dispatcher events have no original filter to compare.
+                # Their selection is covered by the literal-path tests above.
+                if isinstance(on, dict) and event not in on:
+                    continue
                 cfg = on.get(event) if isinstance(on, dict) else None
                 has = bool(isinstance(cfg, dict) and (cfg.get("paths") or cfg.get("paths-ignore")))
                 self.assertEqual(has, event in (group.get("path_filters") or {}), (gid, event))

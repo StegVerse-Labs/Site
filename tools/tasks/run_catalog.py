@@ -120,6 +120,9 @@ def verify(catalog=None):
     seen = set()
     for group in catalog["groups"]:
         gid = group["id"]
+        version = (group.get("runner") or {}).get("python_version")
+        if version and tuple(map(int, version.split("."))) < (3, 11):
+            refusals.append(six("CATALOG_PYTHON_BELOW_FLOOR", f"group {gid} uses Python >= 3.11", "use a supported interpreter; see README Python support"))
         if gid in seen:
             refusals.append(six("CATALOG_GROUP_DUPLICATE", f"group id {gid} is unique", "rename one group"))
         seen.add(gid)
