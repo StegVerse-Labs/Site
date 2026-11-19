@@ -5,6 +5,19 @@ governance documentation, and product information from canonical source data.
 
 **Live site:** https://stegverse-labs.github.io/Site/
 
+## Python support and CI ownership
+
+Python **3.11 or newer** is required for repository validation. The maintained
+validator matrix tests Python 3.11 and 3.12. Python 3.9 is no longer supported;
+its five executable catalog legs were retired in BUILD-Q-51 because setup-python
+cannot provision them on the Ubuntu 26.04 hosted runner. Historical folded
+workflow copies and step bodies remain archival provenance, not active legs.
+
+Every mutable PR must have exactly one active branch pre-work claim with an
+existing handoff. The validate, heartbeat-contract, and reconcile gates remain
+mandatory. See [the CI cure handoff](docs/BUILD_Q51_SITE_CI_STANDING_RED_MIRROR_HANDOFF.md)
+for log causes, coverage and settlement evidence.
+
 ---
 
 ## Boundary

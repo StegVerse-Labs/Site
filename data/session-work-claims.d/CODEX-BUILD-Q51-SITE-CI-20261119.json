@@ -1,0 +1,49 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "CODEX-BUILD-Q51-SITE-CI-20261119",
+      "session_worker_id": "CODEX:BUILD-Q-51:20261119",
+      "task_id": "BUILD-Q-51",
+      "originating_goal": "Explicit owner-assigned Site standing-red CI cure; native Goal/COSV UNBOUND",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "fix/build-q51-site-ci-standing-red",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "build-q51-site-ci-standing-red",
+      "dependency_surface_keys": [
+        "site:build-q51-standing-red-ci-cure"
+      ],
+      "claimed_paths": [
+        "README.md",
+        "tools/tasks/task_catalog.json",
+        "tools/tasks/run_catalog.py",
+        "tests/test_run_catalog_selection.py",
+        "docs/BUILD_Q51_SITE_CI_STANDING_RED_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/CODEX-BUILD-Q51-SITE-CI-20261119.json"
+      ],
+      "handoff": "docs/BUILD_Q51_SITE_CI_STANDING_RED_MIRROR_HANDOFF.md",
+      "handoff_revision": "9445ce9d511b6abfa2c87a67163025c98cfec190; handoff added atomically with claim",
+      "claim_created_at": "2026-11-19T05:37:45.850358+00:00",
+      "claim_expires_when": "Release after repair PR merge and exact post-merge check validation, or file exact six-field disposition and release without completion claim.",
+      "expected_evidence": [
+        "Every remaining affected 3.11/3.12 validator actually executes",
+        "All paginated PR checks success before expected-head merge",
+        "Post-merge full check readback; three strict claim gates green"
+      ],
+      "collision_boundaries": [
+        "No claim/orchestration gate relaxation",
+        "No third-party credentials or runtime activation",
+        "Queue source claim only; no native WorkerCoordinator authority"
+      ],
+      "next_task_after_release": "Coordinator verifies BUILD-Q-51 settlement on .github#3471/#3472",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "github_token_runtime_authority": "NONE",
+      "non_tv_tvc_secret_or_token_used": false,
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}

@@ -42,6 +42,21 @@ class GlobTests(unittest.TestCase):
 
 
 class GroupSelectionTests(unittest.TestCase):
+    def test_supported_python_floor_and_retired_coverage(self):
+        from copy import deepcopy
+        self.assertEqual(CATALOG["python_support"]["minimum_version"], "3.11")
+        for retired in CATALOG["python_support"]["retired_groups"]:
+            self.assertNotIn(retired, GROUPS)
+            prefix = retired.rsplit("-python", 1)[0]
+            for version in ("3.11", "3.12"):
+                gid = prefix + "-python" + version
+                self.assertEqual(GROUPS[gid]["runner"]["python_version"], version)
+                for event in ("push", "pull_request"):
+                    self.assertEqual(cell(event, ["tools/tasks/task_catalog.json"], gid), "true")
+        invalid = deepcopy(CATALOG)
+        invalid["groups"][0]["runner"]["python_version"] = "3.9"
+        self.assertIn("CATALOG_PYTHON_BELOW_FLOOR", {x["failure_code"] for x in rc.verify(invalid)})
+
     def test_evaluator_group_runs_only_when_its_original_paths_change(self):
         gid = "evaluator-review-public-verification.verify"
         for event in ("push", "pull_request"):
