@@ -13,12 +13,11 @@
   "observations": [
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-      "state": "VALIDATION_FAILED",
+      "state": "INCOMPLETE",
       "task_location": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION.json",
-      "validator_command": "python scripts/check_coherent_transition_threshold_activation.py",
-      "success_marker": "THRESHOLD_ESTABLISHED=true",
-      "success_marker_seen": false,
-      "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
+      "missing_locations": [
+        ".github/workflows/coherent-transition-threshold.yml"
+      ]
     }
   ],
   "completed_tasks": [],
@@ -28,12 +27,11 @@
   "blockers": [
     {
       "task_id": "SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION",
-      "state": "VALIDATION_FAILED",
+      "state": "INCOMPLETE",
       "task_location": "data/tasks/SITE-0001-COHERENT-TRANSITION-THRESHOLD-ACTIVATION.json",
-      "validator_command": "python scripts/check_coherent_transition_threshold_activation.py",
-      "success_marker": "THRESHOLD_ESTABLISHED=true",
-      "success_marker_seen": false,
-      "output": "COHERENT_TRANSITION_THRESHOLD_ACTIVATION=BLOCKED\nthreshold_state=SYNCHRONY_OBSERVED; missing=['required_transitions_jointly_ready', 'continuation_conditions_preserved', 'next_cycle_admissible']"
+      "missing_locations": [
+        ".github/workflows/coherent-transition-threshold.yml"
+      ]
     }
   ],
   "state_updated": true,
