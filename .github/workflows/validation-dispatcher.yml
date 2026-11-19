@@ -13,6 +13,8 @@ name: Stable validator dispatcher
 # NOT_SELECTED (a run, never a skipped job), the pattern of StegVerse-org/StegVerse-SDK#561. A new check is a catalog entry, never a new workflow file;
 # control/workflow-surface-registry.json fails closed on an unregistered workflow.
 # Actions are pinned by full commit SHA.
+# Supported Python validation floor: 3.11. Python 3.9 reached EOL and is not
+# available on the ubuntu-latest Ubuntu 26.04 runner; do not add 3.9 cells.
 on:
   pull_request:
   push:
