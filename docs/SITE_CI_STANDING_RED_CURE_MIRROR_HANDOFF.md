@@ -75,3 +75,13 @@ Required before source disposition:
 ## Continuation
 
 Next session starts from the BUILD-Q-51 source comment on `StegVerse-Labs/.github#3471`, this handoff, and the cure PR. Preserve exact-head checks and do not claim integration, deployment, or completion before evidence.
+
+## PR #1709 bootstrap follow-up
+
+The first PR-head bootstrap run proved that the exact branch claim is now accepted, then exposed the next independent invariant: every effective active claim task must have a non-authorizing repository-local COSV projection. BUILD-Q-51 is not admitted to the native Task Registry; this patch does not pretend otherwise. It adds only the Site-local active-claim projection required by the existing validator:
+
+- `data/cosv/active-claim-projections.json`: BUILD-Q-51 / CLAIMED_FOR_IMPLEMENTATION / `20010000100000`.
+- `data/cosv/task-vector-index.json`: `EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE` binding to this claim and handoff.
+- Coverage moves from 67 to 68 effective active claims/task IDs, 60 to 61 active-claim source vectors, and remains zero unindexed active task IDs.
+
+This is an authority-neutral bookkeeping repair. Native Goal Task ID and COSV admission remain with the existing Registry owner. Protected integration, merge, deployment, release, activation, and propagation remain outside this claim.
