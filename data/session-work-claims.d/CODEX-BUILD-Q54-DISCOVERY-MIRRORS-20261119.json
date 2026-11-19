@@ -1,0 +1,55 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "CODEX-BUILD-Q54-DISCOVERY-MIRRORS-20261119",
+      "session_worker_id": "CODEX:R3:20261119",
+      "task_id": "BUILD-Q-54-ECO-DISCOVERY",
+      "originating_goal": "Existing owner BUILD-Q-54 ecosystem static-discovery mirror leg; native Goal/COSV UNBOUND",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "codex/build-q54-8374-discovery-mirrors-20261119",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "build-q54-8374-static-discovery-mirrors",
+      "dependency_surface_keys": [
+        "site:8374-static-discovery-mirrors"
+      ],
+      "claimed_paths": [
+        "README.md",
+        "0r10n15-8374/index.html",
+        "0r10n15-8374/discovery/offer.json",
+        "0r10n15-8374/discovery/openapi.json",
+        "0r10n15-8374/discovery/x402.json",
+        "0r10n15-8374/discovery/manifest.json",
+        "0r10n15-8374/discovery/index.html",
+        "docs/BUILD_Q54_8374_DISCOVERY_MIRROR_HANDOFF.md",
+        "scripts/check_8374_discovery_mirrors.py",
+        "data/session-work-claims.d/CODEX-BUILD-Q54-DISCOVERY-MIRRORS-20261119.json",
+        "data/cosv/task-vector-index.json",
+        "data/cosv/active-claim-projections.json"
+      ],
+      "handoff": "docs/BUILD_Q54_8374_DISCOVERY_MIRROR_HANDOFF.md",
+      "handoff_revision": "82703dc88d05e61a11fc6c0015a9c35ac62a945b; handoff introduced atomically with branch claim",
+      "claim_created_at": "2026-11-19T21:07:21.384Z",
+      "claim_expires_when": "Release after exact-head owner integration and separate terminalization, or FILED source disposition without completion; review by 2026-11-20 17:00America/Chicago.",
+      "expected_evidence": [
+        "All captured JSON document hashes and sizes match; no live payment authorization from static copies",
+        "Origin-unavailable local HTTP acceptance serves all3documents/manifest/navigation",
+        "Existing strict Site claim/COSV/validate/heartbeat/reconcile gates retained; exact PR checks inspected"
+      ],
+      "collision_boundaries": [
+        "No pricing/endpoint/router mutation",
+        "No central KV suite overwrite or native Goal/COSV admission",
+        "No payment/key/custody or new runtime/dependency",
+        "Only explicitly assigned Site ecosystem leg; original lane host remains separate"
+      ],
+      "next_task_after_release": "Non-author deployed-byte propagation review under existing BUILD-Q-54; original node/custody owners retain other legs.",
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE",
+      "github_token_runtime_authority": "NONE",
+      "authority_effect": false,
+      "activation_effect": false
+    }
+  ]
+}
