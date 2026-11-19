@@ -50,4 +50,5 @@ function loadSubgoals(){
  fetch('data/economy/economic-roadmap-subgoals.v1.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(p=>{if(p.schema!=='stegverse.economic-roadmap-subgoals-readonly/v1'||p.authority_effect!=='NONE')throw Error('schema mismatch');showSubgoals(p)}).catch(()=>{});
 }
 fetch('data/economy/public-release-benchmarks.v1.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(d=>{if(d.schema!=='stegverse.public-economic-roadmap/v1')throw Error('schema mismatch');display(d);loadSubgoals()}).catch(e=>{document.getElementById('summary').innerHTML='<div class="stat"><strong>UNVERIFIED</strong><span>Authenticated projection unavailable</span></div>';document.getElementById('stages').textContent='Public benchmark evidence unavailable: '+e.message;});
-</script></body></html>
+</script><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

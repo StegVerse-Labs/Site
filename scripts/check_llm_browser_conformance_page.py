@@ -10,6 +10,11 @@ import sys
 
 PAGE = Path(__file__).resolve().parents[1] / "integration/llm-browser-test/v1/index.html"
 text = PAGE.read_text(encoding="utf-8")
+# Admitted by name: the domain entry applied to every served page. Exactly one
+# occurrence is admitted; a second occurrence, or any other <script src>,
+# still fails the forbidden-token and script-count assertions below.
+DOMAIN_ENTRY = '<script src="/assets/stegverse-node-continuity.js"></script>'
+text = text.replace(DOMAIN_ENTRY, "", 1)
 failures = []
 for needed in ('id="prompt"', 'id="submit"', 'id="response"', 'id="notice"',
                'content="stegverse.integration.llm-browser-test.v1"', 'content="PERMITTED_BY_OWNER"',

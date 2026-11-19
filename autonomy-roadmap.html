@@ -30,5 +30,6 @@ function render(d){
 }
 fetch('data/autonomy/roadmap-status.json?ts='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('roadmap status returned '+r.status);return r.json()}).then(render).catch(e=>{document.getElementById('phases').innerHTML=`<p class="blocked">ROADMAP_TELEMETRY_UNAVAILABLE: ${esc(e.message)}</p>`});
 </script>
+<script src="/assets/stegverse-node-continuity.js"></script>
 </body>
 </html>

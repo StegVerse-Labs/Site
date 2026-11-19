@@ -54,4 +54,5 @@ async function inspect(file){let p;try{p=JSON.parse(await file.text())}catch(e){
 document.getElementById('probe').addEventListener('click',()=>probe().catch(()=>{}));document.getElementById('packet-file').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(f)inspect(f)});
 })();
 </script>
+<script src="/assets/stegverse-node-continuity.js"></script>
 </body></html>

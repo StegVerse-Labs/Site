@@ -54,5 +54,6 @@ retry.addEventListener("click",function(){delivered=false;deliver()});
 frame.addEventListener("load",function(){var tries=0,t=setInterval(function(){tries+=1;if(canonicalReceiverState()){clearInterval(t);deliver()}else if(tries>120){clearInterval(t);state.textContent="Established continuity was not observed in the canonical receiver.";state.className="warn"}},100)});
 }());
 </script>
+<script src="/assets/stegverse-node-continuity.js"></script>
 </body>
 </html>

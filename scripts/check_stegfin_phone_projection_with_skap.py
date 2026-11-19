@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / 'stegfin-trade.html'
+DOMAIN_ENTRY = '/assets/stegverse-node-continuity.js'
 SKAP = './assets/stegfin-phone/coinbase-skap-ingress.js'
 SUBMIT = './assets/stegfin-phone/coinbase-skap-submission.js'
 SKAP_UI = './assets/stegfin-phone/coinbase-skap-ingress-ui.js'
@@ -38,6 +39,7 @@ def main() -> int:
         SKAP_UI,
         './assets/stegfin-phone/app.js',
         './assets/stegfin-phone/evidence-export.js',
+        DOMAIN_ENTRY,
     ]
     require(scripts == expected, f'unexpected extended script order: {scripts}')
     require(not any(src.startswith(('http://', 'https://')) for src in scripts), 'remote executable script dependency prohibited')

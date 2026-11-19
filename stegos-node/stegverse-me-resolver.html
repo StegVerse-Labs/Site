@@ -13,4 +13,5 @@ function read(db){return new Promise(function(ok,no){var tx=db.transaction([META
 function show(x){var s=document.getElementById("state");s.textContent=x.state;s.className=x.state==="LOCAL_CONTINUITY_VERIFIED"?"ok":x.state==="REVIEW"?"warn":"bad";document.getElementById("reason").textContent=x.reason;document.getElementById("route").textContent=x.route_observed||"No /n/<opaque-node>/ route supplied."}
 openDb().then(read).then(function(e){return StegVerseOpaqueNodeResolver.resolve(e,location.pathname)}).then(show).catch(function(e){show({state:"FAIL_CLOSED",reason:e.message,route_observed:null})});
 }());
-</script></main></body></html>
+</script></main><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

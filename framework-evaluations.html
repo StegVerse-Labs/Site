@@ -25,5 +25,6 @@
 <script>
 (async()=>{const status=document.getElementById('registryStatus'),root=document.getElementById('frameworkRegistry');try{const r=await fetch('data/framework-evaluations/index.json',{cache:'no-store'});if(!r.ok)throw new Error(`HTTP ${r.status}`);const d=await r.json();root.innerHTML=d.frameworks.map(f=>`<article class="framework"><div class="status">${f.live_test_status}</div><h3>${f.name}</h3><p><span class="tag">self: ${f.self_declaration_status}</span><span class="tag">StegVerse: ${f.stegverse_determination_status}</span><span class="tag">TA-14: ${f.ta14_determination_status}</span></p><p><a href="data/framework-evaluations/${f.evaluation_path}">Machine-readable record</a></p></article>`).join('');status.textContent=`${d.status} · ${d.frameworks.length} framework records registered`; }catch(e){status.textContent=`Registry unavailable: ${e.message}`;root.innerHTML='<article class="framework"><h3>Fail-closed</h3><p>No evaluation result is inferred while the machine-readable registry is unavailable.</p></article>';}})();
 </script>
+<script src="/assets/stegverse-node-continuity.js"></script>
 </body>
 </html>

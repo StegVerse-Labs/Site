@@ -217,5 +217,6 @@
     window.__STEGVERSE_LOGIN_TEST__=Object.freeze({version:7,getState:()=>status.dataset.state,getView:()=>kvCard.hidden?'LOGIN_CARD':'KV_ACCOUNT',submit:(u,p)=>new Promise(resolve=>{const done=e=>resolve(e.detail.state);window.addEventListener('stegverse-login-state',done,{once:true});userEl.value=String(u??'');passEl.value=String(p??'');form.requestSubmit();}),getAssertion:()=>currentAssertion,getSkapAssertion:()=>skapAssertion,getLoginHistory:()=>currentUser?getLoginHistory(currentUser):Promise.resolve([]),getKvOnboardingState:async()=>currentUser?renderKvOnboarding(currentUser):{state:'NO_IDENTITY',record:null},createKv:()=>createOrAttachKv('CREATE'),attachKv:()=>createOrAttachKv('ATTACH'),installKv,getKvOnboardingReceipts:async()=>currentUser?(await loadKvRecord(currentUser)).receipts:[]});
   })();
   </script>
+<script src="/assets/stegverse-node-continuity.js"></script>
 </body>
 </html>

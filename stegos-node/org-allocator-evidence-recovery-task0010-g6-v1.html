@@ -26,4 +26,5 @@ function fail(e){stateEl.textContent="FAIL_CLOSED: "+e.message;stateEl.className
 function exportEvidence(){if(!recovered)return;var b=new Blob([JSON.stringify(recovered,null,2)+"\n"],{type:"application/json"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="stegverse-org-allocator-TASK-2026-0010-recovered.json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)}
 exportBtn.addEventListener("click",exportEvidence);recover().catch(fail);
 }());
-</script></main></body></html>
+</script></main><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>

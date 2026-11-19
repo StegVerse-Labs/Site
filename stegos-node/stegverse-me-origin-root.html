@@ -22,4 +22,5 @@ openDb().then(read).then(function(e){
  var href="/n/"+opaque+"/";var a=document.getElementById("continue");a.href=href;a.hidden=false;show("LOCAL ROUTE DERIVED","Continue only on this device. Private KV has not been read.");
 }).catch(function(e){show("FAIL_CLOSED",e.message);document.getElementById("state").className="bad"});
 }());
-</script></main></body></html>
+</script></main><script src="/assets/stegverse-node-continuity.js"></script>
+</body></html>
