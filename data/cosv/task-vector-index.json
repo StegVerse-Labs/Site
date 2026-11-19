@@ -5,9 +5,28 @@
  "notation": "L R U I V G O C M T B E A P",
  "width": 14,
  "canonical_profile_ref": "StegVerse-Labs/.github/management/COSV_PROFILE_V1.json",
- "observed_at": "2026-11-16T05:18:02Z",
+ "observed_at": "2026-11-19T06:02:00Z",
  "authority_effect": "NONE",
  "tasks": [
+  {
+   "task_id": "BUILD-Q-51",
+   "claim_id": "BUILD-Q-51-SITE-CI-STANDING-RED-20261118",
+   "claim_ref": "data/session-work-claims.d/build-q51-site-ci-standing-red-20261118.json",
+   "handoff_ref": "docs/SITE_CI_STANDING_RED_CURE_MIRROR_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "20010000100000",
+   "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+  },
+  {
+   "task_id": "EC9-WHEN-AI-SERVICES-FAIL-SITE-PUBLICATION-001",
+   "claim_id": "EC9-WHEN-AI-SERVICES-FAIL-SITE-PUBLICATION-001-20261027",
+   "claim_ref": "data/session-work-claims.d/ec9-when-ai-services-fail-publication-20261027.json",
+   "handoff_ref": "docs/SITE_MIRROR_HANDOFF.md",
+   "cosv_status": "NOT_ESTABLISHED",
+   "authority_effect": "NONE",
+   "reason": "PUBLICATION_COORDINATION_TASK_WITHOUT_COSV",
+   "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"
+  },
   {
    "task_id": "ECOSYSTEM-ECONOMIC-WHITEPAPER-GATED-ROADMAP-001",
    "claim_id": "SITE-ECONOMIC-WHITEPAPER-GATED-ROADMAP-20260922",
@@ -37,6 +56,16 @@
    "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
   },
   {
+   "task_id": "ERL-ELECTION-INTEGRITY-SITE-PUBLICATION-001",
+   "claim_id": "ERL-ELECTION-INTEGRITY-SITE-PUBLICATION-001-20261024",
+   "claim_ref": "data/session-work-claims.d/erl-election-integrity-publication-20261024.json",
+   "handoff_ref": "docs/SITE_MIRROR_HANDOFF.md",
+   "cosv_status": "NOT_ESTABLISHED",
+   "authority_effect": "NONE",
+   "reason": "PUBLICATION_COORDINATION_TASK_WITHOUT_COSV",
+   "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"
+  },
+  {
    "task_id": "ERL-HOUSEHOLD-ECONOMIC-CONDITIONS-SITE-001",
    "claim_id": "SITE-ERL-HOUSEHOLD-GOVERNED-CONSUMER-20260924",
    "claim_ref": "data/session-work-claims.d/site-erl-household-governed-consumer-20260924.json",
@@ -53,6 +82,296 @@
    "projection_ref": "data/cosv/active-claim-projections.json",
    "vector": "20010000100000",
    "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+  },
+  {
+   "task_id": "G17_SITE_WORKFLOW_SURFACE_B27",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B27-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B27-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17_SITE_WORKFLOW_SURFACE_B28",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B28-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B28-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17_SITE_WORKFLOW_SURFACE_B29",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B29-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B29-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-DISPATCHER-ORIGINAL-PATH-FILTERS-REPAIR",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B9-20261029",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B9-20261029.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-GENERIC-LOGIN-VALIDATOR-FOLD",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B10-20261029",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B10-20261029.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-MAIN-HEALTH-STEGMUSIC-MARKER-DRIFT",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B11-20261029",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B11-20261029.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R62-STEGFIN-PHONE-OBSERVER-FOLD",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B12-20261029",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B12-20261029.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R68-CONECTRR-NOT-SELECTED-GUARD",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B13-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B13-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R69-FOUR-OBSERVER-NOT-SELECTED",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B14-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B14-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R70-FOLD-MYKV-PUBLIC-PROPAGATION",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B15-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B15-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R71-FOLD-HOMEPAGE-CHAT-PUBLIC-ASSETS",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B16-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B16-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R72-FOLD-BOTH-SV002-OBSERVERS",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B17-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B17-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R73-FOLD-EVALUATOR-HIL-DEPLOYED",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B18-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B18-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R74-FOLD-CANONICAL-INTR-TVC-RECEIPT",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B19-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B19-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R75-FOLD-HIL-VALIDATORS",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B20-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B20-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R76-FOLD-REVIEW-ENDPOINT-HIL",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B21-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B21-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R77-FOLD-STEGBROWSER-CONTINUITY-STEGOS",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B22-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B22-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R78-FOLD-TIDC-RESEARCH",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B23-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B23-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R79-FOLD-PE-HIL-SESSION-NTP-COINBASE-VA",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B24-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B24-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R80-FOLD-VA-BASELINE-PII",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B25-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B25-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-R81-FOLD-VA-MISC",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B26-20261105",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B26-20261105.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-1",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B1-20261025",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B1-20261025.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-2",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B2-20261025",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B2-20261025.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-3",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B3-20261025",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B3-20261025.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-4",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B4-20261029",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B4-20261029.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-5",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B5-20261029",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B5-20261029.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-6",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B6-20261029",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B6-20261029.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-7",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B7-20261029",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B7-20261029.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-8",
+   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B8-20261029",
+   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B8-20261029.json",
+   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
   },
   {
    "task_id": "GADI-001",
@@ -100,6 +419,25 @@
    "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
   },
   {
+   "task_id": "MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002",
+   "claim_id": "SITE-MASTER-RECORDS-BOUNDARY-WORDING-20261008",
+   "claim_ref": "data/session-work-claims.d/SITE-MASTER-RECORDS-BOUNDARY-WORDING-20261008.json",
+   "handoff_ref": "docs/MASTER_RECORDS_BOUNDARY_WORDING_MIRROR_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002-SITE-FULL",
+   "claim_id": "SITE-MASTER-RECORDS-BOUNDARY-REMEDIATION-FULL-20261008",
+   "claim_ref": "data/session-work-claims.d/SITE-MASTER-RECORDS-BOUNDARY-REMEDIATION-FULL-20261008.json",
+   "handoff_ref": "docs/MASTER_RECORDS_BOUNDARY_REMEDIATION_FULL_MIRROR_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "20010000100000",
+   "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+  },
+  {
    "task_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005",
    "claim_id": "SDK-GENERIC-MANIFEST-ECOSYSTEM-INVARIANT-005-SITE-PROFILE-20261001",
    "claim_ref": "data/session-work-claims.d/sdk-generic-manifest-profile-propagation-20261001.json",
@@ -123,6 +461,15 @@
    "claim_id": "SITE-APP-STORE-CONNECT-SKAP-INGRESS-20260909",
    "claim_ref": "data/session-work-claims.d/SITE-APP-STORE-CONNECT-SKAP-INGRESS-20260909.json",
    "handoff_ref": "docs/APP_STORE_CONNECT_SKAP_IPHONE_INGRESS_MIRROR_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "20010000100000",
+   "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+  },
+  {
+   "task_id": "SITE-ASSESSMENT-PATH-PDF-PROCEDURE-3398",
+   "claim_id": "SITE-ASSESSMENT-PATH-PDF-PROCEDURE-3398-20261029",
+   "claim_ref": "data/session-work-claims.d/site-assessment-path-pdf-procedure-3398-20261029.json",
+   "handoff_ref": "docs/PREWORK_CLAIM_1649_HANDOFF.md",
    "projection_ref": "data/cosv/active-claim-projections.json",
    "vector": "20010000100000",
    "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
@@ -185,6 +532,46 @@
    "vector_ref": "data/cosv/task-vectors/SITE-CURRENT-NEWS-RELEASES-967.json",
    "vector": "71000000100100",
    "binding_mode": "EXTERNAL_PROJECTION_TERMINAL_SOURCE"
+  },
+  {
+   "task_id": "SITE-ECOCHAT-CONVERSION-20261115",
+   "claim_id": "SITE-ECOCHAT-CONVERSION-20261115",
+   "claim_ref": "data/session-work-claims.d/site-ecochat-conversion-20261115.json",
+   "handoff_ref": "docs/ECOCHAT_CONVERSION_MIRROR_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "SITE-ECOCHAT-EOS-NAME-20261115",
+   "claim_id": "SITE-ECOCHAT-EOS-NAME-20261115",
+   "claim_ref": "data/session-work-claims.d/site-ecochat-eos-name-20261115.json",
+   "handoff_ref": "docs/ECOCHAT_EOS_NAME_MIRROR_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "SITE-ECOCHAT-GATEWAY-POSTURE-20261115",
+   "claim_id": "SITE-ECOCHAT-GATEWAY-POSTURE-20261115",
+   "claim_ref": "data/session-work-claims.d/site-ecochat-gateway-posture-20261115.json",
+   "handoff_ref": "docs/ECOCHAT_GATEWAY_POSTURE_MIRROR_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
+  },
+  {
+   "task_id": "SITE-ECOCHAT-SIMPLE-PAGE-20261115",
+   "claim_id": "SITE-ECOCHAT-SIMPLE-PAGE-20261115",
+   "claim_ref": "data/session-work-claims.d/site-ecochat-simple-page-20261115.json",
+   "handoff_ref": "docs/ECOCHAT_SIMPLE_PAGE_MIRROR_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
   },
   {
    "task_id": "SITE-EVALUATOR-INTR-EGRESS-643",
@@ -256,6 +643,16 @@
    "projection_ref": "data/cosv/active-claim-projections.json",
    "vector": "20010000100000",
    "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+  },
+  {
+   "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
+   "claim_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-20261012",
+   "claim_ref": "data/session-work-claims.d/site-hil-receiver-restore-open-submission-20261012.json",
+   "handoff_ref": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "91000000100000",
+   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
+   "historical_claim_vector": "20010000100000"
   },
   {
    "task_id": "SITE-HIL-UNIVERSAL-INTR-81",
@@ -342,6 +739,24 @@
    "claim_id": "SITE-PHYSICAL-ECONOMICS-PUBLIC-REPORT-UI-496-20260826",
    "claim_ref": "data/session-work-claims.json",
    "handoff_ref": "docs/physical-economics/PUBLIC_REPORT_UI_MIRROR_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "20010000100000",
+   "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+  },
+  {
+   "task_id": "SITE-PREWORK-CLAIM-1649",
+   "claim_id": "SITE-PREWORK-CLAIM-1649-20261029",
+   "claim_ref": "data/session-work-claims.d/site-prework-claim-1649-20261029.json",
+   "handoff_ref": "docs/PREWORK_CLAIM_1649_HANDOFF.md",
+   "projection_ref": "data/cosv/active-claim-projections.json",
+   "vector": "20010000100000",
+   "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
+  },
+  {
+   "task_id": "SITE-PREWORK-CLAIM-1656",
+   "claim_id": "SITE-PREWORK-CLAIM-1656-20261104",
+   "claim_ref": "data/session-work-claims.d/site-prework-claim-1656-20261104.json",
+   "handoff_ref": "docs/SITE_MIRROR_HANDOFF.md",
    "projection_ref": "data/cosv/active-claim-projections.json",
    "vector": "20010000100000",
    "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
@@ -646,417 +1061,11 @@
    "authority_effect": "NONE",
    "reason": "PUBLICATION_COORDINATION_TASK_WITHOUT_COSV",
    "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"
-  },
-  {
-   "task_id": "MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002",
-   "claim_id": "SITE-MASTER-RECORDS-BOUNDARY-WORDING-20261008",
-   "claim_ref": "data/session-work-claims.d/SITE-MASTER-RECORDS-BOUNDARY-WORDING-20261008.json",
-   "handoff_ref": "docs/MASTER_RECORDS_BOUNDARY_WORDING_MIRROR_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "MASTER-RECORDS-BULK-SEMANTIC-REMEDIATION-002-SITE-FULL",
-   "claim_id": "SITE-MASTER-RECORDS-BOUNDARY-REMEDIATION-FULL-20261008",
-   "claim_ref": "data/session-work-claims.d/SITE-MASTER-RECORDS-BOUNDARY-REMEDIATION-FULL-20261008.json",
-   "handoff_ref": "docs/MASTER_RECORDS_BOUNDARY_REMEDIATION_FULL_MIRROR_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "20010000100000",
-   "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-  },
-  {
-   "task_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-001",
-   "claim_id": "SITE-HIL-RECEIVER-RESTORE-OPEN-SUBMISSION-20261012",
-   "claim_ref": "data/session-work-claims.d/site-hil-receiver-restore-open-submission-20261012.json",
-   "handoff_ref": "docs/HIL_PAYLOAD_CONTINUITY_OUTBOX_MIRROR_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "ERL-ELECTION-INTEGRITY-SITE-PUBLICATION-001",
-   "claim_id": "ERL-ELECTION-INTEGRITY-SITE-PUBLICATION-001-20261024",
-   "claim_ref": "data/session-work-claims.d/erl-election-integrity-publication-20261024.json",
-   "handoff_ref": "docs/SITE_MIRROR_HANDOFF.md",
-   "cosv_status": "NOT_ESTABLISHED",
-   "authority_effect": "NONE",
-   "reason": "PUBLICATION_COORDINATION_TASK_WITHOUT_COSV",
-   "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"
-  },
-  {
-   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-1",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B1-20261025",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B1-20261025.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-2",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B2-20261025",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B2-20261025.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-3",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B3-20261025",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B3-20261025.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-4",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B4-20261029",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B4-20261029.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-5",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B5-20261029",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B5-20261029.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-6",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B6-20261029",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B6-20261029.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-7",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B7-20261029",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B7-20261029.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-WORKFLOW-SURFACE-BATCH-8",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B8-20261029",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B8-20261029.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-DISPATCHER-ORIGINAL-PATH-FILTERS-REPAIR",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B9-20261029",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B9-20261029.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-GENERIC-LOGIN-VALIDATOR-FOLD",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B10-20261029",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B10-20261029.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-MAIN-HEALTH-STEGMUSIC-MARKER-DRIFT",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B11-20261029",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B11-20261029.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R62-STEGFIN-PHONE-OBSERVER-FOLD",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B12-20261029",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B12-20261029.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "SITE-ASSESSMENT-PATH-PDF-PROCEDURE-3398",
-   "claim_id": "SITE-ASSESSMENT-PATH-PDF-PROCEDURE-3398-20261029",
-   "claim_ref": "data/session-work-claims.d/site-assessment-path-pdf-procedure-3398-20261029.json",
-   "handoff_ref": "docs/PREWORK_CLAIM_1649_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "20010000100000",
-   "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-  },
-  {
-   "task_id": "SITE-PREWORK-CLAIM-1649",
-   "claim_id": "SITE-PREWORK-CLAIM-1649-20261029",
-   "claim_ref": "data/session-work-claims.d/site-prework-claim-1649-20261029.json",
-   "handoff_ref": "docs/PREWORK_CLAIM_1649_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "20010000100000",
-   "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-  },
-  {
-   "task_id": "EC9-WHEN-AI-SERVICES-FAIL-SITE-PUBLICATION-001",
-   "claim_id": "EC9-WHEN-AI-SERVICES-FAIL-SITE-PUBLICATION-001-20261027",
-   "claim_ref": "data/session-work-claims.d/ec9-when-ai-services-fail-publication-20261027.json",
-   "handoff_ref": "docs/SITE_MIRROR_HANDOFF.md",
-   "cosv_status": "NOT_ESTABLISHED",
-   "authority_effect": "NONE",
-   "reason": "PUBLICATION_COORDINATION_TASK_WITHOUT_COSV",
-   "binding_mode": "EXTERNAL_PROJECTION_NO_COSV_EXEMPTION"
-  },
-  {
-   "task_id": "SITE-PREWORK-CLAIM-1656",
-   "claim_id": "SITE-PREWORK-CLAIM-1656-20261104",
-   "claim_ref": "data/session-work-claims.d/site-prework-claim-1656-20261104.json",
-   "handoff_ref": "docs/SITE_MIRROR_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "20010000100000",
-   "binding_mode": "EXTERNAL_PROJECTION_ACTIVE_CLAIM_SOURCE"
-  },
-  {
-   "task_id": "G17-SITE-R68-CONECTRR-NOT-SELECTED-GUARD",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B13-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B13-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R69-FOUR-OBSERVER-NOT-SELECTED",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B14-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B14-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R70-FOLD-MYKV-PUBLIC-PROPAGATION",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B15-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B15-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R71-FOLD-HOMEPAGE-CHAT-PUBLIC-ASSETS",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B16-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B16-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R72-FOLD-BOTH-SV002-OBSERVERS",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B17-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B17-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R73-FOLD-EVALUATOR-HIL-DEPLOYED",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B18-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B18-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R74-FOLD-CANONICAL-INTR-TVC-RECEIPT",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B19-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B19-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R75-FOLD-HIL-VALIDATORS",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B20-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B20-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R76-FOLD-REVIEW-ENDPOINT-HIL",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B21-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B21-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R77-FOLD-STEGBROWSER-CONTINUITY-STEGOS",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B22-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B22-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R78-FOLD-TIDC-RESEARCH",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B23-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B23-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R79-FOLD-PE-HIL-SESSION-NTP-COINBASE-VA",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B24-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B24-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R80-FOLD-VA-BASELINE-PII",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B25-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B25-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17-SITE-R81-FOLD-VA-MISC",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B26-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B26-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17_SITE_WORKFLOW_SURFACE_B27",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B27-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B27-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17_SITE_WORKFLOW_SURFACE_B28",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B28-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B28-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "G17_SITE_WORKFLOW_SURFACE_B29",
-   "claim_id": "G17-SITE-WORKFLOW-SURFACE-B29-20261105",
-   "claim_ref": "data/session-work-claims.d/G17-SITE-WORKFLOW-SURFACE-B29-20261105.json",
-   "handoff_ref": "docs/G17_WORKFLOW_SURFACE_MINIMIZATION_SITE_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "SITE-ECOCHAT-CONVERSION-20261115",
-   "claim_id": "SITE-ECOCHAT-CONVERSION-20261115",
-   "claim_ref": "data/session-work-claims.d/site-ecochat-conversion-20261115.json",
-   "handoff_ref": "docs/ECOCHAT_CONVERSION_MIRROR_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "SITE-ECOCHAT-SIMPLE-PAGE-20261115",
-   "claim_id": "SITE-ECOCHAT-SIMPLE-PAGE-20261115",
-   "claim_ref": "data/session-work-claims.d/site-ecochat-simple-page-20261115.json",
-   "handoff_ref": "docs/ECOCHAT_SIMPLE_PAGE_MIRROR_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "SITE-ECOCHAT-EOS-NAME-20261115",
-   "claim_id": "SITE-ECOCHAT-EOS-NAME-20261115",
-   "claim_ref": "data/session-work-claims.d/site-ecochat-eos-name-20261115.json",
-   "handoff_ref": "docs/ECOCHAT_EOS_NAME_MIRROR_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
-  },
-  {
-   "task_id": "SITE-ECOCHAT-GATEWAY-POSTURE-20261115",
-   "claim_id": "SITE-ECOCHAT-GATEWAY-POSTURE-20261115",
-   "claim_ref": "data/session-work-claims.d/site-ecochat-gateway-posture-20261115.json",
-   "handoff_ref": "docs/ECOCHAT_GATEWAY_POSTURE_MIRROR_HANDOFF.md",
-   "projection_ref": "data/cosv/active-claim-projections.json",
-   "vector": "91000000100000",
-   "binding_mode": "HISTORICAL_RELEASED_SOURCE_CLAIM",
-   "historical_claim_vector": "20010000100000"
   }
  ],
  "coverage": {
   "explicit_cosv_task_surfaces_discovered": 5,
-  "task_vectors_emitted": 114,
+  "task_vectors_emitted": 115,
   "source_bound_task_vectors": 2,
   "external_machine_owned_source_bindings": 1,
   "active_owner_deferred_source_bindings": 4,
@@ -1069,12 +1078,12 @@
   "repository_unindexed_active_claim_tasks_present": false,
   "repository_vector_present_blocker": null,
   "repository_claim_task_vectors": 0,
-  "repository_effective_active_claims_observed": 67,
-  "repository_effective_active_task_ids_observed": 67,
+  "repository_effective_active_claims_observed": 68,
+  "repository_effective_active_task_ids_observed": 68,
   "repository_unindexed_active_task_ids_observed": 0,
   "repository_active_owner_projection_vectors": 4,
   "repository_terminalized_stale_claims_observed": 9,
-  "repository_active_claim_source_vectors": 60,
+  "repository_active_claim_source_vectors": 61,
   "repository_retired_canonical_task_vectors": 1,
   "repository_no_cosv_exemptions": 3
  }
