@@ -85,3 +85,7 @@ The first PR-head bootstrap run proved that the exact branch claim is now accept
 - Coverage moves from 67 to 68 effective active claims/task IDs, 60 to 61 active-claim source vectors, and remains zero unindexed active task IDs.
 
 This is an authority-neutral bookkeeping repair. Native Goal Task ID and COSV admission remain with the existing Registry owner. Protected integration, merge, deployment, release, activation, and propagation remain outside this claim.
+
+## Stable dispatcher registry follow-up
+
+Stable validator run 44466888946 passed 112 of 113 catalog jobs and exposed one exact catalog-registry mismatch: `workflow-surface-registry.validate` still required the five retired Python 3.9 group IDs. The cure removes those five IDs from `control/workflow-surface-registry.json` while leaving every 3.11/3.12 group and every folded workflow record intact. This keeps the catalog and its registered surface coverage in the same state; it does not suppress the registry validator.
