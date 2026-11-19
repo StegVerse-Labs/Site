@@ -1,0 +1,54 @@
+{
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "schema_version": "1.0.0",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "BUILD-Q-51-SITE-CI-STANDING-RED-20261118",
+      "session_worker_id": "codex:site:build-q51-s99-20261118",
+      "task_id": "BUILD-Q-51",
+      "originating_goal": "Diagnose and cure the eight standing Site CI failures without suppressing real regressions.",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "repair/build-q51-site-ci-standing-red",
+      "role": "IMPLEMENTATION",
+      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "normalized_work_key": "site:build-q51:ci-standing-red-cure",
+      "dependency_surface_keys": [
+        "site:stable-validator-dispatcher",
+        "site:handoff-orchestration",
+        "site:ci-standing-red"
+      ],
+      "claimed_paths": [
+        ".github/workflows/validation-dispatcher.yml",
+        "tools/tasks/task_catalog.json",
+        "README.md",
+        "docs/SITE_CI_STANDING_RED_CURE_MIRROR_HANDOFF.md",
+        "data/session-work-claims.d/build-q51-site-ci-standing-red-20261118.json"
+      ],
+      "handoff": "docs/SITE_CI_STANDING_RED_CURE_MIRROR_HANDOFF.md",
+      "handoff_revision": "ACTIVE_SOURCE_CURE_PROTECTED_INTEGRATION_PENDING",
+      "claim_created_at": "2026-11-19T05:32:00Z",
+      "claim_expires_when": "Release on merge, PR closure, or explicit FILED handoff to the existing owner.",
+      "expected_evidence": [
+        "Exact Actions log cause recorded for all eight failures",
+        "Python 3.9 cells absent and Python 3.11 floor declared",
+        "Catalog, claim, and orchestration validators pass",
+        "Full cure PR check set read back with no standing red"
+      ],
+      "collision_boundaries": [
+        "No edits to folded validator step bodies",
+        "No merge, deployment, release, native admission, or Task Registry identity grant from this claim"
+      ],
+      "next_task_after_release": "Post-merge full-board verification and native Goal Task ID/COSV reconciliation by the existing Registry owner.",
+      "pull_request_under_work": null,
+      "credential_authority": "TV/TVC",
+      "credential_requirement": "NONE_IN_SITE_SOURCE_OR_CI",
+      "non_tv_tvc_secret_or_token_used": false,
+      "github_token_runtime_authority": "NONE",
+      "render_required": false,
+      "authority_effect": false,
+      "activation_effect": false,
+      "admission_basis": "Principal-directed BUILD-Q-51 queue claim #3471/7000632566; repository-local source proposal only."
+    }
+  ]
+}
