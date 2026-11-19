@@ -15,7 +15,9 @@ concurrency:
 jobs:
   observe:
     if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
-    runs-on: ubuntu-latest
+    # Playwright 1.52.0 ships native Chromium support for Ubuntu 24.04.
+    # Pin the established dependency to that supported image (BUILD-Q-51).
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - name: Refuse credential-bearing environment

@@ -813,3 +813,8 @@ The historical `assets/ecosystem-chat-va-runtime.js` no longer owns general Ecos
 ### Economic roadmap: self-reconstructing canonical state
 
 The versioned economic-roadmap reconciliation adds a cross-stage proof milestone for `NO_RECEIPT_NO_CANONICAL_TRANSITION` and bounded recent-receipt reconstruction of complete canonical history. It also corrects the current authority boundary: Organization receipts establish organization runtime reality; Master Records is limited to organization records and reconstruction. Historical paper identities remain unchanged. See `docs/ECONOMIC_ECOSYSTEM_ROADMAP_PUBLICATION_HANDOFF.md`.
+
+BUILD-Q-51 also pins the existing Entity Economy browser observer to Ubuntu
+24.04, supported by its established Playwright 1.52.0 Chromium dependency. The
+Ubuntu 26.04 image failed before the browser observation could execute. Existing
+observer assertions, credential refusal and public-observation boundaries remain.

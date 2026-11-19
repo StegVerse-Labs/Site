@@ -202,11 +202,11 @@
         "workflow_run"
       ],
       "permissions": {},
-      "reason": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
-      "verbatim_sha256": "ca26ae446adc8312aa947fa58ae2ac67e87c7b1cdd4bda36f045e043f0f28ba5",
+      "reason": "BUILD-Q-51 runner compatibility repair: pin Ubuntu 24.04 for established Playwright 1.52.0 Chromium; preserve existing triggers, permissions, observer checks and dependency pin. Latest Ubuntu 26.04 failed browser installation in run44467328776/job135368144849.",
+      "verbatim_sha256": "6e669eafc5c1218a0f4895a0254866ccd778aaa326c7354da2f69a73425b25e3",
       "exception": {
         "lifecycle": "pending later G17 batch",
-        "justification": "KEEP_PENDING_LATER_BATCH: byte-unchanged. This surface has not yet been dispositioned and is handled in a later G17 validator batch PR for this repository; until then it runs exactly as on main.",
+        "justification": "BUILD-Q-51 runner compatibility repair: pin Ubuntu 24.04 for established Playwright 1.52.0 Chromium; preserve existing triggers, permissions, observer checks and dependency pin. Latest Ubuntu 26.04 failed browser installation in run44467328776/job135368144849.",
         "within_exception_ceiling": true
       }
     },
