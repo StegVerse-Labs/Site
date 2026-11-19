@@ -5,6 +5,19 @@ governance documentation, and product information from canonical source data.
 
 **Live site:** https://stegverse-labs.github.io/Site/
 
+## Continuous-integration Python floor
+
+Site's stable validator dispatcher supports Python **3.11 and newer**. Python 3.9
+reached end of life in October 2025 and is unavailable on GitHub's current
+`ubuntu-latest` image (Ubuntu 26.04), so Python 3.9 catalog cells are not part of
+the supported check matrix. Removing an unavailable interpreter cell does not remove
+its validation workload: the same pinned catalog steps remain covered by their
+supported 3.11/3.12 cells.
+
+The branch-level orchestration checks also require every pull request branch to resolve
+to exactly one active repository pre-work claim whose handoff exists in this repository.
+A missing claim is a fail-closed ownership refusal, not a product-test failure.
+
 ---
 
 ## Boundary
