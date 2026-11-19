@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>8374 historical discovery mirrors — StegVerse</title>
+  <style>body{font:1rem/1.6 system-ui,sans-serif;max-width:52rem;margin:3rem auto;padding:0 1rem;color:#16233b}a{color:#1646a0}aside{padding:1rem;border:2px solid #846414;background:#fff9dd}code{overflow-wrap:anywhere}li{margin:1rem 0}</style>
+</head>
+<body>
+  <main>
+    <p><a href="../">0R10N15-8374</a></p>
+    <h1>Historical discovery mirrors</h1>
+    <aside><strong>Captured documents, not current payment terms.</strong> These public snapshots remain readable when the 8374 origin is unavailable. They do not prove endpoint health, current prices, settlement, or authorization. Obtain fresh authoritative terms from the live source before any paid request.</aside>
+    <p>Capture timestamps, source URLs, byte lengths and SHA-256 values are published in the <a href="current.json">mirror manifest</a>. The original source documents are retained without rewriting their resource or payee references.</p>
+    <p id="status">Open the manifest for retained document links. No live origin request is needed to read the copies.</p>
+    <ul id="documents"></ul>
+    <h2>Live sources</h2>
+    <ul>
+      <li><a href="https://8374.stegverse.org/offer">Live offer</a></li>
+      <li><a href="https://8374.stegverse.org/openapi.json">Live OpenAPI document</a></li>
+      <li><a href="https://8374.stegverse.org/.well-known/x402">Live x402 manifest</a></li>
+    </ul>
+    <p>These mirrors are evidence retained by Site. They are not a replacement service or a fallback for signing or sending payments.</p>
+  </main>
+  <script>
+  (async () => {
+    const status = document.getElementById('status');
+    try {
+      const response = await fetch('current.json', {cache:'no-store'});
+      if (!response.ok) throw new Error('Manifest unavailable');
+      const manifest = await response.json();
+      if (manifest.schema !== 'stegverse.8374.discovery-mirror/v1' || manifest.live_payment_authorization !== false || !Array.isArray(manifest.documents) || manifest.documents.length !== 3) throw new Error('Unexpected manifest');
+      for (const row of manifest.documents) {
+        if (!/^generations\/[0-9a-f]{64}\/(offer|openapi|x402)\.json$/.test(row.mirror_path)) throw new Error('Unexpected retained path');
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = row.mirror_path;
+        a.textContent = 'Retained ' + row.name + ' snapshot';
+        li.append(a, document.createElement('br'), document.createTextNode('Captured ' + row.captured_at + ' · ' + row.bytes + ' bytes'));
+        const hash = document.createElement('code');
+        hash.textContent = 'SHA-256 ' + row.sha256;
+        li.append(document.createElement('br'), hash);
+        document.getElementById('documents').append(li);
+      }
+      status.textContent = 'Three historical snapshots are retained on Site. Their capture times do not assert current availability or terms.';
+    } catch (_) {
+      status.textContent = 'The mirror manifest could not be read. The live source links remain available below; no payment fallback is authorized.';
+    }
+  })();
+  </script>
+  <script src="/assets/stegverse-node-continuity.js" defer></script>
+</body>
+</html>

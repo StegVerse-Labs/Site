@@ -829,3 +829,25 @@ implementation claim is released through the separate registry-only follow-up;
 its Site-local projection is historical and does not establish native Goal/COSV
 admission. Final central settlement and native-binding disposition are recorded
 on `StegVerse-Labs/.github#3471` (paired #3472).
+
+## 8374 historical discovery mirrors — BUILD-Q-54
+
+`0r10n15-8374/discovery/` retains the public offer, OpenAPI document and x402
+manifest independently of the 8374 origin. These are historical snapshots,
+not current prices, endpoint health, payment challenges or authorization.
+The live source references inside each document are preserved unchanged.
+`current.json` records each source URL, UTC capture time, byte length and SHA-256;
+its content-addressed generation directory retains all three original bodies.
+
+Capture manually with `python scripts/capture_8374_discovery_mirrors.py --capture`;
+verify offline with the same command's `--verify` mode. Capture checks all three
+responses before publishing and switches the manifest only after the complete
+immutable generation exists. A failed source fetch leaves the previous complete
+generation available. There is no new scheduler, service or dependency.
+
+Tests: `python -I -B tests/test_8374_discovery_mirrors.py` and the same command
+with `-O`. Source ownership, exact-head CI and served publication are separate
+from these offline checks. Continuation:
+[BUILD_Q54_DISCOVERY_MIRRORS_MIRROR_HANDOFF.md](docs/BUILD_Q54_DISCOVERY_MIRRORS_MIRROR_HANDOFF.md).
+Native Goal/COSV remain UNBOUND; the Site-local publication claim grants no
+runtime, custody, settlement or version-adoption authority.

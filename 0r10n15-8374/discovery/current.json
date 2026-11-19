@@ -1,0 +1,43 @@
+{
+  "schema": "stegverse.8374.discovery-mirror/v1",
+  "evidence_class": "HISTORICAL_PUBLIC_DISCOVERY_SNAPSHOT",
+  "authority_effect": "NONE",
+  "live_payment_authorization": false,
+  "snapshot_warning": "Historical public discovery snapshot, not current terms, endpoint health, a payment challenge or authorization. Obtain fresh authoritative terms from the live source before any paid request.",
+  "generation": "31903cfa559739a0d5c034c9d3ffca4980e1aa1b3ed1a7dce545a38ba094ade9",
+  "documents": [
+    {
+      "name": "offer",
+      "source_url": "https://8374.stegverse.org/offer",
+      "source_final_url": "https://8374.stegverse.org/offer",
+      "source_status": 200,
+      "source_content_type": "application/json",
+      "captured_at": "2026-11-19T21:10:32.134726Z",
+      "bytes": 5846,
+      "sha256": "7ceb9d0aa623a38d35451ca69c9d990a5231d5952fc9f51fe6103d77d2ee279a",
+      "mirror_path": "generations/31903cfa559739a0d5c034c9d3ffca4980e1aa1b3ed1a7dce545a38ba094ade9/offer.json"
+    },
+    {
+      "name": "openapi",
+      "source_url": "https://8374.stegverse.org/openapi.json",
+      "source_final_url": "https://8374.stegverse.org/openapi.json",
+      "source_status": 200,
+      "source_content_type": "application/json",
+      "captured_at": "2026-11-19T21:10:35.178169Z",
+      "bytes": 3189,
+      "sha256": "73a4c5068d6bef2727d5be0f65f39457de658fee05eabffdf058c3c8180ee382",
+      "mirror_path": "generations/31903cfa559739a0d5c034c9d3ffca4980e1aa1b3ed1a7dce545a38ba094ade9/openapi.json"
+    },
+    {
+      "name": "x402",
+      "source_url": "https://8374.stegverse.org/.well-known/x402",
+      "source_final_url": "https://8374.stegverse.org/.well-known/x402",
+      "source_status": 200,
+      "source_content_type": "application/json",
+      "captured_at": "2026-11-19T21:10:38.267814Z",
+      "bytes": 529,
+      "sha256": "17216cccb308d7e03df6aed458d6eaa49a9c7a34c41f8fd702a8870d2ea3337f",
+      "mirror_path": "generations/31903cfa559739a0d5c034c9d3ffca4980e1aa1b3ed1a7dce545a38ba094ade9/x402.json"
+    }
+  ]
+}

@@ -23,7 +23,10 @@
         "0r10n15-8374/discovery/",
         "scripts/capture_8374_discovery_mirrors.py",
         "tests/test_8374_discovery_mirrors.py",
-        "0r10n15-8374/index.html"
+        "0r10n15-8374/index.html",
+        "tools/tasks/task_catalog.json",
+        "control/workflow-surface-registry.json",
+        "tools/tasks/steps/8374-discovery-mirrors.verify/"
       ],
       "handoff": "docs/BUILD_Q54_DISCOVERY_MIRRORS_MIRROR_HANDOFF.md",
       "handoff_revision": "prework bootstrap on 82703dc88d05e61a11fc6c0015a9c35ac62a945b; handoff added with claim before implementation",

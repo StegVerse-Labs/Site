@@ -8801,6 +8801,29 @@
      ]
     }
    }
+  },
+  {
+   "id": "8374-discovery-mirrors.verify",
+   "catalog_addition": "BUILD-Q-54 historical public discovery mirror custody, offline only (no folded source workflow)",
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify captured discovery and outage/tamper/partial-capture controls without origin access",
+     "run_file": "tools/tasks/steps/8374-discovery-mirrors.verify/01-offline-mirror-custody.sh",
+     "run_sha256": "ea3a615c474c6a1543eb58f432de67c09cce2f32b16b1c993454f3bb56714940"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 10,
+    "python_version": "3.11"
+   }
   }
  ],
  "python_support": {
