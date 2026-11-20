@@ -280,3 +280,13 @@ producer-side replay/revocation, owner adoption, protected integration, governed
 publication and authentic device-path observations remain separate predicates.
 The candidate is not release-ready; no tag, release, deployment or propagation
 is asserted. No changes to the canonical Registry/handoff or KV authority.
+
+CI follow-up: the new26tests, source-claim registry, handoff orchestrator and
+heartbeat contract passed on436bf8be. Existing Site COSV coverage still counted
+67active sources although the effective registry held68: the already-present
+SITE-DOMAIN-NODE-CONNECTION-001 source claim had no external projection. This
+candidate adds only that source-derived index/bundle entry (20010000100000;
+evidence_complete/activated/propagated false), updates derived counts to68/68,
+and preserves its source owner, claim state and handoff. No new canonical task
+or Registry transition is minted. Required final CI remains authoritative for
+the source check; runtime predicates remain unchanged.
