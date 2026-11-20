@@ -838,6 +838,8 @@ check grouping, explicit empty/error dispositions and four copy-ready draft form
 It consumes only an owner-supplied scoped KV projection; no new service, provider call,
 state store, runtime execution or governed record write is introduced.
 
+The existing validation dispatcher runs the focused suite through a new SHA-bound catalog group, preserving every workflow surface.
+
 The projection producer and admitted delivery seam are **not connected** by this source
 candidate. Until they are, the card truthfully displays unavailable. Source tests do
 not establish live KV access, owner binding, admission, replay protection or completion.

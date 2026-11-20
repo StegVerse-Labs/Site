@@ -290,3 +290,11 @@ evidence_complete/activated/propagated false), updates derived counts to68/68,
 and preserves its source owner, claim state and handoff. No new canonical task
 or Registry transition is minted. Required final CI remains authoritative for
 the source check; runtime predicates remain unchanged.
+
+Final CI integration uses the existing stable dispatcher and a new SHA-bound
+`workspace-ecosystem-review.validate` catalog group, following the repository's
+workflow-surface invariant. The initial bootstrap-workflow insertion is removed;
+`.github/workflows/validate.yml` is restored byte-exact to the pinned base. No
+workflow or workflow-registry policy is changed. Existing bootstrap, claim,
+COSV, heartbeat, reconcile and Workspace checks passed on18fbc654; the workflow
+pin failure at that intermediate head motivated this source correction.

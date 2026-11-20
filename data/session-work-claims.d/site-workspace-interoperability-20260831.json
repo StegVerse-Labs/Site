@@ -91,9 +91,10 @@
         "tests/workspace-ecosystem-review.test.cjs",
         "docs/ECOSYSTEM_KV_COORDINATION_REVIEW_CONSUMER_CONTRACT.md",
         "README.md",
-        ".github/workflows/validate.yml",
         "data/cosv/task-vector-index.json",
-        "data/cosv/active-claim-projections.json"
+        "data/cosv/active-claim-projections.json",
+        "tools/tasks/task_catalog.json",
+        "tools/tasks/steps/workspace-ecosystem-review.validate/01-review-consumer.sh"
       ],
       "handoff": "docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md",
       "handoff_revision": "ECOSYSTEM_KV_REVIEW_SOURCE_CANDIDATE_20261119",
