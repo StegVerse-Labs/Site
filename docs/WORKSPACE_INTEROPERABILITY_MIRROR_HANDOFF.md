@@ -298,3 +298,31 @@ workflow-surface invariant. The initial bootstrap-workflow insertion is removed;
 workflow or workflow-registry policy is changed. Existing bootstrap, claim,
 COSV, heartbeat, reconcile and Workspace checks passed on18fbc654; the workflow
 pin failure at that intermediate head motivated this source correction.
+
+## Task Registry runtime invariant review and completion-class cure — 2026-11-19
+
+Direct owner instruction reviewed against current canonical Registry invariants,
+global invariants, Organization runtime declaration and complete communication
+lifecycle. Review source claim: .github#3472/7028930800, Site#1717/7028931066.
+The canonical parent remains PROPOSED/UNCLAIMED/COSV10500000110000; this remains
+a source candidate with no native claim/fence or runtime admission.
+
+Finding repaired: a filed COMPLETED fact previously needed a supporting reference
+but lacked explicit evidence class and contract version. The candidate now requires
+contractv1, a canonical class, and matching support of the same class, rejects
+source/merge/CI-to-runtime/end-to-end promotion, and displays the class in UI/drafts.
+Unknown/unassessed facts remain unknown. Negative controls cover missing/legacy/
+invented classes and unsupported promotion. Prior 26-test/00da077c results retain
+their historical scope; the current PR and follow-up receipt carry the new checks.
+
+The consumer contract now explicitly binds runtime adoption to intentional
+manifest-directed transitions and Organization-ledger receipt reality. Read-only
+requests still use the existing manifested authority path. Receiver liveness,
+always-on services, external machines, device inventory and Master Records cannot
+be transition gates; unavailable receivers use durable queue/event-ephemeral
+materialization. Missing projection is not proof of non-occurrence, and UI WITHHELD
+is not a native disposition. Full same-request/initiator return and declared
+Publisher/SDK/Interlock/far-side stages remain explicit owner obligations. Runtime
+nonconformance requires a recorded bounded exemption before adoption; this source
+candidate neither creates one nor grants authority. CVK#292 remains the existing
+producer/delivery follow-on.

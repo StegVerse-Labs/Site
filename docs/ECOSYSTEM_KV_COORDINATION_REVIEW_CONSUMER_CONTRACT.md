@@ -74,12 +74,18 @@ Each review contains exactly `goal`, `inputs`, `evidence`, `facts`, `checks`, `c
   original private bodies are not copied into this view.
 - `evidence`: locator/digest, filed evidence state, author, independent verifier and
   verification locator. VERIFIED requires a distinct non-author verifier and filed
-  verification reference. Those references remain reported support, not page proof.
+  verification reference. `evidence_class` and `completion_evidence_contract_version`
+  are either both null, or a canonical class and `v1`. These are filed support,
+  not page proof.
 - `facts`: statement, category, evidence state, work state and evidence IDs. Categories
   cover owner form/binding, authority, task/handoff/claim, manifest, native execution,
   negative controls, independent replay, runtime ownership and continuity. Missing
-  categories appear UNKNOWN / UNKNOWN. COMPLETED requires filed support; VERIFIED
-  requires independently filed VERIFIED evidence. Verification never implies completion.
+  categories appear UNKNOWN / UNKNOWN. COMPLETED requires filed support, explicit
+  `evidence_class`, and `completion_evidence_contract_version: v1`; each supporting
+  record must carry that exact class and contract. Missing/untyped support, invented
+  classes, and promotion from source/merge/CI evidence into runtime/end-to-end evidence
+  are refused. UI and drafts display the filed completion class. VERIFIED requires
+  independently filed VERIFIED evidence. Verification never implies completion.
 - `checks`: identity includes task, goal revision, original input ID/digest/revision,
   predicate and rule revision. Duplicate records preserve all result locators; changed
   versions and errors/conflicts require review. Same-version matches are advisory
@@ -116,3 +122,36 @@ filed checks. Copying text does not make it a receipt or permission.
    authentic receipts and readback. Fixtures and source tests discharge none of these.
 
 Local check: `node --test tests/workspace-ecosystem-review.test.cjs`.
+
+## Runtime invariants — intentional state-transition operating model
+
+Runtime is manifest-directed attempted state transition. Read/synchronization requests
+are actions under this model as well as writes: calling a read-only view does not
+create an exemption from manifest selection or the existing authority path. Local
+filtering/draft presentation is non-authoritative UI state; it does not append or
+constitute a sovereign transition. This source candidate adds no transition engine.
+
+| Invariant | Requirement for this build and its existing runtime owners |
+| --- | --- |
+| Intent and processing | The admitted manifest selects capability, installed bound route and destination; neither UI/provider/model identity nor a prior result selects processing. |
+| Runtime reality | Each transition inside an Organization emits its Organization receipt, manifest-directed append under its Organization ledger lock. That ledger root is runtime reality. |
+| Destination | Existence is sufficient under the canonical ingress/egress contract. Receiver liveness, an always-on listener, external machine, second device, or connected-device inventory is never a transition predicate. |
+| Unavailable receiver | Preserve the existing durable queue or event-ephemeral materialization disposition; do not add a polling or waiting prerequisite. A missing displayed projection is not proof that a transition failed or did not occur. |
+| Attempt and observation | An actual admitted attempt returns its authentic ALLOW/DENY/FAIL_CLOSED and receipts. Without an authentic attempt, preserve UNKNOWN_NOT_AUTHENTICALLY_OBSERVED; the UI's WITHHELD/unavailable code is not a fabricated native disposition. |
+| Claims and verification | WorkerCoordinator alone issues execution claim/fence. KV/SKAP alone verifies the user; TV/TVC owns credentials. Account, principal fields, device, transport, browser state and CI are not user verifiers or runtime authority. |
+| Master Records | Organization records and reconstruction only; neither a runtime-reality authority nor a gate awaited by a transition. Reconstruction may be required only where explicitly declared for that evidence result. |
+| Complete lifecycle | Bind original initiator/request, manifest, selected capability/route, declared transitions/custody/replay, Publisher when declared, SDK return assembly, applicable final StegVerse-side egress, Interlock/InTr egress and authentic far-side caller consequence/receipt. Local staging or UI rendering is not terminal communication completion. |
+| Nonconformance | Before runtime adoption, either conform or obtain the existing Registry owner's recorded, bounded exemption with actionable non-ALLOW and review/expiry. A candidate document or missing implementation is not an exemption or authority grant. |
+| Completion language | Contract v1 and the exact native evidence class are required. SOURCE_IMPLEMENTED, MERGED, CI_VALIDATED, SANDBOX_RUNTIME_OBSERVED, EXTERNAL_PROVIDER_OBSERVED, MASTER_RECORDS_RECONSTRUCTED and END_TO_END remain distinct; the page never promotes one into another. |
+
+These requirements govern producer/bridge adoption and review. They do not require
+waiting for an observer or Master Records to make an Organization transition real.
+The page remains unable to verify native receipts; the producer must enforce actual
+manifest/claim/admission/Organization-receipt bindings through existing components.
+
+Reviewed current source anchors (StegVerse-Labs/.github):
+
+- `TASK_REGISTRY_CANONICAL_INVARIANTS.md`, blob `1f9669a991c5a05bf6701583ca6f3b551e713770`.
+- `data/task-registry-global-invariants.json`, blob `208177e09d7b515d19e073dd962832742e6da6a5`.
+- `data/organization-role-runtime-reality-deployment.json`, blob `ca7b20b9b84af4fcead9f0aa838a56f7bab3826d`.
+- `docs/CANONICAL_SOUTHBOUND_COMMUNICATION_LIFECYCLE.md`, blob `48458719de0bb6f6d1fd943a7ce48f09cfdcb229`.

@@ -845,3 +845,11 @@ candidate. Until they are, the card truthfully displays unavailable. Source test
 not establish live KV access, owner binding, admission, replay protection or completion.
 See [the consumer contract](docs/ECOSYSTEM_KV_COORDINATION_REVIEW_CONSUMER_CONTRACT.md) and
 [the Workspace handoff](docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md).
+
+The review consumer enforces completion evidence contract v1: every filed COMPLETED
+fact names its exact evidence class, supported by records of the same class. Source,
+merge and CI evidence cannot be promoted to runtime or end-to-end evidence. Runtime
+adoption follows the Task Registry's intentional manifest-directed transition model:
+Organization-ledger reality, destination existence, durable/event-ephemeral delivery,
+and no receiver-liveness, external-machine or Master Records gate. The consumer
+contract records the canonical invariant anchors and full caller-return obligations.

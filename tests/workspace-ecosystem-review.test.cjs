@@ -14,8 +14,8 @@ function fixture(){return {
   queue:{state:'HAS_WORK',source_ref:'fixture:queue',observed_at:'2026-11-19T19:58:00Z',read_complete:true,error:null},
   reviews:[{goal:{task_id:'FIXTURE-GOAL-001',state:'PROPOSED',cosv:'NONE',handoff_ref:'fixture:MIRROR_HANDOFF.md',source_ref:'fixture:registry',source_revision:rev},
     inputs:[{input_id:'input-1',source_ref:'fixture:original-input',source_revision:rev,digest,filed_at:'2026-11-19T19:00:00Z'}],
-    evidence:[{evidence_id:'e1',source_ref:'fixture:manifest',digest,state:'VERIFIED',filed_by:'fixture:author',verified_by:'fixture:peer',verification_ref:'fixture:peer-verdict'}],
-    facts:[{fact_id:'f1',category:'MANIFEST',statement:'Manifest is filed.',evidence_state:'VERIFIED',work_state:'COMPLETED',evidence_refs:['e1']},{fact_id:'f2',category:'RUNTIME_OWNERSHIP',statement:'Runtime owner is not established.',evidence_state:'UNKNOWN',work_state:'STILL_REQUIRED',evidence_refs:[]}],
+    evidence:[{evidence_id:'e1',source_ref:'fixture:manifest',digest,state:'VERIFIED',filed_by:'fixture:author',verified_by:'fixture:peer',verification_ref:'fixture:peer-verdict',evidence_class:'SOURCE_IMPLEMENTED',completion_evidence_contract_version:'v1'}],
+    facts:[{fact_id:'f1',category:'MANIFEST',statement:'Manifest is filed.',evidence_state:'VERIFIED',work_state:'COMPLETED',evidence_refs:['e1'],evidence_class:'SOURCE_IMPLEMENTED',completion_evidence_contract_version:'v1'},{fact_id:'f2',category:'RUNTIME_OWNERSHIP',statement:'Runtime owner is not established.',evidence_state:'UNKNOWN',work_state:'STILL_REQUIRED',evidence_refs:[],evidence_class:null,completion_evidence_contract_version:null}],
     checks:[{check_id:'c1',input_id:'input-1',input_digest:digest,source_revision:rev,goal_revision:rev,predicate:'MANIFEST_SHAPE',rule_revision:'fixture:rule-1',state:'FILED',result_ref:'fixture:check-result'}],
     continuity:{source_ref:'fixture:continuity',next_step:'Obtain the existing owner decision.',required_owner:'fixture:owner',handoff_ref:'fixture:MIRROR_HANDOFF.md'}}],
   credential_material_present:false,provider_operation_authorized:false,workspace_grants_authority:false,authority_effect:'NONE'};}
@@ -65,6 +65,30 @@ test('verified fact needs filed independent support; self-verification is refuse
 test('completed without filed support is refused; verification never completes unknown work',()=>{
   reject(p=>p.reviews[0].facts[1].work_state='COMPLETED','FACT_SUPPORT_INVALID');
   const r=evaluate().reviews[0];assert.equal(C.selectFacts(r,'VERIFIED','COMPLETED').length,1);assert.equal(C.selectFacts(r,'UNRESOLVED','STILL_REQUIRED')[0].category,'RUNTIME_OWNERSHIP');
+});
+test('completion requires contract v1 and an explicit evidence class',()=>{
+  reject(p=>Object.assign(p.reviews[0].facts[0],{evidence_class:null,completion_evidence_contract_version:null}),'COMPLETION_EVIDENCE_CLASS_REQUIRED');
+  reject(p=>p.reviews[0].facts[0].completion_evidence_contract_version='v0','FACT_SUPPORT_INVALID');
+  reject(p=>delete p.reviews[0].facts[0].evidence_class,'FACT_SUPPORT_INVALID');
+  reject(p=>p.reviews[0].evidence[0].completion_evidence_contract_version='v0','EVIDENCE_SUPPORT_INVALID');
+});
+test('source, merge and CI support cannot be promoted into runtime or end-to-end completion',()=>{
+  for(const sourceClass of ['SOURCE_IMPLEMENTED','MERGED','CI_VALIDATED']){
+    for(const stronger of ['SANDBOX_RUNTIME_OBSERVED','EXTERNAL_PROVIDER_OBSERVED','MASTER_RECORDS_RECONSTRUCTED','END_TO_END']){
+      const p=fixture();p.reviews[0].evidence[0].evidence_class=sourceClass;p.reviews[0].facts[0].evidence_class=stronger;
+      assert.equal(evaluate(p).failure_code,'COMPLETION_EVIDENCE_CLASS_UNSUPPORTED');
+    }
+  }
+});
+test('untyped and invented completion evidence classes are refused',()=>{
+  reject(p=>p.reviews[0].evidence[0].evidence_class='HOST_IS_ALIVE','EVIDENCE_SUPPORT_INVALID');
+  reject(p=>Object.assign(p.reviews[0].evidence[0],{evidence_class:null,completion_evidence_contract_version:null}),'COMPLETION_EVIDENCE_CLASS_UNSUPPORTED');
+});
+test('UI and all fact-bearing drafts qualify completion with its filed evidence class',async()=>{
+  const p=fixture(),v=evaluate(p),d=C.drafts(v,'FIXTURE-GOAL-001');
+  for(const kind of ['coordination_update','issue_comment'])assert.match(d[kind],/COMPLETED\]; completion evidence class: SOURCE_IMPLEMENTED; contract: v1/);
+  const h=harness(async()=>({projection:p,context}));h.switchTo('developer');h.click({'data-review-action':'refresh'});await turn();
+  assert.match(h.box.innerHTML,/COMPLETED · evidence class SOURCE_IMPLEMENTED · contract v1/);
 });
 test('missing review categories remain unknown instead of implying evidence completeness',()=>{
   const p=fixture();p.reviews[0].facts=[];const v=evaluate(p),r=v.reviews[0];
