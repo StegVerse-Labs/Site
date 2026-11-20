@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-20T00:57:57Z",
+  "last_updated": "2026-11-20T01:14:25Z",
   "freshness": {
-    "generated_at": "2026-11-20T00:57:57Z",
+    "generated_at": "2026-11-20T01:14:25Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -775,7 +775,7 @@
       "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 04:59",
+      "status": "2ND 13:18",
       "kickoff": "2026-11-20T00:30:00Z",
       "conference": "american",
       "note": "Rice Temple"
