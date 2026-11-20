@@ -5,11 +5,11 @@
   "claims": [
     {
       "claim_id": "SITE-WORKSPACE-INTEROPERABILITY-20260831",
-      "session_worker_id": "chatgpt:site-workspace-interoperability-20260831",
+      "session_worker_id": "codex:ecosystem-kv-review-20261119",
       "task_id": "SITE-WORKSPACE-INTEROPERABILITY-001",
       "originating_goal": "Project the canonical StegVerse Workspace for human, AI Entity, and organization interoperability while preserving Personal KV, Org-KV, Org-Emp-KV, identity labeling, membership, visibility, and Interlock/InTr authority boundaries.",
       "repository": "StegVerse-Labs/Site",
-      "branch": "claude/workspace-email-search-extractor",
+      "branch": "codex/ecosystem-kv-review-20261119",
       "role": "ACTIVE_IMPLEMENTATION",
       "state": "CLAIMED_FOR_IMPLEMENTATION",
       "normalized_work_key": "site-workspace-interoperability",
@@ -85,12 +85,18 @@
         "tests/test_kv_entrypoint_intr_launcher.py",
         "tests/workspace-ui-refusal-six-fields.test.cjs",
         "tests/workspace-email-family-consumer.test.cjs",
-        "tests/fixtures/email-family-projection-lane-a.json"
+        "tests/fixtures/email-family-projection-lane-a.json",
+        "assets/workspace-ecosystem-review.js",
+        "assets/workspace-ecosystem-review-ui.js",
+        "tests/workspace-ecosystem-review.test.cjs",
+        "docs/ECOSYSTEM_KV_COORDINATION_REVIEW_CONSUMER_CONTRACT.md",
+        "README.md",
+        ".github/workflows/validate.yml"
       ],
       "handoff": "docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md",
-      "handoff_revision": "WORKSPACE_INTEROPERABILITY_V1_PERSONAL_KV_BINDING_HOMEPAGE_PATH_RELEASED",
+      "handoff_revision": "ECOSYSTEM_KV_REVIEW_SOURCE_CANDIDATE_20261119",
       "claim_created_at": "2026-08-31T21:14:00-05:00",
-      "claim_expires_when": "Release after exact-source validation and publication observation of the Workspace projection; authentic Personal KV query observation and organizational runtime activation remain separate evidence gates.",
+      "claim_expires_when": "Release on source candidate merge or PR closure; producer adoption and authentic runtime evidence remain separate.",
       "expected_evidence": [
         "Workspace projection files committed",
         "AI labels rendered from principal_type",
@@ -118,11 +124,11 @@
       "activation_effect": false,
       "archive_eligible": false,
       "lane_rebinding": {
-        "previous_branch": "claude/workspace-email-descriptor-bind",
+        "previous_branch": "claude/workspace-email-search-extractor",
         "previous_session_worker_id": "chatgpt:site-workspace-interoperability-20260831",
-        "rebound_by": "claude:site-1509-email-search-extractor-20261028",
+        "rebound_by": "codex:ecosystem-kv-review-20261119",
         "coordination_issue": "StegVerse-Labs/Site#1509",
-        "reason": "Execute ChatGPT-approved #1509 items on the existing WorkSpace claim lane instead of opening a competing task/COSV; same task, paths and COSV projection.",
+        "reason": "Direct owner request; isolated source-only review consumer in existing Workspace. No runtime claim, new writer, producer admission or protected integration.",
         "authority_effect": "NONE",
         "history": [
           {
@@ -467,8 +473,10 @@
             "outcome": "MERGED",
             "merge_commit": "363281469e9bb964cdc9907298f53347def9464b"
           }
-        ]
-      }
+        ],
+        "coordination_claim_ref": "StegVerse-Labs/.github#3472/7028264442"
+      },
+      "canonical_goal_task_id": "STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001"
     }
   ]
 }

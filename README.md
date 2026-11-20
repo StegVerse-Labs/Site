@@ -829,3 +829,17 @@ implementation claim is released through the separate registry-only follow-up;
 its Site-local projection is historical and does not establish native Goal/COSV
 admission. Final central settlement and native-binding disposition are recorded
 on `StegVerse-Labs/.github#3471` (paired #3472).
+
+### Ecosystem KV coordination review — source candidate
+
+The existing Workspace now has an Ecosystem KV review card within Developer Workspace,
+with filed-evidence/work-state filters, original input references, version-specific prior
+check grouping, explicit empty/error dispositions and four copy-ready draft forms.
+It consumes only an owner-supplied scoped KV projection; no new service, provider call,
+state store, runtime execution or governed record write is introduced.
+
+The projection producer and admitted delivery seam are **not connected** by this source
+candidate. Until they are, the card truthfully displays unavailable. Source tests do
+not establish live KV access, owner binding, admission, replay protection or completion.
+See [the consumer contract](docs/ECOSYSTEM_KV_COORDINATION_REVIEW_CONSUMER_CONTRACT.md) and
+[the Workspace handoff](docs/WORKSPACE_INTEROPERABILITY_MIRROR_HANDOFF.md).

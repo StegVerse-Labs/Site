@@ -46,6 +46,12 @@ jobs:
           git checkout --detach FETCH_HEAD
           test -z "$(git config --local --get-regexp 'extraheader|credential' || true)"
 
+      - name: Validate read-only Ecosystem KV review candidate
+        run: |
+          node --check assets/workspace-ecosystem-review.js
+          node --check assets/workspace-ecosystem-review-ui.js
+          node --test tests/workspace-ecosystem-review.test.cjs
+
       - name: Verify preinstalled Python and repository-local schema validator
         shell: bash
         run: |
