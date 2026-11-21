@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-21T00:49:58Z",
+  "last_updated": "2026-11-21T00:58:00Z",
   "freshness": {
-    "generated_at": "2026-11-21T00:49:58Z",
+    "generated_at": "2026-11-21T00:58:00Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -788,7 +788,7 @@
       "away_score": 10,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 17:48",
+      "status": "3RD 04:33",
       "kickoff": "2026-11-20T23:00:00Z",
       "conference": "big-12",
       "note": "Iowa St. UCF"
@@ -801,7 +801,7 @@
       "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 09:18",
+      "status": "1ST 07:05",
       "kickoff": "2026-11-21T00:30:00Z",
       "conference": "acc",
       "note": "Clemson Duke"
@@ -814,7 +814,7 @@
       "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 10:44",
+      "status": "1ST 07:33",
       "kickoff": "2026-11-21T00:30:00Z",
       "conference": "mac",
       "note": "Bowling Green Toledo"
