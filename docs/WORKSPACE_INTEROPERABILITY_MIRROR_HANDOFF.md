@@ -248,3 +248,81 @@ Existing shared Workspace claim `SITE-WORKSPACE-INTEROPERABILITY-20260831` is re
 Review follow-up on #1642: search now reuses the panel's own EMAIL validation, exported as `StegVerseWorkspacePanels.emailView`, instead of a weaker copy. It covers exactly the rows the panel shows, including the panel's cursor-shape check and bounds (mapping_id/receipt ids 128, provider_id/mapping_state 64, canonical_message_id 256). If the panel contract is not loaded, EMAIL is not searched (`EMAIL_VALIDATOR_UNAVAILABLE`). The EMAIL panel gets the same PERSONAL-only guard (`PANEL_CONTEXTS`, predicate `PANEL_CONTEXT_NOT_ADMITTED`), which closes a latent asymmetry from #1641: before this, an ORGANIZATIONAL-declared email projection, evaluated and built for the org context, would have rendered rows. The descriptor keeps ORGANIZATIONAL so the org card still states its status (ORG_KV_PROJECTION_NOT_OBSERVED, or CONTEXT_MISMATCH if an org-declared projection is ever handed in) instead of the capability disappearing from the org view; the guard makes that entry status-only and therefore consistent.
 
 Re-review polish on #1642: when the panel contract is not loaded, the EMAIL search exclusion is labelled `UNAVAILABLE` (a validator problem stays `MALFORMED`). `PANEL_CONTEXT_NOT_ADMITTED` has its plain-language reason in the panel reasons catalog. The search-only exclusion predicates (`EMAIL_VALIDATOR_UNAVAILABLE`, `SEARCH_CONTEXT_NOT_ADMITTED`, `SEARCH_EXTRACTOR_NOT_DEFINED`, `SEARCH_SOURCE_MALFORMED`) have theirs in a new frozen `StegVerseWorkspaceSearch.reasons` catalog. They can't go in the panel catalog, because `tests/workspace-explanation.test.cjs` requires that catalog to list only predicates the panels produce. Every keyed table lookup is now own-property only: the context tables (built with `Object.create(null)`), the search extractors, and the panel adapters, producer owners and rendered-elsewhere map. A capability or field named `constructor`, `__proto__`, `toString` or `hasOwnProperty` therefore never resolves to a prototype entry. The search context check now runs before the extractor lookup.
+
+## Ecosystem KV SDK/owner-binding review source candidate — 2026-11-19
+
+Owner-directed source work under the existing canonical parent
+`STEGVERSE-WORKSPACE-ANY-DEVICE-KV-SURFACE-001`, COSV10500000110000,
+PROPOSED / UNCLAIMED at pickup. Coordination reader #3472/7028257554 and
+bounded source claim #3472/7028264442 / Site#1509/7028264758; native
+WorkerCoordinator claim/fence remain null, authority NONE.
+
+Candidate branch `codex/ecosystem-kv-review-20261119`, base
+`d2d162bb53fb54e8700f52c69d855328b12df829`. Existing Workspace shell gains an
+Ecosystem KV review card in Developer context; no Personal KV substitution,
+fourth sovereign KV identity, separate site or iOS app. The pure consumer and
+UI track filed evidence and work states, all requested review categories,
+original input revisions, prior-check identities, empty/error dispositions,
+and continuity. Four draft forms remain unsubmitted. Context/grant invalidation
+clears the view; old asynchronous responses cannot leak into a changed context.
+
+`docs/ECOSYSTEM_KV_COORDINATION_REVIEW_CONSUMER_CONTRACT.md` specifies the
+candidate schema and delivery seam. This PR deliberately does not add
+`loadEcosystemCoordinationReview` to the runtime bridge or claim a producer
+exists. CVK projection semantics and StegOS Workspace semantics remain their
+existing owners' work. Missing bridge/data reports an actionable unavailable
+state; no fixture is presented as live Ecosystem data.
+
+Validation: focused positive/negative Node tests plus existing Workspace
+regressions. Local source conformance only; exact final results are filed on
+the PR and coordination surfaces. Authenticated ingestion, receipt verification,
+producer-side replay/revocation, owner adoption, protected integration, governed
+publication and authentic device-path observations remain separate predicates.
+The candidate is not release-ready; no tag, release, deployment or propagation
+is asserted. No changes to the canonical Registry/handoff or KV authority.
+
+CI follow-up: the new26tests, source-claim registry, handoff orchestrator and
+heartbeat contract passed on436bf8be. Existing Site COSV coverage still counted
+67active sources although the effective registry held68: the already-present
+SITE-DOMAIN-NODE-CONNECTION-001 source claim had no external projection. This
+candidate adds only that source-derived index/bundle entry (20010000100000;
+evidence_complete/activated/propagated false), updates derived counts to68/68,
+and preserves its source owner, claim state and handoff. No new canonical task
+or Registry transition is minted. Required final CI remains authoritative for
+the source check; runtime predicates remain unchanged.
+
+Final CI integration uses the existing stable dispatcher and a new SHA-bound
+`workspace-ecosystem-review.validate` catalog group, following the repository's
+workflow-surface invariant. The initial bootstrap-workflow insertion is removed;
+`.github/workflows/validate.yml` is restored byte-exact to the pinned base. No
+workflow or workflow-registry policy is changed. Existing bootstrap, claim,
+COSV, heartbeat, reconcile and Workspace checks passed on18fbc654; the workflow
+pin failure at that intermediate head motivated this source correction.
+
+## Task Registry runtime invariant review and completion-class cure — 2026-11-19
+
+Direct owner instruction reviewed against current canonical Registry invariants,
+global invariants, Organization runtime declaration and complete communication
+lifecycle. Review source claim: .github#3472/7028930800, Site#1717/7028931066.
+The canonical parent remains PROPOSED/UNCLAIMED/COSV10500000110000; this remains
+a source candidate with no native claim/fence or runtime admission.
+
+Finding repaired: a filed COMPLETED fact previously needed a supporting reference
+but lacked explicit evidence class and contract version. The candidate now requires
+contractv1, a canonical class, and matching support of the same class, rejects
+source/merge/CI-to-runtime/end-to-end promotion, and displays the class in UI/drafts.
+Unknown/unassessed facts remain unknown. Negative controls cover missing/legacy/
+invented classes and unsupported promotion. Prior 26-test/00da077c results retain
+their historical scope; the current PR and follow-up receipt carry the new checks.
+
+The consumer contract now explicitly binds runtime adoption to intentional
+manifest-directed transitions and Organization-ledger receipt reality. Read-only
+requests still use the existing manifested authority path. Receiver liveness,
+always-on services, external machines, device inventory and Master Records cannot
+be transition gates; unavailable receivers use durable queue/event-ephemeral
+materialization. Missing projection is not proof of non-occurrence, and UI WITHHELD
+is not a native disposition. Full same-request/initiator return and declared
+Publisher/SDK/Interlock/far-side stages remain explicit owner obligations. Runtime
+nonconformance requires a recorded bounded exemption before adoption; this source
+candidate neither creates one nor grants authority. CVK#292 remains the existing
+producer/delivery follow-on.
