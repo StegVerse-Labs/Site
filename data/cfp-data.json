@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-21T04:26:52Z",
+  "last_updated": "2026-11-21T04:40:33Z",
   "freshness": {
-    "generated_at": "2026-11-21T04:26:52Z",
+    "generated_at": "2026-11-21T04:40:33Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -295,7 +295,7 @@
       "ap_rank": 14,
       "coaches_rank": 14,
       "sv_rank": 14,
-      "conference_record": "5-2",
+      "conference_record": "6-2",
       "next_opponent": "Washington",
       "next_date": "2026-11-28T05:00Z",
       "next_home": true
@@ -820,6 +820,19 @@
       "note": "Bowling Green Toledo"
     },
     {
+      "id": "6640650",
+      "home": "Michigan St.",
+      "away": "Oregon",
+      "home_score": 7,
+      "away_score": 45,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-11-21T01:00:00Z",
+      "conference": "big-ten",
+      "note": "Oregon Michigan St."
+    },
+    {
       "id": "6604054",
       "home": "Air Force",
       "away": "UTEP",
@@ -833,27 +846,14 @@
       "note": "UTEP Air Force"
     },
     {
-      "id": "6640650",
-      "home": "Michigan St.",
-      "away": "Oregon",
-      "home_score": 7,
-      "away_score": 38,
-      "home_record": "",
-      "away_record": "",
-      "status": "4TH 03:56",
-      "kickoff": "2026-11-21T01:00:00Z",
-      "conference": "big-ten",
-      "note": "Oregon Michigan St."
-    },
-    {
       "id": "6640775",
       "home": "Wyoming",
       "away": "New Mexico",
       "home_score": 7,
-      "away_score": 17,
+      "away_score": 24,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 07:39",
+      "status": "3RD 03:22",
       "kickoff": "2026-11-21T02:00:00Z",
       "conference": "mountain-west",
       "note": "New Mexico Wyoming"
