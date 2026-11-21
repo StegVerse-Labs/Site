@@ -29,8 +29,12 @@
     <h1>0R10N15-8374</h1>
     <p class="lede">A governed crossing point for the machine economy, operated by StegVerse LLC.</p>
 
-    <h2>What it does</h2>
-    <p>A machine submits a transaction or action for evaluation <em>before</em> it commits. Every submission is dispositioned under the ecosystem disposition grammar — <strong>ALLOW</strong>, <strong>DENY</strong>, or <strong>FAIL_CLOSED</strong> — and only an ALLOW commits, at the signing boundary this service controls; execution paths that do not pass through this evaluation are outside that boundary. Every crossing, including refusals, returns a dual-recorded, hash-chained receipt pair: one matched pair of records, one per side of the crossing, constituting a portable settlement proof that either side can verify against the chain&rsquo;s anchors without trusting the other party&rsquo;s internal log. Independent retention of the pair by the customer is not yet demonstrated; it is being established as separate work. A refused or fail-closed attempt likewise produces a receipt — the refusal record.</p>
+    <h2>What it is</h2>
+    <p>8374 reads <strong>BETA</strong> in the house cipher — the historical designation, in the pattern of Beta Orionis, the brighter star carrying the second letter since Bayer&rsquo;s 1603 catalog. This is the protocol&rsquo;s first market: USDC on Base, settled on the institutional rails.</p>
+
+    <h2>The protocol</h2>
+    <p>A machine submits a transaction or action for evaluation <em>before</em> it commits. Every submission is dispositioned under the ecosystem disposition grammar — <strong>ALLOW</strong>, <strong>DENY</strong>, or <strong>FAIL_CLOSED</strong> — and only an ALLOW commits, at the signing boundary the service controls; execution paths that do not pass through this evaluation are outside that boundary. Every crossing, including refusals, returns a dual-recorded, hash-chained receipt pair: one matched pair of records, one per side of the crossing, constituting a portable settlement proof that either side can verify against the chain&rsquo;s anchors without trusting the other party&rsquo;s internal log. The pair is issued locally and unconditionally at the crossing, before any network call; settlement is an eventual leg, receipted when it lands. A refused or fail-closed attempt likewise produces a receipt — the refusal record. Independent retention of the pair by the customer is not yet demonstrated; it is being established as separate work.</p>
+    <p>Availability is a property of the crossing, not of a destination: the 0R10N15 protocol is to be available at every crossing, on every rail.</p>
 
     <h2>Live endpoint</h2>
     <div class="offer-card">
@@ -45,17 +49,9 @@
       <p><strong>Before paying, cross-check the payTo against the current authenticated offer: <code>0x7721aB66161e60fCcA59CCe2A86817cbdd9b16Be</code>. Payment authorizations are accepted only for the recipient published in the current authenticated offer.</strong></p>
     </div>
 
-    <h2>Patent pending</h2>
-    <p>U.S. Provisional Patent Application No. 64/198,910, filed November 14, 2026 — patent pending. The governed-crossing and receipt-pair mechanism served by this endpoint is subject matter of the pending application.</p>
-
-    <h2>Terminology</h2>
-    <p>StegVerse LLC has adopted the terminology of Executive Order 14434 — Super Intelligence (SI) — by formal declaration dated November 17, 2026.</p>
-
-    <h2>Pair-first, and the frozen test</h2>
-    <p>The endpoint is pair-first: the receipt pair is the proof, issued at the crossing on locally-decidable evidence — signature recovery, receptor and amount match against its own offer, validity window, and the authorization&rsquo;s nonce checked against the registry the receipt chain itself is — before any network call. Settlement is an eventual leg, receipted when it lands. When the network drops at the moment of a crossing, the crossing still completes and settlement lands exactly once on reconnect. Proof, from the record of 2026-11-18: the outage battery ran 8/8, twice — network blackholed, the crossing returned ALLOW with its pair written, the same authorization re-presented was refused locally, settlement on restore was exact, and replay verified end to end.</p>
+    <h2>Evidence of record</h2>
+    <p>Proof, from the record of 2026-11-18: the outage battery ran 8/8, twice — network blackholed, the crossing returned ALLOW with its pair written, the same authorization re-presented was refused locally, settlement on restore was exact, and replay verified end to end.</p>
     <p>That scenario is published as a frozen test any framework can run against itself: <a href="frozen-test.html">FROZEN__TEST__PAIR__FIRST__OUTAGE__01</a> (byte-exact text: <a href="frozen-test.md">frozen-test.md</a>, SHA-256 <code>bfde4c87960b9c24570644626eacd029a489a158eae8c41ee38982086a699e1f</code>). Run it, post the table, and send the link to <a href="mailto:stegverse@stegverse.org">stegverse@stegverse.org</a> for the <a href="compare.html">comparison table</a>.</p>
-
-    <h2>Published pages</h2>
     <p>Static snapshots of the endpoint&rsquo;s public pages, published here on 2026-11-18 so they stand independent of any single host. Values in them are record content as of that date, not live state.</p>
     <ul>
       <li><a href="frozen-test.html">Frozen test</a> — the pair-first outage test, with the reference run</li>
@@ -63,6 +59,15 @@
       <li><a href="compare.html">Test comparisons</a> — the reference result and the open reporting table</li>
       <li>Live determination, one link: <a href="https://8374.stegverse.org/inspect">https://8374.stegverse.org/inspect</a></li>
     </ul>
+
+    <h2>Scope, stated plainly</h2>
+    <p>This rail is live: the endpoint above accepts crossings today at the published prices. Every crossing on this rail to date is insider activity — operator, specimen, or ecosystem lanes — labeled as such in the record. No external crossing has occurred, and external demand is <strong>not</strong> established; no profitability claim is made. The sibling market — <a href="../0r10n15-4lph4/">0R10N15-4LPH4</a>, USDT on Tron — stands at its receptor stage.</p>
+
+    <h2>Patent pending</h2>
+    <p>U.S. Provisional Patent Application No. 64/198,910, filed November 14, 2026 — patent pending. The governed-crossing and receipt-pair mechanism is subject matter of the pending application.</p>
+
+    <h2>Terminology</h2>
+    <p>StegVerse LLC has adopted the terminology of Executive Order 14434 — Super Intelligence (SI) — by formal declaration dated November 17, 2026.</p>
   </main>
 <script src="/assets/stegverse-node-continuity.js"></script>
 </body>
