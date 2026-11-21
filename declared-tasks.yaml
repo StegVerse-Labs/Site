@@ -1,0 +1,12 @@
+# ST-002 task declaration — StegVerse-Labs/Site
+#
+# Declared under ST-002 (Workflow and Task Declaration). Read at merge time by
+# the ST-019 merge-admission gate (stegverse-merge-gate,
+# ST019-MERGE-ADMISSION-001): every declared command runs on the pull-request
+# head, and a non-zero exit is a DENY. The session-work-claims task is the
+# claim re-evaluation that claim-bound merges (the SITE-259 class) depend on:
+# it validates data/session-work-claims.json and its claim fragments for
+# collisions and unauthorized dependency promotion.
+tasks:
+  session-work-claims:
+    command: python3 scripts/check_session_work_claims.py
