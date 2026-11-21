@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-20T23:55:22Z",
+  "last_updated": "2026-11-21T00:33:43Z",
   "freshness": {
-    "generated_at": "2026-11-20T23:55:22Z",
+    "generated_at": "2026-11-21T00:33:43Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -56,9 +56,9 @@
       "coaches_rank": 1,
       "sv_rank": 3,
       "conference_record": "7-1",
-      "next_opponent": "Georgia Tech",
-      "next_date": "2026-11-28T05:00Z",
-      "next_home": true
+      "next_opponent": "South Carolina",
+      "next_date": "2026-11-22T00:30Z",
+      "next_home": false
     },
     {
       "seed": 2,
@@ -76,9 +76,9 @@
       "coaches_rank": 2,
       "sv_rank": 1,
       "conference_record": "7-0",
-      "next_opponent": "West Virginia",
-      "next_date": "2026-11-28T02:00Z",
-      "next_home": true
+      "next_opponent": "TCU",
+      "next_date": "2026-11-22T02:00Z",
+      "next_home": false
     },
     {
       "seed": 3,
@@ -96,8 +96,8 @@
       "coaches_rank": 7,
       "sv_rank": 6,
       "conference_record": "6-2",
-      "next_opponent": "Auburn",
-      "next_date": "2026-11-28T05:00Z",
+      "next_opponent": "Chattanooga",
+      "next_date": "2026-11-21T19:00Z",
       "next_home": true
     },
     {
@@ -116,9 +116,9 @@
       "coaches_rank": 4,
       "sv_rank": 4,
       "conference_record": "7-0",
-      "next_opponent": "USC",
-      "next_date": "2026-11-28T20:30Z",
-      "next_home": true
+      "next_opponent": "Michigan",
+      "next_date": "2026-11-21T20:30Z",
+      "next_home": false
     },
     {
       "seed": 5,
@@ -136,9 +136,9 @@
       "coaches_rank": 8,
       "sv_rank": 5,
       "conference_record": "5-2",
-      "next_opponent": "Texas A&M",
-      "next_date": "2026-11-28T00:30Z",
-      "next_home": false
+      "next_opponent": "Arkansas",
+      "next_date": "2026-11-21T20:30Z",
+      "next_home": true
     },
     {
       "seed": 6,
@@ -156,9 +156,9 @@
       "coaches_rank": 3,
       "sv_rank": 7,
       "conference_record": "",
-      "next_opponent": "Syracuse",
-      "next_date": "2026-11-28T17:00Z",
-      "next_home": false
+      "next_opponent": "SMU",
+      "next_date": "2026-11-22T00:30Z",
+      "next_home": true
     },
     {
       "seed": 7,
@@ -176,8 +176,8 @@
       "coaches_rank": 6,
       "sv_rank": 2,
       "conference_record": "7-0",
-      "next_opponent": "Boston College",
-      "next_date": "2026-11-28T17:00Z",
+      "next_opponent": "Virginia Tech",
+      "next_date": "2026-11-22T00:00Z",
       "next_home": true
     },
     {
@@ -196,9 +196,9 @@
       "coaches_rank": 5,
       "sv_rank": 8,
       "conference_record": "6-1",
-      "next_opponent": "Purdue",
-      "next_date": "2026-11-28T05:00Z",
-      "next_home": true
+      "next_opponent": "Washington",
+      "next_date": "2026-11-21T20:30Z",
+      "next_home": false
     },
     {
       "seed": 9,
@@ -216,9 +216,9 @@
       "coaches_rank": 9,
       "sv_rank": 12,
       "conference_record": "5-2",
-      "next_opponent": "Vanderbilt",
-      "next_date": "2026-11-28T05:00Z",
-      "next_home": false
+      "next_opponent": "LSU",
+      "next_date": "2026-11-21T20:30Z",
+      "next_home": true
     },
     {
       "seed": 10,
@@ -236,9 +236,9 @@
       "coaches_rank": 12,
       "sv_rank": 9,
       "conference_record": "5-2",
-      "next_opponent": "Cincinnati",
-      "next_date": "2026-11-28T20:30Z",
-      "next_home": true
+      "next_opponent": "Kansas",
+      "next_date": "2026-11-21T17:00Z",
+      "next_home": false
     },
     {
       "seed": 11,
@@ -256,9 +256,9 @@
       "coaches_rank": 10,
       "sv_rank": 11,
       "conference_record": "6-1",
-      "next_opponent": "Duke",
-      "next_date": "2026-11-28T05:00Z",
-      "next_home": true
+      "next_opponent": "Georgia Tech",
+      "next_date": "2026-11-21T17:00Z",
+      "next_home": false
     },
     {
       "seed": 12,
@@ -276,9 +276,9 @@
       "coaches_rank": 11,
       "sv_rank": 13,
       "conference_record": "6-1",
-      "next_opponent": "TCU",
-      "next_date": "2026-11-27T01:00Z",
-      "next_home": true
+      "next_opponent": "Baylor",
+      "next_date": "2026-11-21T20:30Z",
+      "next_home": false
     },
     {
       "seed": 13,
@@ -296,9 +296,9 @@
       "coaches_rank": 14,
       "sv_rank": 14,
       "conference_record": "5-2",
-      "next_opponent": "Michigan State",
-      "next_date": "2026-11-21T01:00Z",
-      "next_home": false
+      "next_opponent": "Washington",
+      "next_date": "2026-11-28T05:00Z",
+      "next_home": true
     },
     {
       "seed": 14,
@@ -316,9 +316,9 @@
       "coaches_rank": 17,
       "sv_rank": 16,
       "conference_record": "5-2",
-      "next_opponent": "Michigan",
-      "next_date": "2026-11-28T17:00Z",
-      "next_home": true
+      "next_opponent": "Nebraska",
+      "next_date": "2026-11-21T17:00Z",
+      "next_home": false
     },
     {
       "seed": 15,
@@ -336,9 +336,9 @@
       "coaches_rank": 13,
       "sv_rank": 18,
       "conference_record": "5-2",
-      "next_opponent": "Nebraska",
-      "next_date": "2026-11-27T17:00Z",
-      "next_home": true
+      "next_opponent": "Illinois",
+      "next_date": "2026-11-21T19:30Z",
+      "next_home": false
     },
     {
       "seed": 16,
@@ -356,9 +356,9 @@
       "coaches_rank": 18,
       "sv_rank": 15,
       "conference_record": "5-3",
-      "next_opponent": "Louisville",
-      "next_date": "2026-11-28T05:00Z",
-      "next_home": true
+      "next_opponent": "Missouri",
+      "next_date": "2026-11-22T00:30Z",
+      "next_home": false
     },
     {
       "seed": 17,
@@ -376,8 +376,8 @@
       "coaches_rank": 15,
       "sv_rank": 10,
       "conference_record": "6-0",
-      "next_opponent": "TBD",
-      "next_date": "2026-12-05T01:00Z",
+      "next_opponent": "San Diego State",
+      "next_date": "2026-11-22T02:30Z",
       "next_home": true
     },
     {
@@ -396,9 +396,9 @@
       "coaches_rank": 19,
       "sv_rank": 20,
       "conference_record": "4-3",
-      "next_opponent": "UCLA",
-      "next_date": "2026-11-28T20:30Z",
-      "next_home": false
+      "next_opponent": "Maryland",
+      "next_date": "2026-11-21T23:15Z",
+      "next_home": true
     },
     {
       "seed": 19,
@@ -416,9 +416,9 @@
       "coaches_rank": 20,
       "sv_rank": 23,
       "conference_record": "4-3",
-      "next_opponent": "Arizona State",
-      "next_date": "2026-11-29T02:00Z",
-      "next_home": true
+      "next_opponent": "Kansas State",
+      "next_date": "2026-11-22T00:00Z",
+      "next_home": false
     },
     {
       "seed": 20,
@@ -436,9 +436,9 @@
       "coaches_rank": 21,
       "sv_rank": 21,
       "conference_record": "4-3",
-      "next_opponent": "Baylor",
-      "next_date": "2026-11-29T02:30Z",
-      "next_home": true
+      "next_opponent": "West Virginia",
+      "next_date": "2026-11-21T18:00Z",
+      "next_home": false
     },
     {
       "seed": 21,
@@ -456,9 +456,9 @@
       "coaches_rank": null,
       "sv_rank": 40,
       "conference_record": "4-4",
-      "next_opponent": "Clemson",
-      "next_date": "2026-11-28T05:00Z",
-      "next_home": false
+      "next_opponent": "Georgia",
+      "next_date": "2026-11-22T00:30Z",
+      "next_home": true
     },
     {
       "seed": 22,
@@ -476,9 +476,9 @@
       "coaches_rank": null,
       "sv_rank": 36,
       "conference_record": "4-3",
-      "next_opponent": "Missouri",
-      "next_date": "2026-11-28T21:15Z",
-      "next_home": false
+      "next_opponent": "Texas A&M",
+      "next_date": "2026-11-21T20:45Z",
+      "next_home": true
     },
     {
       "seed": 23,
@@ -496,9 +496,9 @@
       "coaches_rank": 22,
       "sv_rank": 25,
       "conference_record": "6-2",
-      "next_opponent": "Kentucky",
-      "next_date": "2026-11-28T05:00Z",
-      "next_home": false
+      "next_opponent": "Pittsburgh",
+      "next_date": "2026-11-22T00:30Z",
+      "next_home": true
     },
     {
       "seed": 24,
@@ -516,9 +516,9 @@
       "coaches_rank": 25,
       "sv_rank": 19,
       "conference_record": "4-4",
-      "next_opponent": "Florida State",
-      "next_date": "2026-11-27T20:30Z",
-      "next_home": false
+      "next_opponent": "Vanderbilt",
+      "next_date": "2026-11-21T17:00Z",
+      "next_home": true
     },
     {
       "seed": 25,
@@ -536,8 +536,8 @@
       "coaches_rank": 16,
       "sv_rank": 17,
       "conference_record": "4-4",
-      "next_opponent": "Mississippi State",
-      "next_date": "2026-11-27T17:00Z",
+      "next_opponent": "Wofford",
+      "next_date": "2026-11-21T17:00Z",
       "next_home": true
     }
   ],
@@ -784,11 +784,11 @@
       "id": "6603634",
       "home": "UCF",
       "away": "Iowa St.",
-      "home_score": 9,
-      "away_score": 3,
+      "home_score": 24,
+      "away_score": 10,
       "home_record": "",
       "away_record": "",
-      "status": "2ND 13:09",
+      "status": "2ND 00:59",
       "kickoff": "2026-11-20T23:00:00Z",
       "conference": "big-12",
       "note": "Iowa St. UCF"
