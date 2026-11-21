@@ -1,0 +1,89 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "0R10N15-8374 - Governed Crossing Evaluation",
+  "version": "07",
+  "description": "Governed evaluation at a signing boundary, operated by StegVerse LLC. Each crossing is a manifest-governed packet evaluated against the admitted scope; every crossing, ALLOW or NON-ALLOW, produces a matched receipt pair, and the fee is paid either way. Posted tiers: receipt-only $0.0005; full-evaluation $0.015 (select via the body's tier field; defaults to receipt-only). The posted tiers are the governance fee; settlement gas is charged additionally on each crossing, quoted live at challenge time, and the 402 challenge amount is the total authorized (governance fee + settlement charge). Payment: x402 exact scheme, USDC on Base, to the recipient published in the service's authenticated offer; authorizations are accepted only for that recipient. Patent pending: U.S. Application No. 64/198,910."
+ },
+ "paths": {
+  "/crossing": {
+   "post": {
+    "summary": "Submit a governed crossing for evaluation",
+    "operationId": "submitCrossing",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "tier": {
+          "type": "string",
+          "enum": [
+           "receipt-only",
+           "full-evaluation"
+          ],
+          "description": "Posted fee tier for this crossing (see the offer document); defaults to receipt-only."
+         },
+         "counterparty": {
+          "type": "string",
+          "description": "Caller's declared identity for the crossing record."
+         },
+         "action": {
+          "type": "string",
+          "description": "The governed action requested at this crossing."
+         },
+         "scope_ref": {
+          "type": "string",
+          "description": "Reference to the admitted scope under which the action is requested."
+         },
+         "resource": {
+          "type": "string",
+          "description": "The resource the action targets."
+         },
+         "sublane": {
+          "type": "string",
+          "description": "Optional routing name (two uppercase alphanumeric characters, e.g. \"AA\"); receipts land on that sub-lane's chain under 8374's one identity."
+         }
+        },
+        "required": [
+         "counterparty",
+         "action",
+         "scope_ref",
+         "resource"
+        ],
+        "additionalProperties": true
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Crossing evaluated; the response carries the disposition, the receipt pair identifiers, and the caller's retention bundle (BUILD-Q-44)."
+     },
+     "402": {
+      "description": "Payment required (x402): see the challenge body's accepts[] and extensions.bazaar."
+     },
+     "422": {
+      "description": "Crossing refused (NON-ALLOW); the response carries the refusal receipt pair."
+     }
+    },
+    "x-payment-info": {
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.015"
+     },
+     "protocols": [
+      "x402"
+     ]
+    }
+   }
+  }
+ },
+ "servers": [
+  {
+   "url": "https://8374.stegverse.org"
+  }
+ ]
+}
