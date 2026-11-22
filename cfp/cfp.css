@@ -120,6 +120,22 @@ body {
   color: #fff;
 }
 
+/* Championship-projection status badges (cfp/championship.js) */
+.cfp-badge-clinched {
+  background: #2e8b57;
+  color: #fff;
+}
+
+.cfp-badge-controls {
+  background: #4169e1;
+  color: #fff;
+}
+
+.cfp-badge-needshelp {
+  background: #8a6d1f;
+  color: #ffe9a8;
+}
+
 /* ---------------------------------------------------------
    RANKINGS TABLE
 --------------------------------------------------------- */

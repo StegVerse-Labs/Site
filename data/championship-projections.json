@@ -1,0 +1,2334 @@
+{
+  "schema_version": 1,
+  "season": 2026,
+  "updated_at": "2026-11-22T05:54:44Z",
+  "updated_at_display": "Saturday, November 21, 2026 (late evening CT)",
+  "snapshot_scope": "Games completed through Saturday, November 21, 2026.",
+  "in_progress": [
+    "Oklahoma State at Arizona State \u2014 a late game (9:30 p.m. CT kick) between two eliminated teams \u2014 was still in progress at input time (Arizona State led 24-14 in the third quarter at last read). Their records are as of the last verified standings read; the result cannot change any championship berth."
+  ],
+  "method_note": "Projections are computed in the browser at page load from the inputs in this file \u2014 standings, contenders' conference game logs, remaining conference games, and each conference's tiebreak steps encoded as data. For every remaining conference game involving a live contender, both outcomes are enumerated; berths are resolved under the encoded tiebreak steps. CLINCHED = berth in every combination; ELIMINATED = berth in none; CONTROLS_OWN_PATH = berth in every combination where the team wins its remaining games; NEEDS_HELP = every other live team. The projected pairing is the berth set when every remaining game is won by the team with the better current conference winning percentage (standings-hold). A tie surviving every encoded step is reported unresolved, never guessed \u2014 and a berth that depends on an unresolved tie counts as possible, not secured: CLINCHED and CONTROLS_OWN_PATH are asserted only where the berth is established by record or a fully resolved tiebreak in every relevant combination. Remaining games between two teams with no live contender are not enumerated; they cannot change a berth except through deep tiebreak steps, and are reflected on the next input refresh.",
+  "conferences": [
+    {
+      "id": "acc",
+      "name": "ACC",
+      "tier": "Power 4",
+      "format": "top2",
+      "championship_game": {
+        "date": "2026-12-05",
+        "site": "Bank of America Stadium, Charlotte, NC",
+        "note": "Both berths were clinched on Nov 21 \u2014 this matchup is final."
+      },
+      "tiebreak": {
+        "basis": "VERIFIED",
+        "steps": [
+          "head_to_head"
+        ],
+        "basis_note": "ACC tiebreaking procedures adopted for 2026 (ACC release, July 2026): head-to-head, then SportSource Team Success Ranking, then a draw. Only head-to-head is computable; both berths were clinched on Nov 21, so no unencoded step can bind."
+      },
+      "spotlight_eliminated": [
+        "Louisville"
+      ],
+      "teams": [
+        {
+          "name": "Miami (FL)",
+          "conf": [
+            8,
+            0
+          ],
+          "overall": [
+            10,
+            1
+          ],
+          "conf_results": {
+            "Wake Forest": "W"
+          }
+        },
+        {
+          "name": "Wake Forest",
+          "conf": [
+            7,
+            1
+          ],
+          "overall": [
+            10,
+            1
+          ],
+          "conf_results": {
+            "Miami (FL)": "L",
+            "Louisville": "W"
+          }
+        },
+        {
+          "name": "Louisville",
+          "conf": [
+            7,
+            2
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {
+            "Wake Forest": "L"
+          }
+        },
+        {
+          "name": "Clemson",
+          "conf": [
+            5,
+            3
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "SMU",
+          "conf": [
+            5,
+            3
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Duke",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Stanford",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Virginia",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Boston College",
+          "conf": [
+            3,
+            4
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Pittsburgh",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Virginia Tech",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "NC State",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Florida State",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Syracuse",
+          "conf": [
+            3,
+            6
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "North Carolina",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "California",
+          "conf": [
+            2,
+            6
+          ],
+          "overall": [
+            3,
+            8
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Georgia Tech",
+          "conf": [
+            2,
+            6
+          ],
+          "overall": [
+            3,
+            8
+          ],
+          "conf_results": {}
+        }
+      ],
+      "remaining_games": [
+        {
+          "date": "2026-11-28",
+          "home": "Miami (FL)",
+          "away": "Boston College"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "Wake Forest",
+          "away": "Duke"
+        }
+      ],
+      "sources": [
+        {
+          "label": "ACC official release \u2014 Miami, Wake Forest clinch berths",
+          "url": "http://theacc.com/news/2026/11/22/no-7-miami-no-11-wake-forest-clinch-berths-in-the-2026-acc-football-championship-game.aspx",
+          "read": "Both berths clinched Nov 21; Dec 5, Charlotte, Noon ET ABC; Miami 10-1/8-0, Wake Forest 10-1/7-1; Miami's 33-20 win over Wake Forest."
+        },
+        {
+          "label": "Wikipedia \u2014 2026 ACC football season",
+          "url": "https://en.wikipedia.org/wiki/2026_Atlantic_Coast_Conference_football_season",
+          "read": "Full 17-team standings through Nov 21; championship date and venue."
+        },
+        {
+          "label": "USA Today \u2014 ACC championship race, Nov 21",
+          "url": "https://www.usatoday.com/story/sports/ncaaf/acc/2026/11/21/acc-championship-miami-wake-forest-football-rematch/92909117007/",
+          "read": "Miami's Nov 21 win eliminated Louisville, the last team with a mathematical path; Wake Forest's head-to-head over Louisville."
+        },
+        {
+          "label": "FB Schedules \u2014 ACC tiebreaking procedures (ACC release)",
+          "url": "https://fbschedules.com/acc-announces-new-football-tiebreaking-procedures/",
+          "read": "2026 ACC tiebreak order: head-to-head, SportSource Team Success Ranking, draw."
+        },
+        {
+          "label": "ACC \u2014 Week 13 TV and game times",
+          "url": "http://theacc.com/news/2026/11/16/acc-football-week-13-tv-networks-and-game-times-announced.aspx",
+          "read": "Nov 28 finales: Boston College at Miami; Duke at Wake Forest."
+        }
+      ]
+    },
+    {
+      "id": "sec",
+      "name": "SEC",
+      "tier": "Power 4",
+      "format": "top2",
+      "championship_game": {
+        "date": "2026-12-05",
+        "site": "Mercedes-Benz Stadium, Atlanta, GA"
+      },
+      "tiebreak": {
+        "basis": "PARTIAL",
+        "steps": [
+          "head_to_head",
+          "common_opponents",
+          "best_common_opponent",
+          "opponent_win_pct"
+        ],
+        "basis_note": "Six-step SEC cascade as published in the SEC tiebreaker policy (Oct 2024) and reproduced identically by Wikipedia and USA Today; it was not re-read on secsports.com, and the last steps (SportSource capped scoring margin, random draw) are not computable \u2014 a tie surviving the encoded steps is reported unresolved rather than guessed."
+      },
+      "spotlight_eliminated": [
+        "Oklahoma"
+      ],
+      "teams": [
+        {
+          "name": "Georgia",
+          "conf": [
+            8,
+            1
+          ],
+          "overall": [
+            10,
+            1
+          ],
+          "conf_results": {
+            "Arkansas": "W",
+            "Oklahoma": "W",
+            "Vanderbilt": "W",
+            "Alabama": "W",
+            "Auburn": "L",
+            "Florida": "W",
+            "Ole Miss": "W",
+            "Missouri": "W",
+            "South Carolina": "W"
+          }
+        },
+        {
+          "name": "Texas",
+          "conf": [
+            6,
+            2
+          ],
+          "overall": [
+            9,
+            2
+          ],
+          "conf_results": {
+            "Tennessee": "W",
+            "Oklahoma": "L",
+            "Florida": "L",
+            "Ole Miss": "W",
+            "Mississippi State": "W",
+            "Missouri": "W",
+            "LSU": "W",
+            "Arkansas": "W"
+          }
+        },
+        {
+          "name": "Tennessee",
+          "conf": [
+            6,
+            2
+          ],
+          "overall": [
+            9,
+            2
+          ],
+          "conf_results": {
+            "Texas": "L",
+            "Auburn": "W",
+            "Arkansas": "W",
+            "Alabama": "W",
+            "South Carolina": "L",
+            "Kentucky": "W",
+            "Texas A&M": "W",
+            "LSU": "W"
+          }
+        },
+        {
+          "name": "Alabama",
+          "conf": [
+            6,
+            2
+          ],
+          "overall": [
+            9,
+            2
+          ],
+          "conf_results": {
+            "Kentucky": "W",
+            "South Carolina": "W",
+            "Mississippi State": "W",
+            "Georgia": "L",
+            "Tennessee": "L",
+            "Texas A&M": "W",
+            "LSU": "W",
+            "Vanderbilt": "W"
+          }
+        },
+        {
+          "name": "Oklahoma",
+          "conf": [
+            5,
+            3
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Florida",
+          "conf": [
+            5,
+            4
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Kentucky",
+          "conf": [
+            5,
+            4
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Ole Miss",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Auburn",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Missouri",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "South Carolina",
+          "conf": [
+            4,
+            5
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "LSU",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Mississippi State",
+          "conf": [
+            2,
+            6
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Arkansas",
+          "conf": [
+            2,
+            6
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Texas A&M",
+          "conf": [
+            1,
+            7
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Vanderbilt",
+          "conf": [
+            1,
+            7
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {}
+        }
+      ],
+      "remaining_games": [
+        {
+          "date": "2026-11-27",
+          "home": "Texas A&M",
+          "away": "Texas"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "Vanderbilt",
+          "away": "Tennessee"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "Alabama",
+          "away": "Auburn"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia \u2014 2026 SEC standings template",
+          "url": "https://en.wikipedia.org/wiki/Template:2026_Southeastern_Conference_football_standings",
+          "read": "Full 16-team standings through Nov 21; Georgia marked as championship-game participant."
+        },
+        {
+          "label": "USA Today \u2014 SEC live standings, Nov 21",
+          "url": "https://www.usatoday.com/story/sports/ncaaf/sec/2026/11/21/sec-football-live-standings-results-week-12/92852604007/",
+          "read": "Alive/eliminated list; Georgia clinched 34-6 at South Carolina; paths for Texas, Tennessee, Alabama; six-step tiebreak list."
+        },
+        {
+          "label": "Wikipedia \u2014 SEC Championship Game",
+          "url": "https://en.wikipedia.org/wiki/SEC_Championship_Game",
+          "read": "Tiebreak procedure steps 1-6; top-two format."
+        },
+        {
+          "label": "DawgNation \u2014 Georgia clinches",
+          "url": "https://www.dawgnation.com/gameday/georgia-clinches-spot-final-sec-championship-game-here-is-who-it-could-play/VOARM3EU3JCWJO7TPMWTMN3PW4/",
+          "read": "Georgia 8-1 clinch; Texas/Tennessee/Alabama all 6-2; head-to-heads among them."
+        },
+        {
+          "label": "Team schedule pages (Texas, Tennessee, Alabama, Georgia)",
+          "url": "https://texaslonghorns.com/sports/football/schedule/text",
+          "read": "Complete conference game logs for the four contenders, each verified to sum to its conference record; Texas at Texas A&M is Fri Nov 27 (ESPN's Nov 28 listing is its +1-day rendering)."
+        }
+      ]
+    },
+    {
+      "id": "big-ten",
+      "name": "Big Ten",
+      "tier": "Power 4",
+      "format": "top2",
+      "championship_game": {
+        "date": "2026-12-05",
+        "site": "Lucas Oil Stadium, Indianapolis, IN",
+        "note": "Reported as the final Big Ten championship game before the 24-team CFP era."
+      },
+      "tiebreak": {
+        "basis": "VERIFIED",
+        "steps": [
+          "head_to_head",
+          "common_opponents",
+          "best_common_opponent",
+          "opponent_win_pct"
+        ],
+        "basis_note": "Official Big Ten tiebreakers (bigten.org). Multi-team ties are resolved by applying the same steps to the tied group, restarting the steps after any team is separated. The final steps (SportSource rating, draw) are not computable and are reported unresolved if reached."
+      },
+      "spotlight_eliminated": [
+        "Ohio State"
+      ],
+      "teams": [
+        {
+          "name": "UCLA",
+          "conf": [
+            7,
+            1
+          ],
+          "overall": [
+            10,
+            1
+          ],
+          "conf_results": {
+            "Purdue": "W",
+            "Maryland": "W",
+            "Oregon": "W",
+            "Wisconsin": "W",
+            "Michigan State": "W",
+            "Minnesota": "W",
+            "Illinois": "W",
+            "Michigan": "L"
+          }
+        },
+        {
+          "name": "Indiana",
+          "conf": [
+            6,
+            2
+          ],
+          "overall": [
+            9,
+            2
+          ],
+          "conf_results": {
+            "Northwestern": "W",
+            "Rutgers": "W",
+            "Nebraska": "W",
+            "Ohio State": "L",
+            "Michigan": "W",
+            "Minnesota": "W",
+            "USC": "W",
+            "Washington": "L"
+          }
+        },
+        {
+          "name": "Iowa",
+          "conf": [
+            6,
+            2
+          ],
+          "overall": [
+            9,
+            2
+          ],
+          "conf_results": {
+            "Michigan": "W",
+            "Ohio State": "L",
+            "Washington": "W",
+            "Minnesota": "L",
+            "Wisconsin": "W",
+            "Northwestern": "W",
+            "Purdue": "W",
+            "Illinois": "W"
+          }
+        },
+        {
+          "name": "Oregon",
+          "conf": [
+            6,
+            2
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {
+            "USC": "W",
+            "UCLA": "L",
+            "Nebraska": "W",
+            "Illinois": "L",
+            "Northwestern": "W",
+            "Ohio State": "W",
+            "Michigan": "W",
+            "Michigan State": "W"
+          }
+        },
+        {
+          "name": "USC",
+          "conf": [
+            5,
+            3
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {
+            "Rutgers": "W",
+            "Oregon": "L",
+            "Washington": "W",
+            "Penn State": "W",
+            "Wisconsin": "L",
+            "Ohio State": "W",
+            "Indiana": "L",
+            "Maryland": "W"
+          }
+        },
+        {
+          "name": "Ohio State",
+          "conf": [
+            5,
+            3
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Wisconsin",
+          "conf": [
+            5,
+            3
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Nebraska",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Washington",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Illinois",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Minnesota",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Michigan",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Northwestern",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Penn State",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Maryland",
+          "conf": [
+            2,
+            6
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Purdue",
+          "conf": [
+            2,
+            6
+          ],
+          "overall": [
+            3,
+            8
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Rutgers",
+          "conf": [
+            2,
+            6
+          ],
+          "overall": [
+            3,
+            8
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Michigan State",
+          "conf": [
+            1,
+            7
+          ],
+          "overall": [
+            3,
+            8
+          ],
+          "conf_results": {}
+        }
+      ],
+      "remaining_games": [
+        {
+          "date": "2026-11-27",
+          "home": "Iowa",
+          "away": "Nebraska"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "UCLA",
+          "away": "USC"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "Indiana",
+          "away": "Purdue"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "Oregon",
+          "away": "Washington"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Big Ten official standings",
+          "url": "https://bigten.org/standings.aspx?path=football",
+          "read": "Full 18-team standings through Nov 21, identical to Wikipedia."
+        },
+        {
+          "label": "Big Ten official tiebreakers",
+          "url": "https://bigten.org/sports/2026/11/10/FB_1110261447.aspx",
+          "read": "Tiebreak order: head-to-head, common opponents, best common opponent, cumulative opponent win percentage, SportSource rating, draw."
+        },
+        {
+          "label": "USA Today \u2014 Big Ten live standings, Nov 21",
+          "url": "https://www.usatoday.com/story/sports/ncaaf/bigten/2026/11/21/big-ten-football-live-standings-results-conference-championship-game/92849924007/",
+          "read": "Nov 21 results; Ohio State and Wisconsin eliminated; five teams alive with their paths."
+        },
+        {
+          "label": "Big Ten \u2014 2026 championship game information",
+          "url": "https://bigten.org/news/2026/8/19/championship-2026-discover-big-ten-football-championship-game-information.aspx",
+          "read": "Dec 5, Lucas Oil Stadium, Indianapolis."
+        },
+        {
+          "label": "Team schedule pages (UCLA, Indiana, Iowa, Oregon, USC)",
+          "url": "https://en.wikipedia.org/wiki/2026_Iowa_Hawkeyes_football_team",
+          "read": "Complete conference game logs for the five contenders, each verified to sum to its conference record."
+        }
+      ]
+    },
+    {
+      "id": "big-12",
+      "name": "Big 12",
+      "tier": "Power 4",
+      "format": "top2",
+      "championship_game": {
+        "date": "2026-12-04",
+        "site": "AT&T Stadium, Arlington, TX",
+        "note": "The 25th and final Big 12 championship game \u2014 the 24-team CFP format announced Nov 9, 2026 eliminates Power Four conference championship games from 2027."
+      },
+      "tiebreak": {
+        "basis": "VERIFIED",
+        "steps": [
+          "head_to_head",
+          "common_opponents",
+          "best_common_opponent",
+          "opponent_win_pct",
+          "total_wins"
+        ],
+        "basis_note": "Official Big 12 policy (big12sports.com), steps A-E encoded: head-to-head, win percentage against all common opponents, win percentage against the next highest-placed common opponent, combined conference win percentage of conference opponents, total wins. Steps F (SportSource rating) and G (coin toss) are not computable and are reported unresolved if reached."
+      },
+      "spotlight_eliminated": [
+        "Baylor"
+      ],
+      "teams": [
+        {
+          "name": "Utah",
+          "conf": [
+            8,
+            0
+          ],
+          "overall": [
+            11,
+            0
+          ],
+          "conf_results": {
+            "Iowa State": "W",
+            "Kansas": "W",
+            "Colorado": "W",
+            "Houston": "W",
+            "Cincinnati": "W",
+            "BYU": "W",
+            "Arizona": "W",
+            "TCU": "W"
+          }
+        },
+        {
+          "name": "Texas Tech",
+          "conf": [
+            7,
+            1
+          ],
+          "overall": [
+            10,
+            1
+          ],
+          "conf_results": {
+            "Houston": "W",
+            "Colorado": "W",
+            "Arizona State": "W",
+            "Cincinnati": "L",
+            "Arizona": "W",
+            "West Virginia": "W",
+            "Oklahoma State": "W",
+            "Baylor": "W"
+          }
+        },
+        {
+          "name": "BYU",
+          "conf": [
+            6,
+            2
+          ],
+          "overall": [
+            9,
+            2
+          ],
+          "conf_results": {
+            "Arizona": "W",
+            "TCU": "W",
+            "Iowa State": "W",
+            "UCF": "L",
+            "Arizona State": "W",
+            "Utah": "L",
+            "Baylor": "W",
+            "Kansas": "W"
+          }
+        },
+        {
+          "name": "Arizona",
+          "conf": [
+            5,
+            3
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Houston",
+          "conf": [
+            5,
+            3
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Arizona State",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            6,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Oklahoma State",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            6,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Baylor",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "UCF",
+          "conf": [
+            4,
+            4
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "TCU",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Iowa State",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Cincinnati",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Kansas",
+          "conf": [
+            2,
+            6
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "West Virginia",
+          "conf": [
+            2,
+            6
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Colorado",
+          "conf": [
+            2,
+            6
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Kansas State",
+          "conf": [
+            1,
+            7
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {}
+        }
+      ],
+      "remaining_games": [
+        {
+          "date": "2026-11-26",
+          "home": "Texas Tech",
+          "away": "TCU"
+        },
+        {
+          "date": "2026-11-27",
+          "home": "Utah",
+          "away": "West Virginia"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "BYU",
+          "away": "Cincinnati"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Big 12 official standings",
+          "url": "https://big12sports.com/standings.aspx?path=football",
+          "read": "Full 16-team standings through the Nov 21 day games, identical to Wikipedia: Utah 7-0, Texas Tech 7-1, BYU 6-2 entering the night game."
+        },
+        {
+          "label": "Big 12 official tiebreaker policy",
+          "url": "https://big12sports.com/sports/2024/9/6/FB%5F0906243427.aspx?path=football",
+          "read": "Tiebreak steps A-G as encoded in this file."
+        },
+        {
+          "label": "Wikipedia \u2014 2026 BYU Cougars",
+          "url": "https://en.wikipedia.org/wiki/2026_BYU_Cougars_football_team",
+          "read": "BYU 9-2 (6-2 Big 12): losses at UCF (31-39, 2OT, Oct 24) and at Utah (20-28, Nov 7); beat No. 2 Notre Dame 28-24 (non-conference); hosts Cincinnati Nov 28 in Provo."
+        },
+        {
+          "label": "Big 12 official schedules (BYU, Texas Tech, Utah)",
+          "url": "https://admin.big12sports.com/schedule.aspx?schedule=5307",
+          "read": "Contender game logs and finales: Texas Tech vs TCU Thu Nov 26; Utah vs West Virginia Fri Nov 27; BYU vs Cincinnati Sat Nov 28 (Provo). Texas Tech's only loss: 24-37 at Cincinnati, Oct 24."
+        },
+        {
+          "label": "USA Today \u2014 Big 12 live standings, Nov 21",
+          "url": "https://www.usatoday.com/story/sports/ncaaf/big12/2026/11/21/big-12-football-live-standings-results-conference-champonship-game/92865926007/",
+          "read": "After Nov 21: race down to Utah, Texas Tech and BYU; all others eliminated, including Baylor (4-4)."
+        },
+        {
+          "label": "Sportradar live feed \u2014 Utah at TCU",
+          "url": "https://sportradar.com/?q=4331806612150051591",
+          "read": "FINAL: Utah 31, TCU 17 (Nov 21). Followed live through Q4 \u2014 31-17 at the two-minute warning, Utah in possession at the TCU 10 after TCU's last possession ended in an interception. Utah 8-0 in conference (11-0 overall); TCU 3-5 (5-6)."
+        }
+      ]
+    },
+    {
+      "id": "aac",
+      "name": "American (AAC)",
+      "tier": "Group of Five",
+      "format": "top2",
+      "championship_game": {
+        "date": "2026-12-05",
+        "site": "Hosted by the higher seed",
+        "note": "Top two by conference winning percentage; the higher seed hosts."
+      },
+      "tiebreak": {
+        "basis": "PARTIAL",
+        "steps": [
+          "head_to_head",
+          "common_opponents"
+        ],
+        "basis_note": "The American's full official tiebreak order was not verified from an official source (reports indicate it can involve CFP rankings). Only head-to-head and common opponents are encoded; a tie surviving them is reported unresolved. Head-to-head inputs are partial beyond the results listed in the sources."
+      },
+      "spotlight_eliminated": [],
+      "teams": [
+        {
+          "name": "UTSA",
+          "conf": [
+            6,
+            1
+          ],
+          "overall": [
+            9,
+            2
+          ],
+          "conf_results": {
+            "North Texas": "W",
+            "UAB": "W"
+          }
+        },
+        {
+          "name": "Memphis",
+          "conf": [
+            5,
+            2
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {
+            "East Carolina": "W",
+            "UAB": "W",
+            "Army": "W"
+          }
+        },
+        {
+          "name": "East Carolina",
+          "conf": [
+            5,
+            2
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {
+            "Army": "W",
+            "Memphis": "L"
+          }
+        },
+        {
+          "name": "North Texas",
+          "conf": [
+            5,
+            2
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {
+            "UTSA": "L",
+            "Tulane": "L"
+          }
+        },
+        {
+          "name": "UAB",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {
+            "UTSA": "L",
+            "Memphis": "L"
+          }
+        },
+        {
+          "name": "Army",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            5,
+            5
+          ],
+          "conf_results": {
+            "East Carolina": "L",
+            "Memphis": "L"
+          }
+        },
+        {
+          "name": "Tulsa",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Florida Atlantic",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Tulane",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {
+            "North Texas": "W"
+          }
+        },
+        {
+          "name": "Navy",
+          "conf": [
+            3,
+            4
+          ],
+          "overall": [
+            4,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "South Florida",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Rice",
+          "conf": [
+            1,
+            6
+          ],
+          "overall": [
+            2,
+            9
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Charlotte",
+          "conf": [
+            1,
+            6
+          ],
+          "overall": [
+            1,
+            10
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Temple",
+          "conf": [
+            1,
+            6
+          ],
+          "overall": [
+            2,
+            9
+          ],
+          "conf_results": {}
+        }
+      ],
+      "remaining_games": [
+        {
+          "date": "2026-11-27",
+          "home": "UTSA",
+          "away": "Tulsa"
+        },
+        {
+          "date": "2026-11-27",
+          "home": "Memphis",
+          "away": "Temple"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "East Carolina",
+          "away": "Florida Atlantic"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "North Texas",
+          "away": "UAB"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "Rice",
+          "away": "Army"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "South Florida",
+          "away": "Tulane"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia \u2014 2026 American Conference football season",
+          "url": "https://en.wikipedia.org/wiki/2026_American_Conference_football_season",
+          "read": "Full standings through Nov 21; Dec 5 championship; finale schedule."
+        },
+        {
+          "label": "SI \u2014 Conference championship tracker 2026",
+          "url": "https://www.si.com/college-football/conference-championship-tracker-2026-every-team-clinch-title-game-spot",
+          "read": "No American team clinched entering Nov 21; Nov 21 scores (Navy 38, Memphis 34; Tulane 28, North Texas 24; East Carolina 10, Army 6; UTSA 19, UAB 17)."
+        },
+        {
+          "label": "SA Snap Count \u2014 AAC Week 11 recap",
+          "url": "https://sasnapcount.com/aac-week-11-recap-2026/",
+          "read": "UTSA's head-to-head over North Texas; Memphis wins over UAB, East Carolina and Army; Memphis did not play UTSA or North Texas."
+        },
+        {
+          "label": "FB Schedules \u2014 Nov 28 TV selections",
+          "url": "https://fbschedules.com/college-football-schedule-tv-selections-for-november-28-2026/",
+          "read": "Finale dates: Tulsa at UTSA and Temple at Memphis Fri Nov 27; the rest Sat Nov 28."
+        }
+      ]
+    },
+    {
+      "id": "c-usa",
+      "name": "Conference USA",
+      "tier": "Group of Five",
+      "format": "top2",
+      "championship_game": {
+        "date": "2026-12-04",
+        "site": "Hosted by the team with the highest league winning percentage",
+        "note": "Matchup set \u2014 both berths clinched. Hosting turns on the Nov 28 finales: Liberty hosts unless it loses at Missouri State and Jacksonville State wins at Delaware, tying them at 7-1."
+      },
+      "tiebreak": {
+        "basis": "PARTIAL",
+        "steps": [
+          "head_to_head",
+          "common_opponents"
+        ],
+        "basis_note": "Berths are set, so no tiebreak binds for participation. The hosting tiebreak if Liberty and Jacksonville State finish tied at 7-1 was not verified (the two did not meet in the regular season), and no host is projected by the engine."
+      },
+      "spotlight_eliminated": [
+        "Kennesaw State"
+      ],
+      "teams": [
+        {
+          "name": "Liberty",
+          "conf": [
+            7,
+            0
+          ],
+          "overall": [
+            10,
+            1
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Jacksonville State",
+          "conf": [
+            6,
+            1
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Kennesaw State",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Middle Tennessee",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Delaware",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Western Kentucky",
+          "conf": [
+            3,
+            4
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Missouri State",
+          "conf": [
+            3,
+            4
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "FIU",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "New Mexico State",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            3,
+            8
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Sam Houston",
+          "conf": [
+            0,
+            7
+          ],
+          "overall": [
+            1,
+            10
+          ],
+          "conf_results": {}
+        }
+      ],
+      "remaining_games": [
+        {
+          "date": "2026-11-28",
+          "home": "Missouri State",
+          "away": "Liberty"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "Delaware",
+          "away": "Jacksonville State"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia \u2014 2026 Conference USA football season",
+          "url": "https://en.wikipedia.org/wiki/2026_Conference_USA_football_season",
+          "read": "Full standings with both finalists marked; Dec 4 championship date."
+        },
+        {
+          "label": "SI \u2014 Conference championship tracker 2026",
+          "url": "https://www.si.com/college-football/conference-championship-tracker-2026-every-team-clinch-title-game-spot",
+          "read": "Liberty clinched before Nov 21; Jacksonville State clinched Nov 21 (25-20 over Missouri State); Liberty 10-1/7-0."
+        },
+        {
+          "label": "Gadsden Times \u2014 Jacksonville State clinches",
+          "url": "https://www.gadsdentimes.com/story/sports/college/football/2026/11/21/jacksonville-state-football-clinches-conference-usa-title-game-spot-what-to-know-liberty-cusa/92905330007/",
+          "read": "Host is the team with the highest league winning percentage; the finalists did not meet in the regular season; Dec 4, CBS Sports Network."
+        }
+      ]
+    },
+    {
+      "id": "mac",
+      "name": "MAC",
+      "tier": "Group of Five",
+      "format": "top2",
+      "championship_game": {
+        "date": "2026-12-05",
+        "site": "Ford Field, Detroit, MI"
+      },
+      "tiebreak": {
+        "basis": "PARTIAL",
+        "steps": [
+          "head_to_head",
+          "common_opponents"
+        ],
+        "basis_note": "The full official MAC tiebreak order was not verified. The contenders' head-to-head is circular (Western Michigan beat Buffalo, Buffalo beat Toledo, Toledo beat Western Michigan), so deeper steps will likely decide at least one berth; where the encoded steps cannot separate a tie it is reported unresolved."
+      },
+      "spotlight_eliminated": [],
+      "teams": [
+        {
+          "name": "Ohio",
+          "conf": [
+            6,
+            1
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {
+            "Miami (OH)": "L"
+          }
+        },
+        {
+          "name": "Western Michigan",
+          "conf": [
+            6,
+            1
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {
+            "Buffalo": "W",
+            "Toledo": "L"
+          }
+        },
+        {
+          "name": "Buffalo",
+          "conf": [
+            6,
+            1
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {
+            "Western Michigan": "L",
+            "Toledo": "W",
+            "Miami (OH)": "W"
+          }
+        },
+        {
+          "name": "Toledo",
+          "conf": [
+            6,
+            1
+          ],
+          "overall": [
+            9,
+            2
+          ],
+          "conf_results": {
+            "Buffalo": "L",
+            "Western Michigan": "W"
+          }
+        },
+        {
+          "name": "Miami (OH)",
+          "conf": [
+            5,
+            2
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {
+            "Buffalo": "L",
+            "Ohio": "W"
+          }
+        },
+        {
+          "name": "Central Michigan",
+          "conf": [
+            3,
+            4
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Eastern Michigan",
+          "conf": [
+            3,
+            4
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Bowling Green",
+          "conf": [
+            3,
+            4
+          ],
+          "overall": [
+            3,
+            8
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "UMass",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Kent State",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            3,
+            8
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Ball State",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            3,
+            8
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Akron",
+          "conf": [
+            1,
+            6
+          ],
+          "overall": [
+            2,
+            9
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Sacramento State",
+          "conf": [
+            1,
+            7
+          ],
+          "overall": [
+            2,
+            9
+          ],
+          "conf_results": {}
+        }
+      ],
+      "remaining_games": [
+        {
+          "date": "2026-11-24",
+          "home": "Western Michigan",
+          "away": "Miami (OH)"
+        },
+        {
+          "date": "2026-11-27",
+          "home": "Akron",
+          "away": "Buffalo"
+        },
+        {
+          "date": "2026-11-27",
+          "home": "Ohio",
+          "away": "Toledo"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia \u2014 2026 MAC football season",
+          "url": "https://en.wikipedia.org/wiki/2026_Mid-American_Conference_football_season",
+          "read": "Full standings as of Nov 21; no divisions, top two qualify; Dec 5 at Ford Field."
+        },
+        {
+          "label": "SI \u2014 Conference championship tracker 2026",
+          "url": "https://www.si.com/college-football/conference-championship-tracker-2026-every-team-clinch-title-game-spot",
+          "read": "Exactly five teams alive (Ohio, Western Michigan, Buffalo, Toledo, Miami (OH)); no clinch possible before the finales."
+        },
+        {
+          "label": "Mitten Football \u2014 Western Michigan's path",
+          "url": "https://www.mittenfootball.com/sizing-up-western-michigans-path-back-to-the-mac-title-game/",
+          "read": "Head-to-head circle: Western Michigan 20, Buffalo 17; Buffalo 23, Toledo 8; Toledo 45, Western Michigan 38; Buffalo 34, Miami (OH) 31 (OT); Miami (OH) 34, Ohio 17."
+        },
+        {
+          "label": "FB Schedules \u2014 Nov 28 TV selections",
+          "url": "https://fbschedules.com/college-football-schedule-tv-selections-for-november-28-2026/",
+          "read": "Finales: Miami (OH) at Western Michigan Tue Nov 24; Buffalo at Akron and Toledo at Ohio Fri Nov 27."
+        }
+      ]
+    },
+    {
+      "id": "mountain-west",
+      "name": "Mountain West",
+      "tier": "Group of Five",
+      "format": "top2",
+      "championship_game": {
+        "date": "2026-12-04",
+        "site": "Hosted by the team with the higher conference winning percentage",
+        "note": "Top two by conference winning percentage \u2014 teams have played unequal numbers of conference games, so percentage, not raw wins, governs."
+      },
+      "tiebreak": {
+        "basis": "PARTIAL",
+        "steps": [
+          "head_to_head",
+          "common_opponents"
+        ],
+        "basis_note": "The full Mountain West tiebreak procedure beyond head-to-head was not verified from an official source (a reported CFP-ranking element for hosting appears in one secondary source). Only head-to-head and common opponents are encoded; unresolved ties are reported, not guessed."
+      },
+      "spotlight_eliminated": [],
+      "teams": [
+        {
+          "name": "New Mexico",
+          "conf": [
+            6,
+            1
+          ],
+          "overall": [
+            9,
+            2
+          ],
+          "conf_results": {
+            "North Dakota State": "W",
+            "Wyoming": "W",
+            "UNLV": "L"
+          }
+        },
+        {
+          "name": "Wyoming",
+          "conf": [
+            6,
+            2
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {
+            "UNLV": "W",
+            "Air Force": "W",
+            "North Dakota State": "L",
+            "New Mexico": "L"
+          }
+        },
+        {
+          "name": "North Dakota State",
+          "conf": [
+            5,
+            2
+          ],
+          "overall": [
+            8,
+            2
+          ],
+          "conf_results": {
+            "Wyoming": "W",
+            "Air Force": "W",
+            "UNLV": "L",
+            "New Mexico": "L"
+          }
+        },
+        {
+          "name": "Air Force",
+          "conf": [
+            5,
+            2
+          ],
+          "overall": [
+            9,
+            2
+          ],
+          "conf_results": {
+            "UNLV": "W",
+            "Wyoming": "L",
+            "North Dakota State": "L"
+          }
+        },
+        {
+          "name": "UNLV",
+          "conf": [
+            5,
+            2
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {
+            "New Mexico": "W",
+            "North Dakota State": "W",
+            "Wyoming": "L",
+            "Air Force": "L"
+          }
+        },
+        {
+          "name": "Nevada",
+          "conf": [
+            3,
+            3
+          ],
+          "overall": [
+            4,
+            6
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "San Jose State",
+          "conf": [
+            3,
+            5
+          ],
+          "overall": [
+            5,
+            7
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Hawaii",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            3,
+            7
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "Northern Illinois",
+          "conf": [
+            0,
+            6
+          ],
+          "overall": [
+            0,
+            10
+          ],
+          "conf_results": {}
+        },
+        {
+          "name": "UTEP",
+          "conf": [
+            0,
+            7
+          ],
+          "overall": [
+            1,
+            10
+          ],
+          "conf_results": {}
+        }
+      ],
+      "remaining_games": [
+        {
+          "date": "2026-11-27",
+          "home": "San Jose State",
+          "away": "North Dakota State"
+        },
+        {
+          "date": "2026-11-27",
+          "home": "New Mexico",
+          "away": "Air Force"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "UNLV",
+          "away": "Nevada"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia \u2014 2026 Mountain West football season",
+          "url": "https://en.wikipedia.org/wiki/2026_Mountain_West_Conference_football_season",
+          "read": "Full standings through Nov 21 (unequal conference game counts); Dec 4 championship; finale schedule."
+        },
+        {
+          "label": "SI \u2014 Conference championship tracker 2026",
+          "url": "https://www.si.com/college-football/conference-championship-tracker-2026-every-team-clinch-title-game-spot",
+          "read": "Five teams alive: New Mexico, Wyoming, Air Force, North Dakota State, UNLV; New Mexico 24, Wyoming 17 on Nov 20; Wyoming's conference schedule is complete."
+        },
+        {
+          "label": "ScoresAndStats \u2014 Mountain West format (MW release)",
+          "url": "https://www.scoresandstats.com/blog/mountain-west-conference-football-odds-predictions/",
+          "read": "Top two by conference winning percentage; the higher-percentage team hosts (Mountain West release, June 4)."
+        },
+        {
+          "label": "The Scarlet Standard \u2014 Mountain West takeaways",
+          "url": "https://the-scarlet-standard.com/2026/11/11/mountain-west-takeaways-wyoming-runs-through-unlv-and-new-mexico-has-two-backs-waiting/",
+          "read": "Head-to-heads: Wyoming 41, UNLV 35; North Dakota State 28, Wyoming 0."
+        }
+      ]
+    },
+    {
+      "id": "sun-belt",
+      "name": "Sun Belt",
+      "tier": "Group of Five",
+      "format": "divisions",
+      "divisions": [
+        "East",
+        "West"
+      ],
+      "championship_game": {
+        "date": "2026-12-04",
+        "site": "Hosted by the division champion with the better conference record",
+        "note": "East champion vs West champion. Louisiana Tech has clinched the West. If Georgia Southern beats Louisiana Tech on Nov 28 the finalists tie at 7-1 and the host tiebreak is unverified."
+      },
+      "tiebreak": {
+        "basis": "PARTIAL",
+        "steps": [
+          "head_to_head",
+          "common_opponents"
+        ],
+        "basis_note": "Division tiebreaks beyond head-to-head were not verified from an official source. The one head-to-head that matters is encoded: James Madison beat Georgia Southern on Oct 10, which decides the East if they tie at 6-2."
+      },
+      "spotlight_eliminated": [],
+      "teams": [
+        {
+          "name": "Georgia Southern",
+          "conf": [
+            6,
+            1
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {
+            "James Madison": "L"
+          },
+          "division": "East"
+        },
+        {
+          "name": "James Madison",
+          "conf": [
+            5,
+            2
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {
+            "Georgia Southern": "W"
+          },
+          "division": "East"
+        },
+        {
+          "name": "Appalachian State",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            7,
+            4
+          ],
+          "conf_results": {},
+          "division": "East"
+        },
+        {
+          "name": "Coastal Carolina",
+          "conf": [
+            3,
+            4
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {},
+          "division": "East"
+        },
+        {
+          "name": "Marshall",
+          "conf": [
+            3,
+            4
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {},
+          "division": "East"
+        },
+        {
+          "name": "Georgia State",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            5,
+            6
+          ],
+          "conf_results": {},
+          "division": "East"
+        },
+        {
+          "name": "Old Dominion",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            3,
+            8
+          ],
+          "conf_results": {},
+          "division": "East"
+        },
+        {
+          "name": "Louisiana Tech",
+          "conf": [
+            7,
+            0
+          ],
+          "overall": [
+            9,
+            2
+          ],
+          "conf_results": {},
+          "division": "West"
+        },
+        {
+          "name": "Louisiana",
+          "conf": [
+            5,
+            2
+          ],
+          "overall": [
+            8,
+            3
+          ],
+          "conf_results": {},
+          "division": "West"
+        },
+        {
+          "name": "South Alabama",
+          "conf": [
+            4,
+            3
+          ],
+          "overall": [
+            6,
+            5
+          ],
+          "conf_results": {},
+          "division": "West"
+        },
+        {
+          "name": "Arkansas State",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {},
+          "division": "West"
+        },
+        {
+          "name": "Troy",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            4,
+            7
+          ],
+          "conf_results": {},
+          "division": "West"
+        },
+        {
+          "name": "Southern Miss",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            3,
+            8
+          ],
+          "conf_results": {},
+          "division": "West"
+        },
+        {
+          "name": "Louisiana-Monroe",
+          "conf": [
+            2,
+            5
+          ],
+          "overall": [
+            2,
+            9
+          ],
+          "conf_results": {},
+          "division": "West"
+        }
+      ],
+      "remaining_games": [
+        {
+          "date": "2026-11-28",
+          "home": "Georgia Southern",
+          "away": "Louisiana Tech"
+        },
+        {
+          "date": "2026-11-28",
+          "home": "James Madison",
+          "away": "Coastal Carolina"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Wikipedia \u2014 2026 Sun Belt standings template",
+          "url": "https://en.wikipedia.org/wiki/Template:2026_Sun_Belt_Conference_football_standings",
+          "read": "Full East/West standings through Nov 21; Louisiana Tech marked division champion and championship-game participant."
+        },
+        {
+          "label": "SI \u2014 Conference championship tracker 2026",
+          "url": "https://www.si.com/college-football/conference-championship-tracker-2026-every-team-clinch-title-game-spot",
+          "read": "Louisiana Tech won the West in Week 11; East comes down to Georgia Southern and James Madison, with James Madison holding the head-to-head; Dec 4, 7 p.m. ET, ESPN; host is the division champion with the better conference record."
+        },
+        {
+          "label": "TheScore \u2014 Sun Belt clinch report",
+          "url": "https://thescore.com/ncaaf/news/3656429",
+          "read": "Louisiana Tech clinched the West over Southern Miss; James Madison's head-to-head win over Georgia Southern; Nov 28 finales."
+        },
+        {
+          "label": "Sun Belt official \u2014 Week 13 schedule",
+          "url": "https://sunbeltsports.org/news/2026/11/16/louisiana-tech-at-georgia-southern-elevated-to-espnu-in-sun-belt-football-week-13.aspx",
+          "read": "Nov 28: Louisiana Tech at Georgia Southern (ESPNU); Coastal Carolina at James Madison."
+        }
+      ]
+    }
+  ]
+}

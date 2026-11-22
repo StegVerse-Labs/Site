@@ -59,6 +59,24 @@
     </section>
 
     <section class="cfp-section">
+      <h2>Conference Championship Projections</h2>
+      <p>
+        <strong>Projections — computed live on this page, not precomputed picks.</strong>
+        <span id="cfp-championship-meta"></span>
+      </p>
+      <p>
+        For each conference, every remaining conference game involving a live contender is played out both ways
+        in your browser at load time, and the championship berths are resolved under the conference's tiebreak
+        steps as encoded from the sources cited on each card. <em>Clinched</em> = in under every remaining outcome;
+        <em>Controls own path</em> = win the rest and the berth is locked; <em>Needs help</em> = alive, but the berth
+        also needs another result; <em>Eliminated</em> = no remaining outcome qualifies. A tie the encoded steps
+        cannot separate is reported unresolved, never guessed. The projected pairing assumes the standings hold —
+        each remaining game to the team with the better conference winning percentage.
+      </p>
+      <div id="cfp-championship">Loading championship projections…</div>
+    </section>
+
+    <section class="cfp-section">
       <h2>Games & Results</h2>
       <div id="cfp-games" class="cfp-games">Loading current-season games…</div>
     </section>
@@ -87,8 +105,10 @@
   <script>
     window.CFP_DATA_URL = "/data/cfp-data.json";
     window.CFP_TICKETS_URL = "/data/cfp-tickets.json";
+    window.CFP_PROJECTIONS_URL = "/data/championship-projections.json";
   </script>
   <script src="/cfp/cfp.js"></script>
+  <script src="/cfp/championship.js"></script>
 <script src="/assets/stegverse-node-continuity.js"></script>
 </body>
 </html>
