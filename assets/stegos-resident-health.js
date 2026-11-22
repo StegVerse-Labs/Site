@@ -254,7 +254,9 @@ function render(report,repairResult){
   var details=card.querySelector("[data-health-details]");
   var button=card.querySelector("[data-health-repair]");
   var nodeId=report.node&&report.node.node_id?" · "+report.node.node_id:"";
-  if(summary)summary.textContent=report.resident_install_health+nodeId+(repairResult&&repairResult.state?" · "+repairResult.state:"");
+  var enrolled=!!(report.node&&report.node.node_id);
+  card.setAttribute("data-enrollment",enrolled?"enrolled":"unenrolled");
+  if(summary)summary.textContent=enrolled?report.resident_install_health+nodeId+(repairResult&&repairResult.state?" · "+repairResult.state:""):"Not enrolled on this device — the resident installation is StegVerse's own node software; this page's content does not depend on it. Full diagnostics are under Diagnostic details below.";
   if(details)details.textContent=JSON.stringify(report,null,2);
   if(button)button.hidden=!report.repair_required;
   card.setAttribute("data-health-state",report.resident_install_health||"UNKNOWN");
