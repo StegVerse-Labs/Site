@@ -14,7 +14,7 @@
       "repository": "StegVerse-Labs/Site",
       "branch": "goal/cfp-live-2026-revival",
       "role": "IMPLEMENTATION",
-      "state": "CLAIMED_FOR_IMPLEMENTATION",
+      "state": "RELEASED",
       "normalized_work_key": "site-cfp-live-2026-revival-20260906",
       "dependency_surface_keys": [
         "site:cfp-live-tracker",
@@ -75,7 +75,11 @@
       "credential_requirement": "NONE",
       "github_token_runtime_authority": "NONE",
       "authority_effect": false,
-      "activation_effect": false
+      "activation_effect": false,
+      "pull_request": 1692,
+      "release_commit": "2724af20c23713cc8e3cc64ab9128087872d0450",
+      "claim_released_at": "2026-11-22T07:08:35Z",
+      "archive_eligible": true
     }
   ]
 }
