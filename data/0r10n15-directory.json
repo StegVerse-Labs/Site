@@ -50,7 +50,10 @@
         "crossing": "https://4lph4.stegverse.org/crossing",
         "chain_export": "https://4lph4.stegverse.org/chain4.json",
         "chain_manifest": "https://4lph4.stegverse.org/manifest",
-        "replay": "https://4lph4.stegverse.org/replay"
+        "replay": "https://4lph4.stegverse.org/replay",
+        "pass_through": "https://4lph4.stegverse.org/pass-through",
+        "badges": "https://4lph4.stegverse.org/badges",
+        "challenge_archive": "https://4lph4.stegverse.org/challenge-archive"
       }
     }
   ]
