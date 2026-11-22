@@ -8,41 +8,50 @@ instance from the RECORD ALONE:
 
   1. PREFLIGHT  Python >= 3.9, the production read surfaces reachable,
                 >= 1 GB free disk. Each check prints.
-  2. DEFINITION the StegVM GEN 01 suite ZIP is fetched from its public
-                KnowledgeVault location and verified against its filed
-                SHA-256 pin BEFORE anything in it is trusted. A hash
-                mismatch stops the birth; nothing proceeds on a bad
-                hash.
-  3. GATE       the suite's own birth_gate.py is imported from the
-                extracted, hash-verified suite: its disposition
-                grammar (deny()) and its failure codes judge this
-                birth. The definition inside the suite must hash to
-                the GEN 01 pin (6489752a...), and the suite must pass
-                its own self_check.py.
-  4. STATE      the production chain state is fetched over HTTPS from
-                the live public read surfaces — the way any remote
-                host obtains it. Nothing is copied from any local
-                filesystem.
-  5. JUDGMENT   each fetched chain is recomputed locally and compared
-                against the anchor the production record states live:
-                  - endpoint: verify_chain.py — the production chain
-                    service's own standalone verifier, fetched from
-                    its /chain/verifier.py route and checked against
-                    the SHA-256 pin the production manifest publishes
-                    (the same verifier the GEN 01 gate shells out to
-                    for its chain-export leg);
-                  - 4lph4: recomputed under chain4-rules/1 exactly as
-                    published in the production chain manifest.
-                Chains with no public recompute surface (router,
-                skap-signing — localhost-only by the production
-                proxy's own route table) are recorded NOT_JUDGED,
-                never silently passed.
-  6. SERVE      on ALLOW only: the instance serves the verified chain
-                on its LAN address (/chain, /chain/manifest.json,
-                /chain/export.ndjson) and proves its own surface by
-                running the production verifier against itself. On
-                DENY it prints the six-field disposition and serves
-                nothing.
+  2. DEFINITION the StegVM suite ZIPs are fetched from their public
+                KnowledgeVault locations and verified against their
+                filed SHA-256 pins BEFORE anything in them is
+                trusted: the GEN 02 suite (the definition being
+                instantiated; filed, #3443 comment 7076007769) and
+                the GEN 01 suite (the GEN 02 gate's provenance and
+                carried-member continuity predicates require it;
+                filed, #3443 comment 7075621973). A hash mismatch
+                stops the birth; nothing proceeds on a bad hash.
+  3. GATE       the GEN 02 suite's own birth_gate.py judges this
+                birth, run as the suite's GEN 02 driver runs it:
+                this bootstrap extracts the gate binary from the
+                hash-verified GEN 02 ZIP, hands it a birth record,
+                and the gate verifies the ZIPs again inside its own
+                run, re-executes itself from the verified tree,
+                fetches its expected anchors and the chain state
+                itself from the record's live public projections,
+                replays, and issues ALLOW or a six-field DENY. The
+                definition inside the GEN 02 suite must hash to the
+                GEN 02 pin (b4dbd311...), and the extracted GEN 02
+                suite must pass its own self_check.py before the
+                gate is invoked.
+  4. JUDGMENT   the gate's, over state it fetched itself:
+                  - endpoint: the gate's recompute per
+                    receipt-chain-rules/1, and independently the
+                    record's own published verifier (verify_chain.py,
+                    fetched by the gate and hash-verified against the
+                    pin inside the production export manifest);
+                  - 4lph4: the gate's recompute per chain4-rules/1.
+                Chains the record does not publish in full over the
+                network (router, skap-signing — host-loopback only)
+                are recorded by the gate as
+                NOT_PUBLISHED_BY_RECORD with their own six-field
+                record-gap disposition — never silently passed.
+  5. SERVE      on ALLOW only: the suite's own serve_instance.py
+                (from the gate's verified tree) serves the instance's
+                fetched state on loopback, and this bootstrap — the
+                host-side driver, as in GEN 02 — answers external
+                queries by relaying them to that server, so what
+                the LAN receives is the instance server's own answer.
+                The birth counts only after the production verifier,
+                run externally against the born instance's surface,
+                returns MATCH. On DENY the gate's disposition is
+                printed and nothing serves.
 
 Footprint: everything the program writes lives under one directory
 (default ~/stegvm-birth). `python3 birth.py --clean` removes it.
@@ -57,6 +66,7 @@ Exit codes: 0 = ALLOW and serving (until Ctrl-C) / clean done;
 """
 import argparse
 import hashlib
+import http.client
 import importlib.util
 import json
 import os
@@ -73,25 +83,33 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 # ---- The record's pins (filed; changing one is a new filing, never an
 # ---- edit at the gate) ---------------------------------------------
+# GEN 02 suite — the definition being instantiated (GEN 03 PREP
+# ADDENDUM 01; GEN 02 discharge #3443 comment 7076007769).
 SUITE_ZIP_URL = ("https://drive.google.com/uc?export=download&id="
+                 "1s9pxZHhOmVD7b7SwcdhReRyqHKLe8giq")
+SUITE_ZIP_SHA256 = ("24abc0857df875d521811ec533cab97fc17653a80776c92d768fb"
+                    "996769c815c")
+SUITE_ZIP_BYTES = 193566
+GEN02_DRIVE_ID = "1s9pxZHhOmVD7b7SwcdhReRyqHKLe8giq"
+SUITE_DIR_NAME = "STEGVM__SUITE__GEN__02"
+# GEN 01 suite — required by the GEN 02 gate's provenance step (the
+# definition's predecessor, against which carried-member continuity
+# is checked inside the gate). Filed, #3443 comment 7075621973.
+GEN01_ZIP_URL = ("https://drive.google.com/uc?export=download&id="
                  "1JGRf8baYNfeTRWo-XZwWd8EB89AKLo3B")
-SUITE_ZIP_SHA256 = ("f2ecbd5744bc8845ed75c03d6523a4ef103ab2290a8ed99353"
+GEN01_ZIP_SHA256 = ("f2ecbd5744bc8845ed75c03d6523a4ef103ab2290a8ed99353"
                     "5f66c3fd2f6864")
-SUITE_ZIP_BYTES = 32598
-SUITE_DIR_NAME = "STEGVM__SUITE__GEN__01"
+GEN01_ZIP_BYTES = 32598
+GEN01_DRIVE_ID = "1JGRf8baYNfeTRWo-XZwWd8EB89AKLo3B"
+GEN01_DIR_NAME = "STEGVM__SUITE__GEN__01"
 DEFINITION_NAME = "STEGVM__FLEET__MANIFEST__01.json"
-DEFINITION_SHA256 = ("6489752a3a66e6f2566bd976360b3e9b7e4a49eb16de43e09"
-                     "d549440a880afd9")
+DEFINITION_SHA256 = ("b4dbd3112f9ec89631fddb34e7b238d50abf71bead353bb2d7b"
+                     "00299aff135c3")
+CONTINUITY_MEMBERS = ["fleet_restore.py", "self_check.py"]
 VERIFIER_SHA256 = ("24669106d134b607dc7b707568c303e368ff99018d2c5ed7c4"
                    "5dab67a4dffe25")
 CHAIN_ROOT = "https://8374.stegverse.org/chain"
-# Mirror of the production verifier on the Site leg (a different,
-# healthy transport). The bytes are judged against the production
-# manifest's published pin either way — the pin is the judge, the
-# leg is fungible.
-SITE_VERIFIER_URL = "https://stegverse.org/stegvm/verify_chain.py"
-LPH4_ROOT = "https://4lph4.stegverse.org"
-UA = "stegvm-gen03-birth/1"
+UA = "stegvm-gen03-birth/2"
 OWNING_GOAL = "Ephemeral Stack program (STEGVM-01)"
 
 
@@ -116,7 +134,6 @@ def http_get(url, timeout=30):
     on hashes and recomputes over the assembled bytes, so no
     transport cure can admit anything a clean single fetch would
     not."""
-    import http.client
     got = bytearray()
     total = None
     ctype = None
@@ -209,66 +226,6 @@ def fetch_suite_zip(url):
     return data
 
 
-def fetch_export(manifest):
-    """The endpoint chain export, verbatim. Some public legs truncate
-    large single responses; completeness is checked against the
-    manifest's entry count and, when a single fetch comes back short,
-    the export is reassembled from entry windows (transport only —
-    the recompute judges the assembled stream)."""
-    entries_expected = manifest["entries"]
-
-    def count_lines(data):
-        return sum(1 for ln in data.splitlines() if ln.strip())
-
-    data, _ = http_get(manifest["export_url"], timeout=60)
-    if count_lines(data) >= entries_expected:
-        return data
-    out = []
-    offset = 0
-    window = 32
-    while offset < entries_expected:
-        url = "%s?offset=%d&limit=%d" % (manifest["export_url"], offset,
-                                         window)
-        chunk, _ = http_get(url, timeout=60)
-        lines = [ln for ln in chunk.splitlines() if ln.strip()]
-        if not lines:
-            break
-        out.extend(lines)
-        offset += len(lines)
-    return b"\n".join(out) + b"\n"
-
-
-def recompute_chain4(export_bytes, expected_anchor):
-    """chain4-rules/1, exactly as published in the production chain
-    manifest: entry hash = SHA-256 of the canonical JSON of the full
-    entry excluding the hash field; every entry's prev is the previous
-    entry's hash; the genesis entry's prev is 64 zero hex digits; the
-    terminal anchor is the last entry's hash."""
-    doc = json.loads(export_bytes.decode("utf-8"))
-    ents = doc["segment"]
-    prev = "0" * 64
-    problems = []
-    pairs = set()
-    for i, e in enumerate(ents):
-        if e.get("prev") != prev:
-            problems.append("entry %d: prev linkage broken" % i)
-            break
-        body = {k: v for k, v in e.items() if k != "hash"}
-        canon = json.dumps(body, sort_keys=True, separators=(",", ":"),
-                           ensure_ascii=False).encode("utf-8")
-        h = hashlib.sha256(canon).hexdigest()
-        if h != e.get("hash"):
-            problems.append("entry %d: hash does not recompute" % i)
-            break
-        if e.get("pair_id"):
-            pairs.add(e["pair_id"])
-        prev = e["hash"]
-    return {"verdict": "MATCH" if not problems and prev == expected_anchor
-            else "MISMATCH",
-            "entries": len(ents), "pairs": len(pairs),
-            "anchor": prev, "problems": problems}
-
-
 def lan_ip():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -289,11 +246,19 @@ def main(argv):
     ap.add_argument("--root", default=os.path.expanduser("~/stegvm-birth"))
     ap.add_argument("--clean", action="store_true")
     ap.add_argument("--self-test-tamper", action="store_true",
-                    help="TEST ONLY: flip one hex character in one "
-                         "fetched endpoint entry hash before judgment; "
-                         "a correct gate DENYs and serves nothing")
+                    help="TEST ONLY: ask the gate for its tamper "
+                         "variant (one hex character flipped in entry "
+                         "i=3 of the fetched endpoint export, inside "
+                         "the gate); a correct gate DENYs and serves "
+                         "nothing")
     args = ap.parse_args(argv)
     root = os.path.abspath(args.root)
+    # the instance's own server binds loopback here (serve_instance.py
+    # is loopback-only by design); the bootstrap's relay binds the
+    # public --port and answers external queries from it, GEN 02
+    # driver-style.
+    internal_port = args.port + 1000 if args.port <= 64535 \
+        else args.port - 1000
 
     if args.clean:
         if os.path.isdir(root):
@@ -306,8 +271,8 @@ def main(argv):
     print("=== StegVM GEN 03 birth — this machine, from the record "
           "alone ===")
     if args.self_test_tamper:
-        print("*** SELF-TEST TAMPER MODE: one fetched entry will be "
-              "corrupted on purpose. A correct gate DENYs. ***")
+        print("*** SELF-TEST TAMPER MODE: the gate will corrupt one "
+              "fetched entry on purpose. A correct gate DENYs. ***")
 
     # ---- 1. Preflight ------------------------------------------------
     print("-- preflight")
@@ -338,35 +303,51 @@ def main(argv):
               "nothing was written.")
         return 2
 
-    os.makedirs(os.path.join(root, "state", "endpoint"), exist_ok=True)
-    os.makedirs(os.path.join(root, "state", "4lph4"), exist_ok=True)
+    for sub in ("suites", "bootstrap", "gate-work", "gate-state"):
+        os.makedirs(os.path.join(root, sub), exist_ok=True)
 
     # ---- 2. Definition, by hash --------------------------------------
-    print("-- definition (StegVM GEN 01 suite, fetched from the KV)")
-    try:
-        zdata = fetch_suite_zip(SUITE_ZIP_URL)
-    except Exception as e:
-        print("   suite fetch failed: %r" % (e,))
-        return 3
-    got = sha256_bytes(zdata)
-    print("   suite ZIP: %d bytes (filed %d), sha256 %s"
-          % (len(zdata), SUITE_ZIP_BYTES, got))
-    if got != SUITE_ZIP_SHA256 or len(zdata) != SUITE_ZIP_BYTES:
-        print("   DEFINITION HASH MISMATCH — expected %s. STOP: "
-              "nothing proceeds on a bad hash." % SUITE_ZIP_SHA256)
-        return 3
-    print("   hash verifies against the filed pin: PASS")
-    zpath = os.path.join(root, "suite.zip")
-    with open(zpath, "wb") as f:
-        f.write(zdata)
-    suite_dir = os.path.join(root, "suite")
-    with zipfile.ZipFile(zpath) as z:
-        z.extractall(suite_dir)
-    suite_root = os.path.join(suite_dir, SUITE_DIR_NAME)
+    print("-- definition (StegVM GEN 02 + GEN 01 suites, fetched "
+          "from the KV)")
+    pins = ((SUITE_ZIP_URL, SUITE_ZIP_SHA256, SUITE_ZIP_BYTES,
+             SUITE_DIR_NAME, "GEN 02"),
+            (GEN01_ZIP_URL, GEN01_ZIP_SHA256, GEN01_ZIP_BYTES,
+             GEN01_DIR_NAME, "GEN 01"))
+    zip_paths = {}
+    for url, pin, nbytes, dir_name, tag in pins:
+        try:
+            zdata = fetch_suite_zip(url)
+        except Exception as e:
+            print("   %s suite fetch failed: %r" % (tag, e))
+            return 3
+        got = sha256_bytes(zdata)
+        print("   %s suite ZIP: %d bytes (filed %d), sha256 %s"
+              % (tag, len(zdata), nbytes, got))
+        if got != pin or len(zdata) != nbytes:
+            print("   DEFINITION HASH MISMATCH (%s) — expected %s. "
+                  "STOP: nothing proceeds on a bad hash." % (tag, pin))
+            return 3
+        print("   %s hash verifies against the filed pin: PASS" % tag)
+        zpath = os.path.join(root, "suites", dir_name + ".zip")
+        with open(zpath, "wb") as f:
+            f.write(zdata)
+        zip_paths[tag] = zpath
 
     # ---- 3. The suite's own gate judges ------------------------------
-    spec = importlib.util.spec_from_file_location(
-        "birth_gate", os.path.join(suite_root, "birth_gate.py"))
+    # Bootstrap extraction, GEN 02 driver-style: only the gate binary
+    # is taken from the verified GEN 02 ZIP; the gate verifies the
+    # ZIP against the birth record and re-executes itself from the
+    # verified tree before trusting anything (birth_gate.py step 0).
+    with zipfile.ZipFile(zip_paths["GEN 02"]) as z:
+        gate_name = [n for n in z.namelist()
+                     if n.endswith("/birth_gate.py")
+                     or n == "birth_gate.py"][0]
+        with z.open(gate_name) as src, open(
+                os.path.join(root, "bootstrap", "birth_gate.py"),
+                "wb") as out:
+            out.write(src.read())
+    gate_path = os.path.join(root, "bootstrap", "birth_gate.py")
+    spec = importlib.util.spec_from_file_location("birth_gate", gate_path)
     gate = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(gate)
 
@@ -376,6 +357,11 @@ def main(argv):
         with open(os.path.join(root, "birth_record.json"), "w") as f:
             f.write(text + "\n")
         return 0 if result.get("gate_verdict") == "ALLOW" else 1
+
+    suite_extract = os.path.join(root, "suite")
+    with zipfile.ZipFile(zip_paths["GEN 02"]) as z:
+        z.extractall(suite_extract)
+    suite_root = os.path.join(suite_extract, SUITE_DIR_NAME)
 
     definition = os.path.join(suite_root, DEFINITION_NAME)
     actual = gate.sha256_file(definition)
@@ -390,7 +376,7 @@ def main(argv):
             "the pin at the gate",
             "birth.py with the suite at its filed hash",
             "re-run the birth once the definition verifies"))
-    print("   definition %s hashes to the GEN 01 pin: PASS"
+    print("   definition %s hashes to the GEN 02 pin: PASS"
           % DEFINITION_NAME)
     r = subprocess.run([sys.executable,
                         os.path.join(suite_root, "self_check.py")],
@@ -409,358 +395,239 @@ def main(argv):
             "birth.py against a self-verifying suite",
             "re-run the birth once the suite self-verifies"))
 
-    # ---- 4. State, over the network, from the live record ------------
-    print("-- state (fetched over HTTPS from the production read "
-          "surfaces)")
-    try:
-        manifest = http_get_json(CHAIN_ROOT + "/manifest.json")
-        lph_replay = http_get_json(LPH4_ROOT + "/replay")
-        lph_manifest = http_get_json(LPH4_ROOT + "/manifest")
-    except Exception as e:
-        return emit(gate.deny(
-            "EXPECTED_RECORD_UNAVAILABLE",
-            "the gate compares against the record at birth time; a "
-            "production read surface did not answer (%r)" % (e,),
-            "restore network reachability to the production read "
-            "surfaces and re-run; the gate does not fall back to "
-            "pinned anchors",
-            "birth.py once every production replay surface answers",
-            "re-run the birth when the record is reachable"))
-    if lph_replay.get("verdict") != "MATCH":
-        return emit(gate.deny(
-            "PRODUCTION_REPLAY_NOT_MATCH",
-            "the record itself does not replay to MATCH for: 4lph4 — "
-            "an instance cannot be admitted against a record that "
-            "does not verify",
-            "repair the production chain state through its own "
-            "governed route, then re-run",
-            "birth.py once production replays MATCH on all judged "
-            "chains",
-            "re-run the birth after production repair"))
-    exp_anchor = manifest["terminal_anchor"]
-    lph_anchor = lph_replay["terminal_anchor"]
-    if lph_manifest.get("terminal_anchor") != lph_anchor:
-        return emit(gate.deny(
-            "EXPECTED_RECORD_UNAVAILABLE",
-            "the production 4lph4 surfaces disagree on the terminal "
-            "anchor (manifest %s, replay %s); the gate does not choose "
-            "between two statements of the record"
-            % (lph_manifest.get("terminal_anchor"), lph_anchor),
-            "reconcile the production 4lph4 surfaces through their "
-            "own route, then re-run",
-            "birth.py once the production surfaces agree",
-            "re-run the birth after reconciliation"))
-    print("   expected anchors (live): endpoint %s… (%d entries), "
-          "4lph4 %s… (%d entries)"
-          % (exp_anchor[:16], manifest["entries"], lph_anchor[:16],
-             lph_replay["entries"]))
-
-    verifier_pin = (manifest.get("verifier") or {}).get("sha256")
-    vdata = None
-    verr = None
-    for vsrc in (CHAIN_ROOT + "/verifier.py", SITE_VERIFIER_URL):
-        try:
-            vdata, _ = http_get(vsrc, timeout=30)
-            break
-        except Exception as e:  # noqa: BLE001 — try the other leg
-            verr = e
-    if vdata is None:
-        return emit(gate.deny(
-            "EXPECTED_RECORD_UNAVAILABLE",
-            "the production verifier could not be fetched from "
-            "either of its legs (%r); without the record's own "
-            "verifier at its published pin, the endpoint chain "
-            "cannot be judged and the birth does not proceed"
-            % (verr,),
-            "restore network reachability to the production read "
-            "surfaces and re-run; the gate does not substitute a "
-            "local or unverified verifier",
-            "birth.py once the verifier fetches from either leg",
-            "re-run the birth when the record is reachable"))
-    vhash = sha256_bytes(vdata)
-    if vhash != VERIFIER_SHA256 or (verifier_pin and
-                                    verifier_pin != VERIFIER_SHA256):
-        return emit(gate.deny(
-            "VERIFIER_PIN_MISMATCH",
-            "the endpoint verifier fetched from the production chain "
-            "service must hash to the SHA-256 the production manifest "
-            "publishes (pin %s, recomputed %s, manifest states %s)"
-            % (VERIFIER_SHA256, vhash, verifier_pin),
-            "the verifier is part of the record: re-fetch it from the "
-            "production service; if the mismatch persists, the "
-            "record's pin has moved and the birth pins must be "
-            "re-filed, never edited locally",
-            "birth.py with the verifier at its published pin",
-            "re-run the birth once the verifier verifies"))
-    verifier_path = os.path.join(root, "verify_chain.py")
-    with open(verifier_path, "wb") as f:
-        f.write(vdata)
-    print("   verify_chain.py: fetched from the production service, "
-          "hashes to its published pin: PASS")
-
-    try:
-        exp_data = fetch_export(manifest)
-        lph_data, _ = http_get(lph_replay["export_url"], timeout=30)
-    except Exception as e:
-        return emit(gate.deny(
-            "EXPECTED_RECORD_UNAVAILABLE",
-            "the chain state could not be fetched complete from "
-            "the production read surfaces (%r); a birth judges "
-            "fetched state, and incomplete state is not judged"
-            % (e,),
-            "restore network reachability and re-run; the "
-            "transport completes bodies by held-prefix resumption "
-            "and reports honestly when it cannot",
-            "birth.py once the exports fetch complete",
-            "re-run the birth when the record is reachable"))
-    if args.self_test_tamper:
-        txt = exp_data.decode("utf-8")
-        m = re.search(r'"hash":\s*"([0-9a-f])', txt)
-        if m:
-            i = m.start(1)
-            repl = "0" if txt[i] != "0" else "1"
-            txt = txt[:i] + repl + txt[i + 1:]
-            exp_data = txt.encode("utf-8")
-            print("   *** TAMPER APPLIED (self-test): one hex "
-                  "character flipped in one fetched entry hash ***")
-    seg_path = os.path.join(root, "state", "endpoint", "segment-0001.jsonl")
-    with open(seg_path, "wb") as f:
-        f.write(exp_data)
-    print("   endpoint export: %d bytes fetched" % len(exp_data))
-    if sha256_bytes(lph_data) != lph_replay["export_sha256"]:
-        return emit(gate.deny(
-            "CHAIN_ANCHOR_MISMATCH",
-            "chain '4lph4': the fetched export must be the export the "
-            "production replay surface states (expected export sha256 "
-            "%s, recomputed %s)"
-            % (lph_replay["export_sha256"], sha256_bytes(lph_data)),
-            "re-fetch the export from the production surface; if the "
-            "mismatch persists, the surface changed mid-birth — "
-            "re-fetch the record and re-run",
-            "birth.py against freshly fetched state",
-            "re-run the birth; mismatched chains: 4lph4"))
-    with open(os.path.join(root, "state", "4lph4", "chain4.json"),
-              "wb") as f:
-        f.write(lph_data)
-    print("   4lph4 export: %d bytes, sha256 matches the production "
-          "replay statement: PASS" % len(lph_data))
-
-    # ---- 5. Judgment ---------------------------------------------------
-    print("-- judgment (the suite's gate predicates; the chains' own "
-          "verifiers)")
-    r = subprocess.run([sys.executable, verifier_path, seg_path,
-                        "--anchor", exp_anchor],
-                       capture_output=True, text=True, timeout=300)
-    vout = r.stdout or ""
-    rec = re.search(r"terminal_anchor_recomputed:\s*([0-9a-f]+)", vout)
-    endpoint_res = {"verdict": "MATCH" if "verdict: MATCH" in vout
-                    else "MISMATCH",
-                    "anchor": rec.group(1) if rec else None,
-                    "entries": manifest["entries"],
-                    "pairs": manifest["pairs"]}
-    lph_res = recompute_chain4(lph_data, lph_anchor)
-    table = {
-        "endpoint": {"target_verdict": endpoint_res["verdict"],
-                     "target_anchor": endpoint_res["anchor"],
-                     "expected_anchor": exp_anchor,
-                     "pairs": endpoint_res["pairs"],
-                     "entries": endpoint_res["entries"],
-                     "anchor_match": bool(
-                         endpoint_res["verdict"] == "MATCH"
-                         and endpoint_res["anchor"] == exp_anchor)},
-        "4lph4": {"target_verdict": lph_res["verdict"],
-                  "target_anchor": lph_res["anchor"],
-                  "expected_anchor": lph_anchor,
-                  "pairs": lph_res["pairs"],
-                  "entries": lph_res["entries"],
-                  "anchor_match": bool(lph_res["verdict"] == "MATCH"
-                                       and lph_res["anchor"]
-                                       == lph_anchor)},
-        "chain-export": {"target_verdict": endpoint_res["verdict"],
-                         "target_anchor": endpoint_res["anchor"],
-                         "expected_anchor": exp_anchor,
-                         "pairs": endpoint_res["pairs"],
-                         "entries": endpoint_res["entries"],
-                         "anchor_match": table_anchor(endpoint_res,
-                                                      exp_anchor),
-                         "note": "the endpoint chain served as a read "
-                                 "surface; judged by the same verifier "
-                                 "over the same bytes"},
-        "router": {"verdict": "NOT_JUDGED",
-                   "note": "no public recompute surface: /router/replay "
-                           "is localhost-only by the production proxy's "
-                           "route table; the chain is neither passed "
-                           "nor failed"},
-        "skap-signing": {"verdict": "NOT_JUDGED",
-                         "note": "no public recompute surface: the "
-                                 "signing service is not proxied and "
-                                 "remains localhost-only; the chain is "
-                                 "neither passed nor failed"},
+    # ---- 4. The birth record, handed to the gate ---------------------
+    birth_input = {
+        "suite": SUITE_DIR_NAME,
+        "variant": "tamper" if args.self_test_tamper else "clean",
+        "provenance": {
+            "gen01_suite_zip": {
+                "path": zip_paths["GEN 01"],
+                "sha256": GEN01_ZIP_SHA256,
+                "drive_id": GEN01_DRIVE_ID,
+                "verification": "fetched from the Ecosystem KV by "
+                                "Drive id; SHA-256 verified by this "
+                                "bootstrap against the filed GEN 01 "
+                                "pin before the gate runs and "
+                                "re-verified by the gate inside before "
+                                "use"},
+            "gen02_candidate_zip": {
+                "path": zip_paths["GEN 02"],
+                "sha256": SUITE_ZIP_SHA256,
+                "drive_id": GEN02_DRIVE_ID,
+                "verification": "fetched from the Ecosystem KV by "
+                                "Drive id; SHA-256 verified by this "
+                                "bootstrap against the filed GEN 02 "
+                                "pin (GEN 02 discharge, #3443 comment "
+                                "7076007769) before the gate runs and "
+                                "re-verified by the gate inside before "
+                                "use; the announcement is record-issued "
+                                "(a filed suite ZIP), not builder-issued"},
+        },
+        "definition": {"file": DEFINITION_NAME,
+                       "sha256": DEFINITION_SHA256},
+        "continuity_members": CONTINUITY_MEMBERS,
+        "isolation": "cross-machine (GEN 03) — %s / %s, born from "
+                     "the record alone" % (os.uname().sysname,
+                                            os.uname().machine),
+        "isolation_detail": (
+            "a separate physical machine (GEN 03 target: the "
+            "principal's Raspberry Pi 4); the machine received "
+            "nothing from any other host's filesystem — its "
+            "definition crossed as the two filed suite ZIPs from the "
+            "Ecosystem KV, hash-verified before use, and its chain "
+            "state was fetched by the gate itself over HTTPS from "
+            "the record's public projections; no credentials exist "
+            "in the birth (credentialess birth, design §2.4)"),
+        "issued_by": "StegVM GEN 03 birth bootstrap (birth.py)",
+        "issued_at": now_iso(),
     }
-    mismatches = [c for c in ("endpoint", "4lph4")
-                  if not table[c]["anchor_match"]]
-    if mismatches:
-        first = mismatches[0]
-        return emit(gate.deny(
-            "CHAIN_ANCHOR_MISMATCH",
-            "chain '%s': the target replay must recompute the "
-            "production terminal anchor before the instance may serve "
-            "(expected %s, recomputed %s, target verdict %s)"
-            % (first, table[first]["expected_anchor"],
-               table[first]["target_anchor"],
-               table[first]["target_verdict"]),
-            "re-fetch the chain state from the production read "
-            "surfaces and re-run; if the mismatch persists, the "
-            "production state changed mid-birth — re-fetch the record "
-            "and re-run",
-            "birth.py against freshly fetched state",
-            "re-run the birth; mismatched chains: %s"
-            % ", ".join(sorted(mismatches)),
-            extra={"chains_compared": table}))
+    birth_input_path = os.path.join(root, "birth_input.json")
+    with open(birth_input_path, "w") as f:
+        f.write(json.dumps(birth_input, indent=2) + "\n")
 
-    instance_id = "stegvm-" + hashlib.sha256(
-        (now_iso() + root).encode()).hexdigest()[:12]
-    birth = {"gate_verdict": "ALLOW", "ts": now_iso(),
-             "binding_record": {
-                 "instance_id": instance_id,
-                 "host_class": "cross-machine (GEN 03) — %s / %s, "
-                               "born from the record alone"
-                               % (os.uname().sysname,
-                                  os.uname().machine),
-                 "suite_generation": "STEGVM GEN 01",
-                 "definition": DEFINITION_NAME,
-                 "definition_sha256": actual,
-                 "birth_ts": now_iso(),
-                 "gate_verdict": "ALLOW",
-                 "chains_compared": table,
-                 "seat_binding": "remote — SEAT_URL of the standing "
-                                 "production seat (GEN 01 default for "
-                                 "short-lived instances, design D-2); "
-                                 "no seat was instantiated",
-                 "units_admitted": ["chain-export (read surface over "
-                                    "the verified endpoint chain)"],
-                 "admission_basis": "definition fetched from the KV "
-                                    "and verified against its filed "
-                                    "SHA-256; chain state fetched over "
-                                    "HTTPS from the production read "
-                                    "surfaces and recomputed locally "
-                                    "to the live anchors by the "
-                                    "chains' own verifiers (endpoint: "
-                                    "the production verify_chain.py at "
-                                    "its published pin; 4lph4: "
-                                    "chain4-rules/1 as published). "
-                                    "Router and skap-signing chains "
-                                    "NOT_JUDGED — no public recompute "
-                                    "surface exists; neither passed "
-                                    "nor failed. Signing/settlement "
-                                    "services were not booted "
-                                    "(credentialess birth, design "
-                                    "§2.4).",
-                 "target_root": root}}
+    # ---- 5. Judgment — the gate's, over state it fetches itself ------
+    print("-- judgment (the GEN 02 gate, run from the verified tree; "
+          "it fetches its own anchors and state from the record)")
+    gate_out = os.path.join(root, "gate_result.json")
+    if os.path.exists(gate_out):
+        os.remove(gate_out)
+    gate_cmd = [sys.executable, gate_path,
+                "--birth-record", birth_input_path,
+                "--work", os.path.join(root, "gate-work"),
+                "--state", os.path.join(root, "gate-state"),
+                "--out", gate_out]
+    if args.self_test_tamper:
+        gate_cmd.append("--tamper")
+    try:
+        r = subprocess.run(gate_cmd, capture_output=True, text=True,
+                           timeout=1200)
+    except subprocess.TimeoutExpired:
+        return emit(gate.deny(
+            "GATE_EXECUTION_FAIL",
+            "the suite's birth gate must run to a verdict (ALLOW or "
+            "a six-field DENY) before a birth counts; this run "
+            "exceeded the 1200-second ceiling without one",
+            "read the gate's fetch behaviour against the public "
+            "projections (the measured fragile leg) and re-run",
+            "birth.py once the gate runs to a verdict",
+            "re-run the birth after the gate's preconditions hold"))
+    if not os.path.exists(gate_out):
+        print("   the gate produced no result file; exit %d" % r.returncode)
+        print("   gate stdout tail: %s" % (r.stdout or "")[-1500:])
+        print("   gate stderr tail: %s" % (r.stderr or "")[-1500:])
+        return emit(gate.deny(
+            "GATE_EXECUTION_FAIL",
+            "the suite's birth gate must run to a verdict (ALLOW or "
+            "a six-field DENY) before a birth counts; this run ended "
+            "with exit %d and no result file" % r.returncode,
+            "read the gate output above; repair the run's own "
+            "preconditions (network reachability of the public "
+            "projections is the measured fragile leg) and re-run",
+            "birth.py once the gate runs to a verdict",
+            "re-run the birth after the gate's preconditions hold"))
+    result = json.load(open(gate_out))
+    if result.get("gate_verdict") != "ALLOW":
+        print("   gate verdict: DENY — the disposition follows; "
+              "nothing serves.")
+        return emit(result)
+    binding = result["binding_record"]
+    table = binding["chains_compared"]
+    instance_id = binding["instance_id"]
+    for chain in ("endpoint", "chain-export", "4lph4"):
+        row = table[chain]
+        print("   %-12s %s (anchor %s…)"
+              % (chain, row.get("target_verdict"),
+                 (row.get("target_anchor") or "")[:16]))
+    for chain in ("router", "skap-signing"):
+        print("   %-12s %s (record gap, disposition in the birth "
+              "record)" % (chain, table[chain].get("status")))
     with open(os.path.join(root, "birth_record.json"), "w") as f:
-        f.write(json.dumps(birth, indent=2) + "\n")
+        f.write(json.dumps(result, indent=2) + "\n")
 
     # ---- 6. Serve ------------------------------------------------------
-    served_manifest = {
-        "document": "8374 receipt-chain export manifest (StegVM GEN "
-                    "03 instance %s)" % instance_id,
-        "chain": "8374 endpoint receipt chain (production), served "
-                 "by a cross-machine StegVM instance",
-        "rules": "receipt-chain-rules/1",
-        "format": manifest.get("format"),
-        "entries": endpoint_res["entries"],
-        "pairs": endpoint_res["pairs"],
-        "terminal_anchor": endpoint_res["anchor"],
-        "export_sha256": sha256_bytes(exp_data),
-        "source": manifest.get("export_url"),
-        "instance_id": instance_id,
-        "verifier": {"name": "verify_chain.py",
-                     "url": CHAIN_ROOT + "/verifier.py",
-                     "sha256": VERIFIER_SHA256,
-                     "usage": "python3 verify_chain.py http://<this "
-                              "host>:%d/chain" % args.port}}
-    service_doc = {
-        "service": "8374 chain export (StegVM GEN 03 instance)",
-        "instance_id": instance_id,
-        "what": "the production receipt chain, fetched from the "
-                "record and recomputed at birth by this instance; "
-                "fetch the export, run the verifier, and the verdict "
-                "is yours, not this server's",
-        "rules": "receipt-chain-rules/1",
-        "entries": endpoint_res["entries"],
-        "pairs": endpoint_res["pairs"],
-        "terminal_anchor": endpoint_res["anchor"],
-        "export_url": "/chain/export.ndjson",
-        "manifest_url": "/chain/manifest.json",
-        "verifier": served_manifest["verifier"]}
+    # The suite's own read surface, from the gate's verified tree,
+    # over the gate's fetched state. serve_instance.py binds
+    # loopback; the relay below is the host-side driver surface.
+    serve_py = os.path.join(root, "gate-work", "gen02",
+                            "serve_instance.py")
+    srv = subprocess.Popen(
+        [sys.executable, serve_py,
+         "--state", os.path.join(root, "gate-state"),
+         "--gate-result", gate_out,
+         "--port", str(internal_port)])
+    deadline = time.time() + 60
+    while True:
+        try:
+            probe = socket.create_connection(("127.0.0.1",
+                                              internal_port),
+                                             timeout=2)
+            probe.close()
+            break
+        except OSError:
+            if srv.poll() is not None or time.time() > deadline:
+                srv.terminate()
+                return emit(gate.deny(
+                    "INSTANCE_SURFACE_VERIFY_FAIL",
+                    "the born instance's read surface "
+                    "(serve_instance.py, from the gate's verified "
+                    "tree) must start and listen before the birth "
+                    "counts as serving",
+                    "read the instance server's output; the state "
+                    "judged ALLOW is not in question — the surface is",
+                    "birth.py once the instance surface starts",
+                    "re-run the birth; if the failure persists, file "
+                    "it against the GEN 02 suite's serve_instance.py",
+                    extra={"chains_compared": table}))
+            time.sleep(0.2)
 
-    class H(BaseHTTPRequestHandler):
+    class Relay(BaseHTTPRequestHandler):
+        """GEN 02 driver pattern: external queries are executed
+        against the instance's own server and its answers relayed
+        verbatim — the LAN receives the instance's own words."""
         def log_message(self, *a):
             pass
 
-        def _send(self, body, ctype):
-            self.send_response(200)
+        def do_GET(self):
+            try:
+                conn = http.client.HTTPConnection(
+                    "127.0.0.1", internal_port, timeout=30)
+                conn.request("GET", self.path)
+                resp = conn.getresponse()
+                body = resp.read()
+                status = resp.status
+                ctype = resp.getheader("Content-Type") \
+                    or "application/octet-stream"
+                conn.close()
+            except Exception as e:  # noqa: BLE001
+                body = json.dumps(
+                    {"error": "instance surface unreachable: %r"
+                              % (e,)}).encode()
+                status, ctype = 502, "application/json"
+            self.send_response(status)
             self.send_header("Content-Type", ctype)
             self.send_header("Content-Length", str(len(body)))
             self.end_headers()
             self.wfile.write(body)
 
-        def do_GET(self):
-            if self.path == "/chain":
-                self._send(json.dumps(service_doc, indent=1).encode(),
-                           "application/json")
-            elif self.path == "/chain/manifest.json":
-                self._send(json.dumps(served_manifest,
-                                      indent=1).encode(),
-                           "application/json")
-            elif self.path == "/chain/export.ndjson":
-                self._send(exp_data, "application/x-ndjson")
-            else:
-                self.send_response(404)
-                self.end_headers()
-
-    server = ThreadingHTTPServer(("0.0.0.0", args.port), H)
-    # Self-probe: the production verifier, against this instance.
+    server = ThreadingHTTPServer(("0.0.0.0", args.port), Relay)
     import threading
     t = threading.Thread(target=server.serve_forever, daemon=True)
     t.start()
+    # Self-probe: the production verifier, externally, against this
+    # instance's own surface. The copy used is the one the gate
+    # fetched from the record and hash-verified against the pin
+    # inside the production export manifest; it must also match
+    # this bootstrap's filed pin for the probe to count.
+    verifier_path = os.path.join(root, "gate-work", "verify_chain.py")
     probe_ok = False
-    try:
-        r = subprocess.run([sys.executable, verifier_path,
-                            "http://127.0.0.1:%d/chain" % args.port],
-                           capture_output=True, text=True, timeout=300)
-        probe_ok = "verdict: MATCH" in (r.stdout or "")
-    except Exception:
-        probe_ok = False
+    if os.path.exists(verifier_path) \
+            and gate.sha256_file(verifier_path) == VERIFIER_SHA256:
+        try:
+            r = subprocess.run(
+                [sys.executable, verifier_path,
+                 "http://127.0.0.1:%d/chain" % args.port],
+                capture_output=True, text=True, timeout=300)
+            probe_ok = "verdict: MATCH" in (r.stdout or "")
+        except Exception:
+            probe_ok = False
     if not probe_ok:
         server.shutdown()
+        srv.terminate()
         return emit(gate.deny(
             "INSTANCE_SURFACE_VERIFY_FAIL",
             "the born instance's own served surface must verify "
             "under the production verifier before the birth counts "
-            "(self-probe against http://127.0.0.1:%d/chain did not "
-            "return MATCH)" % args.port,
-            "inspect the served manifest/export against the verified "
-            "fetched bytes; the state judged ALLOW is not in question "
-            "— the surface is",
+            "(external probe against http://127.0.0.1:%d/chain did "
+            "not return MATCH)" % args.port,
+            "inspect the served manifest/export against the state "
+            "the gate fetched and judged; the ALLOW is not in "
+            "question — the surface is",
             "birth.py once the served surface verifies",
             "re-run the birth; if the probe failure persists, file "
             "it against the GEN 03 bootstrap",
             extra={"chains_compared": table}))
     ip = lan_ip()
-    print(json.dumps(birth, indent=2))
-    print("")
-    print("=== BORN — instance %s is serving the verified chain ==="
-          % instance_id)
+    # flush throughout: the verdict banner is the operator's signal
+    # to act, and stdout is block-buffered when piped — an unflushed
+    # banner would sit in the buffer for the whole serve (observed
+    # in the GEN 03 pin-advance script test, 2026-11-22).
+    print(json.dumps(result, indent=2), flush=True)
+    print("", flush=True)
+    print("=== BORN — instance %s is serving the verified chains ==="
+          % instance_id, flush=True)
     print("   on this machine's LAN:  http://%s:%d/chain"
-          % (ip, args.port))
-    print("   verify it from any other machine:")
+          % (ip, args.port), flush=True)
+    print("   surfaces: /chain/manifest.json /chain/export.ndjson "
+          "/chain4.json /verify /bindings /health", flush=True)
+    print("   verify it from any other machine:", flush=True)
     print("     curl -O %s/verifier.py && python3 verify_chain.py "
-          "http://%s:%d/chain" % (CHAIN_ROOT, ip, args.port))
+          "http://%s:%d/chain" % (CHAIN_ROOT, ip, args.port),
+          flush=True)
     print("   birth record: %s" % os.path.join(root,
-                                               "birth_record.json"))
+                                               "birth_record.json"),
+          flush=True)
     print("   stop it: Ctrl-C (a death writes nothing; the binding "
-          "goes stale, and staleness is data)")
+          "goes stale, and staleness is data)", flush=True)
     try:
         while True:
             time.sleep(3600)
@@ -769,11 +636,8 @@ def main(argv):
               % instance_id)
     finally:
         server.shutdown()
+        srv.terminate()
     return 0
-
-
-def table_anchor(res, expected):
-    return bool(res["verdict"] == "MATCH" and res["anchor"] == expected)
 
 
 if __name__ == "__main__":
