@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "PRE_CFP_RANKINGS",
-  "last_updated": "2026-11-22T19:11:10Z",
+  "last_updated": "2026-11-22T19:25:22Z",
   "freshness": {
-    "generated_at": "2026-11-22T19:11:10Z",
+    "generated_at": "2026-11-22T19:25:22Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
@@ -26,7 +26,7 @@
       "id": "2",
       "label": "NCAA-derived AP Top 25 JSON (henrygd/ncaa-api)",
       "url": "https://ncaa-api.henrygd.me/rankings/football/fbs/associated-press",
-      "status": "NO_CURRENT_DATA_OBSERVED",
+      "status": "AVAILABLE",
       "error": null,
       "origin": "https://www.ncaa.com/rankings/football/fbs/associated-press"
     },
@@ -42,7 +42,165 @@
   "cfp_source_id": "1",
   "conf_source_id": null,
   "rankings": [],
-  "polls": [],
+  "polls": [
+    {
+      "name": "AP Top 25",
+      "source_id": "2",
+      "updated": "2026-11-22T08:00Z",
+      "teams": [
+        {
+          "rank": 1,
+          "team": "Georgia Bulldogs",
+          "record": "10-1",
+          "conference": ""
+        },
+        {
+          "rank": 2,
+          "team": "Utah Utes",
+          "record": "11-0",
+          "conference": ""
+        },
+        {
+          "rank": 3,
+          "team": "Notre Dame Fighting Irish",
+          "record": "10-1",
+          "conference": ""
+        },
+        {
+          "rank": 4,
+          "team": "Miami Hurricanes",
+          "record": "10-1",
+          "conference": ""
+        },
+        {
+          "rank": 5,
+          "team": "Texas Longhorns",
+          "record": "9-2",
+          "conference": ""
+        },
+        {
+          "rank": 6,
+          "team": "Alabama Crimson Tide",
+          "record": "9-2",
+          "conference": ""
+        },
+        {
+          "rank": 7,
+          "team": "Tennessee Volunteers",
+          "record": "9-2",
+          "conference": ""
+        },
+        {
+          "rank": 8,
+          "team": "Wake Forest Demon Deacons",
+          "record": "10-1",
+          "conference": ""
+        },
+        {
+          "rank": 9,
+          "team": "Texas Tech Red Raiders",
+          "record": "10-1",
+          "conference": ""
+        },
+        {
+          "rank": 10,
+          "team": "UCLA Bruins",
+          "record": "10-1",
+          "conference": ""
+        },
+        {
+          "rank": 11,
+          "team": "BYU Cougars",
+          "record": "9-2",
+          "conference": ""
+        },
+        {
+          "rank": 12,
+          "team": "Indiana Hoosiers",
+          "record": "9-2",
+          "conference": ""
+        },
+        {
+          "rank": 13,
+          "team": "Iowa Hawkeyes",
+          "record": "9-2",
+          "conference": ""
+        },
+        {
+          "rank": 14,
+          "team": "Oregon Ducks",
+          "record": "8-3",
+          "conference": ""
+        },
+        {
+          "rank": 15,
+          "team": "USC Trojans",
+          "record": "8-3",
+          "conference": ""
+        },
+        {
+          "rank": 16,
+          "team": "Arizona Wildcats",
+          "record": "8-3",
+          "conference": ""
+        },
+        {
+          "rank": 17,
+          "team": "Houston Cougars",
+          "record": "8-3",
+          "conference": ""
+        },
+        {
+          "rank": 18,
+          "team": "Louisville Cardinals",
+          "record": "8-3",
+          "conference": ""
+        },
+        {
+          "rank": 19,
+          "team": "Oklahoma Sooners",
+          "record": "7-4",
+          "conference": ""
+        },
+        {
+          "rank": 20,
+          "team": "Florida Gators",
+          "record": "7-4",
+          "conference": ""
+        },
+        {
+          "rank": 21,
+          "team": "Liberty Flames",
+          "record": "10-1",
+          "conference": ""
+        },
+        {
+          "rank": 22,
+          "team": "Boise State Broncos",
+          "record": "9-2",
+          "conference": ""
+        },
+        {
+          "rank": 23,
+          "team": "Ole Miss Rebels",
+          "record": "7-4",
+          "conference": ""
+        },
+        {
+          "rank": 24,
+          "team": "Missouri Tigers",
+          "record": "7-4",
+          "conference": ""
+        },
+        {
+          "rank": 25,
+          "team": "Ohio State Buckeyes",
+          "record": "7-4",
+          "conference": ""
+        }
+      ]
+    }
+  ],
   "conferences": [],
   "games": [
     {
@@ -959,7 +1117,7 @@
   "availability": {
     "cfp_rankings": "NOT_YET_PUBLISHED_OR_NOT_OBSERVED",
     "games": "AVAILABLE",
-    "polls": "NO_CURRENT_POLLS_OBSERVED",
+    "polls": "AVAILABLE",
     "conference_standings": "NOT_YET_CANONICALLY_INGESTED"
   },
   "historical_reference": {
