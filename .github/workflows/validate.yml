@@ -61,9 +61,6 @@ jobs:
           print('SITE_BOOTSTRAP_PUBLIC_PYPI_REQUIRED=false')
           PY
 
-      - name: Validate Q67 on-ramp source without runtime or external dependencies
-        run: python3 -B -m unittest discover -s suites/tests -v
-
       - name: Validate household economic conditions fail-closed Site contract
         run: python3 scripts/validate_household_economic_conditions_site.py
 

@@ -4,6 +4,7 @@ import subprocess
 import sys
 import unittest
 from pathlib import Path
+from scripts.check_session_work_claims import active_claims, load_registry
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -90,14 +91,17 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         self.assertEqual(cov["legacy_claim_deferred_tasks"],0)
         self.assertEqual(cov["explicit_cosv_surface_gap"],0)
         self.assertTrue(cov["repository_active_claim_denominator_nonzero"])
-        self.assertFalse(cov["repository_unindexed_active_claim_tasks_present"])
-        self.assertEqual(cov["repository_unindexed_active_task_ids_observed"],0)
-        self.assertTrue(cov["repository_active_task_surface_audit_complete"])
-        self.assertTrue(cov["repository_vector_present_claimed"])
-        self.assertIsNone(cov["repository_vector_present_blocker"])
+        # Coverage is a current observation. New unbound source work must make
+        # coverage incomplete; never invent a COSV to preserve an old zero.
+        missing={c["task_id"] for c in active_claims(load_registry())}-{r["task_id"] for r in idx["tasks"]}
+        self.assertEqual(cov["repository_unindexed_active_claim_tasks_present"],bool(missing))
+        self.assertEqual(cov["repository_unindexed_active_task_ids_observed"],len(missing))
+        self.assertEqual(cov["repository_active_task_surface_audit_complete"],not missing)
+        self.assertEqual(cov["repository_vector_present_claimed"],not missing)
+        self.assertEqual(cov["repository_vector_present_blocker"],"UNINDEXED_ACTIVE_CLAIM_TASKS_REMAIN" if missing else None)
 
 
-    def test_repository_wide_successor_is_terminal_and_zero_gap_remains_present(self):
+    def test_repository_wide_successor_terminal_state_does_not_hide_new_gaps(self):
         idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
         row=next(item for item in idx["tasks"] if item["task_id"]=="SITE-COSV-REPOSITORY-WIDE-ADOPTION-001")
         self.assertEqual(row["binding_mode"],"SOURCE_BOUND")
@@ -105,8 +109,25 @@ class SiteCOSVProjectionTests(unittest.TestCase):
         cov=idx["coverage"]
         self.assertGreaterEqual(cov["repository_effective_active_claims_observed"],1)
         self.assertEqual(cov["repository_effective_active_claims_observed"],cov["repository_effective_active_task_ids_observed"])
-        self.assertEqual(cov["repository_unindexed_active_task_ids_observed"],0)
-        self.assertTrue(cov["repository_vector_present_claimed"])
+        missing={c["task_id"] for c in active_claims(load_registry())}-{r["task_id"] for r in idx["tasks"]}
+        self.assertEqual(cov["repository_unindexed_active_task_ids_observed"],len(missing))
+        self.assertEqual(cov["repository_vector_present_claimed"],not missing)
+
+    def test_false_zero_gap_coverage_is_rejected(self):
+        import tempfile
+        from unittest.mock import patch
+        from scripts import check_cosv_task_projection as checker
+        idx=json.loads((ROOT/"data/cosv/task-vector-index.json").read_text())
+        # Deliberately wrong regardless of the live denominator; the production
+        # checker must compare against source claims rather than accept prose.
+        idx["coverage"]["repository_effective_active_claims_observed"]=-1
+        idx["coverage"]["repository_unindexed_active_task_ids_observed"]=0
+        idx["coverage"]["repository_vector_present_claimed"]=True
+        with tempfile.TemporaryDirectory() as temp:
+            path=Path(temp)/"index.json"
+            path.write_text(json.dumps(idx))
+            with patch.object(checker,"INDEX",path),self.assertRaises(AssertionError):
+                checker.main()
 
 
     def test_active_owner_external_projections_preserve_source_semantics(self):

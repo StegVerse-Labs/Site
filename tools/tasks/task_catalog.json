@@ -8801,6 +8801,45 @@
      ]
     }
    }
+  },
+  {
+   "id": "q67-suites-source.validate",
+   "catalog_addition": "Q-67 source checks; no production acceptance or runtime authority",
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Verify canonical template, claim guard and account-free specimen API",
+     "run_file": "tools/tasks/steps/q67-suites-source.validate/01-source.sh",
+     "run_sha256": "84fd9b24d355abac955652fd7076886fd4a5d7e45f2b4f2c2b3904775ce65cb4"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "python_version": "3.12"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "suites/**",
+      "tools/tasks/steps/q67-suites-source.validate/**",
+      "tools/tasks/task_catalog.json"
+     ]
+    },
+    "push": {
+     "paths": [
+      "suites/**",
+      "tools/tasks/steps/q67-suites-source.validate/**",
+      "tools/tasks/task_catalog.json"
+     ]
+    }
+   }
   }
  ],
  "python_support": {

@@ -84,3 +84,26 @@ No rail POSTs, registration, badge impressions, pass-through, chain edits,
 payment, custody access, DNS change, production install, merge, tag or release
 was performed by this source build. No user action is needed for its queued
 owner/non-author remainder. All six-field failures remain recorded dispositions.
+
+
+### Repository integration correction
+
+PR 1719's first head 5927518971c0d506fbb33c0e9bc684954ce8f79f
+exposed repository-specific source requirements. The pinned validate.yml is
+restored unchanged; Q-67 tests are a group in the existing task catalog.
+The actual pre-work KV claim (created 2026-11-22T09:22:04.979Z) is now projected
+in data/session-work-claims.d/site-q67-suites-source-20261122.json for the exact
+PR branch. Its source integration state is CLAIMED_FOR_INTEGRATION until
+integration/withdrawal or 2026-11-23T09:22:04.979Z, whichever comes first.
+This is a repository source coordination claim, never a native Task Registry
+or WorkerCoordinator claim. The executing session retains no runtime/singleton
+role. Its pre-work provenance is explicit; no earlier Git filing is fabricated.
+
+Computed COSV coverage is refreshed without assigning any vector: 69 source
+claims / 69 task identities / 2 unindexed identities (Q-67-SOURCE-UNBOUND and
+the pre-existing SITE-DOMAIN-NODE-CONNECTION-001). Coverage is honestly false
+until the existing authorized producers reconcile those identities. No missing
+vector is invented or hidden. Source claim, COSV-projection and catalog checks
+pass locally; independent/production acceptance remains open.
+
+Repository continuation checks: 21 source-claim/COSV tests pass, including rejection of falsified zero-gap coverage. The two formerly hardcoded zero-gap test expectations now compare with actual source claims; no production validator was weakened and no COSV issued. Exact-branch claim/handoff check passes.
