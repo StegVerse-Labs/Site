@@ -1,0 +1,132 @@
+{
+  "grade": "BUILDER_LOCAL_API_FIXTURE_ONLY",
+  "page_submission": "NOT_OBSERVED; local Chromium sandbox denies AF_UNIX socket; cloud browser localhost is separate and refused connection",
+  "production_acceptance": "V1-V5 NOT_PERFORMED",
+  "result": {
+    "id": "INTAKE-3ad36ae081a11bdc34dd2f3b9f749dcb",
+    "state": "SPECIMEN_ONLY",
+    "analysis": {
+      "claims": [
+        {
+          "id": "C1",
+          "submitted_claim": {
+            "lives_at": "https://example.org/framework",
+            "receipted_by": "https://example.org/receipt",
+            "replay": "https://example.org/replay",
+            "text": "This fixture retains the exact phrase \"evidence first\"."
+          },
+          "status": "LOCATED",
+          "truth_verdict": "NOT_DETERMINED",
+          "evidence": {
+            "lives_at": {
+              "url": "https://example.org/framework",
+              "status": 200,
+              "sha256": "86f227259d6ed6cf92258941ef71707e7d1ff482bdc574e90a5f82b63e8f38e6",
+              "bytes": 55
+            },
+            "receipted_by": {
+              "url": "https://example.org/receipt",
+              "status": 200,
+              "sha256": "8788232015be924211b8816ee4a7b9f1b21f4c3949d8e0683fca54205217dc61",
+              "bytes": 32
+            },
+            "replay": {
+              "url": "https://example.org/replay",
+              "status": 200,
+              "sha256": "0f1cbac889122cd96e6ea4cd073fbccc0ddcf1d61f670c7def6a97041818df2d",
+              "bytes": 31
+            }
+          },
+          "scope": "Claim text located verbatim; receipt and replay URLs reachable. Receipt semantics and claim truth are NOT verified."
+        },
+        {
+          "id": "C2",
+          "submitted_claim": {
+            "text": "UNSUPPORTED-CLAIM-NEGATIVE-CONTROL"
+          },
+          "status": "EVIDENCE_NOT_FOUND",
+          "truth_verdict": "NOT_DETERMINED",
+          "disposition": {
+            "failure_code": "URL_INVALID",
+            "failed_predicate": "HTTPS, no credentials/fragment, port 443",
+            "required_evidence_or_repair": "Supply a public HTTPS evidence URL without credentials or fragment.",
+            "retry_entrypoint": "/api/intakes",
+            "owning_goal": "Q-67 (native registration UNBOUND)",
+            "next_attempt": "After the named repair; observations confer no authority."
+          }
+        }
+      ],
+      "located": 1,
+      "evidence_not_found": 1,
+      "method": "Literal evidence-location check, not a proof of arbitrary claim semantics."
+    },
+    "conformance": {
+      "proof_of": "Q67 fixture specimen",
+      "template": "SUITE__TEMPLATE GEN 01",
+      "template_manifest_sha256": "f63d612c15e2ee364f3df651da8c11948846c61c897899aa45f8e9f6324bcc4e",
+      "convention": "This proof lives inside the suite it proves, as a hashed member of the suite manifest. It is excluded from its own E1 enumeration; the manifest binds its bytes.",
+      "elements": {
+        "E1_manifest_members_verify": {
+          "pass": true,
+          "detail": "14 members, 0 bad",
+          "bad": []
+        },
+        "E2_self_check_passes": {
+          "pass": true,
+          "detail": "SELF-CHECK: 37 PASS / 0 FAIL"
+        },
+        "E2b_checker_carries_template_checks": {
+          "pass": true,
+          "detail": "checker source names FUNDING + ProjectID"
+        },
+        "E3_face_carries_projectid_funding": {
+          "pass": true,
+          "detail": "README names ProjectID + Funding"
+        },
+        "E4_funding_statement": {
+          "pass": true,
+          "detail": "FUNDING__STATEMENT__01.md carries the three lines"
+        },
+        "E5_proof_in_suite": {
+          "pass": true,
+          "detail": "this file \u2014 a member of the suite it proves, bound by the manifest hash"
+        }
+      },
+      "verdict": "CONFORMANT"
+    },
+    "manifest_sha256": "ff3dc8e753b6791de3d0657b4bafddef2563c6ff360fdc37cc3b67704aa26289",
+    "bundle_sha256": "4d0024521dcb4e2792fefcb69008b43e8fbe44c74ef3ba77d73a1995156c5e45",
+    "download": "/api/intakes/INTAKE-3ad36ae081a11bdc34dd2f3b9f749dcb/bundle",
+    "connection": {
+      "state": "IN_BUILD",
+      "rail_acceptance": "NOT_OBSERVED",
+      "rails": {
+        "8374": {
+          "offer": "https://8374.stegverse.org/offer",
+          "replay": "https://8374.stegverse.org/chain/manifest.json"
+        },
+        "4LPH4": {
+          "offer": "https://4lph4.stegverse.org/offer",
+          "replay": "https://4lph4.stegverse.org/replay"
+        }
+      },
+      "protocol": "PROTOCOL__01.html",
+      "client": "rail_client.py",
+      "registration": "NOT_PERFORMED",
+      "badge": "NOT_DECLARED",
+      "pass_through": "NOT_TAKEN",
+      "disposition": {
+        "failure_code": "CONNECTION_NOT_INSTALLED",
+        "failed_predicate": "verified hosted rail connection adapter and live instance",
+        "required_evidence_or_repair": "Existing runtime owner must install the on-ramp and bind its verified rail registration/receipt-pair adapter; non-author lane replays V1\u2013V5 before offering full service.",
+        "retry_entrypoint": "/api/intakes",
+        "owning_goal": "Q-67 (native registration UNBOUND)",
+        "next_attempt": "After the named repair; observations confer no authority."
+      }
+    },
+    "independent_validation": "NOT_PERFORMED"
+  },
+  "self_check_stdout": "SELF-CHECK: 37 PASS / 0 FAIL\n",
+  "canonical_prover_stdout": "suite: CONFORMANT\n  E1_manifest_members_verify: PASS \u2014 14 members, 0 bad\n  E2_self_check_passes: PASS \u2014 SELF-CHECK: 37 PASS / 0 FAIL\n  E2b_checker_carries_template_checks: PASS \u2014 checker source names FUNDING + ProjectID\n  E3_face_carries_projectid_funding: PASS \u2014 README names ProjectID + Funding\n  E4_funding_statement: PASS \u2014 FUNDING__STATEMENT__01.md carries the three lines\n  E5_proof_in_suite: PASS \u2014 in-suite proof bound by manifest, names the current template hash\n",
+  "fixture_scope": "example.org URL labels resolve through deterministic injected transport; no live external framework or rail crossing"
+}

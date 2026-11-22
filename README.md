@@ -829,3 +829,8 @@ implementation claim is released through the separate registry-only follow-up;
 its Site-local projection is historical and does not establish native Goal/COSV
 admission. Final central settlement and native-binding disposition are recorded
 on `StegVerse-Labs/.github#3471` (paired #3472).
+
+
+## Q-67 framework suite on-ramp — source candidate
+
+Account-free intake, evidence-location analysis, canonical-template generation and downloadable specimen delivery are implemented under [suites/](suites/README.md). Production connection is IN_BUILD; the full connected product is not offered today. Native task registration and independent V1–V5 production acceptance remain open. Continuation: [SUITES_ONRAMP_MIRROR_HANDOFF.md](docs/SUITES_ONRAMP_MIRROR_HANDOFF.md).
