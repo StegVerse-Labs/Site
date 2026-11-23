@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""StegVM GEN 03 birth bootstrap (STEGVM-01) — cross-machine birth.
+"""StegVM GEN 04 birth bootstrap (STEGVM-01) — cross-machine birth.
 
 Run this on a fresh machine (reference target: a Raspberry Pi 4 with a
 stock Raspberry Pi OS — Python 3 standard library only, nothing to
@@ -11,37 +11,42 @@ instance from the RECORD ALONE:
   2. DEFINITION the StegVM suite ZIPs are fetched from their public
                 KnowledgeVault locations and verified against their
                 filed SHA-256 pins BEFORE anything in them is
-                trusted: the GEN 02 suite (the definition being
-                instantiated; filed, #3443 comment 7076007769) and
-                the GEN 01 suite (the GEN 02 gate's provenance and
+                trusted: the GEN 04 suite (the definition being
+                instantiated; filed, #3443 comment 7090130522) and
+                the GEN 02 suite (the GEN 04 gate's provenance and
                 carried-member continuity predicates require it;
-                filed, #3443 comment 7075621973). A hash mismatch
+                filed, #3443 comment 7076007769). A hash mismatch
                 stops the birth; nothing proceeds on a bad hash.
-  3. GATE       the GEN 02 suite's own birth_gate.py judges this
-                birth, run as the suite's GEN 02 driver runs it:
+  3. GATE       the GEN 04 suite's own birth_gate.py judges this
+                birth, run as the suite's GEN 04 driver runs it:
                 this bootstrap extracts the gate binary from the
-                hash-verified GEN 02 ZIP, hands it a birth record,
+                hash-verified GEN 04 ZIP, hands it a birth record,
                 and the gate verifies the ZIPs again inside its own
                 run, re-executes itself from the verified tree,
                 fetches its expected anchors and the chain state
                 itself from the record's live public projections,
                 replays, and issues ALLOW or a six-field DENY. The
-                definition inside the GEN 02 suite must hash to the
-                GEN 02 pin (b4dbd311...), and the extracted GEN 02
+                definition inside the GEN 04 suite must hash to the
+                GEN 04 pin (cd538cd6...), and the extracted GEN 04
                 suite must pass its own self_check.py before the
                 gate is invoked.
-  4. JUDGMENT   the gate's, over state it fetched itself:
+  4. JUDGMENT   the gate's, over state it fetched itself — all
+                four chains, the record now publishing each in full:
                   - endpoint: the gate's recompute per
                     receipt-chain-rules/1, and independently the
                     record's own published verifier (verify_chain.py,
                     fetched by the gate and hash-verified against the
                     pin inside the production export manifest);
-                  - 4lph4: the gate's recompute per chain4-rules/1.
-                Chains the record does not publish in full over the
-                network (router, skap-signing — host-loopback only)
-                are recorded by the gate as
-                NOT_PUBLISHED_BY_RECORD with their own six-field
-                record-gap disposition — never silently passed.
+                  - router, skap-signing: the gate's recompute per
+                    receipt-chain-rules/1 over their published
+                    exports;
+                  - 4lph4: the gate's recompute per chain4-rules/1;
+                  - and the record's portable verifier
+                    (verify_all_chains.py), run by the gate over all
+                    four chains with the birth-time anchors as pins.
+                The GEN 02 record gap stands CLOSED in the binding
+                record (closed 2026-11-22 by the portable-verifier
+                cure); no scoped ALLOW exists at GEN 04.
   5. SERVE      on ALLOW only: the suite's own serve_instance.py
                 (from the gate's verified tree) serves the instance's
                 fetched state on loopback, and this bootstrap — the
@@ -83,33 +88,32 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 # ---- The record's pins (filed; changing one is a new filing, never an
 # ---- edit at the gate) ---------------------------------------------
-# GEN 02 suite — the definition being instantiated (GEN 03 PREP
-# ADDENDUM 01; GEN 02 discharge #3443 comment 7076007769).
+# GEN 04 suite — the definition being instantiated (GEN 04
+# discharge #3443 comment 7090130522).
 SUITE_ZIP_URL = ("https://drive.google.com/uc?export=download&id="
-                 "1s9pxZHhOmVD7b7SwcdhReRyqHKLe8giq")
-SUITE_ZIP_SHA256 = ("24abc0857df875d521811ec533cab97fc17653a80776c92d768fb"
-                    "996769c815c")
-SUITE_ZIP_BYTES = 193566
-GEN02_DRIVE_ID = "1s9pxZHhOmVD7b7SwcdhReRyqHKLe8giq"
-SUITE_DIR_NAME = "STEGVM__SUITE__GEN__02"
-# GEN 01 suite — required by the GEN 02 gate's provenance step (the
+                 "1pL_zL9pb_F9zr_UMGyLVeakKP1e_50zb")
+SUITE_ZIP_SHA256 = ("db30ec83b61f2b314148413e4adcc8e114ed512692584ad479d2b"
+                    "c5653b55fd9")
+SUITE_ZIP_BYTES = 68295
+GEN04_DRIVE_ID = "1pL_zL9pb_F9zr_UMGyLVeakKP1e_50zb"
+SUITE_DIR_NAME = "STEGVM__SUITE__GEN__04"
+# GEN 02 suite — required by the GEN 04 gate's provenance step (the
 # definition's predecessor, against which carried-member continuity
-# is checked inside the gate). Filed, #3443 comment 7075621973.
-GEN01_ZIP_URL = ("https://drive.google.com/uc?export=download&id="
-                 "1JGRf8baYNfeTRWo-XZwWd8EB89AKLo3B")
-GEN01_ZIP_SHA256 = ("f2ecbd5744bc8845ed75c03d6523a4ef103ab2290a8ed99353"
-                    "5f66c3fd2f6864")
-GEN01_ZIP_BYTES = 32598
-GEN01_DRIVE_ID = "1JGRf8baYNfeTRWo-XZwWd8EB89AKLo3B"
-GEN01_DIR_NAME = "STEGVM__SUITE__GEN__01"
+# is checked inside the gate). Filed, #3443 comment 7076007769.
+GEN02_ZIP_URL = ("https://drive.google.com/uc?export=download&id="
+                 "1s9pxZHhOmVD7b7SwcdhReRyqHKLe8giq")
+GEN02_ZIP_SHA256 = ("24abc0857df875d521811ec533cab97fc17653a80776c92d768fb"
+                    "996769c815c")
+GEN02_ZIP_BYTES = 193566
+GEN02_DRIVE_ID = "1s9pxZHhOmVD7b7SwcdhReRyqHKLe8giq"
+GEN02_DIR_NAME = "STEGVM__SUITE__GEN__02"
 DEFINITION_NAME = "STEGVM__FLEET__MANIFEST__01.json"
-DEFINITION_SHA256 = ("b4dbd3112f9ec89631fddb34e7b238d50abf71bead353bb2d7b"
-                     "00299aff135c3")
+DEFINITION_SHA256 = ("cd538cd62c6d170f67c1290d585d2a8de526210beac6e953ae11e473ff16a412")
 CONTINUITY_MEMBERS = ["fleet_restore.py", "self_check.py"]
 VERIFIER_SHA256 = ("24669106d134b607dc7b707568c303e368ff99018d2c5ed7c4"
                    "5dab67a4dffe25")
 CHAIN_ROOT = "https://8374.stegverse.org/chain"
-UA = "stegvm-gen03-birth/2"
+UA = "stegvm-gen04-birth/1"
 OWNING_GOAL = "Ephemeral Stack program (STEGVM-01)"
 
 
@@ -268,7 +272,7 @@ def main(argv):
             print("nothing to remove at %s" % root)
         return 0
 
-    print("=== StegVM GEN 03 birth — this machine, from the record "
+    print("=== StegVM GEN 04 birth — this machine, from the record "
           "alone ===")
     if args.self_test_tamper:
         print("*** SELF-TEST TAMPER MODE: the gate will corrupt one "
@@ -307,12 +311,12 @@ def main(argv):
         os.makedirs(os.path.join(root, sub), exist_ok=True)
 
     # ---- 2. Definition, by hash --------------------------------------
-    print("-- definition (StegVM GEN 02 + GEN 01 suites, fetched "
+    print("-- definition (StegVM GEN 04 + GEN 02 suites, fetched "
           "from the KV)")
     pins = ((SUITE_ZIP_URL, SUITE_ZIP_SHA256, SUITE_ZIP_BYTES,
-             SUITE_DIR_NAME, "GEN 02"),
-            (GEN01_ZIP_URL, GEN01_ZIP_SHA256, GEN01_ZIP_BYTES,
-             GEN01_DIR_NAME, "GEN 01"))
+             SUITE_DIR_NAME, "GEN 04"),
+            (GEN02_ZIP_URL, GEN02_ZIP_SHA256, GEN02_ZIP_BYTES,
+             GEN02_DIR_NAME, "GEN 02"))
     zip_paths = {}
     for url, pin, nbytes, dir_name, tag in pins:
         try:
@@ -334,11 +338,11 @@ def main(argv):
         zip_paths[tag] = zpath
 
     # ---- 3. The suite's own gate judges ------------------------------
-    # Bootstrap extraction, GEN 02 driver-style: only the gate binary
-    # is taken from the verified GEN 02 ZIP; the gate verifies the
+    # Bootstrap extraction, GEN 04 driver-style: only the gate binary
+    # is taken from the verified GEN 04 ZIP; the gate verifies the
     # ZIP against the birth record and re-executes itself from the
     # verified tree before trusting anything (birth_gate.py step 0).
-    with zipfile.ZipFile(zip_paths["GEN 02"]) as z:
+    with zipfile.ZipFile(zip_paths["GEN 04"]) as z:
         gate_name = [n for n in z.namelist()
                      if n.endswith("/birth_gate.py")
                      or n == "birth_gate.py"][0]
@@ -359,7 +363,7 @@ def main(argv):
         return 0 if result.get("gate_verdict") == "ALLOW" else 1
 
     suite_extract = os.path.join(root, "suite")
-    with zipfile.ZipFile(zip_paths["GEN 02"]) as z:
+    with zipfile.ZipFile(zip_paths["GEN 04"]) as z:
         z.extractall(suite_extract)
     suite_root = os.path.join(suite_extract, SUITE_DIR_NAME)
 
@@ -376,7 +380,7 @@ def main(argv):
             "the pin at the gate",
             "birth.py with the suite at its filed hash",
             "re-run the birth once the definition verifies"))
-    print("   definition %s hashes to the GEN 02 pin: PASS"
+    print("   definition %s hashes to the GEN 04 pin: PASS"
           % DEFINITION_NAME)
     r = subprocess.run([sys.executable,
                         os.path.join(suite_root, "self_check.py")],
@@ -400,25 +404,25 @@ def main(argv):
         "suite": SUITE_DIR_NAME,
         "variant": "tamper" if args.self_test_tamper else "clean",
         "provenance": {
-            "gen01_suite_zip": {
-                "path": zip_paths["GEN 01"],
-                "sha256": GEN01_ZIP_SHA256,
-                "drive_id": GEN01_DRIVE_ID,
-                "verification": "fetched from the Ecosystem KV by "
-                                "Drive id; SHA-256 verified by this "
-                                "bootstrap against the filed GEN 01 "
-                                "pin before the gate runs and "
-                                "re-verified by the gate inside before "
-                                "use"},
-            "gen02_candidate_zip": {
+            "gen02_suite_zip": {
                 "path": zip_paths["GEN 02"],
-                "sha256": SUITE_ZIP_SHA256,
+                "sha256": GEN02_ZIP_SHA256,
                 "drive_id": GEN02_DRIVE_ID,
                 "verification": "fetched from the Ecosystem KV by "
                                 "Drive id; SHA-256 verified by this "
                                 "bootstrap against the filed GEN 02 "
-                                "pin (GEN 02 discharge, #3443 comment "
-                                "7076007769) before the gate runs and "
+                                "pin before the gate runs and "
+                                "re-verified by the gate inside before "
+                                "use"},
+            "gen04_candidate_zip": {
+                "path": zip_paths["GEN 04"],
+                "sha256": SUITE_ZIP_SHA256,
+                "drive_id": GEN04_DRIVE_ID,
+                "verification": "fetched from the Ecosystem KV by "
+                                "Drive id; SHA-256 verified by this "
+                                "bootstrap against the filed GEN 04 "
+                                "pin (GEN 04 discharge, #3443 comment "
+                                "7090130522) before the gate runs and "
                                 "re-verified by the gate inside before "
                                 "use; the announcement is record-issued "
                                 "(a filed suite ZIP), not builder-issued"},
@@ -426,11 +430,11 @@ def main(argv):
         "definition": {"file": DEFINITION_NAME,
                        "sha256": DEFINITION_SHA256},
         "continuity_members": CONTINUITY_MEMBERS,
-        "isolation": "cross-machine (GEN 03) — %s / %s, born from "
+        "isolation": "cross-machine (GEN 04) — %s / %s, born from "
                      "the record alone" % (os.uname().sysname,
                                             os.uname().machine),
         "isolation_detail": (
-            "a separate physical machine (GEN 03 target: the "
+            "a separate physical machine (GEN 04 target: the "
             "principal's Raspberry Pi 4); the machine received "
             "nothing from any other host's filesystem — its "
             "definition crossed as the two filed suite ZIPs from the "
@@ -438,7 +442,7 @@ def main(argv):
             "state was fetched by the gate itself over HTTPS from "
             "the record's public projections; no credentials exist "
             "in the birth (credentialess birth, design §2.4)"),
-        "issued_by": "StegVM GEN 03 birth bootstrap (birth.py)",
+        "issued_by": "StegVM GEN 04 birth bootstrap (birth.py)",
         "issued_at": now_iso(),
     }
     birth_input_path = os.path.join(root, "birth_input.json")
@@ -446,7 +450,7 @@ def main(argv):
         f.write(json.dumps(birth_input, indent=2) + "\n")
 
     # ---- 5. Judgment — the gate's, over state it fetches itself ------
-    print("-- judgment (the GEN 02 gate, run from the verified tree; "
+    print("-- judgment (the GEN 04 gate, run from the verified tree; "
           "it fetches its own anchors and state from the record)")
     gate_out = os.path.join(root, "gate_result.json")
     if os.path.exists(gate_out):
@@ -493,14 +497,12 @@ def main(argv):
     binding = result["binding_record"]
     table = binding["chains_compared"]
     instance_id = binding["instance_id"]
-    for chain in ("endpoint", "chain-export", "4lph4"):
+    for chain in ("endpoint", "chain-export", "router",
+                  "skap-signing", "4lph4", "portable-verifier"):
         row = table[chain]
-        print("   %-12s %s (anchor %s…)"
+        print("   %-18s %s (anchor %s…)"
               % (chain, row.get("target_verdict"),
                  (row.get("target_anchor") or "")[:16]))
-    for chain in ("router", "skap-signing"):
-        print("   %-12s %s (record gap, disposition in the birth "
-              "record)" % (chain, table[chain].get("status")))
     with open(os.path.join(root, "birth_record.json"), "w") as f:
         f.write(json.dumps(result, indent=2) + "\n")
 
@@ -508,7 +510,7 @@ def main(argv):
     # The suite's own read surface, from the gate's verified tree,
     # over the gate's fetched state. serve_instance.py binds
     # loopback; the relay below is the host-side driver surface.
-    serve_py = os.path.join(root, "gate-work", "gen02",
+    serve_py = os.path.join(root, "gate-work", "gen04",
                             "serve_instance.py")
     srv = subprocess.Popen(
         [sys.executable, serve_py,
@@ -536,7 +538,7 @@ def main(argv):
                     "judged ALLOW is not in question — the surface is",
                     "birth.py once the instance surface starts",
                     "re-run the birth; if the failure persists, file "
-                    "it against the GEN 02 suite's serve_instance.py",
+                    "it against the GEN 04 suite's serve_instance.py",
                     extra={"chains_compared": table}))
             time.sleep(0.2)
 
@@ -604,7 +606,7 @@ def main(argv):
             "question — the surface is",
             "birth.py once the served surface verifies",
             "re-run the birth; if the probe failure persists, file "
-            "it against the GEN 03 bootstrap",
+            "it against the GEN 04 bootstrap",
             extra={"chains_compared": table}))
     ip = lan_ip()
     # flush throughout: the verdict banner is the operator's signal
@@ -618,6 +620,7 @@ def main(argv):
     print("   on this machine's LAN:  http://%s:%d/chain"
           % (ip, args.port), flush=True)
     print("   surfaces: /chain/manifest.json /chain/export.ndjson "
+          "/chain/router/export.ndjson /chain/skap/export.ndjson "
           "/chain4.json /verify /bindings /health", flush=True)
     print("   verify it from any other machine:", flush=True)
     print("     curl -O %s/verifier.py && python3 verify_chain.py "
