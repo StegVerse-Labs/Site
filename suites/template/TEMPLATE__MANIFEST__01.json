@@ -1,0 +1,55 @@
+{
+  "template": "SUITE__TEMPLATE",
+  "generation": "GEN 01",
+  "created": "2026-11-11",
+  "amended": "2026-11-11 \u2014 the conformance proof lives inside the suite it proves, as a hashed member (owner order 16:20 CST, before first derivation; no suite had yet been instantiated from GEN 01).",
+  "rule": "Every suite is instantiated from this template and proves conformance by an in-suite CONFORMANCE__PROOF__01.json bound by its own manifest. Components are validated by hash before any instantiation.",
+  "manifest_excludes": "TEMPLATE__MANIFEST__01.json (this file)",
+  "components": [
+    {
+      "file": "FUNDING__STATEMENT__01.md.tmpl",
+      "bytes": 899,
+      "sha256": "049e981474471396f10f5f383ff42692a18edbd5a598de8b6c064a19ce2bf70d"
+    },
+    {
+      "file": "README.md",
+      "bytes": 2704,
+      "sha256": "fdf8a34c35518146f472d38d125bf25d87cacb4b386a42ab5adf6322c37dcbe0"
+    },
+    {
+      "file": "README.md.tmpl",
+      "bytes": 487,
+      "sha256": "f08f15fcc6bda17a89764aa89214ef9759b30dc8aa6faa994306aae3238f9add"
+    },
+    {
+      "file": "REFERENCES__01.md.tmpl",
+      "bytes": 177,
+      "sha256": "204315dd7978b22a21906e6efc115ebf9134608481f0ef46f2986eb2d63353e0"
+    },
+    {
+      "file": "SPEC__MEMBER__01.md.tmpl",
+      "bytes": 85,
+      "sha256": "ae5490208a38f8148177b267cd69967f8798455b0af7ae2d13517cd3a87d2548"
+    },
+    {
+      "file": "SUITE__CHARTER__01.md.tmpl",
+      "bytes": 171,
+      "sha256": "85e5b7911d2d0a7cfe234418eb4d53f0fa3e3784b2c14a1872a868c86d7e14ae"
+    },
+    {
+      "file": "instantiate.py",
+      "bytes": 4526,
+      "sha256": "9b0fe71c4a8997c47185c97b1694056707cc05dc27a7a4cba72da4a4a382953b"
+    },
+    {
+      "file": "prove_conformance.py",
+      "bytes": 10827,
+      "sha256": "99fff786660eb65954a60fbea36956cf8ba5261fa996d4d40ffa6dc1caed74d7"
+    },
+    {
+      "file": "self_check.py.tmpl",
+      "bytes": 2913,
+      "sha256": "9f9207293b11f928fed46d5fe9a1a5ef41074825a90825588b97a1298bb32f7e"
+    }
+  ]
+}

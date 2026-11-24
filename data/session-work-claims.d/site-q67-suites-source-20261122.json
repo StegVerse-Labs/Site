@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "registry_fragment_type": "stegverse_session_work_claim_registry_fragment",
+  "repository": "StegVerse-Labs/Site",
+  "claims": [
+    {
+      "claim_id": "SITE-Q67-SUITES-SOURCE-20261122",
+      "session_worker_id": "CODEX-Work-Q67-source-20261122",
+      "task_id": "Q-67-SOURCE-UNBOUND",
+      "originating_goal": "Q-67 queue item .github#3443/7068049479; native Goal/COSV UNBOUND",
+      "repository": "StegVerse-Labs/Site",
+      "branch": "codex/q67-suites-onramp",
+      "role": "SOURCE_INTEGRATION_ONLY",
+      "state": "CLAIMED_FOR_INTEGRATION",
+      "normalized_work_key": "q67-suites-source",
+      "dependency_surface_keys": [
+        "site:q67-suites-source-only"
+      ],
+      "claimed_paths": [
+        "suites/",
+        "docs/SUITES_ONRAMP_MIRROR_HANDOFF.md",
+        "tools/tasks/steps/q67-suites-source.validate/",
+        "tools/tasks/task_catalog.json",
+        "data/session-work-claims.d/site-q67-suites-source-20261122.json"
+      ],
+      "handoff": "docs/SUITES_ONRAMP_MIRROR_HANDOFF.md",
+      "handoff_revision": "2026-11-22 source candidate, PR1719",
+      "claim_created_at": "2026-11-22T09:22:04.979Z",
+      "claim_expires_when": "Source integration/withdrawal or 2026-11-23T09:22:04.979Z, whichever comes first; no runtime claim",
+      "prework_evidence": "Ecosystem KV Drive 1VT5hfVHgOVmF-uOfo2W6NeuLIC6yDZbj created before implementation; original revision readback 1583B MD5 81a7d4be5b69ffa606e8d845450ad4af; this is its repository projection, not a claim of earlier Git filing",
+      "expected_evidence": [
+        "6 focused tests pass",
+        "canonical template 9/9 hashes and lengths",
+        "retained suite self-check 37 PASS 0 FAIL",
+        "canonical in-suite proof CONFORMANT",
+        "independent acceptance and production connection remain open"
+      ],
+      "collision_boundaries": [
+        "No native Task Registry issuance or runtime authority",
+        "Do not modify existing rails, their chains or prices",
+        "No main merge, DNS install, custody, payment or SB003",
+        "Non-author source review distinct from production V1\u2013V5"
+      ],
+      "next_task_after_release": "Existing runtime owner implements authenticated S4 contract and obtains non-author final-host V1\u2013V5",
+      "authority_effect": "NONE",
+      "claim_ref": null,
+      "fence_ref": null,
+      "projection_only": true
+    }
+  ]
+}
