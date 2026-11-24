@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0R10N15 — Build on it</title>
+<meta name="description" content="The builder's guide to the 0R10N15 protocol: the crossing contract on both rails, the fee semantics, the failure grammar, and how to verify a receipt pair yourself.">
+<style>
+  body { font-family: Georgia, 'Times New Roman', serif; max-width: 44rem; margin: 2.5rem auto; padding: 0 1.25rem; line-height: 1.55; color: #1a1a1a; }
+  h1 { font-size: 1.7rem; margin-bottom: 0.2rem; }
+  h2 { font-size: 1.2rem; margin-top: 2.2rem; border-bottom: 1px solid #ccc; padding-bottom: 0.3rem; }
+  .sub { color: #555; margin-top: 0; }
+  code, pre { font-family: 'SF Mono', Consolas, Menlo, monospace; font-size: 0.86em; }
+  pre { background: #f5f5f2; border: 1px solid #ddd; padding: 0.8rem 1rem; overflow-x: auto; line-height: 1.45; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.95em; }
+  th, td { border: 1px solid #ccc; padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+  th { background: #f5f5f2; }
+  .note { background: #f5f5f2; border-left: 3px solid #888; padding: 0.6rem 1rem; margin: 1rem 0; }
+  a { color: #0645ad; }
+  footer { margin-top: 3rem; color: #555; font-size: 0.9em; border-top: 1px solid #ccc; padding-top: 1rem; }
+</style>
+</head>
+<body>
+
+<h1>0R10N15 — Build on it</h1>
+<p class="sub">The crossing contract, both rails, the failure grammar, and verification — everything a builder (human or machine) needs to cross and to check the record afterward. Published by StegVerse LLC. The protocol statement itself is at <a href="https://0r10n15.stegverse.org/">0r10n15.stegverse.org</a>.</p>
+
+<p>Downloads:
+<a href="https://stegverse.org/data/0r10n15-crossing-schema.json">the crossing schema (JSON, 0R10N15-CROSSING-SCHEMA/1)</a> ·
+<a href="https://stegverse.org/data/0r10n15_client.py">the reference client (Python, stdlib only)</a> ·
+<a href="https://stegverse.org/data/0r10n15-directory.json">the instance directory (JSON)</a></p>
+
+<h2>What a crossing is</h2>
+<p>One governed evaluation. You present a structured request; the endpoint evaluates it against the admitted scope and issues a <strong>receipt pair</strong>: two hash-chained records, one per side, sharing one <code>pair_id</code>. The pair is the deliverable and the durable record. The disposition is decided <em>before</em> any settlement is attempted; settlement is an eventual leg receipted onto the pair and never alters the disposition. The fee is paid on every disposition, ALLOW or NON-ALLOW — a refusal caused by the provider's own side is the one exception: provider-side FAIL_CLOSED refusals never settle.</p>
+<p>Every NON-ALLOW states exactly why, in a six-field grammar: <code>failure_code</code>, <code>failed_predicate</code>, <code>required_evidence_or_repair</code>, <code>retry_entrypoint</code>, <code>owning_goal</code>, <code>next_attempt</code>. Never a bare label.</p>
+
+<h2>The two instances</h2>
+<table>
+<tr><th></th><th>8374</th><th>4LPH4</th></tr>
+<tr><td>Rail / asset</td><td>Base (EVM) / USDC</td><td>Tron / USDT (TRC-20)</td></tr>
+<tr><td>Base URL</td><td><code>https://8374.stegverse.org</code></td><td><code>https://4lph4.stegverse.org</code></td></tr>
+<tr><td>Payment</td><td>x402 exact scheme, EIP-3009 <code>transferWithAuthorization</code>, dual-stack v1 + v2</td><td>TRC-20 transfer to the receptor, then present the txid</td></tr>
+<tr><td>Receptor</td><td>payTo <code>0x7721aB66161e60fCcA59CCe2A86817cbdd9b16Be</code></td><td><code>TAfcR4NLCgBFWUC4AjY4kEZShWJWRrmPWv</code></td></tr>
+<tr><td>Tiers</td><td><code>receipt-only</code> — fee 500 micro-USDC · <code>full-evaluation</code> — fee 15,000 micro-USDC</td><td><code>receipt</code> — 500 base units · <code>full-eval</code> — 15,000 base units</td></tr>
+<tr><td>Chain export</td><td><code>GET /chain/export.ndjson</code></td><td><code>GET /chain4.json</code></td></tr>
+</table>
+<p>Always read the instance's <code>GET /offer</code> first and cross-check the receptor and asset against the table above (or the directory) before paying anything. If a challenge's receptor differs from the published one, do not sign it.</p>
+
+<h2>Crossing on 8374 (Base / USDC, x402)</h2>
+<p><strong>Step 1 — request a challenge.</strong> POST your crossing unpaid; the endpoint answers <code>402</code> with the challenge. The request body:</p>
+<pre>{
+  "counterparty": "your-identifier",
+  "action": "evaluate",
+  "scope_ref": "ME-EVAL-01",
+  "resource": "governed-evaluation",
+  "tier": "receipt-only"
+}</pre>
+<p><code>tier</code> defaults to <code>receipt-only</code>; an unknown tier coerces to it. An optional <code>sublane</code> field routes the receipts to a sub-lane chain.</p>
+<p><strong>Step 2 — read the total.</strong> The 402 body is an x402 v1 PaymentRequired; the <code>PAYMENT-REQUIRED</code> response header carries the same terms as an x402 v2 object. <code>accepts[0].maxAmountRequired</code> is the <strong>total</strong> for this crossing in micro-USDC: the tier governance fee plus a settlement charge quoted live at challenge time (the quote, its inputs, and its formula ride in <code>settlement_charge_quote</code>). Settlement gas is charged on the crossing, never absorbed. If no live quote can be produced, the endpoint answers <code>503</code> FAIL_CLOSED and issues no challenge — retry later; nothing was consumed.</p>
+<p><strong>Step 3 — pay and present.</strong> Sign an EIP-3009 <code>transferWithAuthorization</code> for the total, under the USDC EIP-712 domain on Base (name <code>USD Coin</code>, version <code>2</code>), <code>to</code> = the challenge's <code>payTo</code>, and re-POST the same body with the payment header:</p>
+<ul>
+<li>v1: <code>X-PAYMENT</code> = base64 of <code>{x402Version: 1, scheme: "exact", network: "eip155:8453", payload: {signature, authorization: {from, to, value, validAfter, validBefore, nonce}}}</code></li>
+<li>v2: <code>PAYMENT-SIGNATURE</code> = base64 of <code>{x402Version: 2, accepted: {scheme, network, amount, asset, payTo, maxTimeoutSeconds, extra}, payload: {signature, authorization: {...}}}</code></li>
+</ul>
+<p>Any conformant x402 client library produces these headers. The reference client performs every step except the signature itself — key custody stays with your wallet, which is the point — and returns the exact challenge to sign, after checking its receptor, asset, network, tier, and arithmetic against the published constants.</p>
+<p><strong>Step 4 — read the disposition.</strong></p>
+<table>
+<tr><th>Answer</th><th>Meaning</th></tr>
+<tr><td><code>200</code></td><td>ALLOW, executed. The body carries <code>pair_id</code>, <code>receipt_pair</code>, <code>retention_bundle</code>, <code>settlement_state</code>, and <code>pair_anchor_terminal</code> — the pair's second record hash; anchor your copy to it.</td></tr>
+<tr><td><code>422</code> (paid)</td><td>NON-ALLOW. The six-field detail is spread at top level, with <code>refusal_pair_id</code>, <code>refusal_record_pair</code>, and a <code>retention_bundle</code>. The pair issued and the fee was paid — that is the protocol, not an error.</td></tr>
+<tr><td><code>422</code> (bad payment)</td><td>FAIL_CLOSED on the payment predicate, with a refusal pair. The authorization was not settled.</td></tr>
+<tr><td><code>503</code></td><td>FAIL_CLOSED before any challenge (no live settlement quote). Nothing consumed; retry.</td></tr>
+</table>
+<p>Keep the <code>retention_bundle</code> (RETENTION_BUNDLE/1): it carries the chain span from genesis through your pair, so you can verify the pair later with a standalone verifier while this provider is unavailable.</p>
+
+<h2>Crossing on 4LPH4 (Tron / USDT)</h2>
+<p>There is no EIP-3009 on Tron, so the form is transfer-then-present.</p>
+<p><strong>Step 1 — transfer.</strong> Send a TRC-20 USDT transfer to the receptor for at least the tier price. On Tron the address and the contract are the asset — cross-check both against <code>GET /offer</code> (USDT contract <code>TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t</code>). Any excess over the tier price is recorded in the pair and is not refunded.</p>
+<p><strong>Step 2 — present.</strong></p>
+<pre>POST /crossing
+{"txid": "&lt;the transfer's txid&gt;", "tier": "receipt", "payload": "&lt;optional string&gt;"}</pre>
+<p>For tier <code>full-eval</code>, also present <code>"request": {counterparty, action, scope_ref, evidence: {authority, delegation, evidence_refs, exclusions, policy, validity_at_commit}}</code> — it is decided by the production evaluator, the same <code>evaluate()</code> the 8374 endpoint serves. An optional <code>payload</code> string is bound into the pair by its SHA-256.</p>
+<p><strong>Step 3 — read the disposition.</strong> Every well-formed presentation writes a receipt pair and returns <code>{pair_id, disposition, tier, payment_txid, chain}</code>. Settlement is recorded at presentation — the transfer already landed. Refusals carry <code>reason_code</code> plus the six-field grammar. Know the codes before you build:</p>
+<table>
+<tr><th>Code</th><th>Meaning</th></tr>
+<tr><td><code>PAYMENT_ALREADY_CONSUMED</code></td><td>A txid crosses exactly once; the receipt chain is the registry. Present a new transfer.</td></tr>
+<tr><td><code>PAYMENT_NOT_FOUND</code></td><td>Not yet confirmed. Re-present the same txid after confirmation — it is not consumed.</td></tr>
+<tr><td><code>PAYMENT_TX_NOT_SUCCESS</code> / <code>NO_USDT_TRANSFER_EVENT</code></td><td>The transaction does not carry a successful official USDT transfer to the receptor.</td></tr>
+<tr><td><code>EVIDENCE_UNAVAILABLE</code></td><td>The chain read failed at the crossing. Re-present the same txid once reads recover — it is not consumed.</td></tr>
+</table>
+
+<h2>Verify it yourself</h2>
+<p>Either party — or any third party — can verify a pair against the instance's public chain export without the provider's cooperation. The two rails chain differently; both are fully specified in the schema.</p>
+<ul>
+<li><strong>8374 (receipt-chain-rules/1):</strong> entries are <code>{content, hash, i, prev}</code>; <code>hash = sha256(prev_as_text || canonical_json(content))</code>, canonical JSON = sorted keys, compact separators, non-ASCII escaped; the genesis entry's <code>prev</code> is the literal string <code>GENESIS</code>. A pair is two entries with your <code>pair_id</code>, <code>index_in_pair</code> 0 and 1, the second's <code>pair_anchor</code> equal to the first's hash.</li>
+<li><strong>4LPH4 (chain4-rules/1):</strong> entries are <code>{body, hash, kind, pair_id, prev, seq}</code>; the hash is the SHA-256 of the canonical JSON of the full entry excluding the hash field, in the raw UTF-8 canonical form (non-ASCII unescaped — this differs from the 8374 rail and is load-bearing); the genesis entry's <code>prev</code> is 64 zero hex digits. A pair is the <code>PAIR_A</code> and <code>PAIR_B</code> entries with your <code>pair_id</code>, inside a segment that recomputes to the export's <code>terminal_anchor</code>. Verify the segment yourself; do not trust the export document's own verdict field.</li>
+</ul>
+<p>With the reference client:</p>
+<pre>python3 0r10n15_client.py verify-pair 8374 PAIR-000001
+python3 0r10n15_client.py verify-pair 4LPH4 Q63-DEMO-CROSSING-0001
+python3 0r10n15_client.py verify-bundle &lt;retention-bundle.json&gt;</pre>
+
+<h2>Worked example (live captures, 2026-11-24)</h2>
+<p>An unpaid challenge, captured from the production endpoint:</p>
+<pre>POST https://8374.stegverse.org/crossing
+{"counterparty": "builder-kit-probe", "action": "evaluate",
+ "resource": "probe:receipt-only", "tier": "receipt-only"}
+
+→ 402, accepts[0]:
+  payTo  0x7721aB66161e60fCcA59CCe2A86817cbdd9b16Be   (matches the published receptor)
+  asset  0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913   (USDC on Base)
+  total  2103 micro-USDC = governance fee 500 + settlement charge 1603
+  quote  quote_stale: false — live Base gas at challenge time</pre>
+<p>And verification of a standing pair, run with the reference client against the live exports the same day:</p>
+<pre>$ python3 0r10n15_client.py verify-pair 8374 PAIR-000001
+MATCH: 124 entries recompute from GENESIS; terminal anchor
+5513a484b9709c53…; pair PAIR-000001 stands; anchor (second entry
+hash) c5209fd6a072da2c11…
+
+$ python3 0r10n15_client.py verify-pair 4LPH4 Q63-DEMO-CROSSING-0001
+MATCH: 18 entries recompute from the zero genesis; terminal anchor
+d7abb33f7bfd75c7…; pair Q63-DEMO-CROSSING-0001 stands (PAIR_A +
+PAIR_B present)</pre>
+
+<div class="note">
+<p><strong>Transport note for Python builders.</strong> Do not use <code>urllib</code>'s defaults for these surfaces: urllib sends <code>Connection: close</code>, and some proxy/tunnel paths answer that by truncating response bodies (observed live: reads cut at varying offsets while the identical request without the header completes). The reference client is built on <code>http.client</code> for exactly this reason, honors <code>http_proxy</code>/<code>https_proxy</code>, and sets an explicit User-Agent — some egress paths refuse the default Python agent outright.</p>
+</div>
+
+<h2>What the record does and does not claim</h2>
+<p>A verified pair proves the crossing happened as recorded: the request, the disposition, and the settlement leg's state, in a chain anyone can recompute. It does not prove the evaluator was right — it proves what the evaluator decided, when, and on what presented evidence, in a form that cannot be quietly rewritten afterward. That is the whole offer: decisions you can check, from a counterparty you do not have to trust.</p>
+
+<footer>
+<p>0R10N15 is a StegVerse LLC protocol. Instances: <a href="https://8374.stegverse.org/offer">8374</a> · <a href="https://4lph4.stegverse.org/offer">4LPH4</a> · <a href="https://stegverse.org/data/0r10n15-directory.json">directory</a> · <a href="https://0r10n15.stegverse.org/">protocol index</a>. Schema version 0R10N15-CROSSING-SCHEMA/1, published 2026-11-24.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+{
+ "builders_guide": "https://stegverse.org/0r10n15-builders/",
+ "crossing_4lph4": {
+  "responses": {
+   "any_presentation": "Every well-formed presentation writes a receipt pair (presentation / disposition) and returns {pair_id, disposition, tier, payment_txid, chain}. Settlement is recorded at presentation; the transfer already landed.",
+   "excess": "The landed amount must cover the tier price; any excess is recorded in the pair and is not refunded.",
+   "refusal_codes": [
+    "PAYMENT_ALREADY_CONSUMED (a txid crosses exactly once; the receipt chain is the registry)",
+    "PAYMENT_NOT_FOUND (not yet confirmed; re-present after confirmation \u2014 not consumed)",
+    "PAYMENT_TX_NOT_SUCCESS",
+    "NO_USDT_TRANSFER_EVENT",
+    "EVIDENCE_UNAVAILABLE (chain read failed; re-present the same txid once reads recover \u2014 not consumed)"
+   ],
+   "refusal_fields": [
+    "reason_code",
+    "the six-field grammar (failure_code, failed_predicate, required_evidence_or_repair, retry_entrypoint, owning_goal, next_attempt)"
+   ]
+  },
+  "step_1_transfer": "Send a TRC-20 USDT transfer to the receptor for at least the tier price. On Tron the address and the contract are the asset: cross-check both against GET /offer before transferring.",
+  "step_2_present": {
+   "body": {
+    "payload": {
+     "note": "Optional; its SHA-256 is recorded on the pair.",
+     "required": false,
+     "type": "string"
+    },
+    "request": {
+     "note": "{counterparty, action, scope_ref, evidence: {authority, delegation, evidence_refs, exclusions, policy, validity_at_commit}} \u2014 decided by the production evaluator, the same evaluate() the 8374 endpoint serves.",
+     "required": "for tier full-eval",
+     "type": "object"
+    },
+    "tier": {
+     "enum": [
+      "receipt",
+      "full-eval"
+     ],
+     "required": true,
+     "type": "string"
+    },
+    "txid": {
+     "note": "The transfer's transaction id.",
+     "required": true,
+     "type": "string"
+    }
+   },
+   "method": "POST",
+   "path": "/crossing"
+  }
+ },
+ "crossing_8374": {
+  "challenge": {
+   "body": "x402 v1 PaymentRequired JSON (see example_challenge). accepts[0].maxAmountRequired is the TOTAL for this crossing in micro-USDC: the tier governance fee plus the settlement charge quoted live at challenge time (settlement_charge_quote carries the quote and its formula).",
+   "fail_closed": "If no live settlement-charge quote can be produced, the endpoint answers 503 FAIL_CLOSED (SETTLEMENT_CHARGE_QUOTE_UNAVAILABLE, or SETTLEMENT_QUOTE_STALE_BEYOND_BOUND when the last good quote is older than 300s) and issues no challenge. Retry later; nothing was consumed.",
+   "headers": {
+    "PAYMENT-REQUIRED": "base64 of the x402 v2 PaymentRequired object for the same terms; its accepts[0].amount equals the v1 total."
+   },
+   "status": 402,
+   "when": "No payment header present."
+  },
+  "payment_presentation": {
+   "amount_rule": "Authorize the challenge's total exactly. The amount is the tier governance fee plus the settlement charge quoted in that challenge; settlement gas is charged on the crossing, never absorbed.",
+   "signing": "Any conformant x402 client library can produce the header. The reference client shipped with this schema performs every step except the signature itself, and returns the exact object to sign.",
+   "v1": {
+    "header": "X-PAYMENT",
+    "value": "base64 of {x402Version: 1, scheme: 'exact', network: 'eip155:8453', payload: {signature, authorization: {from, to, value, validAfter, validBefore, nonce}}} where the authorization is an EIP-3009 transferWithAuthorization signed under the USDC EIP-712 domain on Base (name 'USD Coin', version '2'), to = payTo, value = the challenge total."
+   },
+   "v2": {
+    "header": "PAYMENT-SIGNATURE",
+    "value": "base64 of {x402Version: 2, accepted: {scheme, network, amount, asset, payTo, maxTimeoutSeconds, extra}, payload: {signature, authorization: {from, to, value, validAfter, validBefore, nonce}}} with the same EIP-3009 core."
+   }
+  },
+  "request": {
+   "body": {
+    "action": {
+     "example": "evaluate",
+     "required": true,
+     "type": "string"
+    },
+    "counterparty": {
+     "note": "The caller's identifier; recorded on the pair.",
+     "required": true,
+     "type": "string"
+    },
+    "resource": {
+     "enum_examples": [
+      "governed-evaluation",
+      "receipt-pair-issuance",
+      "agreement-record"
+     ],
+     "required": true,
+     "type": "string"
+    },
+    "scope_ref": {
+     "note": "The admitted scope the request is evaluated against, e.g. ME-EVAL-01.",
+     "required": true,
+     "type": "string"
+    },
+    "sublane": {
+     "note": "Optional routing name; receipts land on the sub-lane chain. An invalid sublane is a FAIL_CLOSED refusal on the parent chain.",
+     "required": false,
+     "type": "string"
+    },
+    "tier": {
+     "default": "receipt-only",
+     "enum": [
+      "receipt-only",
+      "full-evaluation"
+     ],
+     "note": "An unknown tier coerces to receipt-only.",
+     "required": false,
+     "type": "string"
+    }
+   },
+   "content_type": "application/json",
+   "method": "POST",
+   "path": "/crossing"
+  },
+  "responses": {
+   "allow": {
+    "fields": [
+     "disposition (=ALLOW)",
+     "executed (=true)",
+     "pair_id",
+     "receipt_pair",
+     "retention_bundle",
+     "payment",
+     "settlement",
+     "settlement_state",
+     "settlement_pair_id",
+     "pair_anchor_terminal (= the pair's second record hash; anchor your copy to it)",
+     "metering",
+     "detail"
+    ],
+    "status": 200,
+    "v2_note": "v2 payers also receive a PAYMENT-RESPONSE header."
+   },
+   "non_allow_paid": {
+    "fields": [
+     "disposition",
+     "the six-field detail spread at top level (failure_code, failed_predicate, required_evidence_or_repair, retry_entrypoint, owning_goal, next_attempt)",
+     "refusal_pair_id",
+     "refusal_record_pair",
+     "retention_bundle"
+    ],
+    "note": "A paid NON-ALLOW still issues its pair and the fee is still paid. Provider-side FAIL_CLOSED refusals never settle.",
+    "status": 422
+   },
+   "payment_failure": {
+    "body": "FAIL_CLOSED with a refusal pair (refusal_pair_id, refusal_record_pair) and metering. The authorization was not settled.",
+    "status": 422
+   }
+  }
+ },
+ "directory": "https://stegverse.org/data/0r10n15-directory.json",
+ "example_challenge": {
+  "accepts": [
+   {
+    "amount_status": "ratified",
+    "amount_usd": 0.0005,
+    "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "extra": {
+     "name": "USD Coin",
+     "version": "2"
+    },
+    "governance_fee_micro_usdc": 500,
+    "maxAmountRequired": "2103",
+    "maxTimeoutSeconds": 60,
+    "mimeType": "application/json",
+    "network": "eip155:8453",
+    "payTo": "0x7721aB66161e60fCcA59CCe2A86817cbdd9b16Be",
+    "resource": "governed-evaluation / receipt-pair-issuance",
+    "scheme": "exact",
+    "settlement_charge_micro_usdc": 1603,
+    "settlement_charge_quote": {
+     "base_fee_per_gas_wei": 5000000,
+     "eth_usd": 1680.95,
+     "formula": "ceil(gas_units_basis * (2*base_fee_per_gas + priority_fee_per_gas) * eth_usd / 1e18, to the next micro-USDC)",
+     "gas_units_basis": 86679,
+     "max_fee_per_gas_wei": 11000000,
+     "priority_fee_per_gas_wei": 1000000,
+     "quote_stale": false,
+     "quote_ttl_seconds": 45,
+     "settlement_charge_micro_usdc": 1603
+    },
+    "tier": "receipt-only",
+    "total_micro_usdc": 2103,
+    "unit": "per governed crossing"
+   }
+  ],
+  "error": "payment required: the governed crossing bears the posted fee under the active pricing mode",
+  "note": "Captured live from POST https://8374.stegverse.org/crossing, 2026-11-24, tier receipt-only, unpaid. The settlement charge moves with live Base gas; the governance fee does not.",
+  "x402Version": 1
+ },
+ "instances": {
+  "4LPH4": {
+   "asset": "USDT (TRC-20)",
+   "asset_contract": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+   "base_url": "https://4lph4.stegverse.org",
+   "chain_export": "GET /chain4.json \u2014 a JSON document {verdict, problems, entries, pairs, terminal_anchor, segment: [entries]}",
+   "crossing": "POST /crossing",
+   "market_label": "4LPH4",
+   "offer": "GET /offer",
+   "payment": "TRC-20 transfer to the receptor, then present the txid (no EIP-3009 on Tron)",
+   "rail": "Tron",
+   "receptor": "TAfcR4NLCgBFWUC4AjY4kEZShWJWRrmPWv",
+   "tiers": [
+    {
+     "id": "receipt",
+     "price_base_units": 500,
+     "price_usdt": 0.0005
+    },
+    {
+     "id": "full-eval",
+     "price_base_units": 15000,
+     "price_usdt": 0.015
+    }
+   ]
+  },
+  "8374": {
+   "asset": "USDC",
+   "asset_contract": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+   "base_url": "https://8374.stegverse.org",
+   "chain_export": "GET /chain/export.ndjson",
+   "crossing": "POST /crossing",
+   "market_label": "8374",
+   "offer": "GET /offer",
+   "payTo": "0x7721aB66161e60fCcA59CCe2A86817cbdd9b16Be",
+   "payment": "x402 exact scheme, EIP-3009 transferWithAuthorization, dual-stack v1 + v2",
+   "rail": "Base (EVM)",
+   "replay": "GET /replay",
+   "tiers": [
+    {
+     "governance_fee_micro_usdc": 500,
+     "id": "receipt-only"
+    },
+    {
+     "governance_fee_micro_usdc": 15000,
+     "id": "full-evaluation"
+    }
+   ]
+  }
+ },
+ "protocol": "0R10N15",
+ "published_by": "StegVerse LLC",
+ "receipt_pair": {
+  "form_4LPH4": "Two chain entries sharing one pair_id, kinds PAIR_A (presentation) and PAIR_B (disposition). Entry shape: {body, hash, kind, pair_id, prev, seq}. Settlement, when it lands, is recorded at presentation; later settlement records append as their own entries.",
+  "form_8374": "Two chain entries sharing one pair_id. Entry shape: {content, hash, i, prev}. content carries pair_id, index_in_pair (0 then 1), side, kind, the crossing, the disposition, and ts. The second entry's content carries pair_anchor = the first entry's hash.",
+  "retention_bundle": "Every 8374 crossing response carries a RETENTION_BUNDLE/1: {bundle, rules_version: 'receipt-chain-rules/1', chain, pair_id, exported_from_anchor, span: {anchor_before_span: 'GENESIS', entries (genesis through the pair's second member), anchor_after_span}, pair, settles, settlement_reference, segment_seal}. Keep it: it lets you verify the pair later with a standalone verifier while the provider is unavailable."
+ },
+ "schema": "0R10N15-CROSSING-SCHEMA/1",
+ "semantics": {
+  "crossing": "One governed evaluation. The caller presents a structured request; the endpoint evaluates it against the admitted scope and issues a receipt pair: two hash-chained records, one per side, sharing one pair_id. The pair is the deliverable and the durable record of the crossing.",
+  "disposition_first": "The disposition is decided before any settlement is attempted. Settlement is an eventual leg receipted onto the pair; it never alters the disposition.",
+  "fee": "The fee is paid on every disposition, ALLOW or NON-ALLOW. A refusal caused by the provider's own side (a provider-side FAIL_CLOSED) never settles.",
+  "verification": "Either party, or any third party, can verify a pair against the instance's public chain export without the provider's cooperation. See verification_rules."
+ },
+ "six_field_grammar": {
+  "fields": [
+   "failure_code",
+   "failed_predicate",
+   "required_evidence_or_repair",
+   "retry_entrypoint",
+   "owning_goal",
+   "next_attempt"
+  ],
+  "purpose": "Every NON-ALLOW disposition states exactly why, in machine-readable form \u2014 never a bare label."
+ },
+ "verification_rules": {
+  "4LPH4": {
+   "entry_hash": "SHA-256 of the canonical JSON (raw UTF-8 form) of the full entry excluding the hash field. Every entry carries prev = the previous entry's hash; the genesis entry's prev is 64 zero hex digits. Entries carry consecutive seq starting at 0.",
+   "export": "GET /chain4.json \u2014 {verdict, problems, entries, pairs, terminal_anchor, segment}. Verify the segment yourself; do not trust the document's own verdict field.",
+   "pair_check": "Two entries with your pair_id, kinds PAIR_A and PAIR_B, inside a segment that recomputes end to end to the document's terminal_anchor.",
+   "rules_version": "chain4-rules/1"
+  },
+  "8374": {
+   "entry_hash": "sha256(prev_as_text || canonical_json(content)), hex. The genesis entry's prev is the literal string GENESIS.",
+   "export": "GET /chain/export.ndjson, one entry per line: {content, hash, i, prev}.",
+   "pair_check": "Two entries with your pair_id; index_in_pair 0 and 1; the second's pair_anchor equals the first's hash; the terminal hash equals the pair_anchor_terminal in your crossing response (or the retention bundle's anchor_after_span).",
+   "rules_version": "receipt-chain-rules/1"
+  },
+  "canonical_json": "JSON with sorted keys and compact separators (',', ':') \u2014 both rails. Encoding differs by rail and is load-bearing: the 8374 rail escapes non-ASCII (ensure_ascii default, ASCII bytes); the 4LPH4 rail writes raw UTF-8 (ensure_ascii=False).",
+  "procedure": [
+   "Fetch the instance's chain export (or use the span inside a retention bundle, 8374 only).",
+   "Recompute the chain from its genesis under that rail's rules: every prev link must continue the chain and every hash must recompute.",
+   "Locate your pair inside the recomputed chain and apply the rail's pair check.",
+   "A chain that recomputes end to end and contains your pair is proof the pair stands as issued. Each instance's /replay reports the provider-side verdict (MATCH) for comparison."
+  ]
+ }
+}

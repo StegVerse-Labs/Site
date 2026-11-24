@@ -1,60 +1,72 @@
 {
-  "document": "0R10N15__DIRECTORY__01",
-  "version": "1",
-  "protocol": "0R10N15",
-  "operator": "StegVerse LLC",
-  "index": "https://0r10n15.stegverse.org/",
-  "note": "Anchors and counts are live state and move as crossings occur; each instance's replay route is the check and supersedes any printed value. ALPHA and BETA are house-cipher letters, not maturity stages.",
-  "instances": [
-    {
-      "id": "0R10N15-8374",
-      "cipher": "BETA",
-      "rail": {
-        "asset": "USDC",
-        "network": "eip155:8453",
-        "chain": "Base",
-        "payment_protocol": "x402 (scheme exact, HTTP 402)"
-      },
-      "origin": "https://8374.stegverse.org",
-      "instance_page": "https://stegverse.org/0r10n15-8374/",
-      "surfaces": {
-        "offer": "https://8374.stegverse.org/offer",
-        "inspect": "https://8374.stegverse.org/inspect",
-        "crossing": "https://8374.stegverse.org/crossing",
-        "chain_export": "https://8374.stegverse.org/chain/export.ndjson",
-        "chain_manifest": "https://8374.stegverse.org/chain/manifest.json",
-        "chain_verifier": "https://8374.stegverse.org/chain/verifier.py",
-        "router_catalog": "https://8374.stegverse.org/router/catalog",
-        "verify": "https://8374.stegverse.org/verify",
-        "pass_through": "https://8374.stegverse.org/pass-through",
-        "challenge_archive": "https://8374.stegverse.org/challenge-archive",
-        "badges": "https://8374.stegverse.org/badges"
-      }
-    },
-    {
-      "id": "0R10N15-4LPH4",
-      "cipher": "ALPHA",
-      "rail": {
-        "asset": "USDT (TRC-20)",
-        "network": "tron:mainnet",
-        "chain": "Tron",
-        "contract": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
-        "receptor": "TAfcR4NLCgBFWUC4AjY4kEZShWJWRrmPWv",
-        "payment_protocol": "trc20-transfer-then-present"
-      },
-      "origin": "https://4lph4.stegverse.org",
-      "instance_page": "https://stegverse.org/0r10n15-4lph4/",
-      "surfaces": {
-        "state": "https://4lph4.stegverse.org/state",
-        "offer": "https://4lph4.stegverse.org/offer",
-        "crossing": "https://4lph4.stegverse.org/crossing",
-        "chain_export": "https://4lph4.stegverse.org/chain4.json",
-        "chain_manifest": "https://4lph4.stegverse.org/manifest",
-        "replay": "https://4lph4.stegverse.org/replay",
-        "pass_through": "https://4lph4.stegverse.org/pass-through",
-        "badges": "https://4lph4.stegverse.org/badges",
-        "challenge_archive": "https://4lph4.stegverse.org/challenge-archive"
-      }
-    }
-  ]
+ "build": {
+  "crossing_schema": "https://stegverse.org/data/0r10n15-crossing-schema.json",
+  "guide": "https://stegverse.org/0r10n15-builders/",
+  "note": "The crossing contract for builders: request and response forms on both rails, the fee semantics (total = tier governance fee + live-quoted settlement charge), the six-field failure grammar, and pair verification under each rail's chain rules. The reference client performs every step except the payer's signature.",
+  "reference_client": "https://stegverse.org/data/0r10n15_client.py"
+ },
+ "document": "0R10N15__DIRECTORY__01",
+ "index": "https://0r10n15.stegverse.org/",
+ "instances": [
+  {
+   "cipher": "BETA",
+   "id": "0R10N15-8374",
+   "instance_page": "https://stegverse.org/0r10n15-8374/",
+   "origin": "https://8374.stegverse.org",
+   "rail": {
+    "asset": "USDC",
+    "chain": "Base",
+    "network": "eip155:8453",
+    "payment_protocol": "x402 (scheme exact, HTTP 402)"
+   },
+   "surfaces": {
+    "badges": "https://8374.stegverse.org/badges",
+    "builders_guide": "https://stegverse.org/0r10n15-builders/",
+    "chain_export": "https://8374.stegverse.org/chain/export.ndjson",
+    "chain_manifest": "https://8374.stegverse.org/chain/manifest.json",
+    "chain_verifier": "https://8374.stegverse.org/chain/verifier.py",
+    "challenge_archive": "https://8374.stegverse.org/challenge-archive",
+    "crossing": "https://8374.stegverse.org/crossing",
+    "crossing_schema": "https://stegverse.org/data/0r10n15-crossing-schema.json",
+    "inspect": "https://8374.stegverse.org/inspect",
+    "offer": "https://8374.stegverse.org/offer",
+    "pass_through": "https://8374.stegverse.org/pass-through",
+    "reference_client": "https://stegverse.org/data/0r10n15_client.py",
+    "router_catalog": "https://8374.stegverse.org/router/catalog",
+    "verify": "https://8374.stegverse.org/verify"
+   }
+  },
+  {
+   "cipher": "ALPHA",
+   "id": "0R10N15-4LPH4",
+   "instance_page": "https://stegverse.org/0r10n15-4lph4/",
+   "origin": "https://4lph4.stegverse.org",
+   "rail": {
+    "asset": "USDT (TRC-20)",
+    "chain": "Tron",
+    "contract": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+    "network": "tron:mainnet",
+    "payment_protocol": "trc20-transfer-then-present",
+    "receptor": "TAfcR4NLCgBFWUC4AjY4kEZShWJWRrmPWv"
+   },
+   "surfaces": {
+    "badges": "https://4lph4.stegverse.org/badges",
+    "builders_guide": "https://stegverse.org/0r10n15-builders/",
+    "chain_export": "https://4lph4.stegverse.org/chain4.json",
+    "chain_manifest": "https://4lph4.stegverse.org/manifest",
+    "challenge_archive": "https://4lph4.stegverse.org/challenge-archive",
+    "crossing": "https://4lph4.stegverse.org/crossing",
+    "crossing_schema": "https://stegverse.org/data/0r10n15-crossing-schema.json",
+    "offer": "https://4lph4.stegverse.org/offer",
+    "pass_through": "https://4lph4.stegverse.org/pass-through",
+    "reference_client": "https://stegverse.org/data/0r10n15_client.py",
+    "replay": "https://4lph4.stegverse.org/replay",
+    "state": "https://4lph4.stegverse.org/state"
+   }
+  }
+ ],
+ "note": "Anchors and counts are live state and move as crossings occur; each instance's replay route is the check and supersedes any printed value. ALPHA and BETA are house-cipher letters, not maturity stages.",
+ "operator": "StegVerse LLC",
+ "protocol": "0R10N15",
+ "version": "2"
 }
