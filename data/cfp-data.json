@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-25T03:40:42Z",
+  "last_updated": "2026-11-25T03:55:22Z",
   "freshness": {
-    "generated_at": "2026-11-25T03:40:42Z",
+    "generated_at": "2026-11-25T03:55:22Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -705,19 +705,6 @@
   "conferences": [],
   "games": [
     {
-      "id": "6603835",
-      "home": "Western Mich.",
-      "away": "Miami (OH)",
-      "home_score": 24,
-      "away_score": 28,
-      "home_record": "",
-      "away_record": "",
-      "status": "4TH 00:00",
-      "kickoff": "2026-11-25T00:00:00Z",
-      "conference": "mac",
-      "note": "Miami (OH) Western Mich."
-    },
-    {
       "id": "6640471",
       "home": "Eastern Mich.",
       "away": "Kent St.",
@@ -729,6 +716,19 @@
       "kickoff": "2026-11-25T00:00:00Z",
       "conference": "mac",
       "note": "Kent St. Eastern Mich."
+    },
+    {
+      "id": "6603835",
+      "home": "Western Mich.",
+      "away": "Miami (OH)",
+      "home_score": 24,
+      "away_score": 28,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-11-25T00:00:00Z",
+      "conference": "mac",
+      "note": "Miami (OH) Western Mich."
     },
     {
       "id": "6604322",
