@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-25T03:17:20Z",
+  "last_updated": "2026-11-25T03:30:43Z",
   "freshness": {
-    "generated_at": "2026-11-25T03:17:20Z",
+    "generated_at": "2026-11-25T03:30:43Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -712,7 +712,7 @@
       "away_score": 28,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 01:57",
+      "status": "4TH 00:00",
       "kickoff": "2026-11-25T00:00:00Z",
       "conference": "mac",
       "note": "Miami (OH) Western Mich."
