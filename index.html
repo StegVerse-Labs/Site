@@ -48,6 +48,11 @@
     .composer textarea{flex:1;min-height:52px;max-height:150px;resize:vertical;border:1px solid var(--border2);border-radius:13px;background:#080d16;color:var(--text);font:inherit;padding:12px}
     .composer button{align-self:flex-end}
     .privacy-note{color:var(--muted);font-size:.85rem}
+    .film{margin:26px 0 4px}
+    .film h2{font-size:1.25rem;margin:0 0 8px}
+    .film p{margin:10px 0 0;color:var(--muted);line-height:1.55}
+    .film-frame{position:relative;padding-top:56.25%;border:1px solid var(--border);border-radius:18px;overflow:hidden;background:#000}
+    .film-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     .more-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
     .more-links a{color:var(--muted);text-decoration:none;font-size:.94rem}
     .more-links a:hover,.more-links a:focus{color:var(--text)}
@@ -68,6 +73,11 @@
       <p class="brand-line">EOS — the EcOSystem Chat</p>
       <h1>How can I help?</h1>
       <p>Ask about the StegVerse ecosystem, or submit work for governed analysis. Every submission enters through a manifest and is receipted — this is not a wrapper around one model.</p>
+    </section>
+    <section class="film" aria-label="The StegVerse film">
+      <h2>The film — 35 seconds</h2>
+      <div class="film-frame"><iframe src="https://www.youtube-nocookie.com/embed/40fJsATWOG8" title="StegVerse — Settlement: a reconstructable execution record" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <p>Settlement, as a reconstructable execution record: entity-neutral initiation, Interlock admissibility — deterministic authority validation — and the audit receipt at the outcome boundary. Evidence, not authority. <a href="https://youtu.be/40fJsATWOG8">Watch on YouTube</a>.</p>
     </section>
     <details class="scope-panel">
       <summary id="scope-title">What EOS does</summary>

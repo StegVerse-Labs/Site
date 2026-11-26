@@ -21,6 +21,8 @@
     .offer-page .lede{font-size:1.08rem}
     .offer-page code{overflow-wrap:anywhere}
     .offer-card{border:1px solid #2a3648;border-radius:14px;padding:16px;margin:14px 0}
+    .film-frame{position:relative;padding-top:56.25%;border:1px solid #2a3648;border-radius:14px;overflow:hidden;background:#000;margin:14px 0}
+    .film-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   </style>
 </head>
 <body>
@@ -31,6 +33,10 @@
 
     <h2>What it is</h2>
     <p>8374 reads <strong>BETA</strong> in the house cipher — the historical designation, in the pattern of Beta Orionis, the brighter star carrying the second letter since Bayer&rsquo;s 1603 catalog. This is the protocol&rsquo;s first market: USDC on Base, settled on the institutional rails.</p>
+
+    <h2>The film</h2>
+    <div class="film-frame"><iframe src="https://www.youtube-nocookie.com/embed/40fJsATWOG8" title="StegVerse — Settlement: a reconstructable execution record" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+    <p>Thirty-five seconds, the whole crossing: entity-neutral initiation, Interlock admissibility — deterministic authority validation — and the audit receipt at the outcome boundary. Evidence, not authority. <a href="https://youtu.be/40fJsATWOG8">Watch on YouTube</a>.</p>
 
     <h2>The protocol</h2>
     <p>A machine submits a transaction or action for evaluation <em>before</em> it commits. Every submission is dispositioned under the ecosystem disposition grammar — <strong>ALLOW</strong>, <strong>DENY</strong>, or <strong>FAIL_CLOSED</strong> — and only an ALLOW commits, at the signing boundary the service controls; execution paths that do not pass through this evaluation are outside that boundary. Every crossing, including refusals, returns a dual-recorded, hash-chained receipt pair: one matched pair of records, one per side of the crossing, constituting a portable settlement proof that either side can verify against the chain&rsquo;s anchors without trusting the other party&rsquo;s internal log. Pair issuance follows the rail. On Base (8374), the pair is issued locally and unconditionally at the crossing, before any network call; settlement is an eventual leg, receipted when it lands. On Tron (4LPH4), the crossing is transfer-then-present: the payment lands first, and the pair records the evaluation of the landed payment evidence. A refused or fail-closed attempt likewise produces a receipt — the refusal record. Independent retention of the pair by the customer is not yet demonstrated; it is being established as separate work.</p>
