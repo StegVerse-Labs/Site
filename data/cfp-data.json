@@ -2,15 +2,13 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-25T23:55:24Z",
+  "last_updated": "2026-11-26T00:34:25Z",
   "freshness": {
-    "generated_at": "2026-11-25T23:55:24Z",
+    "generated_at": "2026-11-26T00:34:25Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
-    "source_errors": {
-      "next_games": "ValueError: ESPN scoreboard payload carries no current week number"
-    },
+    "source_errors": {},
     "supporting_source_observed": true
   },
   "sources": [
@@ -58,9 +56,9 @@
       "coaches_rank": 1,
       "sv_rank": 3,
       "conference_record": "8-1",
-      "next_opponent": null,
-      "next_date": null,
-      "next_home": null
+      "next_opponent": "TBD",
+      "next_date": "2026-12-05T21:00Z",
+      "next_home": true
     },
     {
       "seed": 2,
@@ -178,9 +176,9 @@
       "coaches_rank": 4,
       "sv_rank": 2,
       "conference_record": "8-0",
-      "next_opponent": null,
-      "next_date": null,
-      "next_home": null
+      "next_opponent": "Wake Forest",
+      "next_date": "2026-12-05T17:00Z",
+      "next_home": true
     },
     {
       "seed": 8,
@@ -198,9 +196,9 @@
       "coaches_rank": 8,
       "sv_rank": 11,
       "conference_record": "7-1",
-      "next_opponent": null,
-      "next_date": null,
-      "next_home": null
+      "next_opponent": "Miami",
+      "next_date": "2026-12-05T17:00Z",
+      "next_home": false
     },
     {
       "seed": 9,
@@ -258,9 +256,9 @@
       "coaches_rank": 9,
       "sv_rank": 13,
       "conference_record": "7-1",
-      "next_opponent": null,
-      "next_date": null,
-      "next_home": null
+      "next_opponent": "TCU",
+      "next_date": "2026-11-27T01:00Z",
+      "next_home": true
     },
     {
       "seed": 12,
