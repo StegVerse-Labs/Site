@@ -8801,6 +8801,49 @@
      ]
     }
    }
+  },
+  {
+   "id": "workspace-ecosystem-review.validate",
+   "catalog_addition": "Site#1717 read-only Ecosystem KV review source contract (no new or modified workflow surface)",
+   "events": [
+    "pull_request",
+    "push"
+   ],
+   "env": {},
+   "steps": [
+    {
+     "name": "Validate scoped Ecosystem review and negative controls without runtime effects",
+     "run_file": "tools/tasks/steps/workspace-ecosystem-review.validate/01-review-consumer.sh",
+     "run_sha256": "d267bf5be0ff0d8774b56b0f2f07a953327c40ccda0a9070907ea86a76e9e467"
+    }
+   ],
+   "artifacts": [],
+   "runner": {
+    "fetch_depth": "1",
+    "persist_credentials": "false",
+    "timeout_minutes": 5,
+    "python_version": "3.11"
+   },
+   "path_filters": {
+    "pull_request": {
+     "paths": [
+      "workspace.html",
+      "assets/workspace.css",
+      "assets/workspace-ecosystem-review*.js",
+      "tests/workspace-ecosystem-review.test.cjs",
+      "tools/tasks/steps/workspace-ecosystem-review.validate/**"
+     ]
+    },
+    "push": {
+     "paths": [
+      "workspace.html",
+      "assets/workspace.css",
+      "assets/workspace-ecosystem-review*.js",
+      "tests/workspace-ecosystem-review.test.cjs",
+      "tools/tasks/steps/workspace-ecosystem-review.validate/**"
+     ]
+    }
+   }
   }
  ],
  "python_support": {
