@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-27T23:40:10Z",
+  "last_updated": "2026-11-27T23:55:16Z",
   "freshness": {
-    "generated_at": "2026-11-27T23:40:10Z",
+    "generated_at": "2026-11-27T23:55:16Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -703,19 +703,6 @@
   "conferences": [],
   "games": [
     {
-      "id": "6603835",
-      "home": "Western Mich.",
-      "away": "Miami (OH)",
-      "home_score": 24,
-      "away_score": 28,
-      "home_record": "",
-      "away_record": "",
-      "status": "FINAL",
-      "kickoff": "2026-11-25T00:00:00Z",
-      "conference": "mac",
-      "note": "Miami (OH) Western Mich."
-    },
-    {
       "id": "6640471",
       "home": "Eastern Mich.",
       "away": "Kent St.",
@@ -727,6 +714,19 @@
       "kickoff": "2026-11-25T00:00:00Z",
       "conference": "mac",
       "note": "Kent St. Eastern Mich."
+    },
+    {
+      "id": "6603835",
+      "home": "Western Mich.",
+      "away": "Miami (OH)",
+      "home_score": 24,
+      "away_score": 28,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-11-25T00:00:00Z",
+      "conference": "mac",
+      "note": "Miami (OH) Western Mich."
     },
     {
       "id": "6604322",
@@ -781,19 +781,6 @@
       "note": "Buffalo Akron"
     },
     {
-      "id": "6604344",
-      "home": "Ole Miss",
-      "away": "Mississippi St.",
-      "home_score": 41,
-      "away_score": 17,
-      "home_record": "",
-      "away_record": "",
-      "status": "FINAL",
-      "kickoff": "2026-11-27T17:00:00Z",
-      "conference": "sec",
-      "note": "Mississippi St. Ole Miss"
-    },
-    {
       "id": "6604266",
       "home": "Ohio",
       "away": "Toledo",
@@ -805,6 +792,19 @@
       "kickoff": "2026-11-27T17:00:00Z",
       "conference": "mac",
       "note": "Toledo Ohio"
+    },
+    {
+      "id": "6604344",
+      "home": "Ole Miss",
+      "away": "Mississippi St.",
+      "home_score": 41,
+      "away_score": 17,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-11-27T17:00:00Z",
+      "conference": "sec",
+      "note": "Mississippi St. Ole Miss"
     },
     {
       "id": "6604349",
@@ -820,14 +820,27 @@
       "note": "App State South Alabama"
     },
     {
+      "id": "6603724",
+      "home": "Memphis",
+      "away": "Temple",
+      "home_score": 31,
+      "away_score": 35,
+      "home_record": "",
+      "away_record": "",
+      "status": "FINAL",
+      "kickoff": "2026-11-27T20:30:00Z",
+      "conference": "american",
+      "note": "Temple Memphis"
+    },
+    {
       "id": "6603642",
       "home": "San Jose St.",
       "away": "North Dakota St.",
-      "home_score": 24,
+      "home_score": 31,
       "away_score": 38,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 10:04",
+      "status": "4TH 06:44",
       "kickoff": "2026-11-27T20:30:00Z",
       "conference": "mountain-west",
       "note": "North Dakota St. San Jose St."
@@ -837,36 +850,23 @@
       "home": "Florida St.",
       "away": "Florida",
       "home_score": 10,
-      "away_score": 20,
-      "home_record": "",
-      "away_record": "",
-      "status": "4TH 04:39",
-      "kickoff": "2026-11-27T20:30:00Z",
-      "conference": "acc",
-      "note": "Florida Florida St."
-    },
-    {
-      "id": "6603724",
-      "home": "Memphis",
-      "away": "Temple",
-      "home_score": 31,
-      "away_score": 28,
+      "away_score": 23,
       "home_record": "",
       "away_record": "",
       "status": "4TH 02:00",
       "kickoff": "2026-11-27T20:30:00Z",
-      "conference": "american",
-      "note": "Temple Memphis"
+      "conference": "acc",
+      "note": "Florida Florida St."
     },
     {
       "id": "6604055",
       "home": "New Mexico",
       "away": "Air Force",
       "home_score": 21,
-      "away_score": 13,
+      "away_score": 19,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 11:02",
+      "status": "3RD 04:30",
       "kickoff": "2026-11-27T21:30:00Z",
       "conference": "mountain-west",
       "note": "Air Force New Mexico"
