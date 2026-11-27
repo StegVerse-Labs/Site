@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-27T04:55:18Z",
+  "last_updated": "2026-11-27T05:15:52Z",
   "freshness": {
-    "generated_at": "2026-11-27T04:55:18Z",
+    "generated_at": "2026-11-27T05:15:52Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -256,9 +256,9 @@
       "coaches_rank": 9,
       "sv_rank": 13,
       "conference_record": "8-1",
-      "next_opponent": null,
-      "next_date": null,
-      "next_home": null
+      "next_opponent": "Utah",
+      "next_date": "2026-12-05T01:00Z",
+      "next_home": false
     },
     {
       "seed": 12,
