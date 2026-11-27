@@ -12,7 +12,7 @@ const elLastUpdated = document.getElementById("cfp-last-updated");
 const elStatus = document.getElementById("cfp-status");
 const elRefreshBtn = document.getElementById("cfp-refresh-btn");
 const elSpotDetails = document.getElementById("cfp-spot-details");
-const elPolls = document.getElementById("cfp-polls");
+
 const elConfSelect = document.getElementById("cfp-conf-select");
 const elConfStandings = document.getElementById("cfp-conf-standings");
 const elSources = document.getElementById("cfp-sources");
@@ -111,18 +111,55 @@ function renderSpotDetails(rankings, data) {
     elSpotDetails.innerHTML = "<p>Playoff spot scenarios are withheld until current-season CFP committee rankings are observed.</p>";
     return;
   }
-  const items = (rankings || []).filter((r) => r.status !== "locked");
-  if (!items.length) {
-    elSpotDetails.innerHTML = "<p>No current spot-scenario data available.</p>";
-    return;
-  }
-  elSpotDetails.innerHTML = items.map((r) => {
+  const rows = rankings || [];
+  const items = rows.filter((r) => r.status !== "locked");
+  const unknowns = items.map((r) => {
     const scenarios = (r.spot_scenarios || []).map((s) => `<li><strong>${escapeHtml(s.team)}:</strong> ${escapeHtml(s.path)}</li>`).join("");
     return `<div class="cfp-spot-card">
       <div class="cfp-spot-card-header"><div class="cfp-spot-card-title">Rank #${escapeHtml(r.seed)}</div><div>${statusBadge(r.status)}</div></div>
       <div><strong>Current:</strong> ${escapeHtml(r.team)}</div><ul>${scenarios}</ul>
     </div>`;
   }).join("");
+  const field = rows
+    .filter((r) => { const s = Number(r.seed); return Number.isInteger(s) && s >= 1 && s <= 12; })
+    .slice().sort((a, b) => Number(a.seed) - Number(b.seed));
+  if (field.length === 12) {
+    elSpotDetails.innerHTML = renderBracket(field) +
+      `<h3 style="margin:1rem 0 0.5rem;">Still open — the unknowns</h3>` +
+      (items.length ? unknowns : "<p>No unknowns remain — every projected spot is locked.</p>");
+    return;
+  }
+  if (!items.length) {
+    elSpotDetails.innerHTML = "<p>No current spot-scenario data available.</p>";
+    return;
+  }
+  elSpotDetails.innerHTML = unknowns;
+}
+
+function renderBracket(field) {
+  const bySeed = {};
+  field.forEach((r) => { bySeed[Number(r.seed)] = r; });
+  const name = (seed) => (bySeed[seed] ? escapeHtml(bySeed[seed].team) : "TBD");
+  const slot = (seed) => {
+    const r = bySeed[seed];
+    if (!r) return `#${seed} TBD`;
+    const badge = statusBadge(r.status);
+    return `#${seed} ${escapeHtml(r.team)}${badge ? " " + badge : ""}`;
+  };
+  const byes = [1, 2, 3, 4].map((s) => `<li>${slot(s)} — first-round bye</li>`).join("");
+  const firstRound = [[5, 12], [6, 11], [7, 10], [8, 9]]
+    .map(([a, b]) => `<li>${slot(a)} vs ${slot(b)} <span style="opacity:0.7;">(at the #${a} seed)</span></li>`).join("");
+  const quarters = [[1, "8/9"], [4, "5/12"], [2, "7/10"], [3, "6/11"]]
+    .map(([s, w]) => `<li>#${s} ${name(s)} vs the winner of #${w}</li>`).join("");
+  return `<div class="cfp-spot-card">
+    <div class="cfp-spot-card-header"><div class="cfp-spot-card-title">Projected Playoff Bracket</div></div>
+    <p style="margin:0.3rem 0;">The bracket as the current table projects it — seeds and pairings, not a prediction of who wins each game. A spot marked In Play is a projected holder whose berth is not yet secured; everything that can still change is listed under the bracket.</p>
+    <div style="margin-top:0.5rem;"><strong>First-round byes</strong><ul>${byes}</ul></div>
+    <div style="margin-top:0.5rem;"><strong>First round (on campus)</strong><ul>${firstRound}</ul></div>
+    <div style="margin-top:0.5rem;"><strong>Quarterfinals</strong><ul>${quarters}</ul></div>
+    <div style="margin-top:0.5rem;"><strong>Semifinals</strong><ul><li>The #1 quarterfinal winner vs the #4 quarterfinal winner</li><li>The #2 quarterfinal winner vs the #3 quarterfinal winner</li></ul></div>
+    <div style="margin-top:0.5rem;"><strong>Championship</strong><ul><li>The two semifinal winners</li></ul></div>
+  </div>`;
 }
 
 function getTicketProfile(game) {
@@ -166,18 +203,6 @@ function renderGames(games, availability) {
         ${buildTicketButtons(g)}
       </div>
     </li>`).join("")}</ul>`;
-}
-
-function renderPolls(polls, availability) {
-  if (!Array.isArray(polls) || !polls.length) {
-    elPolls.innerHTML = `<p>No current polls available (${escapeHtml(availability?.polls || "NO_CURRENT_POLLS_OBSERVED")}).</p>`;
-    return;
-  }
-  elPolls.innerHTML = polls.map((poll) => {
-    const rows = (poll.teams || []).map((team) => `<tr><td>${escapeHtml(team.rank)}</td><td>${escapeHtml(team.team)}</td><td>${escapeHtml(team.record)}</td><td>${escapeHtml(team.conference)}</td></tr>`).join("");
-    return `<div class="cfp-poll-card"><div class="cfp-poll-header"><div class="cfp-poll-title">${escapeHtml(poll.name)} ${sourceMarker(poll.source_id)}</div></div>
-      <table class="cfp-poll-table"><thead><tr><th>Rank</th><th>Team</th><th>Record</th><th>Conf</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-  }).join("");
 }
 
 function renderConferenceStandings(conf) {
@@ -224,7 +249,6 @@ async function loadCfpData() {
     renderRankings(data.rankings || [], data.cfp_source_id, data);
     renderSpotDetails(data.rankings || [], data);
     renderGames(data.games || [], data.availability || {});
-    renderPolls(data.polls || [], data.availability || {});
     renderConferences(data.conferences || [], data.conf_source_id, data.availability || {});
 
     elLastUpdated.textContent = `Season ${data.season || "?"} • ${data.phase || "UNKNOWN"} • Projection generated: ${formatDateTime(data.last_updated)}`;
