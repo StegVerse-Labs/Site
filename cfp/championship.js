@@ -523,8 +523,8 @@
       ? ' Tiebreak basis: <strong>PARTIAL</strong> — ' + escapeHtml(conf.tiebreak.basis_note || "only the verified steps are encoded.")
       : ' Tiebreak basis: conference procedure as encoded from the sources below.';
     if (race.projected_unresolved) tieNote += " The projected pairing survives every encoded tiebreak step unresolved and is shown in current standings order.";
-    return '<div class="cfp-spot-card">' +
-      '<div class="cfp-spot-card-header"><div class="cfp-spot-card-title">' + escapeHtml(conf.name) + "</div>" +
+    return '<div class="cfp-spot-card" id="championship-' + escapeHtml(conf.id) + '">' +
+      '<div class="cfp-spot-card-header"><div class="cfp-spot-card-title"><a href="#championship-' + escapeHtml(conf.id) + '" title="Link to this projection" style="color:inherit;text-decoration:none;">' + escapeHtml(conf.name) + ' <span style="opacity:0.55;font-size:0.78em;">¶</span></a></div>' +
       "<div>" + fmtDate(cg.date) + (cg.site ? " • " + escapeHtml(cg.site) : "") + "</div></div>" +
       '<div style="font-size:1.05rem;margin-bottom:0.5rem;">Projected: <strong>' +
       race.projected.map(escapeHtml).join("</strong> vs <strong>") + "</strong>" +
@@ -554,9 +554,51 @@
           ? " Still in progress at input time: " + data.in_progress.join(" ")
           : "");
     }
-    el.innerHTML = (data.conferences || []).map(function (conf) {
+    var confs = data.conferences || [];
+    var picker = '<div style="margin-bottom:0.9rem;"><label for="cfp-conf-picker" style="font-size:0.88rem;opacity:0.85;">Conference: </label>' +
+      '<select id="cfp-conf-picker" style="background:#141a26;color:#e8ecf3;border:1px solid #2c3646;border-radius:6px;padding:0.3rem 0.5rem;font-size:0.92rem;">' +
+      '<option value="">All conferences</option>' +
+      confs.map(function (conf) {
+        return '<option value="' + escapeHtml(conf.id) + '">' + escapeHtml(conf.name) + "</option>";
+      }).join("") + "</select></div>";
+    el.innerHTML = picker + confs.map(function (conf) {
       return renderConference(conf, computeRace(conf));
     }).join("");
+    bindRefresh();
+    var pickerEl = document.getElementById("cfp-conf-picker");
+    function applyFilter(id, scroll) {
+      var cards = el.querySelectorAll(".cfp-spot-card");
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].style.display = (!id || cards[i].id === "championship-" + id) ? "" : "none";
+      }
+      if (scroll && id) {
+        var target = document.getElementById("championship-" + id);
+        if (target) target.scrollIntoView();
+      }
+    }
+    if (pickerEl) {
+      pickerEl.addEventListener("change", function () {
+        var id = pickerEl.value;
+        applyFilter(id, false);
+        if (window.history && history.replaceState) {
+          history.replaceState(null, "", id ? "#championship-" + id : window.location.pathname + window.location.search);
+        }
+      });
+    }
+    var hashId = ((typeof window !== "undefined" && window.location && window.location.hash) || "").replace(/^#championship-/, "");
+    if (hashId && confs.some(function (conf) { return conf.id === hashId; })) {
+      if (pickerEl) pickerEl.value = hashId;
+      applyFilter(hashId, false);
+      setTimeout(function () { applyFilter(hashId, true); }, 0);
+    }
+  }
+
+  function bindRefresh() {
+    var rb = document.getElementById("cfp-refresh-btn");
+    if (rb && !rb.dataset.champBound) {
+      rb.dataset.champBound = "1";
+      rb.addEventListener("click", load);
+    }
   }
 
   function load() {
@@ -574,6 +616,10 @@
   if (typeof document !== "undefined") {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", load);
     else load();
+  }
+
+  if (typeof window !== "undefined") {
+    window.CFPChampionship = { reload: load };
   }
 
   if (typeof module !== "undefined" && module.exports) {
