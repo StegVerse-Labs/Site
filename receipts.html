@@ -1,6 +1,74 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>StegVerse — system-state receipt chain</title></head><body style="font-family:system-ui,sans-serif;margin:2rem auto;max-width:40rem;padding:0 1rem">
 <script src="assets/stegos-node-idb-schema-compat.js?v=20260911-v3"></script>
 <script src="assets/stegverse-node-continuity.js"></script>
+<div id="hub-notice">
 <h1>System-state receipt chain</h1>
 <p>This surface is <strong>ecosystem-bound</strong>. The receipt chain is viewable only through nodes within the StegVerse ecosystem — the operator's own healthy node, the Build Lane nodes, and the nodes of its four domains. No external node has access.</p>
+</div>
+<div id="hub-projection"></div>
+<script>
+(function(){
+"use strict";
+/* Projection shell (receipt chain). Fail-closed default: the
+   ecosystem-bound notice above. The receipts document is fetched
+   from the hub origin (carriage) and rendered ONLY when this
+   node's StegOS resident attests HEALTHY on a registered node.
+   Any failure leaves the notice standing. */
+function inject(html, container){
+  var doc = new DOMParser().parseFromString(html, "text/html");
+  var styles = doc.querySelectorAll("style");
+  for (var i = 0; i < styles.length; i++)
+    document.head.appendChild(document.importNode(styles[i], true));
+  var scripts = [];
+  var nodes = doc.body ? Array.prototype.slice.call(doc.body.childNodes) : [];
+  container.innerHTML = "";
+  nodes.forEach(function(nd){
+    if (nd.tagName === "SCRIPT"){ if (!nd.src) scripts.push(nd.textContent); return; }
+    container.appendChild(document.importNode(nd, true));
+  });
+  document.body.removeAttribute("style");
+  scripts.forEach(function(code){
+    var el = document.createElement("script");
+    el.textContent = code;
+    document.body.appendChild(el);
+  });
+}
+function resolveBase(){
+  return fetch("data/hub-base.json", {cache: "no-store"})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      var b = (j && j.base) || "";
+      return b.replace(/\/+$/, "");
+    });
+}
+function project(base){
+  fetch(base + "/receipts", {cache: "no-store"})
+    .then(function(r){ return r.text(); })
+    .then(function(html){
+      document.getElementById("hub-notice").style.display = "none";
+      inject(html, document.getElementById("hub-projection"));
+    })
+    .catch(function(){ /* fail closed: the notice stands */ });
+}
+var done = false;
+function tryGate(report){
+  if (done || !report) return;
+  var ok = report.resident_install_health === "HEALTHY" &&
+    report.node && report.node.registered === true && !!report.node.node_id;
+  if (!ok) return;
+  done = true;
+  resolveBase().then(function(base){ if (base) project(base); })
+    .catch(function(){ /* fail closed */ });
+}
+window.addEventListener("stegos-resident-health", function(e){ tryGate(e.detail); });
+var t0 = Date.now();
+var iv = setInterval(function(){
+  try {
+    var r = window.StegOSResidentHealth && window.StegOSResidentHealth.last();
+    if (r) tryGate(r);
+  } catch (e) {}
+  if (done || Date.now() - t0 > 30000) clearInterval(iv);
+}, 500);
+})();
+</script>
 </body></html>

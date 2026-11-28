@@ -1,6 +1,221 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>StegVerse — system-state projection</title></head><body style="font-family:system-ui,sans-serif;margin:2rem auto;max-width:40rem;padding:0 1rem">
 <script src="assets/stegos-node-idb-schema-compat.js?v=20260911-v3"></script>
 <script src="assets/stegverse-node-continuity.js"></script>
+<div id="hub-notice">
 <h1>System-state projection</h1>
 <p>This surface is <strong>ecosystem-bound</strong>. The projection is viewable only through nodes within the StegVerse ecosystem — the operator's own healthy node, the Build Lane nodes, and the nodes of its four domains. No external node has access.</p>
+</div>
+<div id="hub-stale" style="display:none">
+<h1>System-state projection</h1>
+<p><strong>Projection STALE</strong> — the twin does not recompute against the receipt head. Nothing else is rendered.</p>
+</div>
+<div id="hub-projection"></div>
+<script>
+(function(){
+"use strict";
+/* Projection shell. Fail-closed default: the ecosystem-bound notice
+   above. The projection is fetched from the hub origin (carriage)
+   and rendered ONLY when this node's StegOS resident attests
+   HEALTHY on a registered node AND the twin's canonical SHA-256
+   recomputes against the receipt head served by the hub. Any
+   failure — no attestation, non-HEALTHY, fetch error, hash
+   mismatch — leaves the notice (or the STALE marker) standing. */
+function pyFloat(v){
+  if (Number.isNaN(v) || !Number.isFinite(v)) throw new Error("non-finite");
+  if (v === 0) return Object.is(v, -0) ? "-0.0" : "0.0";
+  var sign = v < 0 ? "-" : "";
+  var s = Math.abs(v).toString();
+  var digits, exp10, ei = s.indexOf("e");
+  if (ei >= 0){
+    var mant = s.slice(0, ei), ex = parseInt(s.slice(ei + 1), 10);
+    var mp = mant.split(".");
+    digits = mp[0] + (mp[1] || "");
+    exp10 = ex - ((mp[1] || "").length);
+  } else if (s.indexOf(".") >= 0){
+    var p = s.split(".");
+    digits = p[0] + p[1];
+    exp10 = -p[1].length;
+  } else { digits = s; exp10 = 0; }
+  digits = digits.replace(/^0+/, "");
+  var tz = digits.match(/0*$/)[0].length;
+  if (tz > 0 && digits.length > tz){ digits = digits.slice(0, digits.length - tz); exp10 += tz; }
+  if (digits === "") digits = "0";
+  var decpt = exp10 + digits.length, out;
+  if (decpt <= -4 || decpt > 16){
+    var e = decpt - 1;
+    out = digits[0] + (digits.length > 1 ? "." + digits.slice(1) : "") +
+      "e" + (e < 0 ? "-" : "+") + String(Math.abs(e)).padStart(2, "0");
+  } else if (decpt <= 0){
+    out = "0." + "0".repeat(-decpt) + digits;
+  } else if (decpt >= digits.length){
+    out = digits + "0".repeat(decpt - digits.length) + ".0";
+  } else {
+    out = digits.slice(0, decpt) + "." + digits.slice(decpt);
+  }
+  return sign + out;
+}
+function pyStr(s){
+  var out = '"';
+  for (var i = 0; i < s.length; i++){
+    var c = s.charCodeAt(i);
+    if (c === 0x22) out += '\\"';
+    else if (c === 0x5c) out += "\\\\";
+    else if (c === 0x08) out += "\\b";
+    else if (c === 0x09) out += "\\t";
+    else if (c === 0x0a) out += "\\n";
+    else if (c === 0x0c) out += "\\f";
+    else if (c === 0x0d) out += "\\r";
+    else if (c < 0x20 || c > 0x7e) out += "\\u" + c.toString(16).padStart(4, "0");
+    else out += s[i];
+  }
+  return out + '"';
+}
+function parseTagged(text){
+  var i = 0, n = text.length;
+  function ws(){ while (i < n && (text[i] === " " || text[i] === "\t" || text[i] === "\n" || text[i] === "\r")) i++; }
+  function parseStr(){
+    var j = i + 1;
+    while (true){ var ch = text[j]; if (ch === "\\") j += 2; else if (ch === '"') break; else j++; }
+    var lex = text.slice(i, j + 1); i = j + 1;
+    return JSON.parse(lex);
+  }
+  function parseVal(){
+    ws();
+    var c = text[i];
+    if (c === "{"){
+      i++;
+      var entries = [];
+      ws();
+      if (text[i] === "}"){ i++; return {t: "obj", entries: entries}; }
+      while (true){
+        ws();
+        var k = parseStr();
+        ws();
+        if (text[i] !== ":") throw new Error("expected :");
+        i++;
+        var v = parseVal();
+        entries.push([k, v]);
+        ws();
+        if (text[i] === ","){ i++; continue; }
+        if (text[i] === "}"){ i++; break; }
+        throw new Error("expected , or }");
+      }
+      return {t: "obj", entries: entries};
+    }
+    if (c === "["){
+      i++;
+      var items = [];
+      ws();
+      if (text[i] === "]"){ i++; return {t: "arr", items: items}; }
+      while (true){
+        items.push(parseVal());
+        ws();
+        if (text[i] === ","){ i++; continue; }
+        if (text[i] === "]"){ i++; break; }
+        throw new Error("expected , or ]");
+      }
+      return {t: "arr", items: items};
+    }
+    if (c === '"') return {t: "str", v: parseStr()};
+    if (c === "t"){ i += 4; return {t: "lit", v: "true"}; }
+    if (c === "f"){ i += 5; return {t: "lit", v: "false"}; }
+    if (c === "n"){ i += 4; return {t: "lit", v: "null"}; }
+    var m = /^-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d+)?/.exec(text.slice(i));
+    if (!m) throw new Error("bad value at " + i);
+    i += m[0].length;
+    return {t: "num", raw: m[0], isFloat: (m[0].indexOf(".") >= 0 || m[0].indexOf("e") >= 0 || m[0].indexOf("E") >= 0)};
+  }
+  var v = parseVal();
+  ws();
+  return v;
+}
+function canon(node){
+  switch (node.t){
+    case "obj": {
+      var es = node.entries.slice().sort(function(a, b){ return a[0] < b[0] ? -1 : (a[0] > b[0] ? 1 : 0); });
+      return "{" + es.map(function(e){ return pyStr(e[0]) + ":" + canon(e[1]); }).join(",") + "}";
+    }
+    case "arr": return "[" + node.items.map(canon).join(",") + "]";
+    case "str": return pyStr(node.v);
+    case "lit": return node.v;
+    case "num": return node.isFloat ? pyFloat(Number(node.raw)) : BigInt(node.raw).toString();
+  }
+  throw new Error("bad node");
+}
+function canonicalizeText(text){ return canon(parseTagged(text)); }
+
+function inject(html, container){
+  var doc = new DOMParser().parseFromString(html, "text/html");
+  var styles = doc.querySelectorAll("style");
+  for (var i = 0; i < styles.length; i++)
+    document.head.appendChild(document.importNode(styles[i], true));
+  var scripts = [];
+  var nodes = doc.body ? Array.prototype.slice.call(doc.body.childNodes) : [];
+  container.innerHTML = "";
+  nodes.forEach(function(nd){
+    if (nd.tagName === "SCRIPT"){ if (!nd.src) scripts.push(nd.textContent); return; }
+    container.appendChild(document.importNode(nd, true));
+  });
+  document.body.removeAttribute("style");
+  scripts.forEach(function(code){
+    var el = document.createElement("script");
+    el.textContent = code;
+    document.body.appendChild(el);
+  });
+}
+function resolveBase(){
+  return fetch("data/hub-base.json", {cache: "no-store"})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      var b = (j && j.base) || "";
+      return b.replace(/\/+$/, "");
+    });
+}
+function showStale(){
+  document.getElementById("hub-notice").style.display = "none";
+  document.getElementById("hub-stale").style.display = "block";
+}
+function project(base){
+  Promise.all([
+    fetch(base + "/projection/head", {cache: "no-store"}).then(function(r){ return r.json(); }),
+    fetch(base + "/system-state.json", {cache: "no-store"}).then(function(r){ return r.text(); })
+  ]).then(function(res){
+    var head = res[0];
+    var bytes = new TextEncoder().encode(canonicalizeText(res[1]));
+    return crypto.subtle.digest("SHA-256", bytes).then(function(buf){
+      var hex = Array.prototype.map.call(new Uint8Array(buf), function(b){
+        return b.toString(16).padStart(2, "0");
+      }).join("");
+      if (!head || hex !== head.state_hash){ showStale(); return; }
+      return fetch(base + "/", {cache: "no-store"})
+        .then(function(r){ return r.text(); })
+        .then(function(html){
+          window.__HUB_BASE__ = base;
+          document.getElementById("hub-notice").style.display = "none";
+          inject(html, document.getElementById("hub-projection"));
+        });
+    });
+  }).catch(function(){ /* fail closed: the notice stands */ });
+}
+var done = false;
+function tryGate(report){
+  if (done || !report) return;
+  var ok = report.resident_install_health === "HEALTHY" &&
+    report.node && report.node.registered === true && !!report.node.node_id;
+  if (!ok) return;
+  done = true;
+  resolveBase().then(function(base){ if (base) project(base); })
+    .catch(function(){ /* fail closed */ });
+}
+window.addEventListener("stegos-resident-health", function(e){ tryGate(e.detail); });
+var t0 = Date.now();
+var iv = setInterval(function(){
+  try {
+    var r = window.StegOSResidentHealth && window.StegOSResidentHealth.last();
+    if (r) tryGate(r);
+  } catch (e) {}
+  if (done || Date.now() - t0 > 30000) clearInterval(iv);
+}, 500);
+})();
+</script>
 </body></html>
