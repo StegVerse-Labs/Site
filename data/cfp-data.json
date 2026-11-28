@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-28T02:29:59Z",
+  "last_updated": "2026-11-28T02:39:59Z",
   "freshness": {
-    "generated_at": "2026-11-28T02:29:59Z",
+    "generated_at": "2026-11-28T02:39:59Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -879,7 +879,7 @@
       "away_score": 10,
       "home_record": "",
       "away_record": "",
-      "status": "2ND 01:38",
+      "status": "3RD 13:16",
       "kickoff": "2026-11-28T00:30:00Z",
       "conference": "sec",
       "note": "Texas Texas A&M"
@@ -892,7 +892,7 @@
       "away_score": 3,
       "home_record": "",
       "away_record": "",
-      "status": "3RD 14:17",
+      "status": "3RD 10:03",
       "kickoff": "2026-11-28T00:30:00Z",
       "conference": "big-ten",
       "note": "Minnesota Wisconsin"
@@ -901,11 +901,11 @@
       "id": "6604105",
       "home": "Utah",
       "away": "West Virginia",
-      "home_score": 6,
+      "home_score": 7,
       "away_score": 0,
       "home_record": "",
       "away_record": "",
-      "status": "1ST 11:09",
+      "status": "1ST 04:48",
       "kickoff": "2026-11-28T02:00:00Z",
       "conference": "big-12",
       "note": "West Virginia Utah"
