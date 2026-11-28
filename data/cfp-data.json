@@ -2,9 +2,9 @@
   "schema_version": "2.0.0",
   "season": 2026,
   "phase": "CFP_RANKINGS",
-  "last_updated": "2026-11-28T03:55:05Z",
+  "last_updated": "2026-11-28T04:16:13Z",
   "freshness": {
-    "generated_at": "2026-11-28T03:55:05Z",
+    "generated_at": "2026-11-28T04:16:13Z",
     "current_season_only": true,
     "historical_rankings_carried_forward": false,
     "rankings_state": "PUBLISHED_CURRENT_SEASON",
@@ -95,7 +95,7 @@
       "ap_rank": 5,
       "coaches_rank": 6,
       "sv_rank": 5,
-      "conference_record": "6-2",
+      "conference_record": "7-2",
       "next_opponent": null,
       "next_date": null,
       "next_home": null
@@ -879,7 +879,7 @@
       "away_score": 16,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 04:29",
+      "status": "FINAL",
       "kickoff": "2026-11-28T00:30:00Z",
       "conference": "sec",
       "note": "Texas Texas A&M"
@@ -892,7 +892,7 @@
       "away_score": 5,
       "home_record": "",
       "away_record": "",
-      "status": "4TH 00:00",
+      "status": "FINAL",
       "kickoff": "2026-11-28T00:30:00Z",
       "conference": "big-ten",
       "note": "Minnesota Wisconsin"
@@ -901,14 +901,27 @@
       "id": "6604105",
       "home": "Utah",
       "away": "West Virginia",
-      "home_score": 38,
+      "home_score": 45,
       "away_score": 7,
       "home_record": "",
       "away_record": "",
-      "status": "HALF 0:00",
+      "status": "3RD 13:42",
       "kickoff": "2026-11-28T02:00:00Z",
       "conference": "big-12",
       "note": "West Virginia Utah"
+    },
+    {
+      "id": "6640732",
+      "home": "Wyoming",
+      "away": "UConn",
+      "home_score": null,
+      "away_score": null,
+      "home_record": "",
+      "away_record": "",
+      "status": "12:00 PM ET",
+      "kickoff": "2026-11-28T17:00:00Z",
+      "conference": "mountain-west",
+      "note": "UConn Wyoming"
     },
     {
       "id": "6604098",
@@ -935,19 +948,6 @@
       "kickoff": "2026-11-28T17:00:00Z",
       "conference": "acc",
       "note": "Notre Dame Syracuse"
-    },
-    {
-      "id": "6640732",
-      "home": "Wyoming",
-      "away": "UConn",
-      "home_score": null,
-      "away_score": null,
-      "home_record": "",
-      "away_record": "",
-      "status": "12:00 PM ET",
-      "kickoff": "2026-11-28T17:00:00Z",
-      "conference": "mountain-west",
-      "note": "UConn Wyoming"
     },
     {
       "id": "6604240",
