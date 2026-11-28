@@ -1,0 +1,11 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "8374 — Governed Crossings (StegVerse)",
+  "description": "Governance evaluation of a proposed machine transaction or action before it commits: admissibility against a declared policy and scope, returned as a signed, hash-chained receipt pair (ALLOW / NON-ALLOW). The fee is paid either way. Pricing is a variable total in USDC on Base: a governance fee (500 micro-USDC for the receipt-only tier, 15000 micro-USDC for full evaluation) plus a live settlement charge quoted in the fresh x402 challenge. The 500 micro-USDC figure is the governance component only, never an all-inclusive price; the challenge amount is the total authorized.",
+  "services": [
+    { "name": "x402", "endpoint": "https://8374.stegverse.org/crossing", "version": "v2" },
+    { "name": "web", "endpoint": "https://8374.stegverse.org/", "version": "v1" }
+  ],
+  "x402Support": true,
+  "active": true
+}
