@@ -1,22 +1,22 @@
 {
-  "acknowledgment_id": "ACK-SITE-BC915F288745CBB58287",
+  "acknowledgment_id": "ACK-SITE-612305E528494A728AF1",
   "authority": {
     "owned_by_destination": true,
     "source_may_self_acknowledge": false
   },
-  "destination_commit": "51f33bd176f85ad36d5cc02b97bdf414ddb01032",
+  "destination_commit": "55652707d115e5c7015e4707c42ced76afdf5871",
   "destination_repository": "StegVerse-Labs/Site",
   "source_publication": {
     "path": "publication/compendium.json",
     "repository": "StegVerse-Labs/Executive_Rhetoric_Ledger",
-    "sha256": "bc915f288745cbb582871384a5895fabdf26e311a725112d720d120afee58d09"
+    "sha256": "612305e528494a728af19e1fa4b592a2c5c878c5dc36af1a36595995f09ea31f"
   },
   "status": "acknowledged",
   "target_path": "public/data/executive-rhetoric-ledger/compendium.json",
   "validation": {
     "content_hash_matches": true,
     "destination_checks_passed": true,
-    "validated_at": "2026-07-20T07:20:00Z",
-    "validator": "site-destination-owned-sync"
+    "validated_at": "2026-11-28T14:18:31Z",
+    "validator": "site-destination-workflow"
   }
 }
